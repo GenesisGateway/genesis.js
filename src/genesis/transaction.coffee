@@ -61,10 +61,12 @@ class Transaction
   authorize: (params, onSuccess, onFailure) ->
     args =
       callbacks:
-        success: onSuccess
-        failure: onFailure
+        success:
+          onSuccess
+        failure:
+          onFailure
       trx:
-        'payment_transation':
+        'payment_transaction':
           _.extend params, {
             'transaction_type':
               'authorize'
@@ -89,7 +91,7 @@ class Transaction
         failure:
           onFailure
       trx:
-        'payment_transation':
+        'payment_transaction':
           _.extend params, {
             'transaction_type':
               'authorize3d'

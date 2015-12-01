@@ -5,9 +5,9 @@
 		"token"		: "<enter-your-token>"
 	},
 	"gateway": {
-		"protocol"  : "https",
+		"protocol"	: "https",
 		"hostname"	: "<please-select-the-endpoint-you-want-e-comprocessing.net-or-emerchantpay.net>",
-        "timeout"   : "60000",
+		"timeout"	: "60000",
 		"testing"	: true
 	}
 }
