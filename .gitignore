@@ -1,0 +1,8 @@
+*.map
+.idea
+config/default.json
+lib/
+node_modules/
+sample/
+spec/
+src/**/*.js

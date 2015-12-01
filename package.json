@@ -1,0 +1,36 @@
+{
+  "name": "genesis.js",
+  "version": "1.0.0",
+  "description": "JS library for Genesis Payment Processing Gateway",
+  "main": "./lib/genesis.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GenesisGateway/genesis.js"
+  },
+  "scripts": {
+    "install": "cake build",
+    "debug": "cake watch"
+  },
+  "dependencies": {
+    "bigdecimal": "^0.6.1",
+    "body-parser": "^1.14.1",
+    "coffee-script": "^1.7.1",
+    "config": "^1.16.0",
+    "connect": "^3.4.0",
+    "js2xmlparser": "^1.0.0",
+    "request": "^2.65.0",
+    "run-sequence": "~0.3.6",
+    "underscore": "^1.8.3",
+    "xml": "0.0.12",
+    "xml-object": "^0.1.0",
+    "xml2json": "^0.9.0"
+  },
+  "keywords": [
+    "payment",
+    "gateway",
+    "genesis"
+  ],
+  "author": "GenesisGateway",
+  "license": "ISC",
+  "devDependencies": {}
+}
