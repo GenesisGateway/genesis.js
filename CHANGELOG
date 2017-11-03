@@ -1,0 +1,17 @@
+1.1.0
+-----
+
+* Add request data validation
+    - Required fields
+    - Conditionally required fields
+    - Allowed fields values
+    - Conditionally allowed fields values
+    - Required group of fields
+
+* Add API Support for P24 Transactions
+
+
+1.0.0
+-----
+
+* Initial version

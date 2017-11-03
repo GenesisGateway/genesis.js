@@ -1,568 +1,141 @@
-_         = require 'underscore'
-config    = require 'config'
-util      = require 'util'
 
-Currency  = require './currency'
-Request   = require './request'
+###
+  Financial transactions
+###
+Authorize           = require './transactions/financial/cards/authorize'
+Authorize3d         = require './transactions/financial/cards/authorize3d'
+Sale                = require './transactions/financial/cards/sale'
+Sale3d              = require './transactions/financial/cards/sale3d'
+Cancel              = require './transactions/financial/cancel'
+Payout              = require './transactions/financial/cards/payout'
+Credit              = require './transactions/financial/cards/credit'
+RecurringSale       = require './transactions/financial/cards/recurring/recurring_sale'
+InitRecurringSale   = require './transactions/financial/cards/recurring/init_recurring_sale'
+InitRecurringSale3d = require './transactions/financial/cards/recurring/init_recurring_sale3d'
+Capture             = require './transactions/financial/capture'
+Refund              = require './transactions/financial/refund'
 
+###
+  Non Financial transactions
+###
+AccountVerification = require './transactions/non_financial/account_verification'
+Chargeback          = require './transactions/non_financial/fraud/chargeback/chargeback'
+ChargebackByDate    = require './transactions/non_financial/fraud/chargeback/chargeback_by_date'
+Blacklist           = require './transactions/non_financial/blacklist'
+FraudReport         = require './transactions/non_financial/fraud/reports/fraud_report'
+FraudReportByDate   = require './transactions/non_financial/fraud/reports/fraud_report_by_date'
+Retrieval           = require './transactions/non_financial/fraud/retrieval/retrieval'
+RetrievalByDate     = require './transactions/non_financial/fraud/retrieval/retrieval_by_date'
+Reconcile           = require './transactions/non_financial/reconcile/reconcile'
+ReconcileByDate     = require './transactions/non_financial/reconcile/reconcile_by_date'
+Avs                 = require './transactions/non_financial/avs'
+
+###
+  Web Payment Form
+###
+WpfCreate           = require './transactions/wpf/create'
+WpfReconcile        = require './transactions/wpf/reconcile'
+
+
+###
+  Financial Alternative transactions
+###
+P24                 = require './transactions/financial/alternative/p24'
 
 class Transaction
 
-  constructor: () ->
-    @currency  = new Currency
-    @request   = new Request
-
+  ###
+    Non Financial transactions
+  ###
   account_verification: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'payment_transaction':
-          _.extend params, {
-            'transaction_type':
-              'account_verification'
-          }
-      url:
-        app:
-          'gate'
-        path:
-          'process'
-        token:
-          config.customer.token
-
-    @request.send args
-
-  avs: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'payment_transaction':
-          _.extend params, {
-            'transaction_type':
-              'avs'
-          }
-      url:
-        app:
-          'gate'
-        path:
-          'process'
-        token:
-          config.customer.token
-
-    @request.send args
-
-  authorize: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'payment_transaction':
-          _.extend params, {
-            'transaction_type':
-              'authorize'
-            'amount':
-              @currency.convertToMinorUnits params.amount, params.currency
-          }
-      url:
-        app:
-          'gate'
-        path:
-          'process'
-        token:
-          config.customer.token
-
-    @request.send args
-
-  authorize3d: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'payment_transaction':
-          _.extend params, {
-            'transaction_type':
-              'authorize3d'
-            'amount':
-              @currency.convertToMinorUnits params.amount, params.currency
-          }
-      url:
-        app:
-          'gate'
-        path:
-          'process'
-        token:
-          config.customer.token
-
-    @request.send args
+    new AccountVerification(params).send(onSuccess, onFailure)
 
   blacklist: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'blacklist_request':
-          params
-      url:
-        app:
-          'gate'
-        path:
-          'blacklists'
-
-    @request.send args
-
-  capture: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'payment_transaction':
-          _.extend params, {
-            'transaction_type':
-              'capture'
-            'amount':
-              @currency.convertToMinorUnits params.amount, params.currency
-          }
-      url:
-        app:
-          'gate'
-        path:
-          'process'
-        token:
-          config.customer.token
-
-    @request.send args
+    new Blacklist(params).send(onSuccess, onFailure)
 
   chargeback: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'chargeback_request':
-          params
-      url:
-        app:
-          'gate'
-        path:
-          'chargebacks'
-
-    @request.send args
+    new Chargeback(params).send(onSuccess, onFailure)
 
   chargeback_by_date: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'chargeback_request':
-          params
-      url:
-        app:
-          'gate'
-        path:
-          'chargebacks/by_date'
-
-    @request.send args
-
-  credit: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'payment_transaction':
-          _.extend params, {
-            'transaction_type':
-              'credit'
-            'amount':
-              @currency.convertToMinorUnits params.amount, params.currency
-          }
-      url:
-        path: 'process'
-        app: 'gate'
-        token: config.customer.token
-
-    @request.send args
+    new ChargebackByDate(params).send(onSuccess, onFailure)
 
   fraud_report: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'fraud_report_request':
-          params
-      url:
-        app:  'gate'
-        path: 'fraud_reports'
-
-    @request.send args
+    new FraudReport(params).send(onSuccess, onFailure)
 
   fraud_report_by_date: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'fraud_report_request':
-          params
-      url:
-        app:  'gate'
-        path: 'fraud_reports/by_date'
-
-    @request.send args
-  init_recurring_sale: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'payment_transaction':
-          _.extend params, {
-            'transaction_type':
-              'init_recurring_sale'
-            'amount':
-              @currency.convertToMinorUnits params.amount, params.currency
-          }
-      url:
-        app:  'gate'
-        path: 'process'
-        token: config.customer.token
-
-    @request.send args
-
-  init_recurring_sale3d: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'payment_transaction':
-          _.extend params, {
-            'transaction_type':
-              'init_recurring_sale3d'
-            'amount':
-              @currency.convertToMinorUnits params.amount, params.currency
-          }
-      url:
-        app:
-          'gate'
-        path:
-          'process'
-        token:
-          config.customer.token
-
-    @request.send args
-
-  reconcile: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'reconcile':
-          params
-      url:
-        app:
-          'gate'
-        path:
-          'reconcile'
-        token:
-          config.customer.token
-
-    @request.send args
-
-  reconcile_by_date: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'reconcile':
-          params
-      url:
-        app:
-          'gate'
-        path:
-          'reconcile/by_date'
-        token:
-          config.customer.token
-
-    @request.send args
-
-  recurring_sale: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'payment_transaction':
-          _.extend params, {
-            'transaction_type':
-              'recurring_sale'
-            'amount':
-              @currency.convertToMinorUnits params.amount, params.currency
-          }
-      url:
-        app:
-          'gate'
-        path:
-          'process'
-        token:
-          config.customer.token
-
-    @request.send args
-
-  refund: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'payment_transaction':
-          _.extend params, {
-            'transaction_type':
-              'refund'
-            'amount':
-              @currency.convertToMinorUnits params.amount, params.currency
-          }
-      url:
-        app:
-          'gate'
-        path:
-          'process'
-        token:
-          config.customer.token
-
-    @request.send args
+    new FraudReportByDate(params).send(onSuccess, onFailure)
 
   retrieval: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'retrieval_request_request':
-          params
-      url:
-        app:
-          'gate'
-        path:
-          'retrieval_requests'
-
-    @request.send args
+    new Retrieval(params).send(onSuccess, onFailure)
 
   retrieval_by_date: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'retrieval_request_request':
-          params
-      url:
-        app:
-          'gate'
-        path:
-          'retrieval_requests/by_date'
+    new RetrievalByDate(params).send(onSuccess, onFailure)
 
-    @request.send args
+  reconcile: (params, onSuccess, onFailure) ->
+    new Reconcile(params).send(onSuccess, onFailure)
+
+  reconcile_by_date: (params, onSuccess, onFailure) ->
+    new ReconcileByDate(params).send(onSuccess, onFailure)
+
+  avs: (params, onSuccess, onFailure) ->
+    new Avs(params).send(onSuccess, onFailure)
+
+  ###
+    Financial transactions
+  ###
+  authorize: (params, onSuccess, onFailure) ->
+    new Authorize(params).send(onSuccess, onFailure)
+
+  authorize3d: (params, onSuccess, onFailure) ->
+    new Authorize3d(params).send(onSuccess, onFailure)
+
+  credit: (params, onSuccess, onFailure) ->
+    new Credit(params).send(onSuccess, onFailure)
+
+  init_recurring_sale: (params, onSuccess, onFailure) ->
+    new InitRecurringSale(params).send(onSuccess, onFailure)
+
+  init_recurring_sale3d: (params, onSuccess, onFailure) ->
+    new InitRecurringSale3d(params).send(onSuccess, onFailure)
+
+  recurring_sale: (params, onSuccess, onFailure) ->
+    new RecurringSale(params).send(onSuccess, onFailure)
 
   payout: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'payment_transaction':
-          _.extend params, {
-            'transaction_type':
-              'payout'
-            'amount':
-              @currency.convertToMinorUnits params.amount, params.currency
-          }
-      url:
-        app:
-          'gate'
-        path:
-          'process'
-        token:
-          config.customer.token
-
-    @request.send args
+    new Payout(params).send(onSuccess, onFailure)
 
   sale: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'payment_transaction':
-          _.extend params, {
-            'transaction_type':
-              'sale'
-            'amount':
-              @currency.convertToMinorUnits params.amount, params.currency
-          }
-      url:
-        app:
-          'gate'
-        path:
-          'process'
-        token:
-          config.customer.token
-
-    @request.send args
+    new Sale(params).send(onSuccess, onFailure)
 
   sale3d: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'payment_transaction':
-          _.extend params, {
-            'transaction_type':
-              'sale3d'
-            'amount':
-              @currency.convertToMinorUnits params.amount, params.currency
-          }
-      url:
-        app:
-          'gate'
-        path:
-          'process'
-        token:
-          config.customer.token
+    new Sale3d(params).send(onSuccess, onFailure)
 
-    @request.send args
+  cancel: (params, onSuccess, onFailure) ->
+    new Cancel(params).send(onSuccess, onFailure)
 
+  # keep this for backward compatibility
   void: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'payment_transaction':
-          _.extend params, {
-            'transaction_type':
-              'void'
-          }
-      url:
-        app:
-          'gate'
-        path:
-          'process'
-        token:
-          config.customer.token
+    this.cancel(params, onSuccess, onFailure)
 
-    @request.send args
+  capture: (params, onSuccess, onFailure) ->
+    new Capture(params).send(onSuccess, onFailure)
 
+  refund: (params, onSuccess, onFailure) ->
+    new Refund(params).send(onSuccess, onFailure)
+
+  ###
+    Financial Alternative transactions
+  ###
+  p24: (params, onSuccess, onFailure) ->
+    new P24(params).send(onSuccess, onFailure)
+
+  ###
+    Web Payment Form
+  ###
   wpf_create: (params, onSuccess, onFailure) ->
-
-    # Locale
-    if params.locale then locale = params.locale.slice 0, 2 else locale = 'en'
-
-    delete params.locale
-
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'wpf_payment':
-          _.extend params, {
-            # Convert the currency to ISO4217
-            'amount':
-              @currency.convertToMinorUnits params.amount, params.currency
-
-            # Convert transaction_types from Array
-            # to objects in order to apply them as
-            # node attributes in the resulting XML
-            'transaction_types':
-              transaction_type:
-                _.map params.transaction_types, (value) ->
-                  return { "@": name: value.toString() }
-          }
-      url:
-        app:
-          'wpf'
-        path:
-          util.format '%s/wpf', locale
-
-    @request.send args
+    new WpfCreate(params).send(onSuccess, onFailure)
 
   wpf_reconcile: (params, onSuccess, onFailure) ->
-    args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
-      trx:
-        'wpf_reconcile':
-          params
-      url:
-        app:
-          'wpf'
-        path:
-          'wpf/reconcile'
-
-    @request.send args
+    new WpfReconcile(params).send(onSuccess, onFailure)
 
 module.exports = Transaction

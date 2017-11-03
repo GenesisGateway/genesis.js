@@ -1,7 +1,6 @@
-_         = require 'underscore'
-xml2json  = require 'xml2json'
-
-Currency = require './currency'
+_        = require 'underscore'
+xml2json = require 'xml2json'
+Currency = require './helpers/currency'
 
 class Response
   constructor: () ->

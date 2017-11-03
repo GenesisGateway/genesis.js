@@ -1,5 +1,9 @@
+
 genesis.js
 ==========
+
+[![Software License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](LICENSE)
+
 
 node.js client library for Genesis Payment Gateway
 
@@ -11,7 +15,7 @@ Client Library for processing payments through Genesis Payment Processing Gatewa
 Requirements
 ------------
 
-* node.js v0.10.0 or newer
+* node.js v6.11.0 or newer
 * npm
 
 
@@ -42,7 +46,7 @@ Sale Transaction
 ```js
 var crypto, failure, genesis, success, transaction;
 
-genesis = require('lib/genesis.js');
+genesis = require('./lib/genesis.js');
 
 crypto = require('crypto');
 
@@ -84,7 +88,7 @@ transaction.sale({
 - CoffeeScript
 
 ```coffee
-genesis = require 'lib/genesis.js'
+genesis = require './lib/genesis.js'
 crypto  = require 'crypto'
 
 transaction = new genesis.transaction();
@@ -131,7 +135,7 @@ Web Payment Form Transaction
 ```js
 var crypto, failure, genesis, success, transaction;
 
-genesis = require('lib/genesis.js');
+genesis = require('./lib/genesis.js');
 
 crypto = require('crypto');
 
@@ -174,7 +178,7 @@ transaction.wpf_create({
 - CoffeeScript
 
 ```coffee
-genesis = require 'lib/genesis.js'
+genesis = require './lib/genesis.js'
 crypto  = require 'crypto'
 
 transaction = new genesis.transaction();
@@ -224,7 +228,7 @@ Notification Listener
 ```js
 var args, cb, genesis, notification, notification_url;
 
-genesis = require('lib/genesis.js');
+genesis = require('./lib/genesis.js');
 
 notification = new genesis.notification();
 
@@ -250,7 +254,7 @@ notification_url = notification.getUrl();
 - CoffeeScript
 
 ```coffee
-genesis = require 'lib/genesis.js'
+genesis = require './lib/genesis.js'
 
 notification = new genesis.notification()
 
@@ -302,6 +306,7 @@ sale3d
 void
 wpf_create
 wpf_reconcile
+p24
 ```
 
 Transaction Parameters

@@ -7,8 +7,10 @@ params =
 
 config.util.setModuleDefaults 'module', params
 
-genesis = module.exports =
-  currency:     require './genesis/currency'
+genesis =
+  currency:     require './genesis/helpers/currency'
   notification: require './genesis/notification'
   request:      require './genesis/request'
   transaction:  require './genesis/transaction'
+
+module.exports = genesis

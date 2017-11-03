@@ -1,4 +1,5 @@
 bd = require 'bigdecimal'
+_  = require "underscore"
 
 class Currency
   constructor: ->
@@ -924,5 +925,8 @@ class Currency
       .setScale Number(exponent), bd.RoundingMode.DOWN()
 
     return nominal.toPlainString()
+
+  getCurrencies: ->
+    _.compact _.keys @iso4217
 
 module.exports = Currency
