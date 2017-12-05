@@ -41,6 +41,8 @@ WpfReconcile        = require './transactions/wpf/reconcile'
   Financial Alternative transactions
 ###
 P24                 = require './transactions/financial/alternative/p24'
+PaypalExpress       = require './transactions/financial/alternative/paypal_express'
+Paysafecard         = require './transactions/financial/alternative/paysafecard'
 
 class Transaction
 
@@ -128,6 +130,10 @@ class Transaction
   ###
   p24: (params, onSuccess, onFailure) ->
     new P24(params).send(onSuccess, onFailure)
+  paypal_express: (params, onSuccess, onFailure) ->
+    new PaypalExpress(params).send(onSuccess, onFailure)
+  paysafecard: (params, onSuccess, onFailure) ->
+    new Paysafecard(params).send(onSuccess, onFailure)
 
   ###
     Web Payment Form
