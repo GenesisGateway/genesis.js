@@ -121,6 +121,10 @@ class Base
         else if value instanceof Validator and !value.isValid fieldValue
           @validationErrors.push value.getMessage(field) + message_suffix
 
+        # check if field value match exact given value
+        else if (typeof value == 'string' or _.isNumber(value)) and fieldValue != value
+          @validationErrors.push "Field #{field} has invalid value. Allowed value is #{value}" + message_suffix
+
   validateFieldsValuesConditional: ->
     for field, conditions of @fieldsValuesConditional
 

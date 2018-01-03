@@ -43,6 +43,14 @@ WpfReconcile        = require './transactions/wpf/reconcile'
 P24                 = require './transactions/financial/alternative/p24'
 PaypalExpress       = require './transactions/financial/alternative/paypal_express'
 Paysafecard         = require './transactions/financial/alternative/paysafecard'
+Sofort              = require './transactions/financial/alternative/sofort'
+PPRO                = require './transactions/financial/alternative/ppro'
+
+###
+  Financial OBP transactions
+###
+PaySecPayin         = require './transactions/financial/obp/paysec/payin'
+PaySecPayout        = require './transactions/financial/obp/paysec/payout'
 
 class Transaction
 
@@ -130,10 +138,27 @@ class Transaction
   ###
   p24: (params, onSuccess, onFailure) ->
     new P24(params).send(onSuccess, onFailure)
+
   paypal_express: (params, onSuccess, onFailure) ->
     new PaypalExpress(params).send(onSuccess, onFailure)
+    
   paysafecard: (params, onSuccess, onFailure) ->
     new Paysafecard(params).send(onSuccess, onFailure)
+    
+  sofort: (params, onSuccess, onFailure) ->
+    new Sofort(params).send(onSuccess, onFailure)
+    
+  ppro: (params, onSuccess, onFailure) ->
+    new PPRO(params).send(onSuccess, onFailure)
+
+  ###
+    Financial OBP transactions
+  ###
+  paysec: (params, onSuccess, onFailure) ->
+    new PaySecPayin(params).send(onSuccess, onFailure)
+
+  paysec_payout: (params, onSuccess, onFailure) ->
+    new PaySecPayout(params).send(onSuccess, onFailure)
 
   ###
     Web Payment Form
