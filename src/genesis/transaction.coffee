@@ -45,6 +45,8 @@ PaypalExpress       = require './transactions/financial/alternative/paypal_expre
 Paysafecard         = require './transactions/financial/alternative/paysafecard'
 Sofort              = require './transactions/financial/alternative/sofort'
 PPRO                = require './transactions/financial/alternative/ppro'
+TrustlySale         = require './transactions/financial/alternative/trustly/sale'
+TrustlyWithdrawal   = require './transactions/financial/alternative/trustly/withdrawal'
 
 ###
   Financial OBP transactions
@@ -150,6 +152,12 @@ class Transaction
     
   ppro: (params, onSuccess, onFailure) ->
     new PPRO(params).send(onSuccess, onFailure)
+    
+  trustly_sale: (params, onSuccess, onFailure) ->
+    new TrustlySale(params).send(onSuccess, onFailure)
+    
+  trustly_withdrawal: (params, onSuccess, onFailure) ->
+    new TrustlyWithdrawal(params).send(onSuccess, onFailure)
 
   ###
     Financial OBP transactions

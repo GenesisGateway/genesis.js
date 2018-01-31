@@ -45,13 +45,6 @@ class Methods
   @SAFETY_PAY = 'safetypay';
 
   ###
-    Teleingreso
-
-    PPRO transaction
-  ###
-  @TELEINGRESO = 'teleingreso';
-
-  ###
     TrustPay
 
     PPRO transaction
@@ -76,6 +69,6 @@ class Methods
     value for key, value of @constructor
 
   isValidMethod: (method) ->
-    _.indexOf( @getPaymentMethods(), method ) != -1
+    _.indexOf( @getMethods(), method ) != -1
 
 module.exports = Methods

@@ -58,6 +58,9 @@ class Base
     ###
     @requiredFieldsGroups = {}
 
+  setData: (@params) ->
+    @
+
   ###
     Get field value using dot notation
   ###
@@ -110,23 +113,31 @@ class Base
       if !_.isUndefined(fieldValue)
 
         # check if field value exists in the given array
-        if _.isArray(value) and _.indexOf(value, fieldValue) == -1
-          @validationErrors.push "Field #{field} has invalid value. Allowed values are: #{value.join(', ')}" + message_suffix
+        if _.isArray(value)
+          if _.indexOf(value, fieldValue) == -1
+            @validationErrors.push "Field #{field} has invalid value. Allowed values are: #{value.join(', ')}" + message_suffix
 
         # check if field value match the given regular expression
-        else if _.isRegExp(value) and !value.test(fieldValue)
-          @validationErrors.push "Field #{field} has invalid value. Allowed format is #{value}" + message_suffix
+        else if _.isRegExp(value)
+          if !value.test(fieldValue)
+            @validationErrors.push "Field #{field} has invalid value. Allowed format is #{value}" + message_suffix
 
         # check if field value pass given validator
-        else if value instanceof Validator and !value.isValid fieldValue
-          @validationErrors.push value.getMessage(field) + message_suffix
+        else if value instanceof Validator
+          if !value.isValid fieldValue
+            @validationErrors.push value.getMessage(field) + message_suffix
 
         # check if field value match exact given value
-        else if (typeof value == 'string' or _.isNumber(value)) and fieldValue != value
-          @validationErrors.push "Field #{field} has invalid value. Allowed value is #{value}" + message_suffix
+        else if (typeof value == 'string' or _.isNumber(value))
+          if fieldValue != value
+            @validationErrors.push "Field #{field} has invalid value. Allowed value is #{value}" + message_suffix
 
-  validateFieldsValuesConditional: ->
-    for field, conditions of @fieldsValuesConditional
+        # if value is object check conditional values
+        else if _.isObject(value)
+          @validateFieldsValuesConditional(_.pick(fields, field), message_suffix)
+
+  validateFieldsValuesConditional: (fields = @fieldsValuesConditional, message = "") ->
+    for field, conditions of fields
 
       fieldValue = @getValue field
       if !_.isUndefined(fieldValue) and !_.isEmpty(fieldValue)
@@ -137,7 +148,7 @@ class Base
 
         # check fields values if given field has exact value
         else
-          this.validateFieldsValues(conditions[fieldValue], " when #{field} is #{fieldValue}")
+          this.validateFieldsValues(conditions[fieldValue], message + " #{if message then "and" else "when"} #{field} is #{fieldValue}")
 
   validateRequiredFieldsGroups: ->
     if !_.isEmpty @requiredFieldsGroups

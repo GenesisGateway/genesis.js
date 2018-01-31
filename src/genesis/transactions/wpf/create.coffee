@@ -12,11 +12,18 @@ class Create extends Base
     super params
 
     # Set Locale
-    if @params.locale then @locale = @params.locale.slice 0, 2 else @locale = 'en'
-    delete @params.locale
+    @setLocale()
 
     @transactionTypes = new TransactionTypes
     @i18n             = new i18n
+
+  setLocale: ->
+    if @params && @params.locale then @locale = @params.locale.slice 0, 2 else @locale = 'en'
+    if @params then delete @params.locale
+
+  setData: (@params) ->
+    @setLocale()
+    @
 
   isValid: ->
     @validationErrors = [];

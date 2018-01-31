@@ -45,8 +45,8 @@ class PPRO extends AlternativeBase
           'billing_address.country': ['CA', 'MX', 'NI', 'CR', 'PA', 'CO', 'PE', 'BR', 'NL']
           'currency': ['EUR', 'USD']
         "#{PaymentMethods.TRUST_PAY}":
-          'billing_address.country': ['BA', 'BG', 'CZ', 'EE', 'SL', 'SK', 'GB', 'HR', 'HU', 'LT', 'LV', 'PL', 'RO']
-          'currency': ['BAM', 'BGN', 'CZK', 'EEK', 'EUR', 'GBP', 'HRK', 'HUF', 'LTL', 'LVL', 'PLN', 'PLN', 'RON']
+          'billing_address.country': ['CZ', 'SK']
+          #'currency': ['CZK', 'EUR']
         "#{PaymentMethods.PRZELEWY24}":
           'billing_address.country': 'PL'
           'currency': 'PLN'
@@ -65,62 +65,15 @@ class PPRO extends AlternativeBase
         "#{PaymentMethods.MYBANK}":
           'billing_address.country': ['BE', 'FR', 'IT', 'LU']
           'currency': 'EUR'
-      'currency':
-        'EUR':
-          'billing_address.country': [
-            'AT', 'ES', 'CA', 'MX', 'NI', 'CR', 'PA', 'CO', 'PE', 'BR', 'NL', 'EE', 'SL', 'SK', 'RU', 'DE', 'BE', 'FR', 'IT', 'LU'
-          ]
-        'USD':
-          'billing_address.country': [
-            'CA', 'MX', 'NI', 'CR', 'PA', 'CO', 'PE', 'BR', 'NL'
-          ]
-        'BAM':
-          'billing_address.country': [
-            'BA'
-          ]
-        'BGN':
-          'billing_address.country': [
-            'BG'
-          ]
-        'CZK':
-          'billing_address.country': [
-            'CZ'
-          ]
-        'EEK':
-          'billing_address.country': [
-            'EE'
-          ]
-        'GBP':
-          'billing_address.country': [
-            'GB'
-          ]
-        'HRK':
-          'billing_address.country': [
-            'HR'
-          ]
-        'HUF':
-          'billing_address.country': [
-            'HU'
-          ]
-        'LTL':
-          'billing_address.country': [
-            'LT'
-          ]
-        'LVL':
-          'billing_address.country': [
-            'LV'
-          ]
-        'PLN':
-          'billing_address.country': [
-            'PL'
-          ]
-        'RON':
-          'billing_address.country': [
-            'RO'
-          ]
-        'RUB':
-          'billing_address.country': [
-            'RU'
-          ]
+
+      'billing_address.country':
+        'CZ':
+          'payment_type':
+            "#{PaymentMethods.TRUST_PAY}":
+              'currency': 'CZK'
+        'SK':
+          'payment_type':
+            "#{PaymentMethods.TRUST_PAY}":
+              'currency': 'EUR'
 
 module.exports = PPRO
