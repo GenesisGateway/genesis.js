@@ -3,6 +3,7 @@ FinancialBase    = require '../../financial_base'
 TransactionTypes = require '../../../../helpers/transaction/types'
 _                = require 'underscore'
 NumberValidator  = require '../../../../helpers/validators/number'
+RegExpValidator  = require '../../../../helpers/validators/regexp'
 
 class PaySecPayout extends FinancialBase
 
@@ -42,7 +43,7 @@ class PaySecPayout extends FinancialBase
       'currency':
         'CNY': {
           'amount': new NumberValidator 60
-          'bank_account_number': new RegExp '^[0-9]{19}$'
+          'bank_account_number': new RegExpValidator '^[0-9]{19}$', 'number with 19 digits'
         }
         'IDR': {
           'amount': new NumberValidator 50000

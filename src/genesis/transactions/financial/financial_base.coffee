@@ -3,6 +3,7 @@ Base            = require '../base'
 _               = require 'underscore'
 config          = require 'config'
 AmountValidator = require '../../helpers/validators/amount'
+StringValidator = require '../../helpers/validators/string'
 
 class FinancialBase extends  Base
 
@@ -17,6 +18,8 @@ class FinancialBase extends  Base
       ]
 
     @fieldsValues =
+      'transaction_id':
+        new StringValidator undefined, 255
       'currency':
         @currency.getCurrencies()
       'amount':

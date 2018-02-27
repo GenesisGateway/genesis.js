@@ -1,3 +1,4 @@
+RegExpValidator  = require './regexp'
 
 class CreditCard
 
@@ -5,15 +6,15 @@ class CreditCard
 
     @validators =
       'card_holder':
-        new RegExp '^[\\w\'\-,.]+[ ]+[\\w\'\-,. ]+$', 'u'
+        new RegExpValidator '^[\\w\'\-,.]+[ ]+[\\w\'\-,. ]+$', 'full name' , 'u'
       'card_number':
-        new RegExp '^[0-9]{13,19}$'
+        new RegExpValidator '^[0-9]{13,19}$', 'number with 13 to 19 digits'
       'cvv':
-        new RegExp '^[0-9]{3,4}$'
+        new RegExpValidator '^[0-9]{3,4}$', 'number with 3 to 4 digits'
       'expiration_month':
-        new RegExp '^(0?[1-9]|1[012])$'
+        new RegExpValidator '^(0?[1-9]|1[012])$', 'valid month number (ex: 05)'
       'expiration_year':
-        new RegExp '^(20)\\d{2}$'
+        new RegExpValidator '^(20)\\d{2}$', 'valid year number (ex: 2021)'
 
     if field and @validators[field]
       return @validators[field]

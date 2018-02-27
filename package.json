@@ -1,6 +1,6 @@
 {
   "name": "genesis.js",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "JS library for Genesis Payment Processing Gateway",
   "main": "./lib/genesis.js",
   "repository": {
@@ -13,6 +13,7 @@
     "test": "mocha test/* --recursive --require test/chai --compilers coffee:coffee-script/register"
   },
   "dependencies": {
+    "cake": "^0.1.1",
     "bigdecimal": "^0.6.1",
     "body-parser": "^1.14.1",
     "coffee-script": "^1.7.1",

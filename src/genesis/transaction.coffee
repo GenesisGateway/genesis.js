@@ -36,7 +36,6 @@ Avs                 = require './transactions/non_financial/avs'
 WpfCreate           = require './transactions/wpf/create'
 WpfReconcile        = require './transactions/wpf/reconcile'
 
-
 ###
   Financial Alternative transactions
 ###
@@ -47,12 +46,17 @@ Sofort              = require './transactions/financial/alternative/sofort'
 PPRO                = require './transactions/financial/alternative/ppro'
 TrustlySale         = require './transactions/financial/alternative/trustly/sale'
 TrustlyWithdrawal   = require './transactions/financial/alternative/trustly/withdrawal'
+Earthport           = require './transactions/financial/alternative/earthport'
 
 ###
   Financial OBP transactions
 ###
 PaySecPayin         = require './transactions/financial/obp/paysec/payin'
 PaySecPayout        = require './transactions/financial/obp/paysec/payout'
+Wechat              = require './transactions/financial/obp/wechat'
+Alipay              = require './transactions/financial/obp/alipay'
+iDebitPayin         = require './transactions/financial/obp/idebit/payin'
+iDebitPayout        = require './transactions/financial/obp/idebit/payout'
 
 class Transaction
 
@@ -159,6 +163,9 @@ class Transaction
   trustly_withdrawal: (params, onSuccess, onFailure) ->
     new TrustlyWithdrawal(params).send(onSuccess, onFailure)
 
+  earthport: (params, onSuccess, onFailure) ->
+    new Earthport(params).send(onSuccess, onFailure)
+
   ###
     Financial OBP transactions
   ###
@@ -167,6 +174,18 @@ class Transaction
 
   paysec_payout: (params, onSuccess, onFailure) ->
     new PaySecPayout(params).send(onSuccess, onFailure)
+
+  wechat: (params, onSuccess, onFailure) ->
+    new Wechat(params).send(onSuccess, onFailure)
+
+  alipay: (params, onSuccess, onFailure) ->
+    new Alipay(params).send(onSuccess, onFailure)
+
+  idebit_payin: (params, onSuccess, onFailure) ->
+    new iDebitPayin(params).send(onSuccess, onFailure)
+
+  idebit_payout: (params, onSuccess, onFailure) ->
+    new iDebitPayout(params).send(onSuccess, onFailure)
 
   ###
     Web Payment Form

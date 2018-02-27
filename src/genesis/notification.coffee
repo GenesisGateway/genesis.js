@@ -17,9 +17,11 @@ class Notification
   ###
     Setup a listener for incoming notification requests
   ###
-  listen: (args, callback) ->
+  listen: (callback) ->
 
     @callback = callback
+
+    args = config.notifications
 
     @listener = args
 
@@ -48,9 +50,8 @@ class Notification
       finally
         response.end ''
 
-    http
-      .createServer listener
-      .listen args.port, args.host
+    server = http.createServer listener
+    server.listen args.port, args.host
 
     console.log(
       util.format '[notifier] listen on: %s:%s%s', args.host, args.port, args.path

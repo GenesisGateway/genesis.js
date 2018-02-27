@@ -226,17 +226,11 @@ Notification Listener
 - JavaScript
 
 ```js
-var args, cb, genesis, notification, notification_url;
+var cb, genesis, notification, notification_url;
 
 genesis = require('./lib/genesis.js');
 
 notification = new genesis.notification();
-
-args = {
-  host: 'my.host.name.tld',
-  port: 1234,
-  path: '/listen'
-};
 
 cb = function(error, result) {
     if (!error) {
@@ -246,7 +240,7 @@ cb = function(error, result) {
     }
 };
 
-notification.listen(args, cb);
+notification.listen(cb);
 
 notification_url = notification.getUrl();
 ```
@@ -258,19 +252,13 @@ genesis = require './lib/genesis.js'
 
 notification = new genesis.notification()
 
-args = {
-  host: 'my.host.name.tld'
-  port: 1234
-  path: '/listen'
-}
-
 cb = (error, result) =>
   if not error
     console.log result
   else
     console.log error
 
-notification.listen args, cb
+notification.listen cb
 
 notification_url = notification.getUrl()
 ```

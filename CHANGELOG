@@ -1,3 +1,12 @@
+1.5.0
+-----
+
+* Add API Support for Wechat Transactions
+* Add API Support for Alipay Transactions
+* Add API Support for Earthport Transactions
+* Add API Support for iDebit Transactions
+* Improved validation messages
+
 1.4.0
 -----
 
