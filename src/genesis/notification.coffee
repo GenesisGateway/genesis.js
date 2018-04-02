@@ -11,15 +11,19 @@ Transaction = require './transaction'
 class Notification
 
   constructor: ->
-    @callback = { }
-    @listener = { }
+    @callbacks = { }
+    @listener  = { }
 
   ###
     Setup a listener for incoming notification requests
   ###
-  listen: (callback) ->
+  listen: (onSuccess, onFailure) ->
 
-    @callback = callback
+    @callbacks =
+      success:
+        onSuccess
+      failure:
+        onFailure
 
     args = config.notifications
 
@@ -35,7 +39,7 @@ class Notification
 
         @verifySignature params
 
-        @reconcile params, @callback
+        @reconcile params
 
         response.setHeader(
           'Content-Type', 'text/xml'
@@ -62,13 +66,7 @@ class Notification
 
     If successful, it will initiate the callback with the body
   ###
-  reconcile: (params, callback) ->
-
-    success = (response, body) ->
-      callback false, body
-
-    failure = (error) ->
-      callback error
+  reconcile: (params) ->
 
     transaction = new Transaction()
 
@@ -77,15 +75,17 @@ class Notification
         unique_id:
           params.wpf_unique_id
       }
-      , success
-      , failure
+      .send()
+      .then @callbacks.success
+      .catch @callbacks.failure
     else
       transaction.reconcile {
         unique_id:
           params.unique_id
       }
-      , success
-      , failure
+      .send()
+      .then @callbacks.success
+      .catch @callbacks.failure
 
   ###
     Respond to Genesis as expected
@@ -111,6 +111,9 @@ class Notification
     Verify an incoming request's signature
   ###
   verifySignature: (params) ->
+
+    if !params.signature
+      throw new Error 'Invalid Signature'
 
     if params.unique_id
       unique_id = params.unique_id

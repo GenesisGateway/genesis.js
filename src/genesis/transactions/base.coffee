@@ -3,6 +3,7 @@ Request   = require '../request'
 Currency  = require '../helpers/currency'
 _         = require 'underscore'
 Validator = require '../helpers/validators/validator'
+Promise   = require 'bluebird'
 
 class Base
 
@@ -184,16 +185,11 @@ class Base
 
     @validationErrors.length == 0
 
-  send: (onSuccess, onFailure) ->
+  send: () ->
     if !this.isValid()
-      return onFailure('validationErrors', @validationErrors)
+      return Promise.reject @validationErrors
 
     args =
-      callbacks:
-        success:
-          onSuccess
-        failure:
-          onFailure
       trx:
         @getTrxData()
       url:

@@ -4,7 +4,9 @@ moment    = require 'moment'
 
 class Date extends Validator
 
-  constructor: (@format = 'YYYY-MM-DD') ->
+  constructor: (format = 'YYYY-MM-DD') ->
+    super()
+    @format = format
 
   isValid: (value) ->
     moment(value, @format, true).isValid()

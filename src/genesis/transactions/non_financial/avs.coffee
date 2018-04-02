@@ -4,6 +4,7 @@ TransactionTypes    = require '../../helpers/transaction/types'
 _                   = require 'underscore'
 config              = require 'config'
 CreditCardValidator = require '../../helpers/validators/credit_card'
+Promise             = require 'bluebird'
 
 class Avs extends Base
 
@@ -46,7 +47,7 @@ class Avs extends Base
         }
       )
 
-  send: (onSuccess, onFailure) ->
-    onFailure('error', 'The selected transaction type is deprecated!')
+  send: () ->
+    return Promise.reject 'The selected transaction type is deprecated!'
 
 module.exports = Avs

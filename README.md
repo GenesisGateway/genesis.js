@@ -52,37 +52,40 @@ crypto = require('crypto');
 
 transaction = new genesis.transaction();
 
-failure = function(error, body) {
-  return console.log(error, body);
+failure = function(reason) {
+  return console.log(reason);
 };
 
-success = function(response, body) {
-  return console.log(body);
+success = function(data) {
+  return console.log(data);
 };
 
 transaction.sale({
-  transaction_id: crypto.randomBytes(16).toString('hex'),
-  usage: 'Demo Payment Transaction',
-  description: 'This is my first payment',
-  remote_ip: '127.0.0.1',
-  amount: '100',
-  currency: 'USD',
-  card_holder: 'John Doe',
-  card_number: '4200000000000000',
-  cvv: '000',
-  expiration_month: 12,
-  expiration_year: 2020,
-  customer_email: 'email@example.com',
-  customer_phone: '0123456789',
-  billing_address: {
-    first_name: 'John',
-    last_name: 'Doe',
-    address1: '123 Str.',
-    zip_code: '10000',
-    city: 'New York',
-    country: 'US'
-  }
-}, success, failure);
+    transaction_id: crypto.randomBytes(16).toString('hex'),
+    usage: 'Demo Payment Transaction',
+    description: 'This is my first payment',
+    remote_ip: '127.0.0.1',
+    amount: '100',
+    currency: 'USD',
+    card_holder: 'John Doe',
+    card_number: '4200000000000000',
+    cvv: '000',
+    expiration_month: 12,
+    expiration_year: 2020,
+    customer_email: 'email@example.com',
+    customer_phone: '0123456789',
+    billing_address: {
+      first_name: 'John',
+      last_name: 'Doe',
+      address1: '123 Str.',
+      zip_code: '10000',
+      city: 'New York',
+      country: 'US'
+    }
+  })
+  .send()
+  .then(success)
+  .catch(failure);
 ```
 
 - CoffeeScript
@@ -93,13 +96,13 @@ crypto  = require 'crypto'
 
 transaction = new genesis.transaction();
 
-failure = (error, body) ->
-    console.log error, body
+failure = (reason) ->
+    console.log reason
 
-success = (response, body) ->
-   console.log body
+success = (data) ->
+   console.log data
 
-transaction.sale {
+transaction.sale({
     transaction_id    : crypto.randomBytes(16).toString('hex')
     usage             : 'Demo Payment Transaction'
     description       : 'This is my first payment'
@@ -120,9 +123,10 @@ transaction.sale {
         zip_code  : '10000'
         city      : 'New York'
         country   : 'US'
-    }
-    , success
-    , failure
+    })
+    .send()
+    .then(success)
+    .catch(failure)
 ```
 
 The example above is going to create a Sale (Authorize w/ immediate Capture) transaction for the amount of $100.
@@ -141,38 +145,41 @@ crypto = require('crypto');
 
 transaction = new genesis.transaction();
 
-failure = function(error, body) {
-  return console.log(error, body);
+failure = function(reason) {
+  return console.log(reason);
 };
 
-success = function(response, body) {
-  return console.log(body);
+success = function(data) {
+  return console.log(data);
 };
 
 transaction.wpf_create({
-  locale: 'de',
-  transaction_id: crypto.randomBytes(16).toString('hex'),
-  usage: 'Demo WPF Transaction',
-  description: 'This is my first WPF transaction',
-  remote_ip: '127.0.0.1',
-  amount: '100',
-  currency: 'USD',
-  customer_email: 'email@example.com',
-  customer_phone: '0123456789',
-  notification_url: 'http://my.host.name.tld:1234/notifier',
-  return_success_url: 'http://my.host.name.tld/success',
-  return_failure_url: 'http://my.host.name.tld/failure',
-  return_cancel_url: 'http://my.host.name.tld/cancel',
-  billing_address: {
-    first_name: 'John',
-    last_name: 'Doe',
-    address1: '123 Str.',
-    zip_code: '10000',
-    city: 'New York',
-    country: 'US'
-  },
-  transaction_types: ['authorize3d', 'sale']
-});
+    locale: 'de',
+    transaction_id: crypto.randomBytes(16).toString('hex'),
+    usage: 'Demo WPF Transaction',
+    description: 'This is my first WPF transaction',
+    remote_ip: '127.0.0.1',
+    amount: '100',
+    currency: 'USD',
+    customer_email: 'email@example.com',
+    customer_phone: '0123456789',
+    notification_url: 'http://my.host.name.tld:1234/notifier',
+    return_success_url: 'http://my.host.name.tld/success',
+    return_failure_url: 'http://my.host.name.tld/failure',
+    return_cancel_url: 'http://my.host.name.tld/cancel',
+    billing_address: {
+      first_name: 'John',
+      last_name: 'Doe',
+      address1: '123 Str.',
+      zip_code: '10000',
+      city: 'New York',
+      country: 'US'
+    },
+    transaction_types: ['authorize3d', 'sale']
+  })
+  .send()
+  .then(success)
+  .catch(failure);
 ```
 
 - CoffeeScript
@@ -189,7 +196,7 @@ failure = (error, body) ->
 success = (response, body) ->
    console.log body
    
-transaction.wpf_create {
+transaction.wpf_create({
     locale            : 'de'
     transaction_id    : crypto.randomBytes(16).toString('hex')
     usage             : 'Demo WPF Transaction'
@@ -214,7 +221,10 @@ transaction.wpf_create {
         'authorize3d'
         'sale'
     ]
-}
+  })
+  .send()
+  .then(success)
+  .catch(failure)
 ```
 
 The example above is going to create a new ```WPF``` instance with German (```de```) locale and allowed transaction types - ```authorize3d``` (Authorize w/ 3D-Secure asynchronously) and ```sale``` for the amount of $100.
@@ -226,21 +236,21 @@ Notification Listener
 - JavaScript
 
 ```js
-var cb, genesis, notification, notification_url;
+var success, failure, genesis, notification, notification_url;
 
 genesis = require('./lib/genesis.js');
 
 notification = new genesis.notification();
 
-cb = function(error, result) {
-    if (!error) {
-      return console.log(result);
-    } else {
-      return console.log(error);
-    }
+success = function(result) {
+  return console.log(result);
 };
 
-notification.listen(cb);
+failure = function(error) {
+  return console.log(error);
+};
+
+notification.listen(success, failure);
 
 notification_url = notification.getUrl();
 ```
@@ -252,13 +262,13 @@ genesis = require './lib/genesis.js'
 
 notification = new genesis.notification()
 
-cb = (error, result) =>
-  if not error
-    console.log result
-  else
-    console.log error
+success = (result) =>
+  console.log result
+  
+failure = (error) =>
+  console.log error
 
-notification.listen cb
+notification.listen success, failure
 
 notification_url = notification.getUrl()
 ```

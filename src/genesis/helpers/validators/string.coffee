@@ -7,7 +7,10 @@ _         = require 'underscore'
 ###
 class String extends Validator
 
-  constructor: (@min, @max) ->
+  constructor: (min, max) ->
+    super()
+    @min = min
+    @max = max
 
   isValid: (value) ->
 

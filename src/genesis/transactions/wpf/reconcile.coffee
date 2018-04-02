@@ -12,7 +12,7 @@ class Reconcile extends Base
 
   getUrl: ->
     app:
-      'gate'
+      'wpf'
     path:
       'wpf/reconcile'
 

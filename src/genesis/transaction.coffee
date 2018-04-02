@@ -58,142 +58,157 @@ Alipay              = require './transactions/financial/obp/alipay'
 iDebitPayin         = require './transactions/financial/obp/idebit/payin'
 iDebitPayout        = require './transactions/financial/obp/idebit/payout'
 
+###
+  Financial OBP transactions
+###
+InstaDebitPayin     = require './transactions/financial/obp/insta_debit/payin'
+InstaDebitPayout    = require './transactions/financial/obp/insta_debit/payout'
+
 class Transaction
 
   ###
     Non Financial transactions
   ###
-  account_verification: (params, onSuccess, onFailure) ->
-    new AccountVerification(params).send(onSuccess, onFailure)
+  account_verification: (params) ->
+    new AccountVerification(params)
 
-  blacklist: (params, onSuccess, onFailure) ->
-    new Blacklist(params).send(onSuccess, onFailure)
+  blacklist: (params) ->
+    new Blacklist(params)
 
-  chargeback: (params, onSuccess, onFailure) ->
-    new Chargeback(params).send(onSuccess, onFailure)
+  chargeback: (params) ->
+    new Chargeback(params)
 
-  chargeback_by_date: (params, onSuccess, onFailure) ->
-    new ChargebackByDate(params).send(onSuccess, onFailure)
+  chargeback_by_date: (params) ->
+    new ChargebackByDate(params)
 
-  fraud_report: (params, onSuccess, onFailure) ->
-    new FraudReport(params).send(onSuccess, onFailure)
+  fraud_report: (params) ->
+    new FraudReport(params)
 
-  fraud_report_by_date: (params, onSuccess, onFailure) ->
-    new FraudReportByDate(params).send(onSuccess, onFailure)
+  fraud_report_by_date: (params) ->
+    new FraudReportByDate(params)
 
-  retrieval: (params, onSuccess, onFailure) ->
-    new Retrieval(params).send(onSuccess, onFailure)
+  retrieval: (params) ->
+    new Retrieval(params)
 
-  retrieval_by_date: (params, onSuccess, onFailure) ->
-    new RetrievalByDate(params).send(onSuccess, onFailure)
+  retrieval_by_date: (params) ->
+    new RetrievalByDate(params)
 
-  reconcile: (params, onSuccess, onFailure) ->
-    new Reconcile(params).send(onSuccess, onFailure)
+  reconcile: (params) ->
+    new Reconcile(params)
 
-  reconcile_by_date: (params, onSuccess, onFailure) ->
-    new ReconcileByDate(params).send(onSuccess, onFailure)
+  reconcile_by_date: (params) ->
+    new ReconcileByDate(params)
 
-  avs: (params, onSuccess, onFailure) ->
-    new Avs(params).send(onSuccess, onFailure)
+  avs: (params) ->
+    new Avs(params)
 
   ###
     Financial transactions
   ###
-  authorize: (params, onSuccess, onFailure) ->
-    new Authorize(params).send(onSuccess, onFailure)
+  authorize: (params) ->
+    new Authorize(params)
 
-  authorize3d: (params, onSuccess, onFailure) ->
-    new Authorize3d(params).send(onSuccess, onFailure)
+  authorize3d: (params) ->
+    new Authorize3d(params)
 
-  credit: (params, onSuccess, onFailure) ->
-    new Credit(params).send(onSuccess, onFailure)
+  credit: (params) ->
+    new Credit(params)
 
-  init_recurring_sale: (params, onSuccess, onFailure) ->
-    new InitRecurringSale(params).send(onSuccess, onFailure)
+  init_recurring_sale: (params) ->
+    new InitRecurringSale(params)
 
-  init_recurring_sale3d: (params, onSuccess, onFailure) ->
-    new InitRecurringSale3d(params).send(onSuccess, onFailure)
+  init_recurring_sale3d: (params) ->
+    new InitRecurringSale3d(params)
 
-  recurring_sale: (params, onSuccess, onFailure) ->
-    new RecurringSale(params).send(onSuccess, onFailure)
+  recurring_sale: (params) ->
+    new RecurringSale(params)
 
-  payout: (params, onSuccess, onFailure) ->
-    new Payout(params).send(onSuccess, onFailure)
+  payout: (params) ->
+    new Payout(params)
 
-  sale: (params, onSuccess, onFailure) ->
-    new Sale(params).send(onSuccess, onFailure)
+  sale: (params) ->
+    new Sale(params)
 
-  sale3d: (params, onSuccess, onFailure) ->
-    new Sale3d(params).send(onSuccess, onFailure)
+  sale3d: (params) ->
+    new Sale3d(params)
 
-  cancel: (params, onSuccess, onFailure) ->
-    new Cancel(params).send(onSuccess, onFailure)
+  cancel: (params) ->
+    new Cancel(params)
 
   # keep this for backward compatibility
-  void: (params, onSuccess, onFailure) ->
-    this.cancel(params, onSuccess, onFailure)
+  void: (params) ->
+    this.cancel(params)
 
-  capture: (params, onSuccess, onFailure) ->
-    new Capture(params).send(onSuccess, onFailure)
+  capture: (params) ->
+    new Capture(params)
 
-  refund: (params, onSuccess, onFailure) ->
-    new Refund(params).send(onSuccess, onFailure)
+  refund: (params) ->
+    new Refund(params)
 
   ###
     Financial Alternative transactions
   ###
-  p24: (params, onSuccess, onFailure) ->
-    new P24(params).send(onSuccess, onFailure)
+  p24: (params) ->
+    new P24(params)
 
-  paypal_express: (params, onSuccess, onFailure) ->
-    new PaypalExpress(params).send(onSuccess, onFailure)
+  paypal_express: (params) ->
+    new PaypalExpress(params)
     
-  paysafecard: (params, onSuccess, onFailure) ->
-    new Paysafecard(params).send(onSuccess, onFailure)
+  paysafecard: (params) ->
+    new Paysafecard(params)
     
-  sofort: (params, onSuccess, onFailure) ->
-    new Sofort(params).send(onSuccess, onFailure)
+  sofort: (params) ->
+    new Sofort(params)
     
-  ppro: (params, onSuccess, onFailure) ->
-    new PPRO(params).send(onSuccess, onFailure)
+  ppro: (params) ->
+    new PPRO(params)
     
-  trustly_sale: (params, onSuccess, onFailure) ->
-    new TrustlySale(params).send(onSuccess, onFailure)
+  trustly_sale: (params) ->
+    new TrustlySale(params)
     
-  trustly_withdrawal: (params, onSuccess, onFailure) ->
-    new TrustlyWithdrawal(params).send(onSuccess, onFailure)
+  trustly_withdrawal: (params) ->
+    new TrustlyWithdrawal(params)
 
-  earthport: (params, onSuccess, onFailure) ->
-    new Earthport(params).send(onSuccess, onFailure)
+  earthport: (params) ->
+    new Earthport(params)
 
   ###
     Financial OBP transactions
   ###
-  paysec: (params, onSuccess, onFailure) ->
-    new PaySecPayin(params).send(onSuccess, onFailure)
+  paysec: (params) ->
+    new PaySecPayin(params)
 
-  paysec_payout: (params, onSuccess, onFailure) ->
-    new PaySecPayout(params).send(onSuccess, onFailure)
+  paysec_payout: (params) ->
+    new PaySecPayout(params)
 
-  wechat: (params, onSuccess, onFailure) ->
-    new Wechat(params).send(onSuccess, onFailure)
+  wechat: (params) ->
+    new Wechat(params)
 
-  alipay: (params, onSuccess, onFailure) ->
-    new Alipay(params).send(onSuccess, onFailure)
+  alipay: (params) ->
+    new Alipay(params)
 
-  idebit_payin: (params, onSuccess, onFailure) ->
-    new iDebitPayin(params).send(onSuccess, onFailure)
+  idebit_payin: (params) ->
+    new iDebitPayin(params)
 
-  idebit_payout: (params, onSuccess, onFailure) ->
-    new iDebitPayout(params).send(onSuccess, onFailure)
+  idebit_payout: (params) ->
+    new iDebitPayout(params)
+
+  ###
+    Financial OBP transactions
+  ###
+  insta_debit_payin: (params, onSuccess, onFailure) ->
+    new InstaDebitPayin(params).send(onSuccess, onFailure)
+
+  insta_debit_payout: (params, onSuccess, onFailure) ->
+    new InstaDebitPayout(params).send(onSuccess, onFailure)
 
   ###
     Web Payment Form
   ###
-  wpf_create: (params, onSuccess, onFailure) ->
-    new WpfCreate(params).send(onSuccess, onFailure)
+  wpf_create: (params) ->
+    new WpfCreate(params)
 
-  wpf_reconcile: (params, onSuccess, onFailure) ->
-    new WpfReconcile(params).send(onSuccess, onFailure)
+  wpf_reconcile: (params) ->
+    new WpfReconcile(params)
 
 module.exports = Transaction

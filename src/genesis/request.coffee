@@ -1,19 +1,16 @@
-_         = require 'underscore'
-fs        = require 'fs'
-path      = require 'path'
-util      = require 'util'
-config    = require 'config'
-js2xml    = require 'js2xmlparser'
-request   = require 'request'
-xml2json  = require 'xml2json'
-
-Response  = require './response'
+_        = require 'underscore'
+fs       = require 'fs'
+path     = require 'path'
+util     = require 'util'
+config   = require 'config'
+js2xml   = require 'js2xmlparser'
+request  = require 'request'
+Response = require './response'
+Promise  = require 'bluebird';
 
 class Request
 
   constructor: ->
-    @callback = {}
-
     @response = new Response
 
   ###
@@ -39,20 +36,6 @@ class Request
       , params.path
 
   ###
-    Handle the callback
-  ###
-  handleCallback: (error, httpResponse, responseBody) =>
-    if error
-      @callback.failure error, httpResponse, responseBody
-
-    respObj = @response.process httpResponse
-
-    if respObj.status in ['declined', 'error']
-      @callback.failure respObj.technical_message, respObj
-    else
-      @callback.success httpResponse, respObj
-
-  ###
     Convert Object to XML structure
   ###
   objToXml: (structure) ->
@@ -64,8 +47,6 @@ class Request
     Send the transaction to the Gateway
   ###
   send: (params) ->
-    # Save the callbacks for later use
-    @callback = params.callbacks
 
     args =
       agentOptions:
@@ -105,6 +86,19 @@ class Request
       timeout: Number(config.gateway.timeout)
       url: @formatUrl params.url
 
-    request.post args, @handleCallback
+    new Promise(
+      ((resolve, reject) ->
+        request.post args, ((error, httpResponse, responseBody) ->
+          if error
+            reject responseBody
+          else
+            respObj = @response.process httpResponse
+            if respObj.status in ['declined', 'error']
+              reject respObj
+            else
+              resolve respObj
+        ).bind(@)
+      ).bind(@)
+    )
 
 module.exports = Request

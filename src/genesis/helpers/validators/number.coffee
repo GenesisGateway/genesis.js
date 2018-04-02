@@ -7,7 +7,11 @@ _         = require 'underscore'
 ###
 class Number extends Validator
 
-  constructor: (@min, @max) ->
+  constructor: (min, max) ->
+    super()
+    @min = min
+    @max = max
+
 
   isValid: (value) ->
 
