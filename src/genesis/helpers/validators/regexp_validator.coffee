@@ -13,6 +13,6 @@ class RegExpValidator extends Validator
     (new RegExp @pattern, @options).test(value)
 
   getMessage: (field) ->
-    "Filed #{field} has invalid value. Expected: #{@message}"
+    "Field #{field} has invalid value. Expected: #{@message}"
 
 module.exports = RegExpValidator

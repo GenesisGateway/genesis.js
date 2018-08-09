@@ -90,7 +90,7 @@ class Request
       ((resolve, reject) ->
         request.post args, ((error, httpResponse, responseBody) ->
           if error
-            reject responseBody
+            reject responseBody || error
           else
             respObj = @response.process httpResponse
             if respObj.status in ['declined', 'error']

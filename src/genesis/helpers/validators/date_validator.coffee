@@ -2,7 +2,7 @@
 Validator = require './validator'
 moment    = require 'moment'
 
-class Date extends Validator
+class DateValidator extends Validator
 
   constructor: (format = 'YYYY-MM-DD') ->
     super()
@@ -12,6 +12,6 @@ class Date extends Validator
     moment(value, @format, true).isValid()
 
   getMessage: (field) ->
-    "Filed #{field} has invalid date format. Excepted format is #{@format}"
+    "Field #{field} has invalid date format. Expected format is #{@format}"
 
-module.exports = Date
+module.exports = DateValidator

@@ -1,3 +1,15 @@
+2.0.3
+-----
+
+* Use notification handler with custom web server
+    - no need to start listener if there is web server already running
+    - can use own/custom web server
+* Add API Support for SDD Transactions
+    - SDD Sale
+    - SDD Init Recurring Sale
+    - SDD Recurring Sale
+    - SDD Refund
+
 2.0.2
 -----
 

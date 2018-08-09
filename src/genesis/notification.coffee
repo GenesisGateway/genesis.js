@@ -5,6 +5,7 @@ util        = require 'util'
 connect     = require 'connect'
 xmlObj      = require 'xml-object'
 bodyParser  = require 'body-parser'
+Promise     = require 'bluebird'
 
 Transaction = require './transaction'
 
@@ -12,83 +13,77 @@ class Notification
 
   constructor: ->
     @callbacks = { }
-    @listener  = { }
+    @listener  = config.notifications
 
   ###
     Setup a listener for incoming notification requests
   ###
   listen: (onSuccess, onFailure) ->
 
-    @callbacks =
-      success:
-        onSuccess
-      failure:
-        onFailure
-
-    args = config.notifications
-
-    @listener = args
-
     listener = connect()
 
     listener.use bodyParser.urlencoded { extended: true }
 
-    listener.use args.path, (request, response) =>
-      try
-        params = request.body
+    listener.use @listener.path, (request, response) =>
+      @handle(request, response)
+        .then onSuccess
+        .catch onFailure
 
-        @verifySignature params
-
-        @reconcile params
-
-        response.setHeader(
-          'Content-Type', 'text/xml'
-        )
-        response.write(
-          @echoConfirmation params
-        )
-      catch Error
-        response.writeHead 400
-
-        console.error Error
-      finally
-        response.end ''
 
     server = http.createServer listener
-    server.listen args.port, args.host
+    server.listen @listener.port, @listener.host
 
     console.log(
-      util.format '[notifier] listen on: %s:%s%s', args.host, args.port, args.path
+      util.format '[notifier] listen on: %s:%s%s', @listener.host, @listener.port, @listener.path
     )
 
   ###
-    Initiate a reconcile with Genesis Gateway
+    Verify request and send reconcile
+    @return Promise
+  ###
+  handle: (request, response) ->
+    params        = request.body
+    valid_request = @verifySignature params
 
-    If successful, it will initiate the callback with the body
+    @output(params, response, valid_request)
+
+    if valid_request then @reconcile params else Promise.reject 'Invalid Signature'
+
+  output: (params, response, valid_request = true) ->
+    response.setHeader(
+      'Content-Type', 'text/xml'
+    )
+
+    if valid_request == false
+      response.writeHead 400
+
+    response.write(
+      @echoConfirmation params
+    )
+
+    response.end ''
+
+  ###
+    Initiate a reconcile with Genesis Gateway
+    @return Promise Returns transaction request promise
   ###
   reconcile: (params) ->
-
     transaction = new Transaction()
 
+    params =
+      unique_id:
+        params.wpf_unique_id || params.unique_id
+
     if params.wpf_unique_id
-      transaction.wpf_reconcile {
-        unique_id:
-          params.wpf_unique_id
-      }
-      .send()
-      .then @callbacks.success
-      .catch @callbacks.failure
+      transaction.wpf_reconcile params
+        .send()
     else
-      transaction.reconcile {
-        unique_id:
-          params.unique_id
-      }
-      .send()
-      .then @callbacks.success
-      .catch @callbacks.failure
+      transaction.reconcile params
+        .send()
 
   ###
     Respond to Genesis as expected
+    @return string Returns XML format expected from gateway
   ###
   echoConfirmation: (params) ->
 
@@ -109,11 +104,11 @@ class Notification
 
   ###
     Verify an incoming request's signature
+    @return boolean
   ###
   verifySignature: (params) ->
-
     if !params.signature
-      throw new Error 'Invalid Signature'
+      return false
 
     if params.unique_id
       unique_id = params.unique_id
@@ -134,7 +129,9 @@ class Notification
       else hash = new String
 
     if hash.toString() isnt params.signature.toString()
-      throw new Error 'Invalid Signature'
+      return false
+
+    true
 
   getUrl: () =>
     util.format 'http://%s:%s%s'

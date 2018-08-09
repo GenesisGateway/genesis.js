@@ -5,7 +5,7 @@ genesis.js
 [![Software License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](LICENSE)
 
 
-node.js client library for Genesis Payment Gateway
+Node.js client library for Genesis Payment Gateway
 
 Overview
 --------
@@ -274,6 +274,50 @@ notification_url = notification.getUrl()
 ```
 
 The example above would create a notification listener on ```my.host.name.tld:1234/notifier``` which you can use as notification handler for async transactions. If a notification is received and its successfully verified against our backend, the callback will be called with details of the transaction you're being notified for.
+
+Handle notifications with separate web server
+---------------------
+
+In case you have already setup web server and do not what to start another. 
+Or you just what to use different one like [Express](https://expressjs.com/) for example. 
+
+You can accomplish this by calling handle method in your web server route.
+
+Request and response objects should be enhanced versions of Node’s own request/response objects and support all [built-in fields and methods](https://nodejs.org/api/http.html#http_class_http_incomingmessage)!
+
+- JavaScript
+```js
+var genesis, notification;
+
+genesis = require('./lib/genesis.js');
+
+notification = new genesis.notification();
+
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: true })
+
+router.post('/listen', urlencodedParser, function (request, response) {
+    notification.handle(request, response)
+        .then(console.log)
+        .catch(console.log);
+});
+```
+
+- CoffeeScript
+
+```coffee
+genesis = require './lib/genesis.js'
+
+notification = new genesis.notification()
+
+bodyParser = require 'body-parser'
+urlencodedParser = bodyParser.urlencoded({ extended: true })
+
+router.post('/listen', urlencodedParser, (request, response) ->
+    notification.handle(request, response)
+      .then console.log
+      .catch console.log
+```
 
 Transaction Types
 -----------------

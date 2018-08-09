@@ -3,7 +3,7 @@ Base                = require '../base'
 TransactionTypes    = require '../../helpers/transaction/types'
 _                   = require 'underscore'
 config              = require 'config'
-CreditCardValidator = require '../../helpers/validators/credit_card'
+CreditCardValidator = require '../../helpers/validators/credit_card_validator'
 Promise             = require 'bluebird'
 
 class Avs extends Base

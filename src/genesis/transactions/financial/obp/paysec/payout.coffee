@@ -2,8 +2,8 @@
 FinancialBase    = require '../../financial_base'
 TransactionTypes = require '../../../../helpers/transaction/types'
 _                = require 'underscore'
-NumberValidator  = require '../../../../helpers/validators/number'
-RegExpValidator  = require '../../../../helpers/validators/regexp'
+NumberValidator  = require '../../../../helpers/validators/number_validator'
+RegExpValidator  = require '../../../../helpers/validators/regexp_validator'
 
 class PaySecPayout extends FinancialBase
 

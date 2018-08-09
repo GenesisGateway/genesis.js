@@ -2,7 +2,7 @@
 Base             = require '../base'
 util             = require 'util'
 _                = require 'underscore'
-AmountValidator  = require '../../helpers/validators/amount'
+AmountValidator  = require '../../helpers/validators/amount_validator'
 TransactionTypes = require '../../helpers/transaction/types'
 i18n             = require '../../helpers/i18n'
 

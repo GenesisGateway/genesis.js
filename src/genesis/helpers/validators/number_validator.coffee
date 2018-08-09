@@ -5,32 +5,32 @@ _         = require 'underscore'
 ###
   Validate if number is between given min and max numbers
 ###
-class Number extends Validator
+class NumberValidator extends Validator
 
-  constructor: (min, max) ->
+  constructor: (min = 0, max = 0) ->
     super()
     @min = min
     @max = max
 
 
   isValid: (value) ->
-
-    if !_.isUndefined(@min) and value < @min
+    if @min and value < @min
       return false
-    else if !_.isUndefined(@max) and value > @max
+    else if @max and value > @max
       return false
 
     true
 
   getMessage: (field) ->
-
-    if !_.isUndefined(@min) and _.isUndefined(@max)
+    if @min and @max == 0
       message_suffix = " Should be greater then #{@min}"
-    else if _.isUndefined(@min) and !_.isUndefined(@max)
+
+    else if @min == 0 and @max
       message_suffix = " Should be lower then #{@max}"
+
     else
       message_suffix = " Should be between #{@min} and #{@max}"
 
-    "Filed #{field} has invalid value." + message_suffix
+    "Field #{field} has invalid value.#{message_suffix}"
 
-module.exports = Number
+module.exports = NumberValidator

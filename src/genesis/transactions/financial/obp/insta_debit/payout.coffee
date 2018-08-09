@@ -2,7 +2,7 @@
 FinancialBase    = require '../../financial_base'
 TransactionTypes = require '../../../../helpers/transaction/types'
 _                = require 'underscore'
-StringValidator  = require '../../../../helpers/validators/string'
+StringValidator  = require '../../../../helpers/validators/string_validator'
 
 class InstaDebitPayout extends FinancialBase
 

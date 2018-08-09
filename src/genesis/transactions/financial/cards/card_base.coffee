@@ -1,7 +1,7 @@
 
 FinancialBase       = require '../financial_base'
 _                   = require 'underscore'
-CreditCardValidator = require '../../../helpers/validators/credit_card'
+CreditCardValidator = require '../../../helpers/validators/credit_card_validator'
 
 class CardBase extends  FinancialBase
 

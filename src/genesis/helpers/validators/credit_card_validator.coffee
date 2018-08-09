@@ -1,6 +1,6 @@
-RegExpValidator  = require './regexp'
+RegExpValidator  = require './regexp_validator'
 
-class CreditCard
+class CreditCardValidator
 
   constructor: (field) ->
 
@@ -30,4 +30,4 @@ class CreditCard
   getCCFieldValueFormatValidators: ->
     @validators
 
-module.exports = CreditCard
+module.exports = CreditCardValidator

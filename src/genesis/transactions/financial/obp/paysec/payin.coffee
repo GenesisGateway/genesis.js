@@ -2,7 +2,7 @@
 FinancialBase    = require '../../financial_base'
 TransactionTypes = require '../../../../helpers/transaction/types'
 _                = require 'underscore'
-NumberValidator  = require '../../../../helpers/validators/number'
+NumberValidator  = require '../../../../helpers/validators/number_validator'
 
 class PaySecPayin extends FinancialBase
 

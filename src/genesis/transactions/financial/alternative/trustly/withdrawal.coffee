@@ -1,7 +1,7 @@
 
 AlternativeBase  = require '../alternative_base'
 TransactionTypes = require '../../../../helpers/transaction/types'
-DateValidator    = require '../../../../helpers/validators/date'
+DateValidator    = require '../../../../helpers/validators/date_validator'
 _                = require 'underscore'
 
 class Withdrawal extends AlternativeBase

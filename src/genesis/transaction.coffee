@@ -57,12 +57,16 @@ Wechat              = require './transactions/financial/obp/wechat'
 Alipay              = require './transactions/financial/obp/alipay'
 iDebitPayin         = require './transactions/financial/obp/idebit/payin'
 iDebitPayout        = require './transactions/financial/obp/idebit/payout'
-
-###
-  Financial OBP transactions
-###
 InstaDebitPayin     = require './transactions/financial/obp/insta_debit/payin'
 InstaDebitPayout    = require './transactions/financial/obp/insta_debit/payout'
+
+###
+  Direct Debit
+###
+SddSale              = require './transactions/financial/direct_debit/sdd_sale'
+SddInitRecurringSale = require './transactions/financial/direct_debit/sdd_init_recurring_sale'
+SddRecurringSale     = require './transactions/financial/direct_debit/sdd_recurring_sale'
+SddRefund            = require './transactions/financial/direct_debit/sdd_refund'
 
 class Transaction
 
@@ -193,14 +197,26 @@ class Transaction
   idebit_payout: (params) ->
     new iDebitPayout(params)
 
-  ###
-    Financial OBP transactions
-  ###
-  insta_debit_payin: (params, onSuccess, onFailure) ->
-    new InstaDebitPayin(params).send(onSuccess, onFailure)
+  insta_debit_payin: (params) ->
+    new InstaDebitPayin(params)
 
-  insta_debit_payout: (params, onSuccess, onFailure) ->
-    new InstaDebitPayout(params).send(onSuccess, onFailure)
+  insta_debit_payout: (params) ->
+    new InstaDebitPayout(params)
+
+  ###
+    Direct Debit
+  ###
+  sdd_sale: (params) ->
+    new SddSale(params)
+
+  sdd_init_recurring_sale: (params) ->
+    new SddInitRecurringSale(params)
+
+  sdd_recurring_sale: (params) ->
+    new SddRecurringSale(params)
+
+  sdd_refund: (params) ->
+    new SddRefund(params)
 
   ###
     Web Payment Form
