@@ -1,4 +1,4 @@
-path = require('path');
+path = require('path')
 
 PaymentMethods = require path.resolve './src/genesis/helpers/payment/methods'
 

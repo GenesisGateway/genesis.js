@@ -5,12 +5,12 @@ class CardTypes
   ###
     The type of the issued card will be virtual
   ###
-  @VIRTUAL = 'virtual';
+  @VIRTUAL = 'virtual'
 
   ###
     The type of the issued card will be physical
   ###
-  @PHYSICAL = 'physical';
+  @PHYSICAL = 'physical'
 
   getCardTypes: ->
     value for key, value of @constructor

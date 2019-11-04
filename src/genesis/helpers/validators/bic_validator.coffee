@@ -9,7 +9,7 @@ class BicValidator extends Validator
   NOT_CHARACTERS_IN_FIRST_SIX: /^[^A-Z]{6}.*$/
 
   isValid: (value) ->
-    value = String(value); # make sure we have string
+    value = String(value) # make sure we have string
 
     @messages = []
 

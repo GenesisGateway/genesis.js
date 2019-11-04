@@ -1,4 +1,7 @@
-process.env.NODE_CONFIG_DIR = if process.env.NODE_CONFIG_DIR then process.env.NODE_CONFIG_DIR else require('path').join(__dirname, '..', 'config')
+process.env.NODE_CONFIG_DIR =
+  if process.env.NODE_CONFIG_DIR
+    process.env.NODE_CONFIG_DIR
+  else require('path').join(__dirname, '..', 'config')
 
 config = require "config"
 

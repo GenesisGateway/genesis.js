@@ -26,7 +26,7 @@ class Create extends Base
     @
 
   isValid: ->
-    @validationErrors = [];
+    @validationErrors = []
 
     rules = {
       'transaction_id':
@@ -49,7 +49,9 @@ class Create extends Base
 
     # validate locale
     if !@i18n.isValidLocale @locale
-      @validationErrors.push "Locale #{@locale} is not valid. Valid WPF locales are: #{@i18n.getLocales().join ', '}"
+      @validationErrors.push(
+        "Locale #{@locale} is not valid. Valid WPF locales are: #{@i18n.getLocales().join ', '}"
+      )
 
     # validate transaction types
     if @params.transaction_types

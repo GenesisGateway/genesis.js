@@ -1,6 +1,6 @@
 _ = require 'underscore'
 
-class i18n
+class I18n
   ###
     Arabic locale and language
   ###
@@ -79,7 +79,7 @@ class i18n
   ###
     Mandarin Chinese locale and language
   ###
-  @ZH = 'Chinese (Mandarin)';
+  @ZH = 'Chinese (Mandarin)'
 
   getLocales: ->
     key.toLowerCase() for key, value of @constructor
@@ -87,4 +87,4 @@ class i18n
   isValidLocale: (locale) ->
     _.indexOf( @getLocales(), locale.toLowerCase() ) != -1
 
-module.exports = i18n
+module.exports = I18n

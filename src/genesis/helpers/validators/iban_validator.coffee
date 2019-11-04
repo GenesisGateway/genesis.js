@@ -10,7 +10,7 @@ class IbanValidator extends Validator
   NOT_STARTS_WITH_TWO_LETTERS: /^[^A-Z]{2}.*$/
 
   isValid: (value) ->
-    value = String(value); # make sure we have string
+    value = String(value) # make sure we have string
 
     @messages = []
 

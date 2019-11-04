@@ -25,7 +25,7 @@ describe 'WPFCreate Transaction', ->
 
   it 'fails when wrong transaction_type', ->
     data = _.clone @data
-    data.transaction_types = ['NOT_VALID_TYPE'];
+    data.transaction_types = ['NOT_VALID_TYPE']
     assert.equal false, @transaction.setData(data).isValid()
 
   it 'fails when wrong locale', ->

@@ -2,8 +2,9 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-Transaction = require path.resolve './src/genesis/transactions/non_financial/fraud/retrieval/retrieval_by_date'
 Base        = require '../../../base'
+Transaction =
+  require path.resolve './src/genesis/transactions/non_financial/fraud/retrieval/retrieval_by_date'
 
 describe 'RetrievalByDate Transaction', ->
 

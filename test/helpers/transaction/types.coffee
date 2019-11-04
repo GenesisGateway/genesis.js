@@ -1,4 +1,4 @@
-path = require('path');
+path = require('path')
 
 TransactionTypes = require path.resolve './src/genesis/helpers/transaction/types'
 

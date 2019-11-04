@@ -55,8 +55,8 @@ PaySecPayin         = require './transactions/financial/obp/paysec/payin'
 PaySecPayout        = require './transactions/financial/obp/paysec/payout'
 Wechat              = require './transactions/financial/obp/wechat'
 Alipay              = require './transactions/financial/obp/alipay'
-iDebitPayin         = require './transactions/financial/obp/idebit/payin'
-iDebitPayout        = require './transactions/financial/obp/idebit/payout'
+IDebitPayin         = require './transactions/financial/obp/idebit/payin'
+IDebitPayout        = require './transactions/financial/obp/idebit/payout'
 InstaDebitPayin     = require './transactions/financial/obp/insta_debit/payin'
 InstaDebitPayout    = require './transactions/financial/obp/insta_debit/payout'
 
@@ -192,10 +192,10 @@ class Transaction
     new Alipay(params)
 
   idebit_payin: (params) ->
-    new iDebitPayin(params)
+    new IDebitPayin(params)
 
   idebit_payout: (params) ->
-    new iDebitPayout(params)
+    new IDebitPayout(params)
 
   insta_debit_payin: (params) ->
     new InstaDebitPayin(params)

@@ -7,63 +7,63 @@ class Methods
 
     PPRO transaction
   ###
-  @EPS = 'eps';
+  @EPS = 'eps'
 
   ###
     GiroPay
 
     PPRO transaction
   ###
-  @GIRO_PAY = 'giropay';
+  @GIRO_PAY = 'giropay'
 
   ###
     iDEAL
 
     PPRO transaction
   ###
-  @IDEAL = 'ideal';
+  @IDEAL = 'ideal'
 
   ###
     Przelewy24
 
     PPRO transaction
   ###
-  @PRZELEWY24 = 'przelewy24';
+  @PRZELEWY24 = 'przelewy24'
 
   ###
     QIWI
 
     PPRO transaction
   ###
-  @QIWI = 'qiwi';
+  @QIWI = 'qiwi'
 
   ###
     SafetyPay
 
     PPRO transaction
   ###
-  @SAFETY_PAY = 'safetypay';
+  @SAFETY_PAY = 'safetypay'
 
   ###
     TrustPay
 
     PPRO transaction
   ###
-  @TRUST_PAY = 'trustpay';
+  @TRUST_PAY = 'trustpay'
 
   ###
     Mr.Cash
 
     PPRO transaction
   ###
-  @BCMC = 'bcmc';
+  @BCMC = 'bcmc'
 
   ###
     MyBank
 
     PPRO transaction
   ###
-  @MYBANK = 'mybank';
+  @MYBANK = 'mybank'
 
   getMethods: ->
     value for key, value of @constructor

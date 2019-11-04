@@ -116,12 +116,17 @@ class Base
         # check if field value exists in the given array
         if _.isArray(value)
           if _.indexOf(value, fieldValue) == -1
-            @validationErrors.push "Field #{field} has invalid value. Allowed values are: #{value.join(', ')}" + message_suffix
+            @validationErrors.push(
+              "Field #{field} has invalid value. " +
+              "Allowed values are: #{value.join(', ')}" + message_suffix
+            )
 
         # check if field value match the given regular expression
         else if _.isRegExp(value)
           if !value.test(fieldValue)
-            @validationErrors.push "Field #{field} has invalid value. Allowed format is #{value}" + message_suffix
+            @validationErrors.push(
+              "Field #{field} has invalid value. Allowed format is #{value}" + message_suffix
+            )
 
         # check if field value pass given validator
         else if value instanceof Validator
@@ -131,7 +136,9 @@ class Base
         # check if field value match exact given value
         else if (typeof value == 'string' or _.isNumber(value))
           if fieldValue != value
-            @validationErrors.push "Field #{field} has invalid value. Allowed value is #{value}" + message_suffix
+            @validationErrors.push(
+              "Field #{field} has invalid value. Allowed value is #{value}" + message_suffix
+            )
 
         # if value is object check conditional values
         else if _.isObject(value)
@@ -149,7 +156,10 @@ class Base
 
         # check fields values if given field has exact value
         else
-          this.validateFieldsValues(conditions[fieldValue], message + " #{if message then "and" else "when"} #{field} is #{fieldValue}")
+          this.validateFieldsValues(
+            conditions[fieldValue],
+            message + " #{if message then "and" else "when"} #{field} is #{fieldValue}"
+          )
 
   validateRequiredFieldsGroups: ->
     if !_.isEmpty @requiredFieldsGroups
@@ -171,7 +181,9 @@ class Base
           hasOneFilledGroup = true
 
       if !hasOneFilledGroup
-        @validationErrors.push "One of the following group/s of field/s must be filled in: #{groupsFormatted.join '; '}"
+        @validationErrors.push(
+          "One of the following group/s of field/s must be filled in: #{groupsFormatted.join '; '}"
+        )
 
   isValid: ->
     @validationErrors = []

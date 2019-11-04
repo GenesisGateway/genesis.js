@@ -15,7 +15,7 @@ Client Library for processing payments through Genesis Payment Processing Gatewa
 Requirements
 ------------
 
-* node.js v6.11.0 or newer
+* node.js v8.16.2 or newer
 * npm
 
 

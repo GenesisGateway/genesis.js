@@ -4,7 +4,7 @@ TransactionTypes = require '../../../../helpers/transaction/types'
 _                = require 'underscore'
 StringValidator  = require '../../../../helpers/validators/string_validator'
 
-class iDebitPayout extends FinancialBase
+class IDebitPayout extends FinancialBase
 
   getTransactionType: ->
     TransactionTypes.IDEBIT_PAYOUT
@@ -22,4 +22,4 @@ class iDebitPayout extends FinancialBase
 
     @fieldsValues['transaction_id'] = new StringValidator 1, 30
 
-module.exports = iDebitPayout
+module.exports = IDebitPayout

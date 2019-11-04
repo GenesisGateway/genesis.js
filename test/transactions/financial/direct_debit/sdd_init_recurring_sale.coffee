@@ -3,8 +3,9 @@ _     = require 'underscore'
 faker = require 'faker'
 
 FakeData      = require '../../fake_data'
-Transaction   = require path.resolve './src/genesis/transactions/financial/direct_debit/sdd_init_recurring_sale'
 SDDBase       = require './sdd_base'
+Transaction   =
+  require path.resolve './src/genesis/transactions/financial/direct_debit/sdd_init_recurring_sale'
 
 describe 'SddInitRecurringSale', ->
 
@@ -27,7 +28,7 @@ describe 'SddInitRecurringSale', ->
 
       it 'is invalid', ->
         data = _.clone @data
-        data['iban'] = '123_NOT_VALID_IBAN';
+        data['iban'] = '123_NOT_VALID_IBAN'
         assert.isNotTrue @transaction.setData(data).isValid()
 
   context 'with bic validation', ->
@@ -41,7 +42,7 @@ describe 'SddInitRecurringSale', ->
 
       it 'is invalid', ->
         data = _.clone @data
-        data['bic'] = 'NOT_VALID_BIC';
+        data['bic'] = 'NOT_VALID_BIC'
         assert.isNotTrue @transaction.setData(data).isValid()
 
   context 'with country validation', ->
@@ -50,7 +51,7 @@ describe 'SddInitRecurringSale', ->
 
       it 'is invalid', ->
         data = _.clone @data
-        data['billing_address'] = _.omit data['billing_address'], 'country';
+        data['billing_address'] = _.omit data['billing_address'], 'country'
         assert.isNotTrue @transaction.setData(data).isValid()
 
   context 'with first_name validation', ->
@@ -59,7 +60,7 @@ describe 'SddInitRecurringSale', ->
 
       it 'is invalid', ->
         data = _.clone @data
-        data['billing_address'] = _.omit data['billing_address'], 'first_name';
+        data['billing_address'] = _.omit data['billing_address'], 'first_name'
         assert.isNotTrue @transaction.setData(data).isValid()
 
   context 'with last_name validation', ->
@@ -68,5 +69,5 @@ describe 'SddInitRecurringSale', ->
 
       it 'is invalid', ->
         data = _.clone @data
-        data['billing_address'] = _.omit data['billing_address'], 'last_name';
+        data['billing_address'] = _.omit data['billing_address'], 'last_name'
         assert.isNotTrue @transaction.setData(data).isValid()

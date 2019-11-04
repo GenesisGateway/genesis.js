@@ -1,4 +1,4 @@
-path = require('path');
+path = require('path')
 
 Country = require path.resolve './src/genesis/helpers/country'
 

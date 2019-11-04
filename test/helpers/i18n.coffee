@@ -1,4 +1,4 @@
-path = require('path');
+path = require('path')
 
 i18n = require path.resolve './src/genesis/helpers/i18n'
 

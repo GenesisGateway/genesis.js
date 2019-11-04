@@ -70,15 +70,15 @@ class Notification
   reconcile: (params) ->
     transaction = new Transaction()
 
-    params =
+    reconcileParams =
       unique_id:
         params.wpf_unique_id || params.unique_id
 
-    if params.wpf_unique_id
-      transaction.wpf_reconcile params
+    if @isWpfNotification(params)
+      transaction.wpf_reconcile reconcileParams
         .send()
     else
-      transaction.reconcile params
+      transaction.reconcile reconcileParams
         .send()
 
   ###
@@ -87,7 +87,7 @@ class Notification
   ###
   echoConfirmation: (params) ->
 
-    if params.wpf_unique_id
+    if @isWpfNotification(params)
       response_body = {
         notification_echo:
           'wpf_unique_id':
@@ -110,12 +110,10 @@ class Notification
     if !params.signature
       return false
 
-    if params.unique_id
-      unique_id = params.unique_id
-    else if params.wpf_unique_id
+    if @isWpfNotification(params)
       unique_id = params.wpf_unique_id
     else
-      unique_id = new String
+      unique_id = params.unique_id
 
     switch params.signature.length
       when 40  then hash = crypto.
@@ -132,6 +130,14 @@ class Notification
       return false
 
     true
+
+  ###
+    Check if request is WPF or Processing
+  ###
+  isWpfNotification: (params) ->
+    if params.wpf_unique_id then return true
+
+    return false
 
   getUrl: () =>
     util.format 'http://%s:%s%s'

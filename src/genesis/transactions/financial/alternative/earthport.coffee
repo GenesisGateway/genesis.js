@@ -77,6 +77,7 @@ class Earthport extends AlternativeBase
         'US': ['account_number', 'aba_routing_number', 'billing_address.state']
         'VN': ['account_number', 'bic']
 
-    @fieldsValues['billing_address.country'] =  _.keys @requiredFieldsConditional['billing_address.country']
+    @fieldsValues['billing_address.country'] =
+      _.keys @requiredFieldsConditional['billing_address.country']
 
 module.exports = Earthport

@@ -7,11 +7,11 @@ Base = () ->
 
   it 'calls request send method if data is valid', ->
 
-    send = sinon.stub(Request.prototype, 'send').returns(true);
+    send = sinon.stub(Request.prototype, 'send').returns(true)
 
     @transaction.setData(@data).send()
 
-    send.restore();
-    sinon.assert.calledOnce(send);
+    send.restore()
+    sinon.assert.calledOnce(send)
 
 module.exports = Base

@@ -14,12 +14,12 @@ FinancialBase = () ->
 
   it 'fails when wrong amount parameter', ->
     data = _.clone @data
-    data.amount = -1000;
+    data.amount = -1000
     assert.equal false, @transaction.setData(data).isValid()
 
   it 'fails when wrong currency parameter', ->
     data = _.clone @data
-    data.currency = 'NOT_VALID_CURRENCY';
+    data.currency = 'NOT_VALID_CURRENCY'
     assert.equal false, @transaction.setData(data).isValid()
 
   Base()

@@ -11,9 +11,9 @@ describe 'Authrize 3D Transaction', ->
   before ->
     @data        = (new FakeData).getData()
 
-    @data['notification_url']   = faker.internet.url();
-    @data['return_success_url'] = faker.internet.url();
-    @data['return_failure_url'] = faker.internet.url();
+    @data['notification_url']   = faker.internet.url()
+    @data['return_success_url'] = faker.internet.url()
+    @data['return_failure_url'] = faker.internet.url()
 
     @transaction = new Transaction()
 

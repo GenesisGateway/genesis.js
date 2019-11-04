@@ -1,4 +1,4 @@
-path = require('path');
+path = require('path')
 
 CardTypes = require path.resolve './src/genesis/helpers/transaction/pay_by_vouchers/card_types'
 

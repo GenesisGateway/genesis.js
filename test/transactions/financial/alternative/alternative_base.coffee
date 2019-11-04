@@ -19,7 +19,7 @@ AlternativeBase = () ->
 
   it 'fails when missing required country parameter', ->
     data = _.clone @data
-    data['billing_address'] = _.omit data['billing_address'], 'country';
+    data['billing_address'] = _.omit data['billing_address'], 'country'
     assert.equal false, @transaction.setData(data).isValid()
 
 

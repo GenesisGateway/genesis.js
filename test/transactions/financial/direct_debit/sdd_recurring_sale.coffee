@@ -3,8 +3,9 @@ _     = require 'underscore'
 faker = require 'faker'
 
 FakeData      = require '../../fake_data'
-Transaction   = require path.resolve './src/genesis/transactions/financial/direct_debit/sdd_recurring_sale'
 SDDBase       = require './sdd_base'
+Transaction   =
+  require path.resolve './src/genesis/transactions/financial/direct_debit/sdd_recurring_sale'
 
 describe 'SddRecurringSale', ->
 

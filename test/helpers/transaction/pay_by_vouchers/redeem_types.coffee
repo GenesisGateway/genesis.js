@@ -1,4 +1,4 @@
-path = require('path');
+path = require('path')
 
 RedeemTypes = require path.resolve './src/genesis/helpers/transaction/pay_by_vouchers/redeem_types'
 

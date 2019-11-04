@@ -1,3 +1,10 @@
+2.0.4
+-----
+
+* Fix issue with Reconcile Transaction
+    - after Web Payment Form Notification, Reconcile transaction was failing
+* Update Components and Node.js version support
+
 2.0.3
 -----
 

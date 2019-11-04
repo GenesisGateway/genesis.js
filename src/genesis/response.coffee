@@ -35,7 +35,8 @@ class Response
         currency = new Currency()
 
         if responseObject.hasOwnProperty('amount') and responseObject.hasOwnProperty('currency')
-          responseObject.amount = currency.convertToNominalUnits responseObject.amount, responseObject.currency
+          responseObject.amount =
+            currency.convertToNominalUnits responseObject.amount, responseObject.currency
 
         return responseObject
 

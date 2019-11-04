@@ -6,7 +6,7 @@ config   = require 'config'
 js2xml   = require 'js2xmlparser'
 request  = require 'request'
 Response = require './response'
-Promise  = require 'bluebird';
+Promise  = require 'bluebird'
 
 class Request
 
@@ -62,10 +62,16 @@ class Request
             path.join __dirname, '../../assets/certificates/symantec_class_3_ev_ca.pem'
           ),
           fs.readFileSync(
-            path.join __dirname, '../../assets/certificates/verisign_class_3_primary_certification_authority.pem'
+            path.join(
+              __dirname,
+              '../../assets/certificates/verisign_class_3_primary_certification_authority.pem'
+            )
           ),
           fs.readFileSync(
-            path.join __dirname, '../../assets/certificates/verisign_universal_root_certification_authority.pem'
+            path.join(
+              __dirname,
+              '../../assets/certificates/verisign_universal_root_certification_authority.pem'
+            )
           ),
         ]
         # Explicitly state that we want to perform

@@ -1,4 +1,4 @@
-path = require('path');
+path = require('path')
 
 Currency = require path.resolve './src/genesis/helpers/currency'
 
