@@ -50,30 +50,6 @@ class Request
 
     args =
       agentOptions:
-        # Array with the Root certificates used
-        # to verify the app servers
-        #
-        # Note: Update if necessary
-        ca: [
-          fs.readFileSync(
-            path.join __dirname, '../../assets/certificates/addtrust_external_root.pem'
-          ),
-          fs.readFileSync(
-            path.join __dirname, '../../assets/certificates/symantec_class_3_ev_ca.pem'
-          ),
-          fs.readFileSync(
-            path.join(
-              __dirname,
-              '../../assets/certificates/verisign_class_3_primary_certification_authority.pem'
-            )
-          ),
-          fs.readFileSync(
-            path.join(
-              __dirname,
-              '../../assets/certificates/verisign_universal_root_certification_authority.pem'
-            )
-          ),
-        ]
         # Explicitly state that we want to perform
         # certificate verification
         rejectUnauthorized: true
