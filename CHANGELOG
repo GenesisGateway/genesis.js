@@ -1,3 +1,9 @@
+2.1.0
+-----
+
+* Replaced the request library with Axios.
+* The error responses now have a common format (more details in the README)
+
 2.0.5
 -----
 

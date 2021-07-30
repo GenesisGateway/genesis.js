@@ -318,6 +318,105 @@ router.post('/listen', urlencodedParser, (request, response) ->
       .then console.log
       .catch console.log
 ```
+Response
+--------
+
+#### Success callback
+
+You receive a successful Transaction Execution response in JSON format. The data contains a `status`.
+
+
+If the Transaction is Successful the status is one of the following:
+  * `new`
+  * `approved`
+  * `pending_async`
+  
+  <details>
+  <summary>Example Successful Transaction Execution</summary>
+  
+  ```object
+  { 
+    status: 'new',
+    unique_id: '9ee21d5a35a3a08615b2082077a5f529',
+    transaction_id: '706103ba5c4683296d16379220770699',
+    timestamp: '2021-07-29T13:12:02Z',
+    amount: '100.00',
+    currency: 'USD',
+    redirect_url: 'https://staging.wpf.emerchantpay.net/en/payment/9ee21d5a35a3a08615b2082077a5f529' 
+  }
+  ```
+  </details>
+  
+If an error occurs during the Transaction Execution the status is one of the following:
+  * `error`
+  * `declined`
+
+<details>
+<summary>Example Transaction Execution with Error</summary>
+
+```object
+{
+  transaction_type: 'authorize3d',
+  status: 'declined',
+  authorization_code: 671842,
+  unique_id: '55b4614e2ffb7677925565431ef83551',
+  transaction_id: '57b1b124e68f69212a40390546e59ca2',
+  response_code: 1,
+  code: 510,
+  technical_message: 'card_number is invalid or missing',
+  message: 'Credit card number is invalid.',
+  mode: 'test',
+  timestamp: '2021-07-29T14:30:53Z',
+  descriptor: 'test',
+  amount: '10.00',
+  currency: 'EUR',
+  sent_to_acquirer: true
+}
+```
+</details>
+
+#### Failure callback
+
+
+Upon received status >= 300 from the Gateway or upon invalid request the following JSON object will be received on the failure callback:
+```
+{
+  status: "HTTP Status Code"
+  message: "Brief explanation about the error"
+  response: {
+    // Received Response from the server if there is any
+  }
+}
+```
+
+<details>
+<summary>Example Failure Transaction Execution with Response</summary>
+
+```object
+{
+  status: 401
+  message: 'Unauthorized',
+  response: {
+    status: 'error',
+    code: 110,
+    technical_message: 'Invalid Authentication',
+    message: '401 Unauthorized: Invalid Authentication!'
+  }
+}
+```
+</details>
+
+<details>
+<summary>Example Failure Transaction Execution without Response</summary>
+
+```object
+{ 
+  status: 'ENOTFOUND',
+  message: 'No response received from hostname: examlpe.com',
+  response: undefined
+}
+```
+</details>
 
 Transaction Types
 -----------------

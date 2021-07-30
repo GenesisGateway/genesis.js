@@ -12,7 +12,7 @@ describe 'Cancel Transaction', ->
     @data        = (new FakeData).getData()
     @transaction = new Transaction()
 
-    @data['reference_id'] = faker.random.number()
+    @data['reference_id'] = faker.datatype.number()
 
   Base()
 

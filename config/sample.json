@@ -1,18 +1,18 @@
 {
-	"customer": {
-		"username"	: "<enter-your-username>",
-		"password"	: "<enter-your-password>",
-		"token"		: "<enter-your-token>"
-	},
-	"gateway": {
-		"protocol"	: "https",
-		"hostname"	: "<please-select-the-endpoint-you-want-e-comprocessing.net-or-emerchantpay.net>",
-		"timeout"	: "60000",
-		"testing"	: true
-	},
-	"notifications":{
-		"host"		: "<hostname>",
-		"port"		: "<port>",
-		"path"		: "<path>"
-	}
+  "customer": {
+    "username"	: "<enter-your-username>",
+    "password"	: "<enter-your-password>",
+    "token"		: "<enter-your-token>"
+  },
+  "gateway": {
+    "protocol"	: "https",
+    "hostname"	: "<please-select-the-endpoint-you-want-e-comprocessing.net-or-emerchantpay.net>",
+    "timeout"	: "60000",
+    "testing"	: true
+  },
+  "notifications":{
+    "host"		: "<hostname>",
+    "port"		: "<port>",
+    "path"		: "<path>"
+  }
 }

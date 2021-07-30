@@ -1,5 +1,5 @@
 _        = require 'underscore'
-xml2json = require 'xml2json'
+fastXmlParser = require 'fast-xml-parser'
 Currency = require './helpers/currency'
 
 class Response
@@ -10,7 +10,7 @@ class Response
     Attempt to process response from Genesis Payment Gateway
   ###
   process: (response) ->
-    _.chain(response.body)
+    _.chain(response.data)
       .response_parse()
       .response_flatten()
       .response_convert_amount()
@@ -24,7 +24,8 @@ class Response
 
       # Parse the incoming XML document to JSON
       response_parse: (xml) ->
-        return xml2json.toJson xml, {object: true, sanitize: false}
+
+        return fastXmlParser.parse(xml, [])
 
       # Remove the firstChild as its usually just a single node
       response_flatten: (responseObject) ->

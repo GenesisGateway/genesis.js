@@ -11,7 +11,7 @@ describe 'Capture Transaction', ->
 
   before ->
     @data        = (new FakeData).getData()
-    @data['reference_id'] = faker.random.number()
+    @data['reference_id'] = faker.datatype.number()
 
     @transaction = new Transaction()
 

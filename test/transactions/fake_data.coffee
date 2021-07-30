@@ -9,11 +9,11 @@ class FakeData
     @data =
       _.extend(
         'transaction_id':
-          faker.random.number()
+          faker.datatype.number()
         'currency':
           faker.random.arrayElement (new Currency).getCurrencies()
         'amount':
-          faker.random.number()
+          faker.datatype.number()
         'usage':
           'Genesis JS Client Automated Request'
         'remote_ip':
@@ -33,11 +33,11 @@ class FakeData
     'card_number':
       '4200000000000000'
     'cvv':
-      faker.random.number({min: 100, max: 999}) #fix this to generate numbers like 003
+      faker.datatype.number({min: 100, max: 999}) #fix this to generate numbers like 003
     'expiration_month':
-      faker.random.number({min: 1, max: 12})
+      faker.datatype.number({min: 1, max: 12})
     'expiration_year':
-      faker.random.number({min: (new Date).getFullYear(), max: (new Date).getFullYear()+5})
+      faker.datatype.number({min: (new Date).getFullYear(), max: (new Date).getFullYear()+5})
 
   getBillingData: ->
     'billing_address':

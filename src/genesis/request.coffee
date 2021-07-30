@@ -4,7 +4,8 @@ path     = require 'path'
 util     = require 'util'
 config   = require 'config'
 js2xml   = require 'js2xmlparser'
-request  = require 'request'
+axios    = require 'axios'
+https    = require 'https'
 Response = require './response'
 Promise  = require 'bluebird'
 
@@ -41,46 +42,64 @@ class Request
   objToXml: (structure) ->
     rootNode = _.first _.keys(structure)
 
-    js2xml rootNode, structure[rootNode]
+    js2xml.parse rootNode, structure[rootNode]
 
   ###
     Send the transaction to the Gateway
   ###
   send: (params) ->
 
-    args =
-      agentOptions:
-        # Explicitly state that we want to perform
-        # certificate verification
-        rejectUnauthorized: true
-        # Force TLS1.2 as the only supported method.
-        #
-        # Note: Update if necessary
-        secureProtocol: 'TLSv1_2_method'
-      auth:
-        username: config.customer.username
-        password: config.customer.password
-      body: @objToXml params.trx
+    requestConfig =
+      method: 'POST'
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: true,
+        maxVersion: "TLSv1.2",
+        minVersion: "TLSv1.2"
+      })
       headers:
         'Content-Type': 'text/xml',
         'User-Agent': 'Genesis Node.js client v' + config.module.version
-      strictSSL: true
+        'Authorization': 'Basic ' +
+          Buffer.from(
+            config.customer.username + ':' + config.customer.password
+          ).toString('base64')
       timeout: Number(config.gateway.timeout)
-      url: @formatUrl params.url
+      validateStatus: (status) ->
+        status >= 200 && status < 300
 
     new Promise(
       ((resolve, reject) ->
-        request.post args, ((error, httpResponse, responseBody) ->
-          if error
-            reject responseBody || error
-          else
-            respObj = @response.process httpResponse
-            if respObj.status in ['declined', 'error']
-              reject respObj
-            else
-              resolve respObj
+        axios.post(
+          (@formatUrl params.url),
+          (@objToXml params.trx),
+          requestConfig
+        ).then ((httpResponse) ->
+          resolve @response.process httpResponse
+        ).bind(@)
+          .catch ((errorObject) ->
+            reject @parseErrorObject errorObject
         ).bind(@)
       ).bind(@)
     )
+
+  parseErrorObject: (errorObject) ->
+
+    if errorObject.response
+      return {
+        status: errorObject.response.status,
+        message: errorObject.response.statusText,
+        response: this.response.process errorObject.response
+      }
+    if errorObject.request
+      return {
+        status: errorObject.code,
+        message: 'No response received from hostname: ' + errorObject.hostname
+        response: errorObject.response
+      }
+    return {
+      status: 'Unknown',
+      message: errorObject.message,
+      response: undefined
+    }
 
 module.exports = Request

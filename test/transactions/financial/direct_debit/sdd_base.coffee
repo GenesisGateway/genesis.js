@@ -7,7 +7,7 @@ SDDBase = () ->
 
   before ->
     @data           = (new FakeData).getData()
-    @data['amount'] = faker.random.number({"min": 10, "max": 24999.99})
+    @data['amount'] = faker.datatype.number({"min": 10, "max": 24999.99})
 
   FinancialBase()
 
