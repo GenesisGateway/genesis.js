@@ -1,6 +1,6 @@
 {
   "name": "genesis.js",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "JS library for Genesis Payment Processing Gateway",
   "main": "./lib/genesis.js",
   "repository": {
@@ -8,8 +8,6 @@
     "url": "https://github.com/GenesisGateway/genesis.js"
   },
   "scripts": {
-    "install": "cake build",
-    "debug": "cake watch",
     "test": "mocha --require coffeescript/register --require test/chai 'test/**/*.coffee'"
   },
   "dependencies": {
