@@ -1,6 +1,6 @@
 {
   "name": "genesis.js",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "JS library for Genesis Payment Processing Gateway",
   "main": "./lib/genesis.js",
   "repository": {
@@ -11,7 +11,7 @@
     "test": "mocha --require coffeescript/register --require test/chai 'test/**/*.coffee'"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.22.0",
     "bigdecimal": "^0.6.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.14.1",

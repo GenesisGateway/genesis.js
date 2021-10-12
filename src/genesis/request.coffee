@@ -11,6 +11,10 @@ Promise  = require 'bluebird'
 
 class Request
 
+  ENVIRONMENT_PREFIX_PRODUCTION = ''
+
+  ENVIRONMENT_PREFIX_STAGING = 'staging'
+
   constructor: ->
     @response = new Response
 
@@ -18,12 +22,11 @@ class Request
     Format and return the endpoint URL based on the transaction parameters
   ###
   formatUrl: (params) ->
-    prefix = if config.gateway.testing then 'staging.' else new String
 
     if params.token
       util.format '%s://%s%s.%s/%s/%s'
       , config.gateway.protocol
-      , prefix
+      , @getURLEnvironment()
       , params.app
       , config.gateway.hostname
       , params.path
@@ -31,7 +34,7 @@ class Request
     else
       util.format '%s://%s%s.%s/%s'
       , config.gateway.protocol
-      , prefix
+      , @getURLEnvironment()
       , params.app
       , config.gateway.hostname
       , params.path
@@ -101,5 +104,11 @@ class Request
       message: errorObject.message,
       response: undefined
     }
+
+  getURLEnvironment: () ->
+    return if config.gateway.testing
+    then ENVIRONMENT_PREFIX_STAGING + '.'
+    else ENVIRONMENT_PREFIX_PRODUCTION
+
 
 module.exports = Request

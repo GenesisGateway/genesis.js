@@ -6,7 +6,7 @@ process.env.NODE_CONFIG_DIR =
 config = require "config"
 
 params =
-  version: '2.1.1'
+  version: '2.1.2'
 
 config.util.setModuleDefaults 'module', params
 
