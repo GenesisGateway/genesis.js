@@ -46,7 +46,6 @@ Sofort              = require './transactions/financial/alternative/sofort'
 PPRO                = require './transactions/financial/alternative/ppro'
 TrustlySale         = require './transactions/financial/alternative/trustly/sale'
 TrustlyWithdrawal   = require './transactions/financial/alternative/trustly/withdrawal'
-Earthport           = require './transactions/financial/alternative/earthport'
 
 ###
   Financial OBP transactions

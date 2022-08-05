@@ -1,0 +1,95 @@
+{
+  "$id": "https://genesis.js/wpf_create",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "amount",
+    "currency",
+    "notification_url",
+    "return_success_url",
+    "return_failure_url",
+    "return_cancel_url",
+    "transaction_types"
+  ],
+  "properties": {
+    "locale": {
+      "$ref": "/definitions/i18n"
+    },
+    "transaction_id": {
+      "$ref": "/definitions/definitions#transaction_id"
+    },
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "wpf_create"
+        }
+      ]
+    },
+    "usage": {
+      "$ref": "/definitions/definitions#usage"
+    },
+    "description": {},
+    "amount": {
+      "$ref": "/definitions/attributes/financial/payment#amount"
+    },
+    "currency": {
+      "$ref": "/definitions/attributes/financial/payment#currency"
+    },
+    "notification_url": {
+      "$ref": "/definitions/definitions#url",
+      "descritpion": "URL at merchant where gateway sends outcome of transaction."
+    },
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after successful payment."
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "return_cancel_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to when the customer cancels the payment process within the WPF."
+    },
+    "return_pending_url": {
+      "type": "string",
+      "description": "URL where the customer is sent to when asynchronous payment is pending confirmation"
+    },
+    "transaction_types": {
+      "$ref": "/definitions/attributes/wpf/transaction_types"
+    },
+    "customer_email": {
+      "$ref": "/definitions/definitions#customer_email"
+    },
+    "customer_phone": {
+      "$ref": "/definitions/definitions#customer_phone"
+    },
+    "billing_address": {
+      "$ref": "/definitions/attributes/customer/address#billing"
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "business_attributes": {
+      "$ref": "/definitions/attributes/business_attributes"
+    },
+    "consumer_id": {
+      "$ref": "/definitions/attributes/financial/tokenization#consumer_id"
+    },
+    "remember_card": {
+      "$ref": "/definitions/attributes/financial/tokenization#remember_card"
+    }
+  },
+  "dependencies": {
+    "remember_card": {
+      "if": { "properties": { "remember_card": { "enum": [ true ] } } },
+      "then": { "required": [ "customer_email" ] }
+    },
+    "consumer_id": ["customer_email"]
+  }
+}

@@ -10,6 +10,4 @@ class Sale3d extends CardBase
   constructor: (params) ->
     super params
 
-    @set3DRequiredFields()
-
 module.exports = Sale3d

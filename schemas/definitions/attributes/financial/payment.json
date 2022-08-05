@@ -1,0 +1,24 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/financial/payment",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "amount": {
+      "$ref": "/definitions/attributes/financial/payment#amount"
+    },
+    "currency": {
+      "$id": "#currency",
+      "$ref": "/definitions/currency"
+    }
+  },
+
+  "$defs": {
+    "$id": "/definitions/attributes/financial/payment#amount",
+    "type": ["number", "string"],
+    "description": "Transaction amount",
+    "title": "Amount",
+    "minimum": 0,
+    "maximum": 100000000000,
+    "pattern": "^[+]?\\d+([.]\\d+)?$",
+    "message": "Example: 1 or 1.23"
+  }
+}

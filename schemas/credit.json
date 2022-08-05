@@ -1,0 +1,47 @@
+{
+  "$id": "https://genesis.js/credit",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Credits (also known as Credit Fund Transfer a.k.a. CFT) can be done with an initial reference transaction.This transaction type allows you to transfer funds to a previously charged card.The amount can be higher than the charged reference",
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "reference_id",
+    "currency",
+    "amount"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#reference"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "credit"
+        }
+      ]
+    },
+    "amount": {},
+    "currency": {},
+    "remote_ip": {},
+    "usage": {},
+    "crypto": {
+      "$ref": "/definitions/attributes/financial/common#crypto"
+    },
+    "transaction_id": {},
+    "reference_id": {},
+    "source_of_funds": {
+      "enum": ["credit", "debit", "prepaid", "cash", "other_debit_account", "other_credit_account"],
+      "description": "Specify the source of funds"
+    }
+  }
+}

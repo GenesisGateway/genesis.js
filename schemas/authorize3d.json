@@ -1,0 +1,101 @@
+{
+  "$id": "https://genesis.js/authorize3d",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "amount",
+    "currency",
+    "card_holder"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/definitions#card"
+    },
+    {
+      "$ref": "/definitions/attributes/threeds/v1/threeds_v1"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/tokenization"
+    }
+  ],
+  "messages": {
+    "anyOf": [
+      "At least one of mpi_params or notification_url parameters should exists into the request.",
+      "If protocol_version=\"2\" is used directory_server_id is required."
+    ],
+    "oneOf": [
+      "Only one of the following parameters can exists in the request: card_number or token."
+    ]
+  },
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "authorize3d"
+        }
+      ]
+    },
+    "remote_ip": {},
+    "usage": {},
+    "gaming": {
+      "$ref": "/definitions/attributes/financial/common#gaming"
+    },
+    "moto": {
+      "$ref": "/definitions/attributes/financial/common#moto"
+    },
+    "crypto": {
+      "$ref": "/definitions/attributes/financial/common#crypto"
+    },
+    "notification_url": {},
+    "return_success_url": {},
+    "return_failure_url": {},
+    "amount": {},
+    "currency": {},
+    "customer_email": {},
+    "customer_phone": {},
+    "card_holder": {},
+    "card_number": {},
+    "expiration_month": {},
+    "expiration_year": {},
+    "cvv": {},
+    "token": {},
+    "remember_card": {},
+    "consumer_id": {},
+    "birth_date": {},
+    "fx_rate_id": {
+      "$ref": "/definitions/definitions#fx_rate_id"
+    },
+    "billing_address": {
+      "$ref": "/definitions/attributes/customer/address#billing"
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "mpi_params": {},
+    "business_attributes": {
+      "$ref": "/definitions/attributes/business_attributes"
+    },
+    "sca_params": {
+      "$ref": "/definitions/attributes/sca_params#sca_params"
+    },
+    "threeds_v2_params": {
+      "$ref": "/definitions/attributes/threeds/v2/threeds_v2"
+    }
+  }
+}

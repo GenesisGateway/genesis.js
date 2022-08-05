@@ -1,0 +1,62 @@
+{
+  "$id": "https://genesis.js/account_verification",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "card_holder",
+    "card_number",
+    "expiration_month",
+    "expiration_year"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/definitions#card"
+    }
+  ],
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "account_verification"
+        }
+      ]
+    },
+    "remote_ip": {},
+    "usage": {},
+    "customer_email": {},
+    "customer_phone": {},
+    "issuer_oct_enabled": {
+      "type": "boolean"
+    },
+    "card_holder": {},
+    "card_number": {},
+    "expiration_month": {},
+    "expiration_year": {},
+    "cvv": {},
+    "moto": {
+      "$ref": "/definitions/attributes/financial/common#moto"
+    },
+    "document_id": {
+      "$ref": "/definitions/definitions#document_id"
+    },
+    "billing_address": {
+      "$ref": "/definitions/attributes/customer/address#billing"
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    }
+  }
+}

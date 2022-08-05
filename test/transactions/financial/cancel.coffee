@@ -9,10 +9,10 @@ Base        = require '../base'
 describe 'Cancel Transaction', ->
 
   before ->
-    @data        = (new FakeData).getData()
+    @data        = (new FakeData).getMinimumData()
     @transaction = new Transaction()
 
-    @data['reference_id'] = faker.datatype.number()
+    @data['reference_id'] = faker.datatype.number().toString()
 
   Base()
 

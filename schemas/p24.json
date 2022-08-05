@@ -1,0 +1,87 @@
+{
+  "$id": "https://genesis.js/p24",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "remote_ip",
+    "return_success_url",
+    "return_failure_url",
+    "amount",
+    "currency",
+    "customer_email"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "p24"
+        }
+      ]
+    },
+    "remote_ip": {},
+    "usage": {},
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "amount": {},
+    "currency": {},
+    "customer_email": {},
+    "customer_phone": {},
+    "bank_code": {
+      "oneOf": [
+        { "const": "154", "title": "BLIK - PSP" },
+        { "const": "94", "title": "EuroBank" },
+        { "const": "178", "title": "Przekaz tradycyjny" },
+        { "const": "1000", "title": "Przekaz/Przelew tradycyjny" },
+        { "const":  "135", "title": "Płac ̨e z IKO" },
+        { "const":  "146", "title": "Płac ̨e z Orange" },
+        { "const":  "102", "title":  "Raiffeisen Bank PBL" },
+        { "const":  "177", "title": "U ̇zyj przedpłaty" },
+        { "const":  "25", "title": "mBank-mTransfer" }
+      ]
+    },
+    "billing_address": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "required": ["country"],
+          "properties": {
+            "country": {
+              "enum": [
+                "AD", "AT", "BE", "CY", "CZ", "DK", "EE", "FI", "FR", "EL", "ES", "NL", "IE", "IS", "LT", "LV", "LU",
+                "MT", "DE", "NO", "PL", "PT", "SM", "SK", "SI", "CH", "SE", "HU", "GB", "IT", "US", "CA", "JP", "UA",
+                "BY", "RU"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    }
+  }
+}

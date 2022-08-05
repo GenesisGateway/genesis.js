@@ -1,0 +1,66 @@
+{
+  "$id": "https://genesis.js/sdd_sale",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "amount",
+    "currency",
+    "iban",
+    "bic",
+    "billing_address",
+    "usage"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/definitions#bank"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "sdd_sale"
+        }
+      ]
+    },
+    "remote_ip": {},
+    "usage": {},
+    "amount": {},
+    "currency": {},
+    "iban": {},
+    "bic": {},
+    "billing_address": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "required": [
+            "first_name",
+            "last_name",
+            "country"
+          ]
+        }
+      ]
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    }
+  }
+}

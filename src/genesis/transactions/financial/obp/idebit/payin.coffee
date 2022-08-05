@@ -12,20 +12,5 @@ class IDebitPayin extends FinancialBase
   constructor: (params) ->
     super params
 
-    @requiredFields =
-      _.union(
-        @requiredFields,
-        [
-          'return_url',
-          'customer_account_id',
-          'customer_email',
-          'billing_address.country'
-        ]
-      )
-
-    @fieldsValues['transaction_id'] = new StringValidator 1, 30
-    @fieldsValues['billing_address.country'] = ['CA']
-    @fieldsValues['currency'] = ['CAD', 'USD', 'EUR', 'GBP', 'AUD']
-
 
 module.exports = IDebitPayin

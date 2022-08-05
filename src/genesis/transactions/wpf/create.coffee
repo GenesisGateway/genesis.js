@@ -17,58 +17,16 @@ class Create extends Base
     @transactionTypes = new TransactionTypes
     @i18n             = new i18n
 
+  getTransactionType: ->
+    'wpf_create'
+
   setLocale: ->
     if @params && @params.locale then @locale = @params.locale.slice 0, 2 else @locale = 'en'
-    if @params then delete @params.locale
+    if @params then @params.locale = @locale
 
   setData: (@params) ->
     @setLocale()
     @
-
-  isValid: ->
-    @validationErrors = []
-
-    rules = {
-      'transaction_id':
-        null
-      'amount':
-        new AmountValidator()
-      'currency':
-        @currency.getCurrencies()
-      'notification_url':
-        null
-      'return_success_url':
-        null
-      'return_failure_url':
-        null
-      'return_cancel_url':
-        null
-      'transaction_types':
-        null
-    }
-
-    # validate locale
-    if !@i18n.isValidLocale @locale
-      @validationErrors.push(
-        "Locale #{@locale} is not valid. Valid WPF locales are: #{@i18n.getLocales().join ', '}"
-      )
-
-    # validate transaction types
-    if @params.transaction_types
-      for type in @params.transaction_types
-
-        if @transactionTypes.isValidWPFType(type)
-          rules = _.extend rules, @transactionTypes.getCustomRequiredParameters(type)
-        else
-          @validationErrors.push(
-            "Transaction type #{type} is not valid.
-             Valid WPF transactions are: #{@transactionTypes.getWPFTypes().join ', '}"
-          )
-
-    @validateRequiredFields(_.keys rules)
-    @validateFieldsValues(rules)
-
-    @validationErrors.length == 0
 
   getUrl: ->
     app:
@@ -77,6 +35,9 @@ class Create extends Base
       util.format '%s/wpf', @locale
 
   getTrxData: ->
+    # Locale is not inside the request data
+    if @params then delete @params.locale
+
     'wpf_payment':
       _.extend(
         @params,
@@ -86,8 +47,14 @@ class Create extends Base
           'transaction_types':
             transaction_type:
               _.map @params.transaction_types, (value) ->
-                return { "@": name: value.toString() }
+                if (value instanceof Object)
+                  for key of value
+                    return Object.assign({"@": name: key.toString()}, value[key])
+
+                return {"@": name: value.toString()}
+
         }
       )
+
 
 module.exports = Create

@@ -1,6 +1,6 @@
 {
   "name": "genesis.js",
-  "version": "2.1.2",
+  "version": "3.0.0",
   "description": "JS library for Genesis Payment Processing Gateway",
   "main": "./lib/genesis.js",
   "repository": {
@@ -8,21 +8,22 @@
     "url": "https://github.com/GenesisGateway/genesis.js"
   },
   "scripts": {
-    "test": "mocha --require coffeescript/register --require test/chai 'test/**/*.coffee'"
+    "test": "mocha --require coffeescript/register --require test/chai.coffee 'test/**/*.coffee' --timeout 5000"
   },
   "dependencies": {
+    "ajv": "^6.2.0",
     "axios": "^0.22.0",
     "bigdecimal": "^0.6.1",
     "bluebird": "^3.5.1",
-    "body-parser": "^1.14.1",
-    "coffeescript": "^2.5.1",
+    "body-parser": "^1.20.0",
+    "coffeescript": "^2.7.0",
     "config": "~3.0.1",
     "connect": "^3.4.0",
-    "fast-xml-parser": "^3.19.0",
-    "js2xmlparser": "^4.0.1",
-    "moment": "^2.19.1",
+    "fast-xml-parser": "^3.21.1",
+    "js2xmlparser": "^4.0.2",
+    "moment": "^2.29.4",
     "run-sequence": "~2.2.1",
-    "underscore": "^1.8.3",
+    "underscore": "^1.13.4",
     "xml": "1.0.1",
     "xml-object": "^0.1.0"
   },
@@ -34,9 +35,9 @@
   "author": "GenesisGateway",
   "license": "ISC",
   "devDependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.3.6",
     "faker": "^5.5.3",
-    "mocha": "~5.2.0",
+    "mocha": "^10.0.0",
     "sinon": "^11.1.1"
   }
 }

@@ -6,9 +6,11 @@ class Reconcile extends Base
   constructor: (params) ->
     super params
 
-    @requiredFields = [
-      'unique_id'
-    ]
+  getTransactionType: ->
+    'wpf_reconcile'
+
+  getData: () ->
+    @params
 
   getUrl: ->
     app:

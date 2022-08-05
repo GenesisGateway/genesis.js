@@ -1,3 +1,50 @@
+3.0.0
+-----
+* Added JSON Schema for the transaction request validations
+* Added request data sanitization
+* Added Business Attributes support to the following transaction requests:
+    - Authorize
+    - Authorize 3D
+    - Capture
+    - Sale
+    - Sale 3D
+    - Init Recurring Sale
+    - Init Recurring Sale 3D
+    - Recurring Sale
+    - WPF Create
+* Added SCA attributes support to the following transaction requests:
+    - Authorize
+    - Authorize 3D
+    - Init Recurring Sale 3D
+    - Sale
+    - Sale 3D
+* Added Custom Attributes support to the transaction_types node in the Web Payment Form transaction request
+* Added moto, gaming and crypto attribute support to the following transaction requests:
+    - Account Verification
+    - Authorize
+    - Authorize 3D
+    - Sale
+    - Sale 3D
+    - Init Recurring Sale
+    - Init Recurring Sale 3D
+    - Recurring Sale
+    - Payout
+    *Keep in mind that not all of the listed requests support all of the mentioned parameters, Check [Genesis API Docs](https://emerchantpay.github.io/gateway-api-docs/)*
+* Added Tokenization attributes support to the following transaction requests:
+    - Authorize
+    - Authorize 3D
+    - Sale
+    - Sale 3D
+    - Init Recurring Sale
+    - Init Recurring Sale 3D
+    - Payout
+    - WPF Create
+* Added 3DSv2 basic attributes support to the following transaction requests:
+    - Authorize 3D
+    - Sale 3D
+    - Init Recurring Sale 3D
+* Fixed Credit Card attributes validations regarding card_holder, card_number, etc
+
 2.1.2
 -----
 

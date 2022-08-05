@@ -12,9 +12,13 @@ describe 'SddRecurringSale', ->
   SDDBase()
 
   before ->
-    @data['reference_id'] = faker.datatype.number()
-
+    @data        = (new FakeData).getSimpleData()
     @transaction = new Transaction()
+
+    delete @data['customer_phone']
+    delete @data['customer_email']
+
+    @data['reference_id'] = faker.datatype.number().toString()
 
   context 'with reference_id validation', ->
 

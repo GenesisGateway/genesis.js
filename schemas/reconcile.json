@@ -1,0 +1,36 @@
+{
+  "$id": "https://genesis.js/reconcile",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "title": "Reconcile",
+  "description": "Reconcile can be used to retrieve data about a payment. This can be useful if you want to retrieve information about a payment whose status is timeout, which returned an error or has changed eg. has beed chargebacked.",
+  "anyOf": [
+    {
+      "required": [
+        "unique_id"
+      ]
+    },
+    {
+      "required": [
+        "transaction_id"
+      ]
+    },
+    {
+      "required": [
+        "arn"
+      ]
+    }
+  ],
+  "properties": {
+    "unique_id": {
+      "type": "string"
+    },
+    "transaction_id": {
+      "type": "string"
+    },
+    "arn": {
+      "type": "string"
+    }
+  }
+}

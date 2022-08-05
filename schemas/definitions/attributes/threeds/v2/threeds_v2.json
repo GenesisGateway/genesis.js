@@ -1,0 +1,71 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/threeds/v2/threeds_v2",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "threeds_method": {
+      "$ref": "/definitions/attributes/threeds/v2/threeds_v2#threeds_method"
+    },
+    "control": {
+      "$ref": "/definitions/attributes/threeds/v2/threeds_v2#control"
+    },
+    "purchase": {
+      "$ref": "/definitions/attributes/threeds/v2/threeds_v2#purchase"
+    },
+    "merchant_risk": {
+      "$ref": "/definitions/attributes/threeds/v2/threeds_v2#merchant_risk"
+    },
+    "card_holder_account": {
+      "$ref": "/definitions/attributes/threeds/v2/threeds_v2#card_holder_account"
+    },
+    "browser": {
+      "$ref": "/definitions/attributes/threeds/v2/threeds_v2#browser"
+    },
+    "sdk": {
+      "$ref": "/definitions/attributes/threeds/v2/threeds_v2#sdk"
+    }
+  },
+  "$defs": {
+    "threeds_method": {
+      "$id": "/definitions/attributes/threeds/v2/threeds_v2#threeds_method",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object"
+    },
+    "control": {
+      "$id": "/definitions/attributes/threeds/v2/threeds_v2#control",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object"
+    },
+    "purchase": {
+      "$id": "/definitions/attributes/threeds/v2/threeds_v2#purchase",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object"
+    },
+    "merchant_risk": {
+      "$id": "/definitions/attributes/threeds/v2/threeds_v2#merchant_risk",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object"
+    },
+    "card_holder_account": {
+      "$id": "/definitions/attributes/threeds/v2/threeds_v2#card_holder_account",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object"
+    },
+    "browser": {
+      "$id": "/definitions/attributes/threeds/v2/threeds_v2#browser",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object"
+    },
+    "sdk": {
+      "$id": "/definitions/attributes/threeds/v2/threeds_v2#sdk",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object"
+    },
+    "recurring": {
+      "$id": "/definitions/attributes/threeds/v2/threeds_v2#recurring",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object"
+    }
+  }
+}

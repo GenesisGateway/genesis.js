@@ -6,9 +6,11 @@ class ChargebackByDate extends Base
   constructor: (params) ->
     super params
 
-    @requiredFields = [
-      'start_date'
-    ]
+  getTransactionType: ->
+    'chargeback_by_date_request'
+
+  getData: () ->
+    @params
 
   getUrl: ->
     app:

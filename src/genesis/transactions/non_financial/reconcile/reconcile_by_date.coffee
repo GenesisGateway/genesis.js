@@ -7,9 +7,11 @@ class ReconcileByDate extends Base
   constructor: (params) ->
     super params
 
-    @requiredFields = [
-      'start_date'
-    ]
+  getTransactionType: ->
+    'reconcile_by_date'
+
+  getData: () ->
+    @params
 
   getUrl: ->
     app:

@@ -1,0 +1,86 @@
+{
+  "$id": "https://genesis.js/refund",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "reference_id",
+    "currency",
+    "amount"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#reference"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    },
+    {
+      "if": {
+        "properties": {
+          "currency": {
+            "const": "MYR"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "beneficiary_bank_code",
+          "beneficiary_name",
+          "beneficiary_account_number"
+        ]
+      }
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "refund"
+        }
+      ]
+    },
+    "amount": {},
+    "currency": {},
+    "remote_ip": {},
+    "usage": {},
+    "transaction_id": {},
+    "reference_id": {},
+    "beneficiary_bank_code": {
+      "type": "string",
+      "description": "The bank code of the beneficiary's bank"
+    },
+    "beneficiary_name":  {
+      "type": "string",
+      "description": "The name of the beneficiary's bank"
+    },
+    "beneficiary_account_number": {
+      "type": "string",
+      "description": "The account number of the beneficiary in his bank."
+    },
+    "bank": {
+      "type": "string",
+      "description": "The name of customers bank"
+    },
+    "bank_branch": {
+      "type": "string",
+      "description": "The name of the bank branch"
+    },
+    "bank_account": {
+      "type": "string",
+      "description": "The bank account number of the customer"
+    },
+    "bank_account_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1,
+      "enum": ["C", "S", "L"],
+      "description": "The type of account. C: for Checking accounts, S: for Savings accounts, I: for International accounts"
+    }
+  }
+}

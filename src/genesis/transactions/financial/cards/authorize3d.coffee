@@ -10,6 +10,4 @@ class Authorize3d extends CardBase
   constructor: (params) ->
     super params
 
-    @set3DRequiredFields()
-
 module.exports = Authorize3d

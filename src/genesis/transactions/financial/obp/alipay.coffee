@@ -12,18 +12,4 @@ class Alipay extends FinancialBase
   constructor: (params) ->
     super params
 
-    @requiredFields =
-      _.union(
-        @requiredFields,
-        [
-          'usage',
-          'remote_ip',
-          'return_success_url',
-          'return_failure_url'
-        ]
-      )
-
-    @fieldsValues['currency'] = ['CNY']
-    @fieldsValues['amount'] = new NumberValidator (10)
-
 module.exports = Alipay

@@ -1,0 +1,15 @@
+{
+  "$id": "https://genesis.js/blacklist_request",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "card_number"
+  ],
+  "properties": {
+    "card_number": {
+      "$ref": "/definitions/definitions#card_number"
+    },
+    "terminal_token": {}
+  }
+}

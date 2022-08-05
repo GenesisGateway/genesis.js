@@ -1,32 +1,23 @@
 
 FinancialBase       = require '../financial_base'
 _                   = require 'underscore'
-CreditCardValidator = require '../../../helpers/validators/credit_card_validator'
 
 class CardBase extends  FinancialBase
 
   constructor: (params) ->
     super params
 
-    creditCardValidator = new CreditCardValidator
+  isValid: () ->
+    valid = super()
 
-    @requiredFields =
-      _.union(
-        @requiredFields,
-        creditCardValidator.getCCRequiredFields()
-      )
+    if not _.isEmpty(@params.token) && @params.remember_card == true
+      @validator.addError
+        type: 'oneOf'
+        property: 'remember_card token'
+        message: 'Request depends on specific rules. ' +
+          'Only one of the following parameters can exists in the request: token or remember_card'
+      false
 
-    @fieldsValues =
-      _.extend(
-        @fieldsValues,
-        creditCardValidator.getCCFieldValueFormatValidators()
-      )
-
-  set3DRequiredFields: ->
-    @requiredFieldsGroups =
-      'asynchronous':
-        ['notification_url', 'return_success_url', 'return_failure_url']
-      'synchronous':
-        ['mpi_params.eci']
+    valid
 
 module.exports = CardBase

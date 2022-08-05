@@ -1,0 +1,159 @@
+{
+  "$id": "https://genesis.js/definitions/definitions",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "minimum": {
+      "$id": "#minimum",
+      "properties": {
+        "transaction_id": {
+          "$id": "#transaction_id",
+          "description": "Unique transaction id defined by merchant",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "transaction_type": {
+          "$id": "#transaction_type",
+          "type": "string"
+        },
+        "remote_ip": {
+          "$id": "#remote_ip",
+          "description": "IPv4 address of customer",
+          "type": "string",
+          "format": "ipv4"
+        },
+        "usage": {
+          "$id": "#usage",
+          "description": "Description of the transaction for later use",
+          "type": "string",
+          "title": "Usage"
+        }
+      }
+    },
+    "common": {
+      "$id": "#common",
+      "properties": {
+        "customer_email": {
+          "$id": "#customer_email",
+          "type": "string",
+          "format": "email"
+        },
+        "customer_phone": {
+          "$id": "#customer_phone",
+          "type": "string",
+          "maxLength": 32
+        }
+      }
+    },
+    "preauthorization": {
+      "$id": "#preauthorization",
+      "description": "Signifies whether a preauthorization transaction is performed.",
+      "type": "boolean"
+    },
+    "document_id": {
+      "$id": "#document_id",
+      "description": "Document ID is consumer personal identification.",
+      "type": "string"
+    },
+    "bank_code": {
+      "#id": "#bank_code",
+      "description":"Bank codes may vary depending on the gateway configuration",
+      "type": "string"
+    },
+    "fx_rate_id": {
+      "$id": "#fx_rate_id",
+      "description": "Offers the option to use a specific FX rate to convert the transaction processing amount.",
+      "type": "integer"
+    },
+    "card": {
+      "$id": "#card",
+      "properties": {
+        "card_holder": {
+          "$id": "card_holder",
+          "description": "Full name of customer as printed on credit card (first name and last name at least)",
+          "type": "string",
+          "pattern": "^(?!^[\\d\\s]*$).+\\s+.+$",
+          "message": "Expected: full name"
+        },
+        "card_number": {
+          "$id": "#card_number",
+          "description": "Complete CC number of customer",
+          "type": "string",
+          "pattern": "^[0-9]{13,19}$",
+          "message": "Expected: number with 13 to 19 digits"
+        },
+        "cvv": {
+          "$id": "#cvv",
+          "description": "CVV of CC, requirement is based on terminal configuration",
+          "type": "string",
+          "pattern": "^[0-9]{3,4}$",
+          "message": "Expected: number with 3 to 4 digits"
+        },
+        "expiration_month": {
+          "$id": "#expiration_month",
+          "description": "Expiration month as printed on credit card",
+          "type": "string",
+          "pattern": "^(0?[1-9]|1[012])$",
+          "message": "Expected: valid month number (ex: 05)"
+        },
+        "expiration_year": {
+          "$id": "#expiration_year",
+          "description": "Expiration year as printed on credit card",
+          "type": "string",
+          "pattern": "^(20)\\d{2}$",
+          "message": "Expected: valid year number (ex: 2021)"
+        },
+        "birth_date": {
+          "$id": "#birth_date",
+          "description": "Birth date of the customer",
+          "type": "string",
+          "pattern": "^(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9])-[0-9]{4}$",
+          "message":  "Should match pattern dd-mm-yyyy"
+        }
+      }
+    },
+    "reference": {
+      "$id": "#reference",
+      "properties": {
+        "transaction_id": {
+          "$ref": "#transaction_id"
+        },
+        "remote_ip": {
+          "$ref": "#remote_ip"
+        },
+        "usage": {
+          "$ref": "#usage"
+        },
+        "reference_id": {
+          "type": "string"
+        }
+      }
+    },
+    "bank": {
+      "$id": "#bank",
+      "properties": {
+        "iban": {
+          "type": "string",
+          "maxLength": 34,
+          "pattern": "^[A-Z]{2}.*$"
+        },
+        "bic": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 11
+        }
+      }
+    },
+    "url": {
+      "$id": "#url",
+      "type": "string",
+      "format": "url"
+    },
+    "date": {
+      "$id": "#date-dd-mm-yyyy",
+      "type": "string",
+      "pattern": "^(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9])-[0-9]{4}$",
+      "message": "Should match dd-mm-yyyy"
+    }
+  }
+}

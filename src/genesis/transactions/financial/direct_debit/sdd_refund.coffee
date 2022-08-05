@@ -10,13 +10,4 @@ class SddRefund extends SddBase
   constructor: (params) ->
     super params
 
-    @requiredFields =
-      _.union(
-        @requiredFields,
-        [
-          'usage',
-          'reference_id'
-        ]
-      )
-
 module.exports = SddRefund

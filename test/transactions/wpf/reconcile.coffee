@@ -10,10 +10,10 @@ Base        = require '../base'
 describe 'WPFReconcile Transaction', ->
 
   before ->
-    @data        = (new FakeData).getData()
+    @data        = {
+      'unique_id': faker.random.alphaNumeric()
+    }
     @transaction = new Transaction()
-
-    @data['unique_id']  = faker.random.alphaNumeric()
 
   it 'fails when missing required unique_id parameter', ->
     assert.equal false, @transaction.setData(_.omit @data, 'unique_id').isValid()

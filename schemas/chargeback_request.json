@@ -1,0 +1,14 @@
+{
+  "$id": "https://genesis.js/chargeback_request",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "original_transaction_unique_id"
+  ],
+  "properties": {
+    "original_transaction_unique_id": {
+      "type": "string"
+    }
+  }
+}

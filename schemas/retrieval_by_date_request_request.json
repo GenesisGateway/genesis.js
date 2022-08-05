@@ -1,0 +1,22 @@
+{
+  "$id": "https://genesis.js/retrieval_by_date_request_request",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "start_date"
+  ],
+  "properties": {
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "page": {
+      "type": "integer"
+    }
+  }
+}

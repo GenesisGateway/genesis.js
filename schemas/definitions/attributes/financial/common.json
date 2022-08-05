@@ -1,0 +1,24 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/financial/common",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "gaming": {
+      "$id": "#gaming",
+      "title": "Gaming parameter",
+      "description": "Signifies whether a gaming transaction is performed",
+      "type": "boolean"
+    },
+    "moto": {
+      "$id": "#moto",
+      "title": "Moto parameter",
+      "description": "Signifies whether a MOTO (mail order telephone order) transaction is performed",
+      "type": "boolean"
+    },
+    "crypto": {
+      "$id": "#crypto",
+      "title": "Crypto parameter",
+      "description": "Signifies whether a purchase of crypto-currency transaction is performed",
+      "type": "boolean"
+    }
+  }
+}

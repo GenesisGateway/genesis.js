@@ -907,7 +907,7 @@ class Currency
     exponent = @iso4217[currency].exponent
 
     minor = new bd
-      .BigDecimal(amount)
+      .BigDecimal(amount.toString())
       .scaleByPowerOfTen exponent
       .toBigInteger()
 

@@ -11,12 +11,4 @@ class Credit extends FinancialBase
   constructor: (params) ->
     super params
 
-    @requiredFields =
-      _.union(
-        @requiredFields,
-        [
-          'reference_id'
-        ]
-      )
-
 module.exports = Credit

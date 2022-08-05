@@ -10,11 +10,4 @@ class Cancel extends FinancialBase
   constructor: (params) ->
     super params
 
-    @requiredFields = [
-      'transaction_id',
-      'reference_id'
-    ]
-
-    @fieldsValues = {}
-
 module.exports = Cancel

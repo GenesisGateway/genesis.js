@@ -6,10 +6,11 @@ class Retrieval extends Base
   constructor: (params) ->
     super params
 
-    @requiredFieldsOr = [
-      'arn',
-      'original_transaction_unique_id'
-    ]
+  getTransactionType: ->
+    'retrieval_request_request'
+
+  getData: () ->
+    @params
 
   getUrl: ->
     app:

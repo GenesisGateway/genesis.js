@@ -6,10 +6,11 @@ class FraudReport extends Base
   constructor: (params) ->
     super params
 
-    @requiredFieldsOr = [
-      'arn',
-      'original_transaction_unique_id'
-    ]
+  getTransactionType: ->
+    'fraud_report_request'
+
+  getData: () ->
+    @params
 
   getUrl: ->
     app:

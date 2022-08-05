@@ -1,0 +1,85 @@
+{
+  "$id": "https://genesis.js/idebit_payin",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "amount",
+    "currency",
+    "return_url",
+    "customer_account_id",
+    "customer_email"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    }
+  ],
+  "properties": {
+    "transaction_id": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_id"
+        },
+        {
+          "maxLength": 30
+        }
+      ]
+    },
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "idebit_payin"
+        }
+      ]
+    },
+    "remote_ip": {},
+    "usage": {},
+    "amount": {
+      "$ref": "/definitions/attributes/financial/payment#amount"
+    },
+    "currency": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/financial/payment#currency"
+        },
+        {
+          "enum": ["CAD", "USD", "EUR", "GBP", "AUD"]
+        }
+      ]
+    },
+    "customer_email": {},
+    "customer_phone": {},
+    "customer_account_id": {},
+    "return_url": {},
+    "birth_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "billing_address": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "properties": {
+            "country": {
+              "const": "CA"
+            }
+          },
+          "required": [
+            "country"
+          ]
+        }
+      ]
+    }
+  }
+}

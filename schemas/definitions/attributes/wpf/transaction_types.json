@@ -1,0 +1,530 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/wpf/transaction_types",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": [
+    "array"
+  ],
+  "items": {
+    "type": [
+      "string",
+      "object"
+    ],
+    "additionalProperties": false,
+    "properties": {
+      "authorize": {
+        "$ref": "/definitions/attributes/wpf/credit_card"
+      },
+      "authorize3d": {
+        "$ref": "/definitions/attributes/wpf/credit_card"
+      },
+      "sale": {
+        "$ref": "/definitions/attributes/wpf/credit_card"
+      },
+      "sale3d": {
+        "$ref": "/definitions/attributes/wpf/credit_card"
+      },
+      "init_recurring_sale": {
+        "$ref": "/definitions/attributes/wpf/recurring"
+      },
+      "init_recurring_sale3d": {
+        "$ref": "/definitions/attributes/wpf/recurring"
+      },
+      "account_verification": {
+        "$ref": "/definitions/attributes/wpf/verification"
+      },
+      "alipay": {
+        "additionalProperties": false,
+        "properties": {
+          "usage": {
+            "type": "string",
+            "description": "Description of the transaction for later use."
+          },
+          "default": {
+            "$ref": "/definitions/attributes/wpf/transaction_types/wpf_default"
+          }
+        }
+      },
+      "argencard": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "aura": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "bancomer": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "boleto": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "bcmc": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "baloto": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "banco_do_brasil": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "bitpay_sale": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "bitpay_payout": {
+        "additionalProperties": false,
+        "required": [
+          "crypto_address",
+          "crypto_wallet_provider"
+        ],
+        "properties": {
+          "crypto_address": {
+            "type": "string",
+            "description": "Valid crypto address where the funds will be received"
+          },
+          "crypto_wallet_provider": {
+            "type": "string",
+            "description": "If crypto wallet provider is not in the table below, you must send other"
+          },
+          "default": {
+            "$ref": "/definitions/attributes/wpf/transaction_types/wpf_default"
+          }
+        }
+      },
+      "bradesco": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "cashu": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "container_store": {
+        "additionalProperties": false,
+        "required": [
+          "card_number",
+          "cvv"
+        ],
+        "properties": {
+          "additionalProperties": false,
+          "card_number": {
+            "type": "string",
+            "description": "Gift card number",
+            "pattern": "^[0-9]{19,21}$",
+            "message": "Gift card number. String between 19 and 21 characters"
+          },
+          "cvv": {
+            "type": "string",
+            "description": "Verification code of the gift card, requirement is based on terminal configuration",
+            "pattern": "^[0-9]{5,8}$",
+            "message": "Verification code of the gift card"
+          },
+          "default": {
+            "$ref": "/definitions/attributes/wpf/transaction_types/wpf_default"
+          }
+        }
+      },
+      "cabal": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "cencosud": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "davivienda": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "ezeewallet": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "e_wallet": {
+        "additionalProperties": false,
+        "required": [
+          "payment_type"
+        ],
+        "properties": {
+          "payment_type": {
+            "enum": ["Airtel Money", "Amazon pay", "Free Charge", "Jio Money", "Ola Money", "Paytm", "Payzapp", "PhonePe"],
+            "description": "eWallet provider name: Airtel Money / Amazon pay / Free Charge / Jio Money / Ola Money / Paytm / Payzapp / PhonePe"
+          },
+          "default": {
+            "$ref": "/definitions/attributes/wpf/transaction_types/wpf_default"
+          }
+        }
+      },
+      "efecty": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "elo": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "eps": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "fashioncheque": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "giropay": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "google_pay": {
+        "additionalProperties": false,
+        "required": [
+          "payment_subtype"
+        ],
+        "properties": {
+          "payment_subtype": {
+            "enum": ["authorize", "sale", "init_recurring_sale"]
+          },
+          "default": {
+            "$ref": "/definitions/attributes/wpf/transaction_types/wpf_default"
+          }
+        }
+      },
+      "apple_pay": {
+        "additionalProperties": false,
+        "required": [
+          "payment_subtype"
+        ],
+        "properties": {
+          "payment_subtype": {
+            "enum": ["authorize", "sale", "init_recurring_sale"]
+          },
+          "default": {
+            "$ref": "/definitions/attributes/wpf/transaction_types/wpf_default"
+          }
+        }
+      },
+      "invoice": {
+        "additionalProperties": false,
+        "required": [
+          "payment_type",
+          "customer_birthdate",
+          "customer_reference_number"
+        ],
+        "properties": {
+          "payment_type": {
+            "enum": ["klarna", "secure_invoice"]
+          },
+          "customer_birthdate": {
+            "type": "string",
+            "description": "Customer birthdate.",
+            "pattern": "^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$",
+            "message": "Should match pattern yyyy-mm-dd"
+          },
+          "customer_reference_number": {
+            "description": "Customer number in merchant system",
+            "type": "string"
+          },
+          "default": {
+            "$ref": "/definitions/attributes/wpf/transaction_types/wpf_default"
+          }
+        }
+      },
+      "itau": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "ideal": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "idebit_payin": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "insta_debit_payin": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "intersolve": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "multibanco": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "my_bank": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "naranja": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "nativa": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "neosurf": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "neteller": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "online_banking": {
+        "additionalProperties": false,
+        "properties": {
+          "bank_codes": {
+            "type": "array"
+          },
+          "default": {
+            "$ref": "/definitions/attributes/wpf/transaction_types/wpf_default"
+          }
+        }
+      },
+      "oxxo": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "paysafecard": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "ppro": {
+        "additionalProperties": false,
+        "properties": {
+          "payment_type": {
+            "enum": ["eps", "giropay", "ideal", "przelewy24", "safetypay", "trustpay", "bcmc", "mybank"],
+            "description": "PPRO payment type"
+          },
+          "default": {
+            "$ref": "/definitions/attributes/wpf/transaction_types/wpf_default"
+          }
+        }
+      },
+      "poli": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "p24": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "paypal": {
+        "additionalProperties": false,
+        "properties": {
+          "payment_type": {
+            "enum": ["authorize", "sale", "express"]
+          },
+          "default": {
+            "$ref": "/definitions/attributes/wpf/transaction_types/wpf_default"
+          }
+        }
+      },
+      "payu": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "post_finance": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "pago_facil": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "pse": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "upi": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "rapi_pago": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "radpagos": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "santander": {},
+      "safetypay": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "sofort": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "webmoney": {},
+      "sdd_init_recurring_sale": {},
+      "tarjeta_shopping": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "trustpay": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "trustly_sale": {
+        "additionalProperties": false,
+        "required": [
+          "return_success_url_target"
+        ],
+        "properties": {
+          "return_success_url_target": {
+            "type": "string",
+            "enum": [
+              "top",
+              "self",
+              "parent"
+            ],
+            "description": "URLTarget, for successful payment in Trustly iFrame."
+          },
+          "user_id": {
+            "type": "string",
+            "descritpion": "Unique user identifier defined by merchant in their own system. ID, username, hash or anything uniquely identifying the consumer requesting the deposit. Must be static per each consumer for any type of transaction where this consumer is involved (trustly_sale, bank pay_out, register_account, select account)."
+          }
+        }
+      },
+      "webpay": {
+        "$ref": "/definitions/attributes/wpf/transaction_types/common"
+      },
+      "wechat": {
+        "additionalProperties": false,
+        "properties": {
+          "product_code": {
+            "type": "string",
+            "description": "Product Code"
+          },
+          "product_num": {
+            "type": "string",
+            "description": "Product Number"
+          },
+          "product_desc": {
+            "type": "string",
+            "description": "Product Description"
+          }
+        }
+      },
+      "russian_mobile_sale": {
+        "additionalProperties": false,
+        "required": [
+          "target",
+          "operator"
+        ],
+        "properties": {
+          "target": {
+            "type": "integer",
+            "description": "Payment target"
+          },
+          "operator": {
+            "type": "string",
+            "enum": [
+              "mtc",
+              "megafon",
+              "tele2",
+              "beeline"
+            ],
+            "description": "Mobile network operator name"
+          }
+        }
+      }
+    }
+  },
+
+  "$defs": {
+    "verification": {
+      "$id": "/definitions/attributes/wpf/verification",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "additionalProperties": false,
+      "properties": {
+        "bin": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/bin"
+        },
+        "tail": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/tail"
+        },
+        "default": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/wpf_default"
+        },
+        "expiration_date": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/expiration_date"
+        },
+        "moto": {
+          "type": "boolean",
+          "description": "Signifies whether a MOTO (mail order telephone order) transaction is performed"
+        }
+      }
+    },
+    "recurring": {
+      "$id": "/definitions/attributes/wpf/recurring",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "additionalProperties": false,
+      "properties": {
+        "bin": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/bin"
+        },
+        "tail": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/tail"
+        },
+        "default": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/wpf_default"
+        },
+        "expiration_date": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/expiration_date"
+        },
+        "moto": {
+          "type": "boolean",
+          "description": "Signifies whether a MOTO (mail order telephone order) transaction is performed"
+        },
+        "fx_rate_id": {
+          "type": "integer",
+          "description": "See Get rates for FX Service. Offers the option to use a specific FX rate to convert the transaction processing amount. Used FX rate should have the same source currency as the processing currency."
+        },
+        "managed_recurring": {
+          "type": "object"
+        }
+      }
+    },
+    "credit_card": {
+      "$id": "/definitions/attributes/wpf/credit_card",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "additionalProperties": false,
+      "properties": {
+        "bin": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/bin"
+        },
+        "tail": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/tail"
+        },
+        "default": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/wpf_default"
+        },
+        "expiration_date": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/expiration_date"
+        },
+        "gaming": {
+          "type": "boolean",
+          "description": "Signifies whether a gaming transaction is performed. Gaming transactions usually use MCC 7995"
+        },
+        "crypto": {
+          "type": "boolean",
+          "description": "Signifies whether a purchase of crypto-currency transaction is performed."
+        },
+        "moto": {
+          "type": "boolean",
+          "description": "Signifies whether a MOTO (mail order telephone order) transaction is performed"
+        },
+        "fx_rate_id": {
+          "type": "integer",
+          "description": "See Get rates for FX Service. Offers the option to use a specific FX rate to convert the transaction processing amount. Used FX rate should have the same source currency as the processing currency."
+        }
+      }
+    },
+    "common": {
+      "$id": "/definitions/attributes/wpf/transaction_types/common",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "additionalProperties": false,
+      "properties": {
+        "default": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/wpf_default"
+        }
+      }
+    },
+    "bin": {
+      "$id": "/definitions/attributes/wpf/transaction_types/bin",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "string",
+      "description": "Card’s first 6 digits",
+      "pattern": "^[0-9]{6,6}$",
+      "message": "Desired Credit Card first 6 digits"
+    },
+    "tail": {
+      "$id": "/definitions/attributes/wpf/transaction_types/tail",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "string",
+      "description": "Card’s last 4 digits",
+      "pattern": "^[0-9]{4,4}$",
+      "message": "Desired Credit Card last 4 digits"
+    },
+    "wpf_default": {
+      "$id": "/definitions/attributes/wpf/transaction_types/wpf_default",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "boolean",
+      "description": "Configure as default or not"
+    },
+    "expiration_date": {
+      "$id": "/definitions/attributes/wpf/transaction_types/expiration_date",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "string",
+      "description": "Expiration month and year",
+      "pattern": "^[0-9]{4}-(1[0-2]|0[1-9])$",
+      "message": "Expiration mont and year ex 2050-12"
+    }
+  }
+}

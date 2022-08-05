@@ -5,22 +5,34 @@ AlternativeBase = () ->
 
   FinancialBase()
 
-  it 'fails when missing required remote_ip parameter', ->
-    assert.equal false, @transaction.setData(_.omit @data, 'remote_ip').isValid()
+  context 'with Alternative Base request', ->
 
-  it 'fails when missing required return_success_url parameter', ->
-    assert.equal false, @transaction.setData(_.omit @data, 'return_success_url').isValid()
+    context 'with invalid parameters', ->
 
-  it 'fails when missing required return_failure_url parameter', ->
-    assert.equal false, @transaction.setData(_.omit @data, 'return_failure_url').isValid()
+      it 'fails when missing required remote_ip parameter', ->
+        data = _.clone(@data)
+        delete data.remote_ip
+        assert.equal false, @transaction.setData(data).isValid()
 
-  it 'fails when missing required customer_email parameter', ->
-    assert.equal false, @transaction.setData(_.omit @data, 'customer_email').isValid()
+      it 'fails when missing required return_success_url parameter', ->
+        data = _.clone(@data)
+        delete data.return_success_url
+        assert.equal false, @transaction.setData(data).isValid()
 
-  it 'fails when missing required country parameter', ->
-    data = _.clone @data
-    data['billing_address'] = _.omit data['billing_address'], 'country'
-    assert.equal false, @transaction.setData(data).isValid()
+      it 'fails when missing required return_failure_url parameter', ->
+        data = _.clone(@data)
+        delete data.return_failure_url
+        assert.equal false, @transaction.setData(data).isValid()
+
+      it 'fails when missing required customer_email parameter', ->
+        data = _.clone(@data)
+        delete data.customer_email
+        assert.equal false, @transaction.setData(data).isValid()
+
+      it 'fails when missing required country parameter', ->
+        data = _.clone @data
+        delete data.billing_address.country
+        assert.equal false, @transaction.setData(data).isValid()
 
 
 module.exports = AlternativeBase

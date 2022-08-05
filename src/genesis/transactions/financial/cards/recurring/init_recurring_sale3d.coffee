@@ -10,6 +10,4 @@ class InitRecurringSale3d extends CardBase
   constructor: (params) ->
     super params
 
-    @set3DRequiredFields()
-
 module.exports = InitRecurringSale3d

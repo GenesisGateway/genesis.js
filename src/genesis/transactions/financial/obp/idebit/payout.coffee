@@ -12,14 +12,4 @@ class IDebitPayout extends FinancialBase
   constructor: (params) ->
     super params
 
-    @requiredFields =
-      _.union(
-        @requiredFields,
-        [
-          'reference_id'
-        ]
-      )
-
-    @fieldsValues['transaction_id'] = new StringValidator 1, 30
-
 module.exports = IDebitPayout

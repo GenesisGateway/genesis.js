@@ -10,21 +10,6 @@ class FinancialBase extends  Base
   constructor: (params) ->
     super params
 
-    @requiredFields =
-      [
-        'transaction_id',
-        'amount',
-        'currency'
-      ]
-
-    @fieldsValues =
-      'transaction_id':
-        new StringValidator undefined, 255
-      'currency':
-        @currency.getCurrencies()
-      'amount':
-        new AmountValidator
-
   getUrl: ->
     app:
       'gate'

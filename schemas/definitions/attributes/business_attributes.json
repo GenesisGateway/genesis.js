@@ -1,0 +1,148 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/business_attributes",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "flight_arrival_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "The date when the flight arrives"
+    },
+    "flight_departure_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "The date when the flight departs"
+    },
+    "airline_code": {
+      "type": "string",
+      "description": "The code of Airline"
+    },
+    "airline_flight_number": {
+      "type": "string",
+      "description": "The flight number"
+    },
+    "flight_ticket_number": {
+      "type": "string",
+      "description": "The number of the flight ticket"
+    },
+    "flight_origin_city": {
+      "type": "string",
+      "description": "The origin city of the flight"
+    },
+    "flight_destination_city": {
+      "type": "string",
+      "description": "The destination city of the flight"
+    },
+    "airline_tour_operator_name": {
+      "type": "string",
+      "description": "The name of tour operator"
+    },
+    "event_start_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "The date when event starts"
+    },
+    "event_end_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "The date when event ends"
+    },
+    "event_organizer_id": {
+      "type": "string"
+    },
+    "event_id": {
+      "type": "string"
+    },
+    "date_of_order": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "The date when order was placed"
+    },
+    "delivery_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "Date of the expected delivery"
+    },
+    "name_of_the_supplier": {
+      "type": "string"
+    },
+    "check_in_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "The data when the customer check-in"
+    },
+    "check_out_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "The data when the customer check-out"
+    },
+    "travel_agency_name": {
+      "type": "string"
+    },
+    "vehicle_pick_up_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "The date when customer takes the vehicle"
+    },
+    "vehicle_return_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "The date when the customer returns the vehicle back"
+    },
+    "supplier_name": {
+      "type": "string",
+      "description": "The name of supplier/contractor"
+    },
+    "cruise_start_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "The date when cruise begins"
+    },
+    "cruise_end_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "The date when cruise ends"
+    },
+    "arrival_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "The date of arrival"
+    },
+    "departure_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "The date of departure"
+    },
+    "carrier_code": {
+      "type": "string",
+      "description": "The code of the carrier"
+    },
+    "flight_number": {
+      "type": "string",
+      "description": "The number of the flight"
+    },
+    "ticket_number": {
+      "type": "string",
+      "description": "The number of the ticket"
+    },
+    "origin_city": {
+      "type": "string",
+      "description": "The origin city"
+    },
+    "destination_city": {
+      "type": "string",
+      "description": "The destination city"
+    },
+    "travel_agency": {
+      "type": "string",
+      "description": "The name of the travel agency"
+    },
+    "contractor_name": {
+      "type": "string",
+      "description": "The name of the contractor"
+    },
+    "atol_certificate": {
+      "type": "string",
+      "description": "ATOL certificate number"
+    },
+    "pick_up_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "Pick-up date"
+    },
+    "return_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy",
+      "description": "Return date"
+    },
+    "payment_type": {
+      "description": "The type of payment - can be either deposit or balance",
+      "enum": ["deposit", "balance"]
+    }
+  }
+}

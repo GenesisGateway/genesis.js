@@ -7,11 +7,11 @@ class Reconcile extends Base
   constructor: (params) ->
     super params
 
-    @requiredFieldsOr = [
-      'transaction_id',
-      'arn',
-      'unique_id'
-    ]
+  getTransactionType: ->
+    'reconcile'
+
+  getData: () ->
+    @params
 
   getUrl: ->
     app:

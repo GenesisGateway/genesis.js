@@ -1,0 +1,15 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/sca_params",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "sca_params": {
+    "$id": "#sca_params",
+    "properties": {
+      "exemption": {
+        "enum": ["low_value", "low_risk", "trusted_merchant", "corporate_payment", "delegated_authentication"]
+      },
+      "visa_merchant_id": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "$id": "https://genesis.js/init_recurring_sale",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "amount",
+    "currency",
+    "card_holder"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/definitions#card"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/tokenization"
+    }
+  ],
+  "messages": {
+    "oneOf": [
+      "Only one of the following parameters can exists in the request: card_number or token."
+    ]
+  },
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "init_recurring_sale"
+        }
+      ]
+    },
+    "remote_ip": {},
+    "usage": {},
+    "amount": {},
+    "currency": {},
+    "customer_email": {},
+    "customer_phone": {},
+    "card_holder": {},
+    "card_number": {},
+    "expiration_month": {},
+    "expiration_year": {},
+    "cvv": {},
+    "token": {},
+    "remember_card": {},
+    "consumer_id": {},
+    "moto": {
+      "$ref": "/definitions/attributes/financial/common#moto"
+    },
+    "birth_date": {},
+    "document_id": {
+      "$ref": "/definitions/definitions#document_id"
+    },
+    "fx_rate_id": {
+      "$ref": "/definitions/definitions#fx_rate_id"
+    },
+    "billing_address": {
+      "$ref": "/definitions/attributes/customer/address#billing"
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "business_attributes": {
+      "$ref": "/definitions/attributes/business_attributes"
+    }
+  }
+}

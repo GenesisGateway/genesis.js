@@ -13,26 +13,4 @@ class SddInitRecurringSale extends SddBase
   constructor: (params) ->
     super params
 
-    @requiredFields =
-      _.union(
-        @requiredFields,
-        [
-          'usage',
-          'billing_address.first_name',
-          'billing_address.last_name',
-          'billing_address.country',
-          'iban',
-          'bic'
-        ]
-      )
-
-    @fieldsValues =
-      _.extend(
-        @fieldsValues,
-        'iban':
-          new IbanValidator
-        'bic':
-          new BicValidator
-      )
-
 module.exports = SddInitRecurringSale

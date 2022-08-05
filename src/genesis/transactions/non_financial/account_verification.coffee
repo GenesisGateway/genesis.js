@@ -13,21 +13,6 @@ class AccountVerification extends Base
   constructor: (params) ->
     super params
 
-    creditCardValidator = new CreditCardValidator
-
-    @requiredFields =
-      _.union(
-        [
-          'transaction_id',
-          'billing_address.address1',
-          'billing_address.zip_code',
-          'billing_address.city'
-        ],
-        creditCardValidator.getCCRequiredFields()
-      )
-
-    @fieldsValues = creditCardValidator.getCCFieldValueFormatValidators()
-
   getUrl: ->
     app:
       'gate'

@@ -14,6 +14,9 @@ describe 'SddSale', ->
     @data['iban'] = "DE09100100101234567891"
     @data['bic']  = "PBNKDEFFXXX"
 
+    delete @data['customer_phone']
+    delete @data['customer_email']
+
     @transaction = new Transaction()
 
   context 'with iban validation', ->

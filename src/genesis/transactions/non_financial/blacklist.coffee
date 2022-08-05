@@ -6,9 +6,11 @@ class Blacklist extends Base
   constructor: (params) ->
     super params
 
-    @requiredFields = [
-      'card_number'
-    ]
+  getTransactionType: ->
+    'blacklist_request'
+
+  getData: ->
+    @params
 
   getUrl: ->
     app:
@@ -17,7 +19,7 @@ class Blacklist extends Base
       'blacklists'
 
   getTrxData: ->
-    'blacklist_request':
+    "blacklist_request":
       @params
 
 module.exports = Blacklist

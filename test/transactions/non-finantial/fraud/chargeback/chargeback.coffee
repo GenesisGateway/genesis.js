@@ -10,11 +10,13 @@ describe 'Chargeback Transaction', ->
 
   before ->
     @data =
-      arn: faker.random.alphaNumeric()
+      original_transaction_unique_id: faker.random.alphaNumeric()
 
     @transaction = new Transaction()
 
   it 'fails when missing required parameter', ->
-    assert.equal false, @transaction.setData(_.omit @data, 'arn').isValid()
+    assert.equal false, @transaction.setData(
+      _.omit @data, 'original_transaction_unique_id'
+    ).isValid()
 
   Base()

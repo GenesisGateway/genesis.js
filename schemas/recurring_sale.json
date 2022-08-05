@@ -1,0 +1,48 @@
+{
+  "$id": "https://genesis.js/recurring_sale",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "reference_id",
+    "currency",
+    "amount"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#reference"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "recurring_sale"
+        }
+      ]
+    },
+    "amount": {},
+    "currency": {},
+    "remote_ip": {},
+    "usage": {},
+    "transaction_id": {},
+    "reference_id": {},
+    "moto": {
+      "$ref": "/definitions/attributes/financial/common#moto"
+    },
+    "gaming": {
+      "$ref": "/definitions/attributes/financial/common#gaming"
+    },
+    "business_attributes": {
+      "$ref": "/definitions/attributes/business_attributes"
+    }
+  }
+}

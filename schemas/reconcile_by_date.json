@@ -1,0 +1,30 @@
+{
+  "$id": "https://genesis.js/reconcile_by_date",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Reconcile by Date can be used to retrieve data about payments in date and time range.",
+  "required": [
+    "start_date"
+  ],
+  "properties": {
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "page": {
+      "type": "integer"
+    },
+    "records_per_page": {
+      "$id": "records_per_page",
+      "description": "Number of records per page",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 999
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$id": "https://genesis.js/sdd_refund",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "reference_id",
+    "currency",
+    "amount",
+    "usage"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#reference"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "sdd_refund"
+        }
+      ]
+    },
+    "amount": {},
+    "currency": {},
+    "remote_ip": {},
+    "usage": {},
+    "transaction_id": {},
+    "reference_id": {}
+  }
+}

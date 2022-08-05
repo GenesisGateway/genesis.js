@@ -1,0 +1,10 @@
+{
+  "$id": "https://genesis.js/definitions/i18n",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "description": "The web payment form is internationalization (i18n)",
+  "enum": [
+    "en", "it", "es", "fr", "de", "pl", "ja", "zh", "ar", "pt", "tr", "ru", "hi", "bg", "nl", "is", "id", "ms", "th",
+    "cs", "hr", "sl", "fi", "no", "da", "sv"
+  ]
+}

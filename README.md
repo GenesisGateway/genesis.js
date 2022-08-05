@@ -229,6 +229,338 @@ transaction.wpf_create({
 
 The example above is going to create a new ```WPF``` instance with German (```de```) locale and allowed transaction types - ```authorize3d``` (Authorize w/ 3D-Secure asynchronously) and ```sale``` for the amount of $100.
 
+Web Payment Form Transaction with custom attributes in transaction types
+----------------------------
+
+- JavaScript
+
+```js
+
+
+transaction.wpf_create({
+    locale: 'en',
+    transaction_id: crypto.randomBytes(16).toString('hex'),
+    usage: 'Demo WPF Transaction',
+    description: 'This is my first WPF transaction',
+    remote_ip: '127.0.0.1',
+    amount: '100',
+    currency: 'EUR',
+    // Customer Details
+    customer_email: 'email@example.com',
+    customer_phone: '0123456789',
+    notification_url: 'http://my.host.name.tld:1234/notifier',
+    return_success_url: 'http://my.host.name.tld/success',
+    return_failure_url: 'http://my.host.name.tld/failure',
+    return_cancel_url: 'http://my.host.name.tld/cancel',
+    // Billing/Invoice Details
+    billing_address: {
+        first_name: 'John',
+        last_name: 'Doe',
+        address1: '123 Str.',
+        zip_code: '10000',
+        city: 'New York',
+        country: 'US',
+        state: 'California'
+    },
+    transaction_types: [
+        // Authorize
+        {
+            authorize: {
+                // custom attributes bellow aren`t required
+                bin: '111111',
+                tail: '0000',
+                expiration_date: '2020-10'
+            }
+        },
+        // Sale
+        {
+            sale: {
+                // custom attributes bellow aren`t required
+                bin: '111',
+                tail: '000',
+                crypto: 'true',
+                fx_rate_id: '123',
+            }
+        },
+        // Trusly Sale
+        // Transaction type requires user_id as shown below
+        {
+            trustly_sale: {
+                // return_success_url_target is required for trusly_sale
+                return_success_url_target: 'top'
+            }
+        }
+    ],
+    user_id: '123456', // Required when trustly_sale transaction type is used
+    customer_account_id: 123456,
+    payment_method: "eps"
+})
+    .send()
+    .then(success)
+    .catch(failure);
+```
+
+- CoffeeScript
+
+```coffee
+genesis = require './lib/genesis.js'
+crypto  = require 'crypto'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+    console.log reason
+
+success = (data) ->
+    console.log data
+
+transaction.wpf_create({
+    locale            : 'de'
+    transaction_id    : crypto.randomBytes(16).toString('hex')
+    usage             : 'Demo WPF Transaction'
+    description       : 'This is my first WPF transaction'
+    remote_ip         : '127.0.0.1'
+    amount            : '100'
+    currency          : 'USD'
+    customer_email    : 'email@example.com'
+    customer_phone    : '0123456789'
+    notification_url  : 'http://my.host.name.tld:1234/notifier'
+    return_success_url: 'http://my.host.name.tld/success'
+    return_failure_url: 'http://my.host.name.tld/failure'
+    return_cancel_url : 'http://my.host.name.tld/cancel'
+    billing_address   :
+        first_name: 'John'
+        last_name : 'Doe'
+        address1  : '123 Str.'
+        zip_code  : '10000'
+        city      : 'New York'
+        country   : 'US'
+        state     : 'California'
+    transaction_types: [
+        # Authorize
+        authorize:
+            # custom attributes bellow are not required
+            bin: '111111',
+            tail: '0000',
+            expiration_date: '2020-10'
+        # Sale
+        sale:
+            # custom attributes bellow are not required
+            bin: '111',
+            tail: '000',
+            crypto: 'true',
+            fx_rate_id: '123',
+        # Trusly Sale
+        # Transaction type requires user_id as shown below
+        trustly_sale:
+            # return_success_url_target is required for trusly_sale
+            return_success_url_target: 'top'
+    ]
+})
+.send()
+.then(success)
+.catch(failure)
+```
+Web Payment Form Transaction with business_attributes 
+----------------------------
+
+- Javascript
+
+```js
+var crypto, failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+
+crypto = require('crypto');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+transaction.wpf_create({
+    locale: 'en',
+    transaction_id: crypto.randomBytes(16).toString('hex'),
+    usage: 'Demo WPF Transaction',
+    description: 'This is my first WPF transaction',
+    remote_ip: '127.0.0.1',
+    amount: '100',
+    currency: 'EUR',
+    customer_email: 'email@example.com',
+    customer_phone: '0123456789',
+    notification_url: 'http://my.host.name.tld:1234/notifier',
+    return_success_url: 'http://my.host.name.tld/success',
+    return_failure_url: 'http://my.host.name.tld/failure',
+    return_cancel_url: 'http://my.host.name.tld/cancel',
+    billing_address: {
+        first_name: 'John',
+        last_name: 'Doe',
+        address1: '123 Str.',
+        zip_code: '10000',
+        city: 'New York',
+        country: 'US',
+        state: 'California'
+    },
+    transaction_types: ['authorize', 'sale3d'],
+    customer_account_id: 11111,
+
+    // Full list of business attributes
+    business_attributes: {
+        // Airlines Air Carriers
+        flight_arrival_date: '31-12-2021',
+        airline_code: '1111',
+        flight_ticket_number: '123456789',
+        flight_origin_city: 'Sofia',
+        flight_destination_city: 'Berlin',
+        airline_tour_operator_name: 'Test',
+
+        // Event Management
+        event_start_date: '12-10-2021',
+        event_end_date: '01-10-2021',
+        event_organizer_id: '11111',
+        event_id: '321',
+
+        // Furniture
+        date_of_order: '12-10-2020',
+        delivery_date: '31-12-2020',
+        name_of_the_supplier: 'Supplier',
+
+        // Hotels and Real estate rentals
+        check_in_date: '12-10-2020',
+        check_out_date: '16-10-2020',
+        travel_agency_name: 'test',
+
+        // Car, Plane and Boat Rentals
+        vehicle_pick_up_date: '11-10-2020',
+        vehicle_return_date: '12-10-2020',
+        supplier_name: 'Rent a car',
+
+        // Cruise Lines
+        cruise_start_date: '12-10-2020',
+        cruise_end_date: '12-11-2020',
+
+        // Travel Agencies
+        arrival_date: '12-12-2020',
+        departure_date: '13-12-2020',
+        carrier_code: '333',
+        flight_number: '32',
+        ticket_number: '111111111111',
+        origin_city: 'Berlin',
+        destination_city: 'Sofia',
+        travel_agency: 'Agency',
+        contractor_name: 'Contractor',
+        atol_certificate: '123456',
+        pick_up_date: '12-10-2020',
+        return_date: '13-10-2020',
+
+        // Common
+        payment_type: 'deposit' // deposit or balance
+    }
+})
+    .send()
+    .then(success)
+    .catch(failure);
+```
+
+- CoffeeScript
+
+```coffee
+genesis = require './lib/genesis.js'
+crypto  = require 'crypto'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+    console.log reason
+
+success = (data) ->
+    console.log data
+
+transaction.wpf_create({
+    locale            : 'de'
+    transaction_id    : crypto.randomBytes(16).toString('hex')
+    usage             : 'Demo WPF Transaction'
+    description       : 'This is my first WPF transaction'
+    remote_ip         : '127.0.0.1'
+    amount            : '100'
+    currency          : 'USD'
+    customer_email    : 'email@example.com'
+    customer_phone    : '0123456789'
+    notification_url  : 'http://my.host.name.tld:1234/notifier'
+    return_success_url: 'http://my.host.name.tld/success'
+    return_failure_url: 'http://my.host.name.tld/failure'
+    return_cancel_url : 'http://my.host.name.tld/cancel'
+    billing_address   :
+      first_name: 'John'
+      last_name : 'Doe'
+      address1  : '123 Str.'
+      zip_code  : '10000'
+      city      : 'New York'
+      country   : 'US'
+      state     : 'California'
+    transaction_types: ['authorize', 'sale3d']
+
+    # Full list of business attributes
+    business_attributes:
+      # Airlines Air Carriers
+      flight_arrival_date: '31-12-2021',
+      airline_code: '1111',
+      flight_ticket_number: '123456789',
+      flight_origin_city: 'Sofia',
+      flight_destination_city: 'Berlin',
+      airline_tour_operator_name: 'Test',
+
+      # Event Management
+      event_start_date: '12-10-2021',
+      event_end_date: '01-10-2021',
+      event_organizer_id: '11111',
+      event_id: '321',
+
+      # Furniture
+      date_of_order: '12-10-2020',
+      delivery_date: '31-12-2020',
+      name_of_the_supplier: 'Supplier',
+
+      # Hotels and Real estate rentals
+      check_in_date: '12-10-2020',
+      check_out_date: '16-10-2020',
+      travel_agency_name: 'test',
+
+      # Car, Plane and Boat Rentals
+      vehicle_pick_up_date: '11-10-2020',
+      vehicle_return_date: '12-10-2020',
+      supplier_name: 'Rent a car',
+
+      # Cruise Lines
+      cruise_start_date: '12-10-2020',
+      cruise_end_date: '12-11-2020',
+
+      # Travel Agencies
+      arrival_date: '12-12-2020',
+      departure_date: '13-12-2020',
+      carrier_code: '333',
+      flight_number: '32',
+      ticket_number: '111111111111',
+      origin_city: 'Berlin',
+      destination_city: 'Sofia',
+      travel_agency: 'Agency',
+      contractor_name: 'Contractor',
+      atol_certificate: '123456',
+      pick_up_date: '12-10-2020',
+      return_date: '13-10-2020',
+
+      # Common
+      payment_type: 'deposit' # deposit or balance
+})
+.send()
+.then(success)
+.catch(failure)
+```
 
 Notification Listener
 ---------------------
@@ -452,5 +784,82 @@ p24
 
 Transaction Parameters
 ----------------------
+`wpf_create.transaction_types`:
+  * `authorize`
+  * `authorize3d`
+  * `sale`
+  * `sale3d`
+  * `init_recurring_sale`
+  * `init_recurring_sale3d`
+  * `account_verification`
+  * `alipay`
+  * `argencard`
+  * `aura`
+  * `bancomer`
+  * `boleto`
+  * `bcmc`
+  * `baloto`
+  * `banco_do_brasil`
+  * `bitpay_sale`
+  * `bitpay_payout`
+  * `bradesco`
+  * `cashu`
+  * `container_store`
+  * `cabal`
+  * `cencosud`
+  * `davivienda`
+  * `ezeewallet`
+  * `e_wallet`
+  * `efecty`
+  * `elo`
+  * `eps`
+  * `fashioncheque`
+  * `giropay`
+  * `google_pay`
+  * `apple_pay`
+  * `invoice`
+  * `itau`
+  * `ideal`
+  * `idebit_payin`
+  * `insta_debit_payin`
+  * `intersolve`
+  * `multibanco`
+  * `my_bank`
+  * `naranja`
+  * `nativa`
+  * `neosurf`
+  * `neteller`
+  * `online_banking`
+  * `oxxo`
+  * `ppro`
+      * `eps`
+      * `giropay`
+      * `ideal`
+      * `przelewy24`
+      * `safetypay`
+      * `trustpay`
+      * `bcmc`
+      * `mybank`
+  * `poli`
+  * `p24`
+  * `paypal`
+  * `payu`
+  * `post_finance`
+  * `pago_facil`
+  * `pse`
+  * `upi`
+  * `rapi_pago`
+  * `radpagos`
+  * `santander`
+  * `safetypay`
+  * `sofort`
+  * `webmoney`
+  * `sdd_init_recurring_sale`
+  * `tarjeta_shopping`
+  * `trustpay`
+  * `trustly_sale`
+  * `webpay`
+  * `wechat`
+  * `russian_mobile_sale`
 
 In order to get a full list of required and optional parameters, please consult our API Documentation.

@@ -6,9 +6,11 @@ class FraudReportByDate extends Base
   constructor: (params) ->
     super params
 
-    @requiredFields = [
-      'start_date'
-    ]
+  getTransactionType: ->
+    'retrieval_by_date_request_request'
+
+  getData: () ->
+    @params
 
   getUrl: ->
     app:
