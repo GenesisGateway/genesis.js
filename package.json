@@ -17,7 +17,7 @@
     "bluebird": "^3.5.1",
     "body-parser": "^1.20.0",
     "coffeescript": "^2.7.0",
-    "config": "~3.0.1",
+    "config": "~3.3.8",
     "connect": "^3.4.0",
     "fast-xml-parser": "^3.21.1",
     "js2xmlparser": "^4.0.2",
