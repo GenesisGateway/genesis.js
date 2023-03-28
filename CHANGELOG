@@ -1,3 +1,37 @@
+3.0.1
+-----
+* Added Recurring Type parameter support to the following transaction requests:
+    - Authorize
+    - Authorize 3D
+    - Sale
+    - Sale 3D
+    - WPF Create
+* Added Managed Recurring support for non-Indian and Indian cards to the following transaction request:
+    - Authorize
+    - Authorize 3D
+    - Sale
+    - Sale 3D
+    - Init Recurring Sale
+    - Init Recurring Sale 3D
+    - WPF Create
+* Added dynamic descriptor attributes support to the following transaction requests:
+    - Authorize
+    - Authorize 3D
+    - Sale
+    - Sale 3D
+    - Init Recurring Sale
+    - Init Recurring Sale 3D
+    - Payout
+* Added risk parameters support to the following transaction requests:
+    - Authorize
+    - Authorize 3D
+    - Sale
+    - Sale 3D
+    - Init Recurring Sale
+    - Init Recurring Sale 3D
+    - Account Verification
+* Added reference_id parameter support to the Sale transaction request
+
 3.0.0
 -----
 * Added JSON Schema for the transaction request validations

@@ -48,6 +48,13 @@ class Validator
     @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/payment.json')
     @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/tokenization.json')
     @ajv.addSchema(require '../../../schemas/definitions/attributes/customer/address.json')
+    @ajv.addSchema(
+      require '../../../schemas/definitions/attributes/recurring/managed_recurring.json'
+    )
+    @ajv.addSchema(require '../../../schemas/definitions/attributes/risk_attributes.json' )
+    @ajv.addSchema(
+      require '../../../schemas/definitions/attributes/financial/dynamic_descriptor_params.json'
+    )
 
   # Compare the specific transaction schema against the request parameters
   isValid: () ->

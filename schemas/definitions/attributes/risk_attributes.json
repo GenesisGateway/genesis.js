@@ -1,0 +1,109 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/risk_attributes",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "ssn": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "Social Security number or equivalent value for non US customers"
+    },
+    "mac_address": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "The customers mac address"
+    },
+    "session_id": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "The customers session_id"
+    },
+    "user_id": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "The customers user_id"
+    },
+    "user_level":  {
+      "type": "string",
+      "maxLength": 128,
+      "description": "A value describing the customers trust level, may be used by the risk management for configurable differentiated limits"
+    },
+    "email": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "The customers email"
+    },
+    "phone": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "The customers phone"
+    },
+    "remote_ip":  {
+      "type": "string",
+      "maxLength": 128,
+      "description": "The customers ip address"
+    },
+    "serial_number": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "Custom serial number"
+    } ,
+    "pan_tail": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "The last 4 digits of the card number"
+    },
+    "bin":  {
+      "type": "string",
+      "maxLength": 128,
+      "description": "The first 6 digits of the card number."
+    },
+    "first_name": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "Customer first name"
+    },
+    "last_name": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "Customer last name"
+    },
+    "country":  {
+      "type": "string",
+      "maxLength": 128,
+      "description": "The country of the customer"
+    },
+    "pan": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "The PAN hash of the customer card number"
+    },
+    "forwarded_ip": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "MaxMind specific risk param"
+    },
+    "username": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "MaxMind specific risk param"
+    },
+    "password": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "MaxMind specific risk param"
+    },
+    "bin_name": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "MaxMind specific risk param"
+    },
+    "bin_phone": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "MaxMind specific risk param"
+    }
+  }
+}
+

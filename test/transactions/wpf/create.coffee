@@ -7,6 +7,8 @@ Transaction        = require path.resolve './src/genesis/transactions/wpf/create
 FinancialBase      = require '../financial/financial_base'
 BusinessAttributes = require '../business_attributes'
 i18n               = require path.resolve 'src/genesis/helpers/i18n'
+RecurringType      = require '../../examples/attributes/financial/recurring_type'
+DynamicDescriptor  = require '../../examples/attributes/financial/dynamic_descriptor'
 
 describe 'WPFCreate Transaction', ->
 
@@ -15,7 +17,10 @@ describe 'WPFCreate Transaction', ->
     @transaction = new Transaction()
 
     delete @data.remote_ip
-    @data['transaction_types']  = ['sale', 'authorize']
+    @data['transaction_types']  = [
+      'sale',
+      'authorize'
+    ]
     @data['locale']             = faker.random.arrayElement((new i18n).getLocales())
     @data['notification_url']   = faker.internet.url()
     @data['return_success_url'] = faker.internet.url()
@@ -44,7 +49,6 @@ describe 'WPFCreate Transaction', ->
       },
       'sale'
     ]
-
     assert.equal true, @transaction.setData(data).isValid()
 
   it 'not fails when custom attribute of transaction_type exists', ->
@@ -173,6 +177,409 @@ describe 'WPFCreate Transaction', ->
     ]
     assert.equal true, @transaction.setData(data).isValid()
 
+  it 'works when authorize without managed_recurring included', ->
+    data = _.clone @data
+    data['currency'] = 'EUR'
+    data.transaction_types = [
+      {
+        authorize: {
+          bin: "123456",
+        }
+      }
+    ]
+
+    assert.equal true, @transaction.setData(data).isValid()
+
+  it 'works when authorize with managed_recurring attribute included', ->
+    data = _.clone @data
+    data['currency'] = 'EUR'
+    data.transaction_types = [
+      {
+        authorize: {
+          bin: "123456",
+          managed_recurring: {
+            mode: "automatic"
+            amount: 500
+          }
+        }
+      }
+    ]
+
+    assert.equal true, @transaction.setData(data).isValid()
+
+  it 'works when authorize3d with managed_recurring attribute included', ->
+    data = _.clone @data
+    data['currency'] = 'EUR'
+    data.transaction_types = [
+      {
+        authorize3d: {
+          bin: "123456",
+          managed_recurring: {
+            mode: "automatic"
+            amount: 500
+          }
+        }
+      }
+    ]
+
+    assert.equal true, @transaction.setData(data).isValid()
+
+  it 'works when sale with managed_recurring attribute included', ->
+    data = _.clone @data
+    data['currency'] = 'EUR'
+    data.transaction_types = [
+      {
+        sale: {
+          bin: "123456",
+          managed_recurring: {
+            mode: "manual"
+            amount: 500
+          }
+        }
+      }
+    ]
+
+    assert.equal true, @transaction.setData(data).isValid()
+
+  it 'works when sale3d with managed_recurring attribute included', ->
+    data = _.clone @data
+    data['currency'] = 'EUR'
+    data.transaction_types = [
+      {
+        sale3d: {
+          bin: "123456",
+          managed_recurring: {
+            mode: "automatic"
+            amount: 500
+          }
+        }
+      }
+    ]
+
+    assert.equal true, @transaction.setData(data).isValid()
+
+  it 'works when init_recurring_sale with managed_recurring attribute included', ->
+    data = _.clone @data
+    data['currency'] = 'EUR'
+    data.transaction_types = [
+      {
+        init_recurring_sale: {
+          bin: "123456",
+          managed_recurring: {
+            mode: "manual",
+            amount: "500"
+          }
+        }
+      }
+    ]
+
+    assert.equal true, @transaction.setData(data).isValid()
+
+  it 'works when init_recurring_sale3d with managed_recurring attribute included', ->
+    data = _.clone @data
+    data['currency'] = 'EUR'
+    data.transaction_types = [
+      {
+        init_recurring_sale3d: {
+          bin: "123456",
+          managed_recurring: {
+            mode: "manual"
+            amount: "500"
+          }
+        }
+      }
+    ]
+
+    assert.equal true, @transaction.setData(data).isValid()
+
+  it 'works when object transaction type without managed_recurring property', ->
+    data = _.clone @data
+    data['currency'] = 'EUR'
+    data.transaction_types = [
+      {
+        authorize3d: {
+          bin: "123456"
+        }
+      }
+    ]
+
+    @transaction.setData(data)
+    trx = @transaction.getTrxData()
+
+    expect(trx).not.to.have.nested.property(
+      'wpf_payment.transaction_types.transaction_type[0].managed_recurring'
+    )
+
+  context 'Covert to minor currency', ->
+
+    context 'managed_recurring attribute with amount', ->
+
+      it 'works with authoirze', ->
+        data = _.clone @data
+        data['currency'] = 'EUR'
+        data.transaction_types = [
+          {
+            authorize: {
+              bin: "123456",
+              managed_recurring: {
+                mode: "manual"
+                amount: 1.23
+              }
+            }
+          }
+        ]
+
+        @transaction.setData(data)
+        trx = @transaction.getTrxData()
+
+        assert.equal(
+          trx.wpf_payment.transaction_types.transaction_type[0].managed_recurring.amount, 123
+        )
+
+      it 'works with authoirze3d', ->
+        data = _.clone @data
+        data['currency'] = 'EUR'
+        data.transaction_types = [
+          {
+            authorize3d: {
+              bin: "123456",
+              managed_recurring: {
+                mode: "manual"
+                amount: 1.23
+              }
+            }
+          }
+        ]
+
+        @transaction.setData(data)
+        trx = @transaction.getTrxData()
+
+        assert.equal(
+          trx.wpf_payment.transaction_types.transaction_type[0].managed_recurring.amount, 123
+        )
+
+      it 'works with sale', ->
+        data = _.clone @data
+        data['currency'] = 'EUR'
+        data.transaction_types = [
+          {
+            sale: {
+              bin: "123456",
+              managed_recurring: {
+                mode: "manual"
+                amount: 1.23
+              }
+            }
+          }
+        ]
+
+        @transaction.setData(data)
+        trx = @transaction.getTrxData()
+
+        assert.equal(
+          trx.wpf_payment.transaction_types.transaction_type[0].managed_recurring.amount, 123
+        )
+
+      it 'works with sale3d', ->
+        data = _.clone @data
+        data['currency'] = 'EUR'
+        data.transaction_types = [
+          {
+            sale3d: {
+              bin: "123456",
+              managed_recurring: {
+                mode: "manual"
+                amount: 1.23
+              }
+            }
+          }
+        ]
+
+        @transaction.setData(data)
+        trx = @transaction.getTrxData()
+
+        assert.equal(
+          trx.wpf_payment.transaction_types.transaction_type[0].managed_recurring.amount, 123
+        )
+
+      it 'works with init_recurring_sale', ->
+        data = _.clone @data
+        data['currency'] = 'EUR'
+        data.transaction_types = [
+          {
+            init_recurring_sale: {
+              bin: "123456",
+              managed_recurring: {
+                mode: "manual"
+                amount: 1.23
+              }
+            }
+          }
+        ]
+
+        @transaction.setData(data)
+        trx = @transaction.getTrxData()
+
+        assert.equal(
+          trx.wpf_payment.transaction_types.transaction_type[0].managed_recurring.amount, 123
+        )
+
+      it 'works with init_recurring_sale3d', ->
+        data = _.clone @data
+        data['currency'] = 'EUR'
+        data.transaction_types = [
+          {
+            init_recurring_sale3d: {
+              bin: "123456",
+              managed_recurring: {
+                mode: "manual"
+                amount: 1.23
+              }
+            }
+          }
+        ]
+
+        @transaction.setData(data)
+        trx = @transaction.getTrxData()
+
+        assert.equal(
+          trx.wpf_payment.transaction_types.transaction_type[0].managed_recurring.amount, 123
+        )
+
+    context 'managed_recurring attribute with max_amount', ->
+
+      it 'works with authoirze', ->
+        data = _.clone @data
+        data['currency'] = 'EUR'
+        data.transaction_types = [
+          {
+            authorize: {
+              bin: "123456",
+              managed_recurring: {
+                mode: "manual"
+                amount: 1.11
+              }
+            }
+          }
+        ]
+
+        @transaction.setData(data)
+        trx = @transaction.getTrxData()
+
+        assert.equal(
+          trx.wpf_payment.transaction_types.transaction_type[0].managed_recurring.amount, 111
+        )
+
+      it 'works with authoirze3d', ->
+        data = _.clone @data
+        data['currency'] = 'EUR'
+        data.transaction_types = [
+          {
+            authorize3d: {
+              bin: "123456",
+              managed_recurring: {
+                mode: "manual"
+                max_amount: 1.23
+              }
+            }
+          }
+        ]
+
+        @transaction.setData(data)
+        trx = @transaction.getTrxData()
+
+        assert.equal(
+          trx.wpf_payment.transaction_types.transaction_type[0].managed_recurring.max_amount, 123
+        )
+
+      it 'works with sale', ->
+        data = _.clone @data
+        data['currency'] = 'EUR'
+        data.transaction_types = [
+          {
+            sale: {
+              bin: "123456",
+              managed_recurring: {
+                mode: "manual"
+                max_amount: 1.11
+              }
+            }
+          }
+        ]
+
+        @transaction.setData(data)
+        trx = @transaction.getTrxData()
+
+        assert.equal(
+          trx.wpf_payment.transaction_types.transaction_type[0].managed_recurring.max_amount, 111
+        )
+
+      it 'works with sale3d', ->
+        data = _.clone @data
+        data['currency'] = 'EUR'
+        data.transaction_types = [
+          {
+            sale3d: {
+              bin: "123456",
+              managed_recurring: {
+                mode: "manual"
+                max_amount: 1.11
+              }
+            }
+          }
+        ]
+
+        @transaction.setData(data)
+        trx = @transaction.getTrxData()
+
+        assert.equal(
+          trx.wpf_payment.transaction_types.transaction_type[0].managed_recurring.max_amount, 111
+        )
+
+      it 'works with init_recurring_sale', ->
+        data = _.clone @data
+        data['currency'] = 'EUR'
+        data.transaction_types = [
+          {
+            init_recurring_sale: {
+              bin: "123456",
+              managed_recurring: {
+                mode: "manual"
+                max_amount: 1.11
+              }
+            }
+          }
+        ]
+
+        @transaction.setData(data)
+        trx = @transaction.getTrxData()
+
+        assert.equal(
+          trx.wpf_payment.transaction_types.transaction_type[0].managed_recurring.max_amount, 111
+        )
+
+      it 'works with init_recurring_sale3d', ->
+        data = _.clone @data
+        data['currency'] = 'EUR'
+        data.transaction_types = [
+          {
+            init_recurring_sale3d: {
+              bin: "123456",
+              managed_recurring: {
+                mode: "manual"
+                max_amount: 1.11
+              }
+            }
+          }
+        ]
+
+        @transaction.setData(data)
+        trx = @transaction.getTrxData()
+
+        assert.equal(
+          trx.wpf_payment.transaction_types.transaction_type[0].managed_recurring.max_amount, 111
+        )
+
   context 'with i18n', ->
 
     context 'with invalid request', ->
@@ -222,4 +629,6 @@ describe 'WPFCreate Transaction', ->
         assert.equal true, @transaction.setData(data).isValid()
 
   BusinessAttributes()
+  RecurringType()
+  DynamicDescriptor()
   FinancialBase()

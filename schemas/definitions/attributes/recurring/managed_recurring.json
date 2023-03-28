@@ -1,0 +1,72 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/recurring/managed_recurring",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "mode"
+  ],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["automatic", "manual"],
+      "description": "This indicates that the gateway will automatically manage the subsequent recurring transactions."
+    },
+    "interval": {
+      "type": "string",
+      "enum": ["days", "months"],
+      "default": "days",
+      "maxLength": 6,
+      "description": "The interval type for the period"
+    },
+    "first_date": {
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "Specifies the date of the first recurring event in the future"
+    },
+    "time_of_day": {
+      "type": "integer",
+      "default": 0,
+      "description": "Specifies the UTC hour in the day for the execution of the recurring transaction."
+    },
+    "period": {
+      "type": "integer",
+      "description": "Rebill period."
+    },
+    "amount": {
+      "$ref": "/definitions/attributes/financial/payment#amount",
+      "description": "Amount for the recurring transactions."
+    },
+    "payment_type": {
+       "type": "string",
+       "enum": ["initial", "subsequent", "modification", "cancellation"],
+       "description": "Type of the current recurring transaction."
+    },
+    "amount_type": {
+       "type": "string",
+       "enum": ["fixed", "max"],
+       "description": "Type of the amount."
+    },
+    "frequency": {
+      "type": "string",
+       "enum": [ "daily", "twice_weekly", "weekly", "ten_days", "fortnightly", "monthly",
+         "every_two_months", "trimester", "quarterly", "twice_yearly", "annually", "unscheduled"],
+       "description": "Frequency of the subsequent transactions."
+    },
+    "registration_reference_number": {
+      "type": "string",
+      "maxLength": 35,
+      "description": "Reference number as per the agreement."
+    },
+    "max_amount": {
+      "$ref": "/definitions/attributes/financial/payment#amount",
+      "description": "Maximum amount as per the agreement."
+    },
+    "max_count": {
+      "type": "integer",
+      "description": "Maximum transactions count as per the agreement."
+    },
+    "validated": {
+      "type": "boolean",
+      "description": "Indicates if the current transaction is valid as per the registered agreement."
+    }
+  }
+}

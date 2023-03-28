@@ -1,5 +1,8 @@
+faker = require 'faker'
 path  = require 'path'
 _     = require 'underscore'
+
+
 
 FakeData           = require '../../fake_data'
 Transaction        = require path.resolve './src/genesis/transactions/financial/cards/sale'
@@ -9,12 +12,17 @@ ScaParams          = require '../../../examples/attributes/sca_params'
 Moto               = require '../../../examples/attributes/financial/moto'
 Gaming             = require '../../../examples/attributes/financial/gaming'
 Crypto             = require '../../../examples/attributes/financial/crypto'
+RecurringType      = require '../../../examples/attributes/financial/recurring_type'
+ManagedRecurring   = require '../../../examples/attributes/financial/recurring/managed_recurring'
+RiskParams         = require '../../../examples/attributes/risk_params'
+DynamicDescriptor  = require '../../../examples/attributes/financial/dynamic_descriptor'
 
 describe 'Sale Transaction', ->
 
   before ->
     @data        = (new FakeData).getDataWithBusinessAttributes()
     @transaction = new Transaction()
+    @data['managed_recurring'] = (new FakeData).getManagedRecurringAutomatic()
 
   CardBase()
   BusinessAttributes()
@@ -22,3 +30,22 @@ describe 'Sale Transaction', ->
   Moto()
   Gaming()
   Crypto()
+  RecurringType()
+  ManagedRecurring()
+  RiskParams()
+  DynamicDescriptor()
+
+  context 'with Recurring Type - subsequent', ->
+
+    context 'and reference_id', ->
+
+      it 'works with sale', ->
+        data = _.clone @data
+        data.recurring_type = 'subsequent'
+        data.reference_id = faker.datatype.number().toString()
+        assert.equal true, @transaction.setData(data).isValid()
+
+
+
+
+

@@ -561,6 +561,135 @@ transaction.wpf_create({
 .then(success)
 .catch(failure)
 ```
+Web Payment Form Transaction with managed_recurring 
+----------------------------
+
+- Javascript
+
+```js
+ar crypto, failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+
+crypto = require('crypto');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+transaction.wpf_create({
+    locale: 'de',
+    transaction_id: crypto.randomBytes(16).toString('hex'),
+    usage: 'Demo WPF Transaction',
+    description: 'This is my first WPF transaction',
+    amount: '100',
+    currency: 'USD',
+    customer_email: 'email@example.com',
+    customer_phone: '0123456789',
+    notification_url: 'http://my.host.name.tld:1234/notifier',
+    return_success_url: 'http://my.host.name.tld/success',
+    return_failure_url: 'http://my.host.name.tld/failure',
+    return_cancel_url: 'http://my.host.name.tld/cancel',
+    billing_address: {
+        first_name: 'John',
+        last_name: 'Doe',
+        address1: '123 Str.',
+        zip_code: '10000',
+        city: 'New York',
+        country: 'US'
+    },
+    shipping_address: {
+        first_name: 'John',
+        last_name: 'Doe',
+        address1: '123 Str.',
+        zip_code: '10000',
+        city: 'New York',
+        country: 'US'
+    },
+    transaction_types: [
+        {
+          init_recurring_sale: {
+            managed_recurring: {
+              mode: "automatic",
+              interval: "days",
+              first_date: "2023-12-18",
+              time_of_day: 5,
+              period: 22,
+              amount: 500,
+              max_count: 10
+            }
+          },
+        }
+    ]
+})
+```
+
+- CoffeeScript
+
+```coffee
+genesis = require './lib/genesis.js'
+crypto  = require 'crypto'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+  console.log data
+
+transaction.wpf_create({
+    locale            : 'de'
+    transaction_id    : crypto.randomBytes(16).toString('hex')
+    usage             : 'Demo WPF Transaction'
+    description       : 'This is my first WPF transaction'
+    amount            : '100'
+    currency          : 'USD'
+    customer_email    : 'email@example.com'
+    customer_phone    : '0123456789'
+    notification_url  : 'http://my.host.name.tld:1234/notifier'
+    return_success_url: 'http://my.host.name.tld/success'
+    return_failure_url: 'http://my.host.name.tld/failure'
+    return_cancel_url : 'http://my.host.name.tld/cancel'
+    billing_address   :
+      first_name: 'John'
+      last_name : 'Doe'
+      address1  : '123 Str.'
+      zip_code  : '10000'
+      city      : 'New York'
+      country   : 'US'
+      state     : 'CA'
+    shipping_address:
+      first_name: 'John'
+      last_name: 'Doe'
+      address1: '123 Str.'
+      zip_code: '10000'
+      city: 'New York'
+      country: 'US'
+    transaction_types: [
+      init_recurring_sale:
+        managed_recurring:
+          mode: "automatic"
+          interval: "days"
+          first_date: "2023-12-18"
+          time_of_day: 5
+          period: 22
+          amount: 500
+          max_count: 10
+    ]
+  })
+.send()
+.then(success)
+.catch(failure)
+```
+
+The example above is going to create a new ```WPF``` with ```Init Recurring Sale``` transaction with ```managed_recurring``` attributes.
 
 Notification Listener
 ---------------------

@@ -96,6 +96,24 @@ class FakeData
       'return_date': '24-10-2020',
       'payment_type': 'deposit'
 
+  getManagedRecurringManual: ->
+    'mode': 'manual',
+    'payment_type': 'subsequent',
+    'amount_type': 'fixed',
+    'frequency': 'weekly',
+    'registration_reference_number': faker.datatype.number().toString(),
+    'max_amount': 100,
+    'max_count': 5,
+    'validated': true
+
+  getManagedRecurringAutomatic: ->
+    'mode': 'automatic',
+    'interval': 'days',
+    'first_date': '2022-10-03',
+    'time_of_day': 5,
+    'period': 1,
+    'amount': faker.datatype.number().toString()
+
   getSimpleData: ->
     @data
 

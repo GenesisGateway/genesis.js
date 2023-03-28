@@ -12,6 +12,8 @@ Moto               = require '../../../../examples/attributes/financial/moto'
 Gaming             = require '../../../../examples/attributes/financial/gaming'
 Crypto             = require '../../../../examples/attributes/financial/crypto'
 ThreedsV2          = require '../../../../examples/attributes/threeds/v2/threeds_v2'
+RiskParams         = require '../../../../examples/attributes/risk_params'
+DynamicDescriptor  = require '../../../../examples/attributes/financial/dynamic_descriptor'
 
 describe 'InitRecurringSale 3D Transaction', ->
 
@@ -23,6 +25,8 @@ describe 'InitRecurringSale 3D Transaction', ->
     @data['return_success_url'] = faker.internet.url()
     @data['return_failure_url'] = faker.internet.url()
 
+    @data['managed_recurring'] = (new FakeData).getManagedRecurringAutomatic()
+
   ThreeDBase()
   BusinessAttributes()
   ScaParams()
@@ -30,3 +34,5 @@ describe 'InitRecurringSale 3D Transaction', ->
   Gaming()
   Crypto()
   ThreedsV2()
+  RiskParams()
+  DynamicDescriptor()

@@ -2,7 +2,7 @@
 FinancialBase       = require '../financial_base'
 _                   = require 'underscore'
 
-class CardBase extends  FinancialBase
+class CardBase extends FinancialBase
 
   constructor: (params) ->
     super params

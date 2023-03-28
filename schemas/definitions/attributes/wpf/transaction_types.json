@@ -447,7 +447,7 @@
           "description": "See Get rates for FX Service. Offers the option to use a specific FX rate to convert the transaction processing amount. Used FX rate should have the same source currency as the processing currency."
         },
         "managed_recurring": {
-          "type": "object"
+          "$ref": "/definitions/attributes/recurring/managed_recurring"
         }
       }
     },
@@ -483,6 +483,9 @@
         "fx_rate_id": {
           "type": "integer",
           "description": "See Get rates for FX Service. Offers the option to use a specific FX rate to convert the transaction processing amount. Used FX rate should have the same source currency as the processing currency."
+        },
+        "managed_recurring": {
+          "$ref": "/definitions/attributes/recurring/managed_recurring"
         }
       }
     },

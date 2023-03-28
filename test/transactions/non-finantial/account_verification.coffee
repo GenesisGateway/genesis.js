@@ -5,6 +5,7 @@ FakeData    = require '../fake_data'
 Transaction = require path.resolve './src/genesis/transactions/non_financial/account_verification'
 Base        = require '../base'
 Moto        = require '../../examples/attributes/financial/moto'
+RiskParams  = require '../../examples/attributes/risk_params'
 
 describe 'AccountVerification Transaction', ->
 
@@ -18,3 +19,4 @@ describe 'AccountVerification Transaction', ->
 
   Base()
   Moto()
+  RiskParams()

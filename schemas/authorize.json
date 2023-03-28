@@ -88,6 +88,18 @@
     },
     "sca_params": {
       "$ref": "/definitions/attributes/sca_params#sca_params"
+    },
+    "recurring_type": {
+      "$ref": "/definitions/definitions#initial_managed_recurring"
+    },
+    "managed_recurring": {
+      "$ref": "/definitions/attributes/recurring/managed_recurring"
+    },
+    "risk_params": {
+      "$ref": "/definitions/attributes/risk_attributes"
+    },
+    "dynamic_descriptor_params": {
+      "$ref": "/definitions/attributes/financial/dynamic_descriptor_params"
     }
   }
 }

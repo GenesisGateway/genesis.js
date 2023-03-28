@@ -125,7 +125,9 @@
           "$ref": "#usage"
         },
         "reference_id": {
-          "type": "string"
+          "$id": "#reference_id",
+          "type": "string",
+          "description": "Unique id returned by corresponding transaction"
         }
       }
     },
@@ -154,6 +156,22 @@
       "type": "string",
       "pattern": "^(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9])-[0-9]{4}$",
       "message": "Should match dd-mm-yyyy"
+    },
+    "initial_managed_recurring": {
+      "$id": "#initial_managed_recurring",
+      "type": "string",
+      "enum": ["initial", "managed"]
+    },
+    "subsequent_managed_recurring": {
+      "$id": "#subsequent_managed_recurring",
+      "type": "string",
+      "enum": ["subsequent"]
+    },
+    "date_iso_8601_format": {
+      "$id": "#date-yyyy-mm-dd",
+      "type": "string",
+      "pattern": "^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$",
+      "message": "Should match yyyy-mm-dd"
     }
   }
 }

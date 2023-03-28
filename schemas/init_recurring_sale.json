@@ -76,6 +76,15 @@
     },
     "business_attributes": {
       "$ref": "/definitions/attributes/business_attributes"
+    },
+    "managed_recurring": {
+      "$ref": "/definitions/attributes/recurring/managed_recurring"
+    },
+    "risk_params": {
+      "$ref": "/definitions/attributes/risk_attributes"
+    },
+    "dynamic_descriptor_params": {
+      "$ref": "/definitions/attributes/financial/dynamic_descriptor_params"
     }
   }
 }

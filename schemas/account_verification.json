@@ -57,6 +57,9 @@
     },
     "shipping_address": {
       "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "risk_params": {
+      "$ref": "/definitions/attributes/risk_attributes"
     }
   }
 }

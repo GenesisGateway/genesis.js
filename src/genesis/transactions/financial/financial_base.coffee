@@ -24,6 +24,16 @@ class FinancialBase extends  Base
     if @params.amount and @params.currency
       @params.amount = @currency.convertToMinorUnits @params.amount, @params.currency
 
+    if @params.managed_recurring and @params.currency
+      if @params.managed_recurring.amount
+        @params.managed_recurring.amount = @currency.convertToMinorUnits(
+          @params.managed_recurring.amount, @params.currency
+        )
+      if @params.managed_recurring.max_amount
+        @params.managed_recurring.max_amount = @currency.convertToMinorUnits(
+          @params.managed_recurring.max_amount, @params.currency
+        )
+
     'payment_transaction':
       _.extend(
         @params,
