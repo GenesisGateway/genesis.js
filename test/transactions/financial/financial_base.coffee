@@ -49,6 +49,18 @@ FinancialBase = () ->
 
     assert.equal true, @transaction.setData(data).isValid()
 
+  it 'works with minor amount format', ->
+    data = _.clone @data
+    data['currency'] = 'EUR'
+    data['amount']   = '1.99'
+    amount           = ''
+    trxData          = @transaction.setData(data).getTrxData()
+
+    if trxData.payment_transaction then amount = trxData.payment_transaction.amount
+    if trxData.wpf_payment then amount         = trxData.wpf_payment.amount
+
+    assert.equal '199', amount
+
   Base()
 
 module.exports = FinancialBase

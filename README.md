@@ -131,6 +131,416 @@ transaction.sale({
 
 The example above is going to create a Sale (Authorize w/ immediate Capture) transaction for the amount of $100.
 
+Google Pay Transaction
+----------------------------
+
+Processing
+
+<details>
+<summary>JavaScript example</summary>
+
+```js
+var crypto, failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+
+crypto = require('crypto');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+payment_token = {"protocolVersion":"ECv2","signature":"MEQCIH6Q4OwQ0jAceFEkGF0JID6sJNXxOEi4r+mA7biRxqBQAiAondqoUpU/bdsrAOpZIsrHQS9nwiiNwOrr24RyPeHA0Q\u003d\u003d","intermediateSigningKey":{"signedKey": "{\"keyExpiration\":\"1542323393147\",\"keyValue\":\"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE/1+3HBVSbdv+j7NaArdgMyoSAM43yRydzqdg1TxodSzA96Dj4Mc1EiKroxxunavVIvdxGnJeFViTzFvzFRxyCw\\u003d\\u003d\"}","signatures": ["MEYCIQCO2EIi48s8VTH+ilMEpoXLFfkxAwHjfPSCVED/QDSHmQIhALLJmrUlNAY8hDQRV/y1iKZGsWpeNmIP+z+tCQHQxP0v"]}, "signedMessage":"{\"tag\":\"jpGz1F1Bcoi/fCNxI9n7Qrsw7i7KHrGtTf3NrRclt+U\\u003d\",\"ephemeralPublicKey\":\"BJatyFvFPPD21l8/uLP46Ta1hsKHndf8Z+tAgk+DEPQgYTkhHy19cF3h/bXs0tWTmZtnNm+vlVrKbRU9K8+7cZs\\u003d\",\"encryptedMessage\":\"mKOoXwi8OavZ\"}"}
+
+transaction.google_pay({
+    transaction_id: crypto.randomBytes(16).toString('hex'),
+    usage: 'Demo Authorize Transaction',
+    payment_subtype: 'sale',
+    payment_token: payment_token,
+    amount: '100',
+    currency: 'USD',
+    customer_email: 'email@test.com',
+    customer_phone: '0123456789',
+    remote_ip: '245.253.2.12',
+    birth_date: '12-12-2008',
+    billing_address: {
+        first_name: 'John',
+        last_name: 'Doe',
+        address1: '123 Str.',
+        zip_code: '10000',
+        city: 'New York',
+        country: 'US'
+    },
+    shipping_address: {
+        first_name: 'John',
+        last_name: 'Doe',
+        address1: '123 Str.',
+        zip_code: '10000',
+        city: 'New York',
+        country: 'US'
+    },
+    notification_url: 'http://my.host.name.tld:1234/notifier',
+    return_success_url: 'http://my.host.name.tld/success',
+    return_failure_url: 'http://my.host.name.tld/failure',
+})
+    .send()
+    .then(success)
+    .catch(failure);
+```
+</details>
+
+<details>
+<summary>CoffeeScript example</summary>
+
+```coffee
+genesis = require './lib/genesis.js'
+crypto  = require 'crypto'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+  console.log data
+
+payment_token = {"protocolVersion":"ECv2","signature":"MEQCIH6Q4OwQ0jAceFEkGF0JID6sJNXxOEi4r+mA7biRxqBQAiAondqoUpU/bdsrAOpZIsrHQS9nwiiNwOrr24RyPeHA0Q\u003d\u003d","intermediateSigningKey":{"signedKey": "{\"keyExpiration\":\"1542323393147\",\"keyValue\":\"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE/1+3HBVSbdv+j7NaArdgMyoSAM43yRydzqdg1TxodSzA96Dj4Mc1EiKroxxunavVIvdxGnJeFViTzFvzFRxyCw\\u003d\\u003d\"}","signatures": ["MEYCIQCO2EIi48s8VTH+ilMEpoXLFfkxAwHjfPSCVED/QDSHmQIhALLJmrUlNAY8hDQRV/y1iKZGsWpeNmIP+z+tCQHQxP0v"]}, "signedMessage":"{\"tag\":\"jpGz1F1Bcoi/fCNxI9n7Qrsw7i7KHrGtTf3NrRclt+U\\u003d\",\"ephemeralPublicKey\":\"BJatyFvFPPD21l8/uLP46Ta1hsKHndf8Z+tAgk+DEPQgYTkhHy19cF3h/bXs0tWTmZtnNm+vlVrKbRU9K8+7cZs\\u003d\",\"encryptedMessage\":\"mKOoXwi8OavZ\"}"}
+
+transaction.google_pay({
+  transaction_id           : crypto.randomBytes(16).toString('hex')
+  usage                    : 'Demo Authorize Transaction',
+  payment_subtype          : 'sale',
+  payment_token            : payment_token,
+  amount                   : '100',
+  currency                 : 'USD',
+  customer_email           : 'email@test.com',
+  customer_phone           : '0123456789',
+  remote_ip                : '245.253.2.12',
+  birth_date               : '12-12-2008',
+  billing_address          :
+    first_name: 'John',
+    last_name : 'Doe',
+    address1  : '123 Str.',
+    zip_code  : '10000',
+    city      : 'New York',
+    country   : 'US'
+  shipping_address         :
+    first_name: 'John',
+    last_name : 'Doe',
+    address1  : '123 Str.',
+    zip_code  : '10000',
+    city      : 'New York',
+    country   : 'US'
+  notification_url  : 'http://my.host.name.tld:1234/notifier',
+  return_success_url: 'http://my.host.name.tld/success',
+  return_failure_url: 'http://my.host.name.tld/failure',
+})
+  .send()
+  .then(success)
+  .catch(failure)
+
+```
+</details>
+
+WPF
+
+<details>
+<summary>JavaScript example</summary>
+
+```js
+var crypto, failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+
+crypto = require('crypto');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+transaction.wpf_create({
+    transaction_id: crypto.randomBytes(16).toString('hex'),
+    transaction_types: [
+        {
+            'google_pay' : {
+                payment_subtype: 'sale'
+            }
+
+        }
+    ],
+    usage: 'Genesis JS Client Automated Request',
+    currency: 'EUR',
+    amount: '100',
+    customer_email: 'Clotilde_Hettinger54@hotmail.com',
+    customer_phone: '1-749-394-9321 x93370',
+    notification_url: 'http://my.host.name.tld:1234/notifier',
+    return_success_url: 'http://my.host.name.tld/success',
+    return_failure_url: 'http://my.host.name.tld/failure',
+    return_cancel_url: 'http://my.host.name.tld/cancel'
+})
+    .send()
+    .then(success)
+    .catch(failure);
+
+```
+</details>
+
+<details>
+<summary>CoffeeScript example</summary>
+
+```coffee
+genesis = require './lib/genesis.js'
+crypto  = require 'crypto'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+  console.log data
+
+transaction.wpf_create({
+  transaction_id     : crypto.randomBytes(16).toString('hex'),
+  transaction_types  : [
+    'google_pay' :
+      payment_subtype: 'sale'
+  ],
+  usage             : 'Demo WPF Transaction'
+  description       : 'This is my first WPF transaction'
+  amount            : '100'
+  currency          : 'USD'
+  customer_email    : 'email@example.com'
+  customer_phone    : '0123456789'
+  notification_url  : 'http://my.host.name.tld:1234/notifier'
+  return_success_url: 'http://my.host.name.tld/success'
+  return_failure_url: 'http://my.host.name.tld/failure'
+  return_cancel_url : 'http://my.host.name.tld/cancel'
+})
+ .send()
+  .then(success)
+  .catch(failure);
+```
+
+</details>
+
+Apple Pay Transaction
+----------------------------
+
+Processing
+
+<details>
+<summary>JavaScript example</summary>
+
+```js
+var crypto, failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+
+crypto = require('crypto');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+payment_token = {"paymentData":{"version": "EC_v1","data": "nvV/CyVrVC1jC3nvoYTmw/APqMS3jSdM4/sIoCbnHiqhCWtpVkEWrAkxGqjp1lryX7wtTn07Om7TGyxztYK/KPQM6ajHXDsIpGWUtDAuVFCqzTNWYUukpjkF5cokLPm+0oc1lwDFKLIexW0QmIyKj4WUS3hIyI10zdMAzNCU5BKDto21eVqQaYWyPYDkoAafrIwpYnCUoWFWCQ91Gj0xnIVK9ElaWepAMp6iAXm5DzR+N0A6AwCtxp3AXhP/2A+nTNvemO7eFfkNMaW/yIYPHD+GRDq3gp5yvVNVDzLvAYPoR8iCGuF3YA21sh7Ewoj7M7QO1tSjcPympazC+QUuKl9XQSUXayOrqka6vEbc1ZifotmjKvvmc3nTDaOPoTAPSG+ymBS9EUcd+65/CrdZF4Rdb5vyZEylqB45p3o=","signature": "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","header":{            "ephemeralPublicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE0Qgk5F6L0FCO1H34M4DLB6yDRHs3k0NeJUgtiQ66ZYBa4RCjlkhFPy63vSCGmeZ9Q19oWDOYSwA9Z3fnYslZCg==","publicKeyHash":"QOmvMaoCNYk5tv+69KC1i2UCFQcOl6LYPIJfYAT+SLQ=","transactionId": "cd9a7d0da9bbca9c87490e5eaeb7d4080c9ab80528248fc3cb70aa3fe47c36cd"}},"paymentMethod":{"displayName":"Visa 0225","network":"Visa","type":"debit"},"transactionIdentifier":"CD9A7D0DA9BBCA9C87490E5EAEB7D4080C9AB80528248FC3CB70AA3FE47C36CD"};
+
+transaction.apple_pay({
+  transaction_id: crypto.randomBytes(16).toString('hex'),
+  usage: 'Demo Authorize Transaction',
+  payment_subtype: 'sale',
+  payment_token: payment_token,
+  amount: '100',
+  currency: 'USD',
+  customer_email: 'email@test.com',
+  customer_phone: '0123456789',
+  remote_ip: '245.253.2.12',
+  birth_date: '12-12-2008',
+  billing_address: {
+      first_name: 'John',
+      last_name: 'Doe',
+      address1: '123 Str.',
+      zip_code: '10000',
+      city: 'New York',
+      country: 'US'
+  },
+  shipping_address: {
+      first_name: 'John',
+      last_name: 'Doe',
+      address1: '123 Str.',
+      zip_code: '10000',
+      city: 'New York',
+      country: 'US'
+  }
+})
+.send()
+.then(success)
+.catch(failure)
+```
+
+</details>
+
+<details>
+<summary>CoffeeScript example</summary>
+
+```coffee
+genesis = require './lib/genesis.js'
+crypto  = require 'crypto'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+  console.log data
+
+payment_token = {"paymentData":{"version": "EC_v1","data": "nvV/CyVrVC1jC3nvoYTmw/APqMS3jSdM4/sIoCbnHiqhCWtpVkEWrAkxGqjp1lryX7wtTn07Om7TGyxztYK/KPQM6ajHXDsIpGWUtDAuVFCqzTNWYUukpjkF5cokLPm+0oc1lwDFKLIexW0QmIyKj4WUS3hIyI10zdMAzNCU5BKDto21eVqQaYWyPYDkoAafrIwpYnCUoWFWCQ91Gj0xnIVK9ElaWepAMp6iAXm5DzR+N0A6AwCtxp3AXhP/2A+nTNvemO7eFfkNMaW/yIYPHD+GRDq3gp5yvVNVDzLvAYPoR8iCGuF3YA21sh7Ewoj7M7QO1tSjcPympazC+QUuKl9XQSUXayOrqka6vEbc1ZifotmjKvvmc3nTDaOPoTAPSG+ymBS9EUcd+65/CrdZF4Rdb5vyZEylqB45p3o=","signature": "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","header":{            "ephemeralPublicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE0Qgk5F6L0FCO1H34M4DLB6yDRHs3k0NeJUgtiQ66ZYBa4RCjlkhFPy63vSCGmeZ9Q19oWDOYSwA9Z3fnYslZCg==","publicKeyHash":"QOmvMaoCNYk5tv+69KC1i2UCFQcOl6LYPIJfYAT+SLQ=","transactionId": "cd9a7d0da9bbca9c87490e5eaeb7d4080c9ab80528248fc3cb70aa3fe47c36cd"}},"paymentMethod":{"displayName":"Visa 0225","network":"Visa","type":"debit"},"transactionIdentifier":"CD9A7D0DA9BBCA9C87490E5EAEB7D4080C9AB80528248FC3CB70AA3FE47C36CD"}
+
+transaction.apple_pay({
+  transaction_id : crypto.randomBytes(16).toString('hex')
+  usage          : 'Demo Authorize Transaction'
+  payment_subtype: 'sale'
+  payment_token  : payment_token
+  amount         : '100'
+  currency       : 'USD'
+  customer_email : 'email@test.com'
+  customer_phone : '0123456789'
+  remote_ip      : '245.253.2.12'
+  birth_date     : '12-12-2008'
+  billing_address: {
+    first_name: 'John'
+    last_name : 'Doe'
+    address1  : '123 Str.'
+    zip_code  : '10000'
+    city      : 'New York'
+    country   : 'US'
+  },
+  shipping_address: {
+    first_name: 'John'
+    last_name : 'Doe'
+    address1  : '123 Str.'
+    zip_code  : '10000'
+    city      : 'New Yok'
+    country   : 'US'
+  }
+})
+  .send()
+  .then(success)
+  .catch(failure)
+```
+
+</details>
+
+WPF
+
+<details>
+<summary>JavaScript example</summary>
+
+```js
+var crypto, failure, genesis, success, transaction;
+
+genesis = require('.lib/genesis.js');
+
+crypto = require('crypto');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+transaction.wpf_create({
+    transaction_id: crypto.randomBytes(16).toString('hex'),
+    transaction_types: [
+        {
+            'apple_pay' : {
+                payment_subtype: 'sale'
+            }
+
+        }
+    ],
+    usage: 'Genesis JS Client Automated Request',
+    currency: 'EUR',
+    amount: '100',
+    customer_email: 'Clotilde_Hettinger54@hotmail.com',
+    customer_phone: '1-749-394-9321 x93370',
+    notification_url: 'http://my.host.name.tld:1234/notifier',
+    return_success_url: 'http://my.host.name.tld/success',
+    return_failure_url: 'http://my.host.name.tld/failure',
+    return_cancel_url: 'http://my.host.name.tld/cancel'
+})
+    .send()
+    .then(success)
+    .catch(failure);
+
+```
+
+</details>
+
+<details>
+<summary>CoffeeScript example</summary>
+
+```coffee
+genesis = require './lib/genesis.js'
+crypto  = require 'crypto'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+  console.log data
+
+transaction.wpf_create({
+  transaction_id     : crypto.randomBytes(16).toString('hex'),
+  transaction_types  : [
+    'apple_pay' :
+      payment_subtype: 'sale'
+  ],
+  usage             : 'Demo WPF Transaction'
+  description       : 'This is my first WPF transaction'
+  amount            : '100'
+  currency          : 'USD'
+  customer_email    : 'email@example.com'
+  customer_phone    : '0123456789'
+  notification_url  : 'http://my.host.name.tld:1234/notifier'
+  return_success_url: 'http://my.host.name.tld/success'
+  return_failure_url: 'http://my.host.name.tld/failure'
+  return_cancel_url : 'http://my.host.name.tld/cancel'
+})
+ .send()
+  .then(success)
+  .catch(failure);
+
+```
+
+</details>
+
+
 Web Payment Form Transaction
 ----------------------------
 
@@ -567,7 +977,7 @@ Web Payment Form Transaction with managed_recurring
 - Javascript
 
 ```js
-ar crypto, failure, genesis, success, transaction;
+var crypto, failure, genesis, success, transaction;
 
 genesis = require('./lib/genesis.js');
 
@@ -884,6 +1294,7 @@ Transaction Types
 
 ```text
 account_verification
+apple_pay
 avs
 authorize
 authorize3d
@@ -894,6 +1305,7 @@ chargeback_by_date
 credit
 fraud_report
 fraud_report_by_date
+google_pay
 init_recurring
 init_recurring_sale3d
 reconcile

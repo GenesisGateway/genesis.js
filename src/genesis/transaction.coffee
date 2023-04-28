@@ -67,6 +67,12 @@ SddInitRecurringSale = require './transactions/financial/direct_debit/sdd_init_r
 SddRecurringSale     = require './transactions/financial/direct_debit/sdd_recurring_sale'
 SddRefund            = require './transactions/financial/direct_debit/sdd_refund'
 
+###
+  Financial mobile transactions
+###
+GooglePay = require './transactions/financial/mobile/google_pay'
+ApplePay  = require './transactions/financial/mobile/apple_pay'
+
 class Transaction
 
   ###
@@ -225,5 +231,14 @@ class Transaction
 
   wpf_reconcile: (params) ->
     new WpfReconcile(params)
+
+  ###
+    Financial mobile transactions
+  ###
+  google_pay: (params) ->
+    new GooglePay(params)
+
+  apple_pay: (params) ->
+    new ApplePay(params)
 
 module.exports = Transaction

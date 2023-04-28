@@ -114,6 +114,37 @@ class FakeData
     'period': 1,
     'amount': faker.datatype.number().toString()
 
+  getGooglePaymentTokenData: ->
+    'signature': faker.datatype.number().toString(),
+    'protocolVersion': 'ECv2',
+    'signedMessage':
+      'tag': faker.datatype.number().toString(),
+      'ephemeralPublicKey': faker.datatype.number().toString(),
+      'encryptedMessage': faker.datatype.number().toString()
+    'intermediateSigningKey':
+      'signedKey':
+        'keyExpiration': faker.datatype.number().toString(),
+        'keyValue': faker.datatype.number().toString()
+      'signatures': faker.datatype.number().toString()
+
+  getApplePaymentTokenData: ->
+    "paymentData": {
+      "version": "EC_v1",
+      "data": faker.datatype.number().toString(),
+      "signature": faker.datatype.number().toString(),
+      "header": {
+        "ephemeralPublicKey": faker.datatype.number().toString(),
+        "publicKeyHash": faker.datatype.number().toString(),
+        "transactionId": faker.datatype.number().toString()
+      }
+    },
+    "paymentMethod": {
+      "displayName": "Visa 0225",
+      "network": "Visa",
+      "type": "debit"
+    },
+    "transactionIdentifier": faker.datatype.number().toString()
+
   getSimpleData: ->
     @data
 

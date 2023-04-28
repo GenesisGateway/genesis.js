@@ -5,7 +5,7 @@ config          = require 'config'
 AmountValidator = require '../../helpers/validators/amount_validator'
 StringValidator = require '../../helpers/validators/string_validator'
 
-class FinancialBase extends  Base
+class FinancialBase extends Base
 
   constructor: (params) ->
     super params

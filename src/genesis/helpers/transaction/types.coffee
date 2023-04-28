@@ -287,6 +287,17 @@ class Types
   ###
   @PAYSEC_PAYOUT = 'paysec_payout'
 
+  ###
+    Google Pay allows customer to purchase with credit and debit cards linked to their
+    Google account.
+  ###
+  @GOOGLE_PAY = 'google_pay'
+
+  ###
+    Apple pay is payment method working with apple devices
+  ###
+  @APPLE_PAY = 'apple_pay'
+
   getTypes: ->
     value for key, value of @constructor
 
@@ -326,6 +337,7 @@ class Types
       @constructor.PAYSEC_PAYIN,
       @constructor.PAYSEC_PAYOUT,
       @constructor.IDEBIT_PAYIN
+      @constructor.APPLE_PAY
     ]
 
   isValidWPFType: (type) ->

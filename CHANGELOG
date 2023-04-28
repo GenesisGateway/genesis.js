@@ -1,3 +1,8 @@
+3.0.2
+-----
+* Added support for Google Pay transaction requests
+* Added support for Apple Pay transaction requests
+
 3.0.1
 -----
 * Added Recurring Type parameter support to the following transaction requests:

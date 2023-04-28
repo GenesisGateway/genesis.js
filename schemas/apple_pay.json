@@ -1,0 +1,127 @@
+{
+  "$id": "https://genesis.js/apple_pay",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "payment_token",
+    "payment_subtype",
+    "amount",
+    "currency"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "apple_pay"
+        }
+      ]
+    },
+    "transaction_id": {},
+    "payment_token": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "paymentData",
+        "paymentMethod",
+        "transactionIdentifier"
+      ],
+      "properties": {
+        "paymentData": {
+          "required": [
+            "version",
+            "data",
+            "signature",
+            "header"
+          ],
+          "properties": {
+            "version": {},
+            "data": {},
+            "signature": {},
+            "header": {
+              "properties": {
+                "applicationData": {},
+                "ephemeralPublicKey": {},
+                "wrappedKey": {},
+                "publicKeyHash": {},
+                "transactionId": {}
+              }
+            }
+          }
+        },
+        "paymentMethod": {
+          "properties": {
+            "displayName": {},
+            "network": {},
+            "type": {}
+          }
+        },
+        "transactionIdentifier": {}
+      },
+      "description": "Encrypted Payment Token"
+    },
+    "payment_subtype": {
+      "enum": ["authorize", "init_recurring_sale", "sale"],
+      "description": "Use either authorize for Authorize, sale for Sale transactions or init_recurring_sale for Initial Recurring Sale transactions."
+    },
+    "usage": {},
+    "amount": {
+      "$ref": "/definitions/attributes/financial/payment#amount"
+    },
+    "currency": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/financial/payment#currency"
+        }
+      ]
+    },
+    "customer_email": {},
+    "customer_phone": {},
+    "birth_date": {
+      "$ref": "/definitions/definitions#birth_date"
+    },
+    "remote_ip": {},
+    "document_id": {
+      "$ref": "/definitions/definitions#document_id"
+    },
+    "business_attributes": {
+      "$ref": "/definitions/attributes/business_attributes"
+    },
+    "billing_address": {
+      "$ref": "/definitions/attributes/customer/address#billing"
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "notification_url": {
+      "$ref": "/definitions/definitions#url",
+      "descritpion": "URL where customer is sent to after successful payment."
+    },
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "dynamic_descriptor_params": {
+      "$ref": "/definitions/attributes/financial/dynamic_descriptor_params"
+    },
+    "threeds_v2_params": {
+      "$ref": "/definitions/attributes/threeds/v2/threeds_v2"
+    }
+  }
+}
