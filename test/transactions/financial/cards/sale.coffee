@@ -35,15 +35,21 @@ describe 'Sale Transaction', ->
   RiskParams()
   DynamicDescriptor()
 
-  context 'with Recurring Type - subsequent', ->
+  context 'when Recurring Type - subsequent', ->
 
-    context 'and reference_id', ->
+    it 'with reference_id', ->
+      data = _.clone @data
+      data.recurring_type = 'subsequent'
+      data.reference_id = faker.datatype.number().toString()
 
-      it 'works with sale', ->
-        data = _.clone @data
-        data.recurring_type = 'subsequent'
-        data.reference_id = faker.datatype.number().toString()
-        assert.equal true, @transaction.setData(data).isValid()
+      assert.equal true, @transaction.setData(data).isValid()
+
+    it 'without reference_id', ->
+      data = _.clone @data
+      data.recurring_type = 'subsequent'
+      delete data.reference_id
+
+      assert.equal false, @transaction.setData(data).isValid()
 
 
 

@@ -1,3 +1,16 @@
+3.0.3
+-----
+* Updated Chargeback API requests by adding additional attributes support:
+  * Chargeback - arn
+  * Chargeback By Date - import_date, per_page, externally_processed, processing_type
+* Added PayPal transaction request support
+* Removed obsolete PayPal Express transaction request
+* Added Config override example in the README
+* Updated Sale transaction request by adding a requirement for Reference Id of Recurring Type Subsequent
+* Added Reference Id parameter support to the Authorize transaction request
+* Added Recurring Type subsequent support to the Authorize transaction request
+* Fixed PPRO transaction request
+
 3.0.2
 -----
 * Added support for Google Pay transaction requests

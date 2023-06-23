@@ -156,14 +156,6 @@ class Types
   @TRUSTLY_WITHDRAWAL = 'trustly_withdrawal'
 
   ###
-    PayPal Express Checkout is a fast, easy way for buyers to pay with PayPal.
-    Express Checkout eliminates one of the major causes of checkout abandonment by giving buyers
-    all the transaction details at once, including order details, shipping options, insurance
-    choices, and tax totals
-  ###
-  @PAYPAL_EXPRESS = 'paypal_express'
-
-  ###
     Sepa Direct Debit Payment, popular in Germany.
     Single Euro Payments Area (SEPA) allows consumers to make cashless Euro payments to
     any beneficiary located anywhere in the Euro area using only a single bank account
@@ -253,13 +245,6 @@ class Types
   @CITADEL_PAYOUT = 'citadel_payout'
 
   ###
-    Earthport’s service supports payouts from e-commerce companies. The workflow is synchronous,
-    there is no redirect to the Earthport’s website. There are different required fields per
-    country, e.g. IBAN or Account Number.
-  ###
-  @EARTHPORT = 'earthport'
-
-  ###
     Alipay is an oBeP-style alternative payment method that allows you to pay directly with your
     ebank account. After initiating a transaction Alipay will redirect you to their page. There you
     will see a picture of a QR code, which you will have to scan with your Alipay mobile
@@ -298,6 +283,13 @@ class Types
   ###
   @APPLE_PAY = 'apple_pay'
 
+  ###
+    PayPal transaction is a fast and easy way for buyers to pay with their PayPal account.
+    It gives buyers all the transaction details at once, including order details, shipping options,
+    insurance choices, and tax totals.
+  ###
+  @PAY_PAl = 'pay_pal'
+
   getTypes: ->
     value for key, value of @constructor
 
@@ -329,15 +321,15 @@ class Types
       @constructor.P24,
       @constructor.TRUSTLY_SALE,
       @constructor.TRUSTLY_WITHDRAWAL,
-      @constructor.PAYPAL_EXPRESS,
       @constructor.CITADEL_PAYIN,
       @constructor.INSTA_DEBIT_PAYIN,
       @constructor.WECHAT,
       @constructor.ALIPAY,
       @constructor.PAYSEC_PAYIN,
       @constructor.PAYSEC_PAYOUT,
-      @constructor.IDEBIT_PAYIN
-      @constructor.APPLE_PAY
+      @constructor.IDEBIT_PAYIN,
+      @constructor.APPLE_PAY,
+      @constructor.PAY_PAl
     ]
 
   isValidWPFType: (type) ->

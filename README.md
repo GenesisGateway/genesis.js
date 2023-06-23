@@ -38,6 +38,21 @@ You can override the path to the directory holding your configuration files (by 
 
 Note: Its good practice to prevent web/direct access to your config directory and protect the files inside
 
+You can override the config inside your code:
+
+- CoffeeScript
+  ```coffeescript
+  config = require 'config'
+
+  config.customer.token = '<your token>'
+  ```
+- JavaScript
+  ```javascript
+  config = require('config')
+
+  config.customer.token = '<your token>'
+  ```
+
 Sale Transaction
 ----------------
 
@@ -516,7 +531,7 @@ success = (data) ->
   console.log data
 
 transaction.wpf_create({
-  transaction_id     : crypto.randomBytes(16).toString('hex'),
+  transaction_id     : crypto.randomBytes(16).toString('hex')
   transaction_types  : [
     'apple_pay' :
       payment_subtype: 'sale'
@@ -532,7 +547,7 @@ transaction.wpf_create({
   return_failure_url: 'http://my.host.name.tld/failure'
   return_cancel_url : 'http://my.host.name.tld/cancel'
 })
- .send()
+  .send()
   .then(success)
   .catch(failure);
 
@@ -540,6 +555,119 @@ transaction.wpf_create({
 
 </details>
 
+PayPal Transaction
+----------------------------
+
+Processing
+
+<details>
+<summary>JavaScript example</summary>
+
+```js
+var crypto, failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+crypto = require('crypto');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+transaction.pay_pal({
+    transaction_id : crypto.randomBytes(16).toString('hex'),
+    usage          : 'Demo Authorize Transaction',
+    payment_type   : 'sale',
+    amount         : '100',
+    currency       : 'USD',
+    customer_email : 'email@test.com',
+    customer_phone : '0123456789',
+    remote_ip      : '245.253.2.12',
+    birth_date     : '12-12-2008',
+    billing_address: {
+      first_name: 'John',
+      last_name : 'Doe',
+      address1  : '123 Str.',
+      zip_code  : '10000',
+      city      : 'New York',
+      country   : 'US'
+    },
+    shipping_address: {
+      first_name: 'John',
+      last_name : 'Doe',
+      address1  : '123 Str.',
+      zip_code  : '10000',
+      city      : 'New Yok',
+      country   : 'US',
+    },
+    notification_url   : 'http://my.host.name.tld/notification',
+    return_success_url : 'http://my.host.name.tld/success',
+    return_failure_url : 'http://my.host.name.tld/failure',
+    return_cancel_url  : 'http://my.host.name.tld/cancel',
+    return_pending_url : 'http://my.host.name.tld/pending'
+})
+  .send()
+  .then(success)
+  .catch(failure)
+```
+</details>
+
+<details>
+<summary>CoffeeScript example</summary>
+
+```coffee
+genesis = require './lib/genesis.js'
+crypto  = require 'crypto'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+  console.log data
+
+transaction.pay_pal({
+  transaction_id : crypto.randomBytes(16).toString('hex')
+  usage          : 'Demo Authorize Transaction'
+  payment_type   : 'sale'
+  amount         : '100'
+  currency       : 'USD'
+  customer_email : 'email@test.com'
+  customer_phone : '0123456789'
+  remote_ip      : '245.253.2.12'
+  birth_date     : '12-12-2008'
+  billing_address:
+    first_name: 'John'
+    last_name : 'Doe'
+    address1  : '123 Str.'
+    zip_code  : '10000'
+    city      : 'New York'
+    country   : 'US'
+  shipping_address:
+    first_name: 'John'
+    last_name : 'Doe'
+    address1  : '123 Str.'
+    zip_code  : '10000'
+    city      : 'New Yok'
+    country   : 'US'
+  notification_url   : 'http://my.host.name.tld/notification',
+  return_success_url : 'http://my.host.name.tld/success',
+  return_failure_url : 'http://my.host.name.tld/failure',
+  return_cancel_url  : 'http://my.host.name.tld/cancel',
+  return_pending_url : 'http://my.host.name.tld/pending'
+})
+  .send()
+  .then(success)
+  .catch(failure)
+
+```
+</details>
 
 Web Payment Form Transaction
 ----------------------------
@@ -1295,9 +1423,9 @@ Transaction Types
 ```text
 account_verification
 apple_pay
-avs
 authorize
 authorize3d
+avs
 blacklist
 capture
 chargeback
@@ -1308,19 +1436,21 @@ fraud_report_by_date
 google_pay
 init_recurring
 init_recurring_sale3d
+p24
+pay_pal
+payout
+ppro
 reconcile
 reconcile_by_date
 recurring_sale
 refund
 retrieval
 retrieval_by_date
-payout
 sale
 sale3d
 void
 wpf_create
 wpf_reconcile
-p24
 ```
 
 Transaction Parameters
@@ -1383,7 +1513,7 @@ Transaction Parameters
       * `mybank`
   * `poli`
   * `p24`
-  * `paypal`
+  * `pay_pal`
   * `payu`
   * `post_finance`
   * `pago_facil`

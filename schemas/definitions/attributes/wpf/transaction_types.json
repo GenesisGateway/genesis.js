@@ -283,7 +283,7 @@
       "p24": {
         "$ref": "/definitions/attributes/wpf/transaction_types/common"
       },
-      "paypal": {
+      "pay_pal": {
         "additionalProperties": false,
         "properties": {
           "payment_type": {

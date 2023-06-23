@@ -31,13 +31,6 @@ class Methods
   @PRZELEWY24 = 'przelewy24'
 
   ###
-    QIWI
-
-    PPRO transaction
-  ###
-  @QIWI = 'qiwi'
-
-  ###
     SafetyPay
 
     PPRO transaction

@@ -58,6 +58,9 @@
     "token": {},
     "remember_card": {},
     "consumer_id": {},
+    "reference_id": {
+      "$ref": "/definitions/definitions#reference_id"
+    },
     "gaming": {
       "$ref": "/definitions/attributes/financial/common#gaming"
     },
@@ -90,7 +93,14 @@
       "$ref": "/definitions/attributes/sca_params#sca_params"
     },
     "recurring_type": {
-      "$ref": "/definitions/definitions#initial_managed_recurring"
+      "anyOf": [
+        {
+          "$ref": "/definitions/definitions#initial_managed_recurring"
+        },
+        {
+          "$ref": "/definitions/definitions#subsequent_managed_recurring"
+        }
+      ]
     },
     "managed_recurring": {
       "$ref": "/definitions/attributes/recurring/managed_recurring"

@@ -58,6 +58,21 @@ class FakeData
       'country':
         faker.address.countryCode()
 
+  getShippingData: ->
+    'shipping_address':
+      'first_name':
+        faker.name.firstName()
+      'last_name':
+        faker.name.lastName()
+      'address1':
+        faker.address.streetAddress()
+      'zip_code':
+        faker.address.zipCode()
+      'city':
+        faker.address.city()
+      'country':
+        faker.address.countryCode()
+
   getBusinessAttributesData: ->
     'business_attributes':
       'flight_arrival_date': '10-10-2020',

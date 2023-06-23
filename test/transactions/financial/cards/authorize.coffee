@@ -1,5 +1,6 @@
-path  = require 'path'
-_     = require 'underscore'
+faker = require 'faker'
+path = require 'path'
+_ = require 'underscore'
 
 FakeData           = require '../../fake_data'
 Transaction        = require path.resolve './src/genesis/transactions/financial/cards/authorize'
@@ -17,9 +18,8 @@ DynamicDescriptor  = require '../../../examples/attributes/financial/dynamic_des
 describe 'Authorize Transaction', ->
 
   before ->
-    @data        = (new FakeData).getDataWithBusinessAttributes()
-    @transaction = new Transaction()
-
+    @data                      = (new FakeData).getDataWithBusinessAttributes()
+    @transaction               = new Transaction()
     @data['managed_recurring'] = (new FakeData).getManagedRecurringAutomatic()
 
   CardBase()
@@ -32,3 +32,19 @@ describe 'Authorize Transaction', ->
   ManagedRecurring()
   RiskParams()
   DynamicDescriptor()
+
+  context 'when Recurring Type - subsequent', ->
+    it 'with reference_id', ->
+      data                = _.clone @data
+      data.recurring_type = 'subsequent'
+      data.reference_id   = faker.datatype.number().toString()
+
+      assert.equal true, @transaction.setData(data).isValid()
+
+    it 'without reference_id', ->
+      data                = _.clone @data
+      data.recurring_type = 'subsequent'
+      delete data.reference_id
+
+      assert.equal false, @transaction.setData(data).isValid()
+

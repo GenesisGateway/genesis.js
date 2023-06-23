@@ -10,9 +10,13 @@ AlternativeBase = () ->
     context 'with invalid parameters', ->
 
       it 'fails when missing required remote_ip parameter', ->
-        data = _.clone(@data)
-        delete data.remote_ip
-        assert.equal false, @transaction.setData(data).isValid()
+        # Skips for PPRO transaction type
+        if not _.contains(@transaction.getData(), 'ppro', 'transaction_type')
+          data = _.clone(@data)
+          delete data.remote_ip
+          assert.equal false, @transaction.setData(data).isValid()
+        else
+          @skip()
 
       it 'fails when missing required return_success_url parameter', ->
         data = _.clone(@data)
@@ -25,9 +29,13 @@ AlternativeBase = () ->
         assert.equal false, @transaction.setData(data).isValid()
 
       it 'fails when missing required customer_email parameter', ->
-        data = _.clone(@data)
-        delete data.customer_email
-        assert.equal false, @transaction.setData(data).isValid()
+        # Skips for PPRO transaction type
+        if not _.contains(@transaction.getData(), 'ppro', 'transaction_type')
+          data = _.clone(@data)
+          delete data.customer_email
+          assert.equal false, @transaction.setData(data).isValid()
+        else
+          @skip()
 
       it 'fails when missing required country parameter', ->
         data = _.clone @data

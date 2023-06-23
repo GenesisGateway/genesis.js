@@ -8,15 +8,38 @@
   ],
   "properties": {
     "start_date": {
-      "type": "string",
-      "format": "date"
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "The start of the requested date range."
     },
     "end_date": {
-      "type": "string",
-      "format": "date"
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "The end of the requested date range."
+    },
+    "import_date": {
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "date of import in our system. Spans from beggining until end of day."
     },
     "page": {
-      "type": "integer"
+      "type": "integer",
+      "default": 1,
+      "description": "The page within the paginated result."
+    },
+    "per_page": {
+      "type": "integer",
+      "default": 100,
+      "description": "Number of entities on page."
+    },
+    "externally_processed": {
+      "type": "string",
+      "default": "genesis",
+      "enum": ["genesis", "external", "all"],
+      "description": "Filters chargebacks by being externally processed or being native to Genesis."
+    },
+    "processing_type": {
+      "type": "string",
+      "default": "all",
+      "enum": ["card_present", "card_not_present", "all"],
+      "description": "Filters chargebacks by being card present or card not present."
     }
   }
 }

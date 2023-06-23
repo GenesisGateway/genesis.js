@@ -1,0 +1,140 @@
+{
+  "$id": "https://genesis.js/ppro",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "payment_type",
+    "amount",
+    "currency",
+    "return_success_url",
+    "return_failure_url"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    },
+    {
+      "if": {
+        "properties": { "payment_type": { "const": "my_bank" } }
+      },
+      "then": {
+        "allOf": [
+          { "properties": { "currency": { "const": "EUR" } } },
+          { "properties": { "billing_address": { "properties": { "country": { "const": "IT" } } } } }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": { "payment_type": { "const": "eps" } }
+      },
+      "then": {
+        "allOf": [
+          { "properties": { "currency": { "const": "EUR" } } },
+          { "properties": { "billing_address": { "properties": { "country": { "const": "AT" } } } } }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": { "payment_type": { "const": "giropay" } }
+      },
+      "then": {
+        "allOf": [
+          { "properties": { "currency": { "const": "EUR" } } },
+          { "properties": { "billing_address": { "properties": { "country": { "const": "DE" } } } } }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": { "payment_type": { "const": "bcmc" } }
+      },
+      "then": {
+        "allOf": [
+          { "properties": { "currency": { "const": "EUR" } } },
+          { "properties": { "billing_address": { "properties": { "country": { "const": "BE" } } } } }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": { "payment_type": { "const": "safetypay" } }
+      },
+      "then": {
+        "allOf": [
+          { "properties": { "currency": { "enum": ["EUR", "USD"] } } },
+          {
+            "properties": {
+            "billing_address": {
+              "properties": {
+                "country": {
+                  "enum": ["AT", "BE", "BR", "CL", "CO", "DE", "EC", "ES", "MX", "NL", "PE", "PR"]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "ppro"
+        }
+      ]
+    },
+    "payment_type": {
+      "type": "string",
+      "enum": ["my_bank", "eps", "giropay", "bcmc", "safetypay"],
+      "description": "Chosen payment via PPRO"
+    },
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after successful payment."
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "return_pending_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to upon payment processing."
+    },
+    "amount": {},
+    "currency": {},
+    "remote_ip": {},
+    "usage": {},
+    "customer_email": {},
+    "customer_phone": {},
+    "billing_address": {
+      "allOf": [
+        {"$ref": "/definitions/attributes/customer/address#billing"},
+        {
+          "required": ["country"]
+        }
+      ]
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "bic": {},
+    "iban": {}
+  }
+}

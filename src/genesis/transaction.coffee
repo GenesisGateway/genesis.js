@@ -40,7 +40,6 @@ WpfReconcile        = require './transactions/wpf/reconcile'
   Financial Alternative transactions
 ###
 P24                 = require './transactions/financial/alternative/p24'
-PaypalExpress       = require './transactions/financial/alternative/paypal_express'
 Paysafecard         = require './transactions/financial/alternative/paysafecard'
 Sofort              = require './transactions/financial/alternative/sofort'
 PPRO                = require './transactions/financial/alternative/ppro'
@@ -72,6 +71,7 @@ SddRefund            = require './transactions/financial/direct_debit/sdd_refund
 ###
 GooglePay = require './transactions/financial/mobile/google_pay'
 ApplePay  = require './transactions/financial/mobile/apple_pay'
+PayPal    = require './transactions/financial/wallets/pay_pal'
 
 class Transaction
 
@@ -160,9 +160,6 @@ class Transaction
   p24: (params) ->
     new P24(params)
 
-  paypal_express: (params) ->
-    new PaypalExpress(params)
-    
   paysafecard: (params) ->
     new Paysafecard(params)
     
@@ -177,9 +174,6 @@ class Transaction
     
   trustly_withdrawal: (params) ->
     new TrustlyWithdrawal(params)
-
-  earthport: (params) ->
-    new Earthport(params)
 
   ###
     Financial OBP transactions
@@ -240,5 +234,11 @@ class Transaction
 
   apple_pay: (params) ->
     new ApplePay(params)
+
+  ###
+    Financial Wallets transactions
+  ###
+  pay_pal: (params) ->
+    new PayPal(params)
 
 module.exports = Transaction

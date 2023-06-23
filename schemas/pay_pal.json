@@ -1,12 +1,11 @@
 {
-  "$id": "https://genesis.js/apple_pay",
+  "$id": "https://genesis.js/pay_pal",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "transaction_id",
-    "payment_token",
-    "payment_subtype",
+    "payment_type",
     "amount",
     "currency"
   ],
@@ -25,55 +24,13 @@
           "$ref": "/definitions/definitions#transaction_type"
         },
         {
-          "const": "apple_pay"
+          "const": "pay_pal"
         }
       ]
     },
     "transaction_id": {},
-    "payment_token": {
-      "type": "object",
-      "additionalProperties": true,
-      "required": [
-        "paymentData",
-        "paymentMethod",
-        "transactionIdentifier"
-      ],
-      "properties": {
-        "paymentData": {
-          "required": [
-            "version",
-            "data",
-            "signature",
-            "header"
-          ],
-          "properties": {
-            "version": {},
-            "data": {},
-            "signature": {},
-            "header": {
-              "properties": {
-                "applicationData": {},
-                "ephemeralPublicKey": {},
-                "wrappedKey": {},
-                "publicKeyHash": {},
-                "transactionId": {}
-              }
-            }
-          }
-        },
-        "paymentMethod": {
-          "properties": {
-            "displayName": {},
-            "network": {},
-            "type": {}
-          }
-        },
-        "transactionIdentifier": {}
-      },
-      "description": "Encrypted Payment Token"
-    },
-    "payment_subtype": {
-      "enum": ["authorize", "init_recurring_sale", "sale"],
+    "payment_type": {
+      "enum": ["authorize", "sale"],
       "description": "Use either authorize for Authorize, sale for Sale transactions or init_recurring_sale for Initial Recurring Sale transactions."
     },
     "usage": {},
@@ -117,11 +74,13 @@
       "$ref": "/definitions/definitions#url",
       "description": "URL where customer is sent to after unsuccessful payment."
     },
-    "dynamic_descriptor_params": {
-      "$ref": "/definitions/attributes/financial/dynamic_descriptor_params"
+    "return_pending_url": {
+      "type": "string",
+      "description": "URL where the customer is sent to when asynchronous payment is pending confirmation"
     },
-    "threeds_v2_params": {
-      "$ref": "/definitions/attributes/threeds/v2/threeds_v2"
+    "return_cancel_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to when the customer cancels the payment process within the WPF."
     }
   }
 }
