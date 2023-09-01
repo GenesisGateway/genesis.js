@@ -9,6 +9,7 @@ BusinessAttributes = require '../business_attributes'
 i18n               = require path.resolve 'src/genesis/helpers/i18n'
 RecurringType      = require '../../examples/attributes/financial/recurring_type'
 DynamicDescriptor  = require '../../examples/attributes/financial/dynamic_descriptor'
+PayLater  = require '../../examples/attributes/pay_later'
 
 describe 'WPFCreate Transaction', ->
 
@@ -632,3 +633,4 @@ describe 'WPFCreate Transaction', ->
   RecurringType()
   DynamicDescriptor()
   FinancialBase()
+  PayLater()

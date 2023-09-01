@@ -120,6 +120,10 @@ class Notification
                             createHash('sha1').
                             update(unique_id + config.customer.password).
                             digest('hex')
+      when 64  then hash = crypto.
+                            createHash('sha256').
+                            update(unique_id + config.customer.password).
+                            digest('hex')
       when 128 then hash = crypto.
                             createHash('sha512').
                             update(unique_id + config.customer.password).

@@ -11,7 +11,9 @@ AlternativeBase = () ->
 
       it 'fails when missing required remote_ip parameter', ->
         # Skips for PPRO transaction type
-        if not _.contains(@transaction.getData(), 'ppro', 'transaction_type')
+        if not _.contains(@transaction.getData(), 'ppro', 'transaction_type') and
+           not _.contains(@transaction.getData(), 'poli', 'transaction_type')
+
           data = _.clone(@data)
           delete data.remote_ip
           assert.equal false, @transaction.setData(data).isValid()

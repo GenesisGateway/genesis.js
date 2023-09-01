@@ -1,0 +1,82 @@
+{
+  "$id": "https://genesis.js/cashu",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "return_success_url",
+    "return_failure_url",
+    "amount",
+    "currency",
+    "customer_email"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    }
+  ],
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "cashu"
+        }
+      ]
+    },
+    "remote_ip": {},
+    "usage": {},
+    "amount": {},
+    "currency": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/financial/payment#currency"
+        },
+        {
+          "enum": ["USD", "AED", "EUR", "JOD", "EGP", "SAR", "DZD", "LBP", "MAD", "QAR", "TRY"]
+        }
+      ]
+    },
+    "customer_email": {},
+    "customer_phone": {},
+    "billing_address": {
+      "required": ["country"],
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "properties": {
+            "country": {
+              "enum": [
+                "DZ", "BH", "EG", "GM", "GH", "IN", "IR", "IQ", "IL", "JO", "KE",
+                "KR", "KW", "LB", "LY", "MY", "MR", "MA", "NG", "OM", "PK", "PS",
+                "QA", "SA", "SL", "SD", "SY", "TZ", "TN", "TR", "AE", "US", "YE"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    }
+  }
+}
+

@@ -1,0 +1,28 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/credential_on_file",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "credential_on_file": {
+      "$id": "#credential_on_file",
+      "enum": [
+        "initial_customer_initiated",
+        "subsequent_customer_initiated",
+        "merchant_unscheduled"
+      ]
+    },
+    "credential_on_file_transaction_identifier": {
+      "$id": "#credential_on_file_transaction_identifier",
+      "type": "string",
+      "maxLength": 32,
+      "description": "Ucof attribute specific only for Authorize and Sale transactions"
+    },
+    "credential_on_file_settlement_date": {
+      "$id": "#credential_on_file_settlement_date",
+      "type": "string",
+      "maxLength": 4,
+      "description": "Ucof attribute specific only for Authorize and Sale transactions"
+    }
+  }
+}

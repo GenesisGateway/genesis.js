@@ -9,6 +9,7 @@ Transaction        =
   require path.resolve './src/genesis/transactions/financial/cards/recurring/recurring_sale'
 Moto               = require '../../../../examples/attributes/financial/moto'
 Gaming             = require '../../../../examples/attributes/financial/gaming'
+TravelData         = require '../../../../examples/attributes/financial/travel_data/travel_data'
 
 describe 'RecurringSale Transaction', ->
 
@@ -29,3 +30,4 @@ describe 'RecurringSale Transaction', ->
 
   Moto()
   Gaming()
+  TravelData()

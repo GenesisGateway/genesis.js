@@ -15,6 +15,8 @@ RecurringType      = require '../../../examples/attributes/financial/recurring_t
 ManagedRecurring   = require '../../../examples/attributes/financial/recurring/managed_recurring'
 RiskParams         = require '../../../examples/attributes/risk_params'
 DynamicDescriptor  = require '../../../examples/attributes/financial/dynamic_descriptor'
+CredentialOnFile  = require '../../../examples/attributes/credential_on_file'
+TravelData         = require '../../../examples/attributes/financial/travel_data/travel_data'
 
 describe 'Authorize 3D Transaction', ->
 
@@ -39,3 +41,5 @@ describe 'Authorize 3D Transaction', ->
   ManagedRecurring()
   RiskParams()
   DynamicDescriptor()
+  CredentialOnFile()
+  TravelData()

@@ -8,6 +8,7 @@ Moto               = require '../../../examples/attributes/financial/moto'
 Gaming             = require '../../../examples/attributes/financial/gaming'
 Crypto             = require '../../../examples/attributes/financial/crypto'
 DynamicDescriptor  = require '../../../examples/attributes/financial/dynamic_descriptor'
+CredentialOnFile  = require '../../../examples/attributes/credential_on_file'
 
 describe 'Payout Transaction', ->
 
@@ -20,3 +21,4 @@ describe 'Payout Transaction', ->
   Gaming()
   Crypto()
   DynamicDescriptor()
+  CredentialOnFile()

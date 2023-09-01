@@ -2,6 +2,7 @@
 FinancialBase    = require '../../financial_base'
 TransactionTypes = require '../../../../helpers/transaction/types'
 _                = require 'underscore'
+TravelData       = require '../../../../helpers/travel_data/travel_data'
 
 class RecurringSale extends FinancialBase
 
@@ -10,5 +11,12 @@ class RecurringSale extends FinancialBase
 
   constructor: (params) ->
     super params
+
+
+  getTrxData: ->
+    travelData = new TravelData(@params)
+    travelData.parseTravelData()
+
+    super()
 
 module.exports = RecurringSale

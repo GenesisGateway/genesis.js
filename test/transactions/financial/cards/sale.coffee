@@ -16,6 +16,9 @@ RecurringType      = require '../../../examples/attributes/financial/recurring_t
 ManagedRecurring   = require '../../../examples/attributes/financial/recurring/managed_recurring'
 RiskParams         = require '../../../examples/attributes/risk_params'
 DynamicDescriptor  = require '../../../examples/attributes/financial/dynamic_descriptor'
+CredentialOnFile  = require '../../../examples/attributes/credential_on_file'
+UCOF               = require '../../../examples/attributes/ucof'
+TravelData         = require '../../../examples/attributes/financial/travel_data/travel_data'
 
 describe 'Sale Transaction', ->
 
@@ -34,6 +37,10 @@ describe 'Sale Transaction', ->
   ManagedRecurring()
   RiskParams()
   DynamicDescriptor()
+  CredentialOnFile()
+  UCOF()
+  TravelData()
+
 
   context 'when Recurring Type - subsequent', ->
 

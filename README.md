@@ -1220,14 +1220,242 @@ transaction.wpf_create({
           period: 22
           amount: 500
           max_count: 10
-    ]
-  })
+    ],
+})
 .send()
 .then(success)
 .catch(failure)
 ```
 
 The example above is going to create a new ```WPF``` with ```Init Recurring Sale``` transaction with ```managed_recurring``` attributes.
+
+Travel Data Attributes
+-------------------------
+
+Level 3 travel data is supplied as optional data to the standard API request. If the supplied is valid travel data then the transaction will be processed as a travel transaction and will qualify for the travel Incentive rates. Otherwise the transaction will be processed normally as a regular transaction. Note that the travel data will be stored as part of the transaction in all cases.
+
+Travel data is supported for Authorize, Authorize3D, Capture, Sale, Sale3D, InitRecurringSale, InitRecurringSale3D, RecurringSale.
+<details>
+  <summary>Details</summary>
+
+```
+travel: {
+  ticket: {
+    ticket_number: '12345',
+    passenger_name: 'John Smith',
+    customer_code: '1',
+    restricted_ticket_indicator: 1,
+    agency_name: 'Agency',
+    agency_code: 'AG001',
+    confirmation_information: 'Confirmation',
+    date_of_issue: '2018-02-01'
+  },
+  rentals: {
+    car_rental: {
+      purchase_identifier: 12478,
+      class_id: 3,
+      pickup_date: '2018-02-05',
+      renter_name: 'John Smith Example',
+      return_city: 'Varna',
+      return_state: 'VAR',
+      return_country: 'BGR',
+      return_date: '2018-02-06',
+      renter_return_location_id: 12478,
+      customer_code: 1
+    },
+    hotel_rental: {
+      purchase_identifier: 12478,
+      arrival_date: 3,
+      departure_date: '2018-02-05',
+      customer_code: 1
+    }
+  },
+  charges: {
+    charge: {
+      type: 'MISC'
+    }
+  },
+  legs: [
+    {
+      departure_date: '2018-02-01',
+      carrier_code: '2' ,
+      service_class: '3',
+      origin_city: 'SOF',
+      destination_city: 'VAR',
+      stopover_code: '1',
+      fare_basis_code: '1',
+      flight_number: 'W6666'
+    },
+    {
+      departure_date: '2018-02-01',
+      carrier_code: 2,
+      service_class: 3,
+      origin_city: 'VAR',
+      destination_city: 'FRA',
+      stopover_code: 0,
+      fare_basis_code: 1,
+      flight_number: 'W6366'
+    }
+  ],
+  taxes: [
+    {
+      fee_amount: 1000,
+      fee_type: 'Airport tax'
+    },
+    {
+      fee_amount: 1000,
+      fee_type: 'Airport tax'
+    }
+  ]
+}
+```
+</details>
+  
+
+Web Payment Form Transaction with pay_later attributes
+----------------------------
+
+The Pay Later functionality in the WPF form provides the ability to choose whether the customer would have the option enabled to delay the payment and complete it later. It also gives the ability to enqueue reminders based on pre-configured values. The reminders include the URL for payment completion as well.
+
+Reminders configuration
+Up to 3 reminders can be configured for each payment.
+ - The available channels for sending reminders are email and sms.
+ - The time for sending a reminder is set in number of minutes after payment creation.
+ - The time for sending of each reminder shouldn't be greater that the configured payment lifetime.
+
+- Javascript
+
+<details>
+<summary>Details</summary>
+
+```js
+var crypto, failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+
+crypto = require('crypto');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+transaction.wpf_create({
+    locale: 'de',
+    transaction_id: crypto.randomBytes(16).toString('hex'),
+    usage: 'Demo WPF Transaction',
+    description: 'This is my first WPF transaction',
+    amount: '100',
+    currency: 'USD',
+    customer_email: 'email@example.com',
+    customer_phone: '0123456789',
+    notification_url: 'http://my.host.name.tld:1234/notifier',
+    return_success_url: 'http://my.host.name.tld/success',
+    return_failure_url: 'http://my.host.name.tld/failure',
+    return_cancel_url: 'http://my.host.name.tld/cancel',
+    billing_address: {
+        first_name: 'John',
+        last_name: 'Doe',
+        address1: '123 Str.',
+        zip_code: '10000',
+        city: 'New York',
+        country: 'US'
+    },
+    shipping_address: {
+        first_name: 'John',
+        last_name: 'Doe',
+        address1: '123 Str.',
+        zip_code: '10000',
+        city: 'New York',
+        country: 'US'
+    },
+    transaction_types: [sale],
+    pay_later: true,
+    reminder_language: 'en',
+    reminders: [
+      {
+        channel: 'email',
+        after: 40
+      },
+      {
+        channel: 'sms',
+        after: 10
+      }
+    ]
+})
+```
+</details>
+
+- CoffeeScript
+
+<details>
+<summary>Details</summary>
+
+```coffee
+genesis = require './lib/genesis.js'
+crypto  = require 'crypto'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+  console.log data
+
+transaction.wpf_create({
+    locale            : 'de'
+    transaction_id    : crypto.randomBytes(16).toString('hex')
+    usage             : 'Demo WPF Transaction'
+    description       : 'This is my first WPF transaction'
+    amount            : '100'
+    currency          : 'USD'
+    customer_email    : 'email@example.com'
+    customer_phone    : '0123456789'
+    notification_url  : 'http://my.host.name.tld:1234/notifier'
+    return_success_url: 'http://my.host.name.tld/success'
+    return_failure_url: 'http://my.host.name.tld/failure'
+    return_cancel_url : 'http://my.host.name.tld/cancel'
+    billing_address   :
+      first_name: 'John'
+      last_name : 'Doe'
+      address1  : '123 Str.'
+      zip_code  : '10000'
+      city      : 'New York'
+      country   : 'US'
+      state     : 'CA'
+    shipping_address:
+      first_name: 'John'
+      last_name: 'Doe'
+      address1: '123 Str.'
+      zip_code: '10000'
+      city: 'New York'
+      country: 'US'
+    transaction_types: ['sale'],
+    pay_later: true,
+    reminder_language: 'en',
+    reminders: [
+      {
+        channel: 'email',
+        after: 40
+      },
+      {
+        channel: 'sms',
+        after: 10
+      }
+    ]
+  })
+.send()
+.then(success)
+.catch(failure)
+```
+</details>
+
 
 Notification Listener
 ---------------------
@@ -1428,6 +1656,7 @@ authorize3d
 avs
 blacklist
 capture
+cashu
 chargeback
 chargeback_by_date
 credit
@@ -1440,6 +1669,7 @@ p24
 pay_pal
 payout
 ppro
+poli
 reconcile
 reconcile_by_date
 recurring_sale

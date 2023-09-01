@@ -16,6 +16,61 @@
       "type": "string",
       "maxLength": 15,
       "description": "Sub-merchant ID assigned by the Payment Facilitator."
+    },
+    "merchant_country": {
+      "type": "string",
+      "maxLength": 3,
+      "description": "Allows to dynamically override the merchant country."
+    },
+    "merchant_state": {
+      "type": "string",
+      "maxLength": 3,
+      "description": "Allows to dynamically override the merchant subdivision code."
+    },
+    "merchant_zip_code": {
+      "type": "string",
+      "maxLength": 10,
+      "description": "Allows to dynamically override the merchant zip/postal code."
+    },
+    "merchant_address": {
+      "type": "string",
+      "maxLength": 48,
+      "description": "Allows to dynamically override the merchant address."
+    },
+    "merchant_url": {
+      "type": "string",
+      "maxLength": 60,
+      "description": "Allows to dynamically override the merchant URL"
+    },
+    "merchant_phone": {
+      "type": "string",
+      "maxLength": 16,
+      "description": "Allows to dynamically override the merchant phone number."
+    },
+    "merchant_service_city": {
+      "type": "string",
+      "maxLength": 13,
+      "description": "Allows to dynamically override the merchant service city."
+    },
+    "merchant_service_country": {
+      "type": "string",
+      "maxLength": 3,
+      "description": "Allows to dynamically override the merchant service country."
+    },
+    "merchant_service_state": {
+      "type": "string",
+      "maxLength": 3,
+      "description": "Allows to dynamically override the merchant service subdivision code."
+    },
+    "merchant_service_zip_code": {
+      "type": "string",
+      "maxLength": 10,
+      "description": "Allows to dynamically override the merchant service zip/postal code."
+    },
+    "merchant_service_phone": {
+      "type": "string",
+      "maxLength": 16,
+      "description": "Allows to dynamically override the merchant service phone number."
     }
   }
 }

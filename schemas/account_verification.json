@@ -60,6 +60,9 @@
     },
     "risk_params": {
       "$ref": "/definitions/attributes/risk_attributes"
+    },
+    "credential_on_file": {
+      "$ref": "/definitions/attributes/credential_on_file#credential_on_file"
     }
   }
 }

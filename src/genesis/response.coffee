@@ -1,9 +1,10 @@
 _        = require 'underscore'
-fastXmlParser = require 'fast-xml-parser'
+{ XMLParser } = require 'fast-xml-parser'
 Currency = require './helpers/currency'
 
 class Response
   constructor: () ->
+    @fastXmlParser = new XMLParser({ignoreDeclaration: true})
     @setUnderscoreMixins()
 
   ###
@@ -11,7 +12,7 @@ class Response
   ###
   process: (response) ->
     _.chain(response.data)
-      .response_parse()
+      .response_parse(@fastXmlParser)
       .response_flatten()
       .response_convert_amount()
       .value()
@@ -23,9 +24,8 @@ class Response
     _.mixin
 
       # Parse the incoming XML document to JSON
-      response_parse: (xml) ->
-
-        return fastXmlParser.parse(xml, [])
+      response_parse: (xml, fastXmlParser) ->
+        return fastXmlParser.parse(xml)
 
       # Remove the firstChild as its usually just a single node
       response_flatten: (responseObject) ->

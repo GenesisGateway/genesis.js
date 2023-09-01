@@ -1,3 +1,33 @@
+3.0.4
+-----
+* Added 3DSv2 parameter validations
+* Added support for POLi transaction requests
+* Added Credentials On File parameters support
+* Added support for CashU transaction request
+* Added new Dynamic Descriptors parameters support:
+  * merchant_country
+  * merchant_state
+  * merchant_zip_code
+  * merchant_address
+  * merchant_url
+  * merchant_phone
+  * merchant_service_city
+  * merchant_service_country
+  * merchant_service_state
+  * merchant_service_zip_code
+  * merchant_service_phone
+* Added sha256 notification algorithm handling
+* Added Travel Data attributes support to:
+  * Authorize
+  * Authorize3D
+  * Capture
+  * Sale
+  * Sale3D
+  * InitRecurringSale
+  * InitRecurringSale3D
+  * RecurringSale
+* Added Pay Later, Reminders, and Reminder Language attributes support to the Web Payment Form transaction request
+
 3.0.3
 -----
 * Updated Chargeback API requests by adding additional attributes support:

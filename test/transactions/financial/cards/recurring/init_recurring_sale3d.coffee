@@ -14,6 +14,8 @@ Crypto             = require '../../../../examples/attributes/financial/crypto'
 ThreedsV2          = require '../../../../examples/attributes/threeds/v2/threeds_v2'
 RiskParams         = require '../../../../examples/attributes/risk_params'
 DynamicDescriptor  = require '../../../../examples/attributes/financial/dynamic_descriptor'
+CredentialOnFile  = require '../../../../examples/attributes/credential_on_file'
+TravelData         = require '../../../../examples/attributes/financial/travel_data/travel_data'
 
 describe 'InitRecurringSale 3D Transaction', ->
 
@@ -36,3 +38,5 @@ describe 'InitRecurringSale 3D Transaction', ->
   ThreedsV2()
   RiskParams()
   DynamicDescriptor()
+  CredentialOnFile()
+  TravelData()

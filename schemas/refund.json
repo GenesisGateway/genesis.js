@@ -81,6 +81,9 @@
       "maxLength": 1,
       "enum": ["C", "S", "L"],
       "description": "The type of account. C: for Checking accounts, S: for Savings accounts, I: for International accounts"
+    },
+    "travel": {
+      "$ref": "/definitions/attributes/financial/travel_data/travel_data_attributes#refund"
     }
   }
 }

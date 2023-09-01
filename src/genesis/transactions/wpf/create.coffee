@@ -37,17 +37,11 @@ class Create extends Base
   getTrxData: ->
     currency                     = @currency
     params                       = @params
-    trxTypesWithManagedRecurring = [
-      'authorize',
-      'authorize3d',
-      'sale',
-      'sale3d',
-      'init_recurring_sale',
-      'init_recurring_sale3d'
-    ]
 
     # Locale is not inside the request data
     if @params then delete @params.locale
+
+    handleReminders
 
     'wpf_payment':
       _.extend(
@@ -60,16 +54,7 @@ class Create extends Base
               _.map @params.transaction_types,(value) ->
                 if (value instanceof Object)
                   for key of value
-                    if (trxTypesWithManagedRecurring.indexOf(key) >= 0)
-                      if value[key].managed_recurring
-                        if value[key].managed_recurring.amount
-                          value[key].managed_recurring.amount = currency.convertToMinorUnits(
-                            value[key].managed_recurring.amount, params.currency
-                          )
-                        if value[key].managed_recurring.max_amount
-                          value[key].managed_recurring.max_amount = currency.convertToMinorUnits(
-                            value[key].managed_recurring.max_amount, params.currency
-                          )
+                    handleManagedRecurring(key, value[key], currency, params)
 
                     return Object.assign({"@": name: key.toString()}, value[key])
 
@@ -77,5 +62,37 @@ class Create extends Base
         }
       )
 
+  handleReminders = ->
+    if @params.reminders && @params.pay_later != null
+      if @params.pay_later == true
+        reminders = @params.reminders
+        @params.reminders = {}
+        @params.reminders.reminder = reminders
+
+      if @params.pay_later == false
+        delete @params.reminder_language
+        delete @params.reminders
+
+
+  handleManagedRecurring = (key, value, currency, params) ->
+    trxTypesWithManagedRecurring = [
+      'authorize',
+      'authorize3d',
+      'sale',
+      'sale3d',
+      'init_recurring_sale',
+      'init_recurring_sale3d'
+    ]
+
+    if (trxTypesWithManagedRecurring.indexOf(key) >= 0)
+      if value.managed_recurring
+        if value.managed_recurring.hasOwnProperty('amount')
+          value.managed_recurring.amount = currency.convertToMinorUnits(
+            value.managed_recurring.amount, params.currency
+          )
+        if value.managed_recurring.hasOwnProperty('max_amount')
+          value.managed_recurring.max_amount = currency.convertToMinorUnits(
+            value.managed_recurring.max_amount, params.currency
+          )
 
 module.exports = Create

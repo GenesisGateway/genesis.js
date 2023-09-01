@@ -10,6 +10,8 @@ Moto               = require '../../../../examples/attributes/financial/moto'
 ManagedRecurring   = require '../../../../examples/attributes/financial/recurring/managed_recurring'
 RiskParams         = require '../../../../examples/attributes/risk_params'
 DynamicDescriptor  = require '../../../../examples/attributes/financial/dynamic_descriptor'
+CredentialOnFile  = require '../../../../examples/attributes/credential_on_file'
+TravelData         = require '../../../../examples/attributes/financial/travel_data/travel_data'
 
 describe 'InitRecurringSale Transaction', ->
 
@@ -25,3 +27,5 @@ describe 'InitRecurringSale Transaction', ->
   ManagedRecurring()
   RiskParams()
   DynamicDescriptor()
+  CredentialOnFile()
+  TravelData()

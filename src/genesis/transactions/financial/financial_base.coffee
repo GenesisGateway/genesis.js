@@ -1,12 +1,18 @@
 
-Base            = require '../base'
-_               = require 'underscore'
-config          = require 'config'
+Base                 = require '../base'
+_                    = require 'underscore'
+config               = require 'config'
+ColorDepth           = require '../../helpers/color_depth'
+JsonUtils            = require '../../utils/json_utils'
 
 class FinancialBase extends Base
 
   constructor: (params) ->
     super params
+
+    if JsonUtils.isValidObjectChain(params, 'threeds_v2_params.browser.color_depth')
+      @params.threeds_v2_params.browser.color_depth =
+        (new ColorDepth).handleColorDepth(params.threeds_v2_params.browser.color_depth).toString()
 
   getUrl: ->
     app:

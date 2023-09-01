@@ -33,12 +33,26 @@ describe 'Refund Transaction', ->
     @data['currency'] = "MYR"
     assert.equal false, @transaction.setData(@data).isValid()
 
-  it 'not fails when beneficial parameter are set with using MYR currency ', ->
+  it 'works when beneficial parameter are set with using MYR currency ', ->
     @data['currency'] = "MYR"
 
     @data['beneficiary_bank_code'] = "TEST_BANK_CODE"
     @data['beneficiary_name'] = "TEST_NAME"
     @data['beneficiary_account_number'] = "TEST_ACCOUNT_NUMBER"
+
+    assert.equal true, @transaction.setData(@data).isValid()
+
+  it 'works when Travel data ', ->
+    data = _.clone @data
+    data = _.extend(data, {
+      travel: {
+        ticket: {
+          credit_reason_indicator_1: "A",
+          credit_reason_indicator_2: "B",
+          ticket_change_indicator: "C"
+        }
+      }
+    })
 
     assert.equal true, @transaction.setData(@data).isValid()
 

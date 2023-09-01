@@ -89,6 +89,56 @@
     },
     "dynamic_descriptor_params": {
       "$ref": "/definitions/attributes/financial/dynamic_descriptor_params"
+    },
+    "threeds_v2_params": {
+      "control": {
+        "challenge_window_size": {
+          "$ref": "/definitions/attributes/threeds/v2/threeds_v2#challenge_window_size"
+        },
+        "challenge_indicator": {
+          "$ref": "/definitions/attributes/threeds/v2/threeds_v2#challenge_indicator"
+        }
+      },
+      "purchase": {
+        "category": {
+          "$ref": "/definitions/attributes/threeds/v2/threeds_v2#category"
+        }
+      },
+      "recurring": {
+        "$ref": "/definitions/attributes/threeds/v2/threeds_v2#recurring"
+      },
+      "merchant_risk": {
+        "$ref": "/definitions/attributes/threeds/v2/threeds_v2#merchant_risk"
+      },
+      "card_holder_account": {
+        "$ref": "/definitions/attributes/threeds/v2/threeds_v2#card_holder_account"
+      }
+    },
+    "pay_later": {
+      "type": "boolean",
+      "description": "Signifies whether the ’Pay Later’ feature would be enabled on the WPF"
+    },
+    "reminder_language": {
+      "type": "string",
+      "enum": ["en", "it", "es", "fr", "de", "pl", "ja", "zh", "ar", "pt", "tr", "ru", "hi", "bg", "nl", "is", "id", "ms", "th", "cs", "hr", "sl", "fi", "no", "da", "sv"],
+      "description": "WPF available language"
+    },
+    "reminders": {
+      "description": "Settings for reminders sending when using the ’Pay Later’ feature",
+      "maxItems": 3,
+      "items": [
+        {
+          "channel": {
+            "type": "string",
+            "enum": ["email", "sms"],
+            "description": "Channel for sending WPF reminder. Valid values are ’email’ and ’sms’"
+          },
+          "after": {
+            "type": "integer",
+            "description": "The time for sending a reminder is set in number of minutes after payment creation."
+          }
+        }
+      ]
     }
   },
   "dependencies": {
@@ -111,5 +161,12 @@
     "consumer_id": [
       "customer_email"
     ]
+  },
+  "dependentSchemas": {
+    "pay_later": {
+      "properties": {
+        "reminders": { "type": "object" }
+      }
+    }
   }
 }

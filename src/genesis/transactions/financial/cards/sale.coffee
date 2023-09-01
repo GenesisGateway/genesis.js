@@ -2,6 +2,7 @@
 CardBase         = require './card_base'
 TransactionTypes = require '../../../helpers/transaction/types'
 _                    = require 'underscore'
+TravelData       = require '../../../helpers/travel_data/travel_data'
 
 class Sale extends CardBase
 
@@ -20,6 +21,13 @@ class Sale extends CardBase
       return false
 
     valid
+
+  getTrxData: ->
+    travelData = new TravelData(@params)
+    travelData.parseTravelData()
+
+    super()
+
 
 
 module.exports = Sale

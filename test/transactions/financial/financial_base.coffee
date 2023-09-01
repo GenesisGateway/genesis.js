@@ -23,27 +23,27 @@ FinancialBase = () ->
     data.amount = -1000
     assert.equal false, @transaction.setData(data).isValid()
 
-  it 'not fail with integer amount parameter', ->
-    data = _.clone @data
-    data['amount'] = 100
-    assert.equal true, @transaction.setData(data).isValid()
-
-  it 'not fail with number amount parameter', ->
-    data = _.clone @data
-    data['amount'] = 1.11
-    assert.equal true, @transaction.setData(data).isValid()
-
-  it 'not fail with string amount parameter', ->
-    data = _.clone @data
-    data['amount'] = "1.11"
-    assert.equal true, @transaction.setData(data).isValid()
-
   it 'fails when wrong currency parameter', ->
     data = _.clone @data
     data['currency'] = 'NOT_VALID_CURRENCY'
     assert.equal false, @transaction.setData(data).isValid()
 
-  it 'not fail with zero amount', ->
+  it 'works with integer amount parameter', ->
+    data = _.clone @data
+    data['amount'] = 100
+    assert.equal true, @transaction.setData(data).isValid()
+
+  it 'works with number amount parameter', ->
+    data = _.clone @data
+    data['amount'] = 1.11
+    assert.equal true, @transaction.setData(data).isValid()
+
+  it 'works with string amount parameter', ->
+    data = _.clone @data
+    data['amount'] = "1.11"
+    assert.equal true, @transaction.setData(data).isValid()
+
+  it 'works with zero amount', ->
     data = _.clone @data
     data['amount'] = 0
 

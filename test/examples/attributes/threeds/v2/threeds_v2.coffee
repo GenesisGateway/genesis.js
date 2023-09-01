@@ -65,7 +65,7 @@ ThreedsV2 = () ->
               accept_header: "*/*"
               java_enabled: false
               language: "en-GB"
-              color_depth: 24
+              color_depth: "24"
               screen_height: 900
               screen_width: 1440
               time_zone_offset: "-120"
@@ -88,7 +88,6 @@ ThreedsV2 = () ->
 
       it 'valid threeds_v2_params structure', ->
         data = ThreedsV2Attributes.getThreedsV2(@transaction.getTransactionType(), _.clone(@data))
-
         assert.equal true, @transaction.setData(data).isValid()
 
       it 'request contains threeds_v2_params', ->
@@ -105,7 +104,6 @@ ThreedsV2 = () ->
 
       it 'fail with recurring for non recurring types', ->
         data = ThreedsV2Attributes.getThreedsV2(Types.INIT_RECURRING_SALE_3D, _.clone(@data))
-
 
         if @transaction.getTransactionType() != Types.INIT_RECURRING_SALE_3D
           assert.equal false, @transaction.setData(data).isValid()

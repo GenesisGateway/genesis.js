@@ -108,6 +108,12 @@
     },
     "dynamic_descriptor_params": {
       "$ref": "/definitions/attributes/financial/dynamic_descriptor_params"
+    },
+    "credential_on_file": {
+      "$ref": "/definitions/attributes/credential_on_file#credential_on_file"
+    },
+    "travel": {
+      "$ref": "/definitions/attributes/financial/travel_data/travel_data_attributes"
     }
   }
 }

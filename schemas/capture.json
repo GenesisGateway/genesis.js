@@ -37,6 +37,9 @@
     "reference_id": {},
     "business_attributes": {
       "$ref": "/definitions/attributes/business_attributes"
+    },
+    "travel": {
+      "$ref": "/definitions/attributes/financial/travel_data/travel_data_attributes#ticket"
     }
   }
 }

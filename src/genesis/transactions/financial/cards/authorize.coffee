@@ -1,7 +1,8 @@
 
 CardBase         = require './card_base'
 TransactionTypes = require '../../../helpers/transaction/types'
-_ = require 'underscore'
+_                = require 'underscore'
+TravelData       = require '../../../helpers/travel_data/travel_data'
 
 class Authorize extends CardBase
 
@@ -20,5 +21,11 @@ class Authorize extends CardBase
       return false
 
     valid
+
+  getTrxData: ->
+    travelData = new TravelData(@params)
+    travelData.parseTravelData()
+
+    super()
 
 module.exports = Authorize
