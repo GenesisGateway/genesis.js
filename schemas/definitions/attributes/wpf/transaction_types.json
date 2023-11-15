@@ -486,6 +486,9 @@
         },
         "managed_recurring": {
           "$ref": "/definitions/attributes/recurring/managed_recurring"
+        },
+        "recurring_type": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/recurring_type"
         }
       }
     },
@@ -528,6 +531,12 @@
       "description": "Expiration month and year",
       "pattern": "^[0-9]{4}-(1[0-2]|0[1-9])$",
       "message": "Expiration mont and year ex 2050-12"
+    },
+    "recurring_type": {
+      "$id": "/definitions/attributes/wpf/transaction_types/recurring_type",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "string",
+      "enum": ["initial", "managed"]
     }
   }
 }

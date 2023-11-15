@@ -290,6 +290,8 @@ class Types
   ###
   @PAY_PAl = 'pay_pal'
 
+  @METHOD_CONTINUE = 'method_continue'
+
   getTypes: ->
     value for key, value of @constructor
 

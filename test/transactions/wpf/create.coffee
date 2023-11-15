@@ -7,9 +7,9 @@ Transaction        = require path.resolve './src/genesis/transactions/wpf/create
 FinancialBase      = require '../financial/financial_base'
 BusinessAttributes = require '../business_attributes'
 i18n               = require path.resolve 'src/genesis/helpers/i18n'
-RecurringType      = require '../../examples/attributes/financial/recurring_type'
 DynamicDescriptor  = require '../../examples/attributes/financial/dynamic_descriptor'
-PayLater  = require '../../examples/attributes/pay_later'
+PayLater           = require '../../examples/attributes/pay_later'
+FundingAttributes  = require '../../examples/attributes/financial/funding_attributes'
 
 describe 'WPFCreate Transaction', ->
 
@@ -40,7 +40,7 @@ describe 'WPFCreate Transaction', ->
     ]
     assert.equal false, @transaction.setData(data).isValid()
 
-  it 'not fails when transaction_type exists', ->
+  it 'works when transaction_type exists', ->
     data = _.clone @data
     data.transaction_types = [
       {
@@ -52,7 +52,7 @@ describe 'WPFCreate Transaction', ->
     ]
     assert.equal true, @transaction.setData(data).isValid()
 
-  it 'not fails when custom attribute of transaction_type exists', ->
+  it 'works when custom attribute of transaction_type exists', ->
     data = _.clone @data
     data.transaction_types = [
       {
@@ -107,7 +107,7 @@ describe 'WPFCreate Transaction', ->
     ]
     assert.equal false, @transaction.setData(data).isValid()
 
-  it 'not fails with correct format of custom attribute expiration_date', ->
+  it 'works with correct format of custom attribute expiration_date', ->
     data = _.clone @data
     data.transaction_types = [
       {
@@ -129,7 +129,7 @@ describe 'WPFCreate Transaction', ->
     ]
     assert.equal false, @transaction.setData(data).isValid()
 
-  it 'not fails when all required custom attributes of bitpay are set', ->
+  it 'works when all required custom attributes of bitpay are set', ->
     data = _.clone @data
     data.transaction_types = [
       {
@@ -152,7 +152,7 @@ describe 'WPFCreate Transaction', ->
     ]
     assert.equal false, @transaction.setData(data).isValid()
 
-  it 'not fails when supported payment_subtype was set to google_pay custom attribute', ->
+  it 'works when supported payment_subtype was set to google_pay custom attribute', ->
     data = _.clone @data
     data.transaction_types = [
       {
@@ -310,6 +310,18 @@ describe 'WPFCreate Transaction', ->
     expect(trx).not.to.have.nested.property(
       'wpf_payment.transaction_types.transaction_type[0].managed_recurring'
     )
+
+  it 'works when authorize with recurring_type attribute included', ->
+    data = _.clone @data
+    data.transaction_types = [
+      {
+        authorize: {
+          recurring_type: "initial"
+        }
+      }
+    ]
+
+    assert.equal true, @transaction.setData(data).isValid()
 
   context 'Covert to minor currency', ->
 
@@ -630,7 +642,7 @@ describe 'WPFCreate Transaction', ->
         assert.equal true, @transaction.setData(data).isValid()
 
   BusinessAttributes()
-  RecurringType()
   DynamicDescriptor()
   FinancialBase()
   PayLater()
+  FundingAttributes()

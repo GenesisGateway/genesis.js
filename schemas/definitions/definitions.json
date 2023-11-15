@@ -72,35 +72,30 @@
           "$id": "card_holder",
           "description": "Full name of customer as printed on credit card (first name and last name at least)",
           "type": "string",
-          "pattern": "^(?!^[\\d\\s]*$).+\\s+.+$",
           "message": "Expected: full name"
         },
         "card_number": {
           "$id": "#card_number",
           "description": "Complete CC number of customer",
           "type": "string",
-          "pattern": "^[0-9]{13,19}$",
           "message": "Expected: number with 13 to 19 digits"
         },
         "cvv": {
           "$id": "#cvv",
           "description": "CVV of CC, requirement is based on terminal configuration",
           "type": "string",
-          "pattern": "^[0-9]{3,4}$",
           "message": "Expected: number with 3 to 4 digits"
         },
         "expiration_month": {
           "$id": "#expiration_month",
           "description": "Expiration month as printed on credit card",
           "type": "string",
-          "pattern": "^(0?[1-9]|1[012])$",
           "message": "Expected: valid month number (ex: 05)"
         },
         "expiration_year": {
           "$id": "#expiration_year",
           "description": "Expiration year as printed on credit card",
           "type": "string",
-          "pattern": "^(20)\\d{2}$",
           "message": "Expected: valid year number (ex: 2021)"
         },
         "birth_date": {
@@ -109,8 +104,35 @@
           "type": "string",
           "pattern": "^(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9])-[0-9]{4}$",
           "message":  "Should match pattern dd-mm-yyyy"
+        },
+        "client_side_encryption": {
+          "$id": "#client_side_encryption",
+          "description": "Internal attribute used for ignoring the Credit Card fields validations",
+          "type": "boolean"
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "client_side_encryption": { "enum": [ false ] } } },
+          "then": { "properties": { "card_holder": { "pattern": "^(?!^[\\d\\s]*$).+\\s+.+$" } } }
+        },
+        {
+          "if": { "properties": { "client_side_encryption": { "enum": [ false ] } } },
+          "then": { "properties": { "card_number": { "pattern": "^[0-9]{13,19}$" } } }
+        },
+        {
+          "if": { "properties": { "client_side_encryption": { "enum": [ false ] } } },
+          "then": { "properties": { "expiration_month": { "pattern": "^(0?[1-9]|1[012])$" } } }
+        },
+        {
+          "if": { "properties": { "client_side_encryption": { "enum": [ false ] } } },
+          "then": { "properties": { "expiration_year": { "pattern": "^(20)\\d{2}$" } } }
+        },
+        {
+          "if": { "properties": { "client_side_encryption": { "enum": [ false ] } } },
+          "then": { "properties": { "cvv": { "pattern": "^[0-9]{3,4}$"} } }
+        }
+      ]
     },
     "reference": {
       "$id": "#reference",

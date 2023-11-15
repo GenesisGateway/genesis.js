@@ -4,7 +4,6 @@ TransactionTypes = require '../../../helpers/transaction/types'
 _           = require 'underscore'
 TravelData  = require '../../../helpers/travel_data/travel_data'
 
-
 class Sale3d extends CardBase
 
   getTransactionType: ->

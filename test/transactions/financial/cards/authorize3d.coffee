@@ -17,6 +17,8 @@ RiskParams         = require '../../../examples/attributes/risk_params'
 DynamicDescriptor  = require '../../../examples/attributes/financial/dynamic_descriptor'
 CredentialOnFile  = require '../../../examples/attributes/credential_on_file'
 TravelData         = require '../../../examples/attributes/financial/travel_data/travel_data'
+CSEncription       = require '../../../examples/attributes/client_side_encryption'
+FundingAttributes  = require '../../../examples/attributes/financial/funding_attributes'
 
 describe 'Authorize 3D Transaction', ->
 
@@ -43,3 +45,5 @@ describe 'Authorize 3D Transaction', ->
   DynamicDescriptor()
   CredentialOnFile()
   TravelData()
+  CSEncription()
+  FundingAttributes()

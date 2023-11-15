@@ -19,6 +19,8 @@ DynamicDescriptor  = require '../../../examples/attributes/financial/dynamic_des
 CredentialOnFile  = require '../../../examples/attributes/credential_on_file'
 UCOF               = require '../../../examples/attributes/ucof'
 TravelData         = require '../../../examples/attributes/financial/travel_data/travel_data'
+CSEncription       = require '../../../examples/attributes/client_side_encryption'
+FundingAttributes  = require '../../../examples/attributes/financial/funding_attributes'
 
 describe 'Sale Transaction', ->
 
@@ -40,7 +42,8 @@ describe 'Sale Transaction', ->
   CredentialOnFile()
   UCOF()
   TravelData()
-
+  CSEncription()
+  FundingAttributes()
 
   context 'when Recurring Type - subsequent', ->
 

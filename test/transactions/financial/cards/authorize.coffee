@@ -17,6 +17,8 @@ DynamicDescriptor  = require '../../../examples/attributes/financial/dynamic_des
 CredentialOnFile  = require '../../../examples/attributes/credential_on_file'
 UCOF               = require '../../../examples/attributes/ucof'
 TravelData         = require '../../../examples/attributes/financial/travel_data/travel_data'
+CSEncription       = require '../../../examples/attributes/client_side_encryption'
+FundingAttributes  = require '../../../examples/attributes/financial/funding_attributes'
 
 describe 'Authorize Transaction', ->
 
@@ -38,6 +40,8 @@ describe 'Authorize Transaction', ->
   CredentialOnFile()
   UCOF()
   TravelData()
+  CSEncription()
+  FundingAttributes()
 
   context 'when Recurring Type - subsequent', ->
     it 'with reference_id', ->
@@ -53,4 +57,3 @@ describe 'Authorize Transaction', ->
       delete data.reference_id
 
       assert.equal false, @transaction.setData(data).isValid()
-

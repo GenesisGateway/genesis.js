@@ -79,6 +79,11 @@ PayPal    = require './transactions/financial/wallets/pay_pal'
 ###
 CashU = require './transactions/financial/vouchers/cashu'
 
+###
+  MethodContinue
+###
+MethodContinue = require './transactions/financial/cards/threeds/v2/method_continue'
+
 class Transaction
 
   ###
@@ -159,6 +164,9 @@ class Transaction
 
   refund: (params) ->
     new Refund(params)
+
+  method_continue: (params) ->
+    new MethodContinue(params)
 
   ###
     Financial Alternative transactions

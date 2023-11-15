@@ -146,6 +146,379 @@ transaction.sale({
 
 The example above is going to create a Sale (Authorize w/ immediate Capture) transaction for the amount of $100.
 
+3DS Transaction
+---------------
+
+Sample request including all the conditionally required/optional params for initiating a 3DS transaction with the 3DSv2-Method authentication protocol.
+
+Also, an example is provided for the 3DS-Method-continue API call that will have to be submitted after the 3DS-Method is initiated.
+
+<details>
+<summary>JavaScript example</summary>
+
+```js
+var crypto, failure, genesis, success, transaction;
+
+genesis        = require('./lib/genesis.js');
+
+crypto = require('crypto');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+     return console.log(reason);
+};
+
+success = function(data) {
+    if (data.status == 'approved') {
+      // Transaction approved no customer action required
+      // Test Case: Synchronous 3DSv2 Request with Frictionless flow
+    }
+    
+    if (data.status == 'declined' || data.status == 'error') {
+      // Transaction declined no customer action required
+      // Synchronous 3DSv2 Request with Frictionless flow
+    }     
+    if (data.status == 'pending_async') {
+      if (data.redirect_url) {
+          console.log(data.redirect_url_type)
+          console.log(data.redirect_url)
+      }
+
+      if (data.threeds_method_url) {
+          transaction.method_continue(data)
+             .send()
+             .then(function (data) {
+               if (data.status == 'approved') {
+                 // Transaction APPROVED no customer action required
+                 // Test Case: Asynchronous 3DSv2 Request with 3DS-Method and Frictionless flow
+               }
+               
+               if (data.status == 'pending_async') {
+                 // Customer action required
+                 if (data.redirect_url) {
+                   // Test Case: Asynchronous 3DSv2 Request with 3DS-Method Challenge flow
+                   // Test Case: Asynchronous 3DSv2 Request with 3DS-Method Fallback flow
+                   console.log(redirect_url_type)
+                   console.log(redirect_url)
+                 }
+               }
+
+               if (data.status == 'declined' || data.status == 'error') {
+                 // Transaction declined no customer action required
+                 // Synchronous 3DSv2 Request with Frictionless flow
+               }   
+
+           })
+           .catch(failure);
+      }
+  }
+  return console.log(data);
+};
+
+transaction.sale3d({
+    transaction_id: 'gnss-js-' + crypto.randomBytes(16).toString('hex'),
+    usage: 'Genesis JS Client Automated Request',
+    remote_ip: '118.240.158.6',
+    currency: 'USD',
+    amount: '50',
+    // Return URLS
+    notification_url: 'http://example.com/',
+    return_success_url: 'https://success.ss',
+    return_failure_url: 'https://failure.ff',
+    // Customer Details
+    customer_email: 'email@test.com',
+    customer_phone: '0123456789',
+    // Credit Card Details
+    card_holder: 'Test Tester',
+    card_number: '4012000000060085', // Test Case: Synchronous 3DSv2 Request with Frictionless flow
+//    Test Cases
+//    card_number: '4066330000000004', // Test Case: Asynchronous 3DSv2 Request with 3DS-Method and Frictionless flow
+//    card_number: '4918190000000002', // Test Case: Asynchronous 3DSv2 Request with Challenge flow
+//    card_number: '4938730000000001', // Test Case: Asynchronous 3DSv2 Request with 3DS-Method Challenge flow
+//    card_number: '4901170000000003', // Test Case: Asynchronous 3DSv2 Request with Fallback flow
+//    card_number: '4901164281364345', // Test Case: Asynchronous 3DSv2 Request with 3DS-Method Fallback flow
+    cvv: '123',
+    expiration_month: '01',
+    expiration_year: '2020',
+    // Billing/Invoice Details
+    billing_address: {
+        first_name: 'Kamryn',
+        last_name: 'Strosin',
+        address1: '834 Huels Wells',
+        zip_code: '52036-7047',
+        city: 'Bettyeview',
+        country: 'IQ'
+    },
+    // 3DSv2 params
+    // 3DSv2 Method Attributes
+    threeds_v2_params: {
+        threeds_method: {
+            callback_url: 'https://www.example.com/threeds/threeds_method/callback'
+        },
+        control: {
+            device_type: 'browser',
+            challenge_window_size: 'full_screen',
+            challenge_indicator: 'preference'
+        },
+        purchase: {
+            category: 'service'
+        },
+        merchant_risk: {
+            shipping_indicator: 'verified_address',
+            delivery_timeframe: 'electronic',
+            reorder_items_indicator: 'reordered',
+            pre_order_purchase_indicator: 'merchandise_available',
+            pre_order_date: '19-08-2024',
+            gift_card: 'true',
+            gift_card_count: 99
+        },
+        card_holder_account: {
+            creation_date: '19-07-2021',
+            update_indicator: 'more_than_60days',
+            last_change_date: '19-04-2022',
+            password_change_indicator: 'no_change',
+            password_change_date: '04-07-2022',
+            shipping_address_usage_indicator: 'current_transaction',
+            shipping_address_date_first_used: '14-07-2022',
+            transactions_activity_last_24_hours: 2,
+            transactions_activity_previous_year: 10,
+            provision_attempts_last_24_hours: 1,
+            purchases_count_last_6_months: 5,
+            suspicious_activity_indicator: 'no_suspicious_observed',
+            registration_indicator: '30_to_60_days',
+            registration_date: '19-07-2020'
+        },
+        browser: {
+            accept_header: '*/*',
+            java_enabled: false,
+            language: 'en-GB',
+            color_depth: 32,
+            screen_height: 900,
+            screen_width: 1440,
+            time_zone_offset: '-120',
+            user_agent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36'
+        },
+        sdk: {
+            interface: 'native',
+            ui_types: {
+                ui_type: 'multi_select'
+            },
+            application_id: 'fc1650c0-5778-0138-8205-2cbc32a32d65',
+            encrypted_data: 'encrypted-data-here',
+            ephemeral_public_key_pair: 'public-key-pair',
+            max_timeout: 10,
+            reference_number: 'sdk-reference-number-her'
+        }
+    }
+})
+    .send()
+    .then(success)
+    .catch(failure);
+```
+</details>
+
+<details>
+<summary>CoffeeScript example</summary>
+
+```coffee
+genesis = require './lib/genesis.js'
+
+crypto = require 'crypto'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+
+  if data.status == 'approved' then
+      # Transaction approved no customer action required
+      # Test Case: Synchronous 3DSv2 Request with Frictionless flow
+  
+  if data.status == 'declined' || data.status == 'error' then
+      # Transaction declined no customer action required
+      # Synchronous 3DSv2 Request with Frictionless flow
+
+  if data.status == 'pending_async' then
+    if data.redirect_url
+      console.log(data.redirect_url_type)
+    console.log(data.redirect_url)
+
+  if data.threeds_method_url
+     transaction.method_continue(data)
+      .send()
+      .then data ->
+        if data.status == 'approved' then
+          # Transaction APPROVED no customer action required
+          # Test Case: Asynchronous 3DSv2 Request with 3DS-Method and Frictionless flow
+        
+          if data.status == 'pending_async'
+            # Customer action required
+        
+          if data.redirect_url
+            # Test Case: Asynchronous 3DSv2 Request with 3DS-Method Challenge flow
+            # Test Case: Asynchronous 3DSv2 Request with 3DS-Method Fallback flow
+            console.log(data.redirect_url_type)
+            console.log(data.redirect_url)
+        
+            if data.status == 'declined' || data.status == 'error' then
+              # Transaction declined no customer action required
+              # Synchronous 3DSv2 Request with Frictionless flow
+      .catch failure
+
+  return console.log(data)
+
+transaction.sale3d({
+  transaction_id: 'gnss-js-' + crypto.randomBytes(16).toString('hex')
+  usage         : 'Genesis JS Client Automated Request'
+  remote_ip     : '118.240.158.6'
+  currency      : 'USD'
+  amount        : '50'
+  # Return URLS
+  notification_url  : 'http://example.com/'
+  return_success_url: 'https://success.ss'
+  return_failure_url: 'https://failure.ff'
+  # Customer Details
+  customer_email: 'email@test.com'
+  customer_phone: '0123456789'
+  # Credit Card Details
+  card_holder: 'Test Tester'
+  card_number: '4012000000060085' # Test Case: Synchronous 3DSv2 Request with Frictionless flow
+  # Test Cases
+  # card_number: '4066330000000004'   # Test Case: Asynchronous 3DSv2 Request with 3DS-Method and Frictionless flow
+  # card_number: '4918190000000002'   # Test Case: Asynchronous 3DSv2 Request with Challenge flow
+  # card_number: '4938730000000001'   # Test Case: Asynchronous 3DSv2 Request with 3DS-Method Challenge flow
+  # card_number: '4901170000000003'   # Test Case: Asynchronous 3DSv2 Request with Fallback flow
+  # card_number: '4901164281364345'   # Test Case: Asynchronous 3DSv2 Request with 3DS-Method Fallback flow
+  cvv             : '123'
+  expiration_month: '01'
+  expiration_year : '2020'
+  # Billing/Invoice Details
+  billing_address :
+    first_name: 'Kamryn'
+    last_name : 'Strosin'
+    address1  : '834 Huels Wells'
+    zip_code  : '52036-7047'
+    city      : 'Bettyeview'
+    country   : 'IQ'
+  # 3DSv2 params
+  # 3DSv2 Method Attributes
+  threeds_v2_params:
+    threeds_method:
+      callback_url: 'https://www.example.com/threeds/threeds_method/callback'
+    control:
+      device_type          : 'browser'
+      challenge_window_size: 'full_screen'
+      challenge_indicator  : 'preference'
+    purchase:
+      category: 'service'
+    merchant_risk:
+      shipping_indicator          : 'verified_address'
+      delivery_timeframe          : 'electronic'
+      reorder_items_indicator     : 'reordered'
+      pre_order_purchase_indicator: 'merchandise_available'
+      pre_order_date              : '19-08-2024'
+      gift_card                   : 'true'
+      gift_card_count             : 99
+    card_holder_account:
+      creation_date                      : '19-07-2021'
+      update_indicator                   : 'more_than_60days'
+      last_change_date                   : '19-04-2022'
+      password_change_indicator          : 'no_change'
+      password_change_date               : '04-07-2022'
+      shipping_address_usage_indicator   : 'current_transaction'
+      shipping_address_date_first_used   : '14-07-2022'
+      transactions_activity_last_24_hours: 2
+      transactions_activity_previous_year: 10
+      provision_attempts_last_24_hours   : 1
+      purchases_count_last_6_months      : 5
+      suspicious_activity_indicator      : 'no_suspicious_observed'
+      registration_indicator             : '30_to_60_days'
+      registration_date                  : '19-07-2020'
+    browser:
+      accept_header   : '*/*'
+      java_enabled    : false
+      language        : 'en-GB'
+      color_depth     : 32
+      screen_height   : 900
+      screen_width    : 1440
+      time_zone_offset: '-120'
+      user_agent      : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36'
+    sdk:
+      interface                : 'native'
+      ui_types                 :
+        ui_type: 'multi_select'
+      application_id           : 'fc1650c0-5778-0138-8205-2cbc32a32d65'
+      encrypted_data           : 'encrypted-data-here'
+      ephemeral_public_key_pair: 'public-key-pair'
+      max_timeout              : 10
+      reference_number         : 'sdk-reference-number-her'
+})
+  .send()
+  .then(success)
+  .catch(failure)
+```
+</details>
+
+Standalone ThreedsV2 Method Continue Request.
+
+<details>
+<summary>JavaScript example</summary>
+
+var failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+transaction.method_continue({
+    unique_id: 'd6a6aa96292e4856d4a352ce634a4335',
+    amount: '60.00',
+    currency: 'USD',
+    timestamp: '2020-11-10T14:21:37Z'
+})
+    .send()
+    .then(success)
+    .catch(failure);
+</details>
+
+<details>
+<summary>CoffeeScript example</summary>
+
+genesis = require './lib/genesis.js'
+crypto  = require 'crypto'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+  console.log data
+  
+transaction.method_continue({
+    unique_id: 'd6a6aa96292e4856d4a352ce634a4335'
+    amount   : '60.00'
+    currency : 'USD'
+    timestamp: '2020-11-10T14:21:37Z'
+})
+    .send()
+    .then(success)
+    .catch(failure);  
+  
+</details>
+
+
 Google Pay Transaction
 ----------------------------
 

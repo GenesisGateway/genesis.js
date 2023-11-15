@@ -63,6 +63,7 @@
     "card_number": {},
     "expiration_month": {},
     "expiration_year": {},
+    "client_side_encryption": {},
     "cvv": {},
     "token": {},
     "remember_card": {},

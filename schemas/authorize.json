@@ -54,6 +54,7 @@
     "card_number": {},
     "expiration_month": {},
     "expiration_year": {},
+    "client_side_encryption": {},
     "cvv": {},
     "token": {},
     "remember_card": {},
@@ -122,6 +123,9 @@
     },
     "travel": {
       "$ref": "/definitions/attributes/financial/travel_data/travel_data_attributes"
+    },
+    "funding": {
+      "$ref": "/definitions/attributes/financial/funding_attributes"
     }
   }
 }

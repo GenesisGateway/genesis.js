@@ -34,10 +34,10 @@ class Response
       # Convert the amount from ISO4217 to Nominal
       response_convert_amount: (responseObject) ->
         currency = new Currency()
-
-        if responseObject.hasOwnProperty('amount') and responseObject.hasOwnProperty('currency')
-          responseObject.amount =
-            currency.convertToNominalUnits responseObject.amount, responseObject.currency
+        if responseObject != undefined
+          if responseObject.hasOwnProperty('amount') and responseObject.hasOwnProperty('currency')
+            responseObject.amount =
+              currency.convertToNominalUnits responseObject.amount, responseObject.currency
 
         return responseObject
 

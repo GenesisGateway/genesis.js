@@ -45,6 +45,7 @@
     "card_number": {},
     "expiration_month": {},
     "expiration_year": {},
+    "client_side_encryption": {},
     "cvv": {},
     "moto": {
       "$ref": "/definitions/attributes/financial/common#moto"

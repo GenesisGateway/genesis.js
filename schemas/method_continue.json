@@ -1,0 +1,25 @@
+{
+  "$id": "https://genesis.js/method_continue",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "unique_id",
+    "amount",
+    "currency",
+    "timestamp"
+  ],
+  "properties": {
+    "unique_id": {},
+    "amount": {
+      "$ref": "/definitions/attributes/financial/payment#amount"
+    },
+    "currency": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/financial/payment#currency"
+        }
+      ]
+    },
+    "timestamp": {}
+  }
+}

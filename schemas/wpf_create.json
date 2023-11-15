@@ -84,9 +84,6 @@
     "remember_card": {
       "$ref": "/definitions/attributes/financial/tokenization#remember_card"
     },
-    "recurring_type": {
-      "$ref": "/definitions/definitions#initial_managed_recurring"
-    },
     "dynamic_descriptor_params": {
       "$ref": "/definitions/attributes/financial/dynamic_descriptor_params"
     },
@@ -139,6 +136,9 @@
           }
         }
       ]
+    },
+    "funding": {
+      "$ref": "/definitions/attributes/financial/funding_attributes"
     }
   },
   "dependencies": {

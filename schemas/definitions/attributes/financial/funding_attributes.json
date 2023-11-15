@@ -1,0 +1,40 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/financial/funding_attributes",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "identifier_type": {
+      "description": "Type of Funding Transaction.",
+      "type": "string",
+      "enum": ["general_person_to_person", "person_to_person_card_account", "own_account", "own_credit_card_bill",
+        "business_disbursement", "government_or_non_profit_disbursement", "rapid_merchant_settlement",
+        "general_business_to_business", "own_staged_digital_wallet_account", "own_debit_or_prepaid_card_account"]
+    },
+    "receiver": {
+      "first_name": {
+        "description": "First name of the receiver",
+        "type": "string"
+      },
+      "last_name": {
+        "description": "Last name of the receiver",
+        "type": "string"
+      },
+      "country": {
+        "$ref": "/definitions/country",
+        "type": "string",
+        "maxLength": "2"
+      },
+      "account_number": {
+        "type": "string",
+        "description": "Receiver account number"
+      },
+      "account_number_type": {
+        "type": "string",
+        "description": "Receiver account number type",
+        "enum": ["rtn_and_bank_account_number", "iban", "card_account", "email",
+          "phone_number", "bank_account_number_and_bic", "wallet_id", "social_network_id", "other"]
+      }
+    }
+  }
+}
