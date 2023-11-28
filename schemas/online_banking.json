@@ -1,0 +1,89 @@
+{
+  "$id": "https://genesis.js/online_banking",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "return_success_url",
+    "return_failure_url",
+    "amount",
+    "currency",
+    "bank_code"
+  ],
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "online_banking"
+        }
+      ]
+    },
+    "remote_ip": {},
+    "usage": {},
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "amount": {
+      "$ref": "/definitions/attributes/financial/payment#amount"
+    },
+    "currency": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/financial/payment#currency"
+        },
+        {
+          "enum": ["CNY", "CLP", "THB", "MYR", "PYG", "IDR", "INR", "PHP", "SGD", "UYU", "VND",
+            "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN"
+          ]
+        }
+      ]
+    },
+    "customer_email": {},
+    "customer_phone": {},
+    "bank_code": {},
+    "document_id": {
+      "type": "string",
+      "description": "Document ID value.",
+      "maxLength": 255
+    },
+    "payment_type": {
+      "type": "string",
+      "description": "The payment type describes the type of online banking used to process the transaction.",
+      "enum": ["online_banking", "qr_payment", "quick_payment", "netbanking", "alipay_qr"]
+    },
+    "virtual_payment_address": {
+      "type": "string",
+      "description": "Virtual Payment Address (VPA) of the customer."
+    },
+    "consumer_reference": {
+      "type": "string",
+      "description": "Consumer reference identifier of the customer."
+    },
+    "user_category": {
+      "type": "string",
+      "description": "User category. If missing, 'default' will be used."
+    },
+    "auth_code": {
+      "type": "string",
+      "description": "6-digit code used to authenticate the consumer within Blik One Click. It is required only for that bank.",
+      "maxLength": 6
+    },
+    "billing_address": {
+      "$ref": "/definitions/attributes/customer/address#billing"
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    }
+  }
+}

@@ -2038,6 +2038,8 @@ fraud_report_by_date
 google_pay
 init_recurring
 init_recurring_sale3d
+online_banking_payin
+online_banking_payout
 p24
 pay_pal
 payout

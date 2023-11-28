@@ -290,7 +290,23 @@ class Types
   ###
   @PAY_PAl = 'pay_pal'
 
+  ###
+    Method continue is a request used for 3DSv2-Method Frictionless, Challenge and Fallback flows
+  ###
   @METHOD_CONTINUE = 'method_continue'
+
+  ###
+    Online Banking is an oBeP-style alternative payment method that allows you to pay directly
+    with your ebank account. After initiating a transaction, the online banking will redirect
+    you to their page.There you will find a list with available banks to finish the payment.
+  ###
+  @ONLINE_BANKING_PAYIN = 'online_banking'
+
+  ###
+    Bank Pay-out is a bank pay-out method. It allows merchants to transfer funds directly
+    to customers bank accounts.
+  ###
+  @ONLINE_BANKING_PAYOUT = 'bank_payout'
 
   getTypes: ->
     value for key, value of @constructor

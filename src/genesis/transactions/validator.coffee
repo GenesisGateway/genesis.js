@@ -65,6 +65,7 @@ class Validator
 
 
   # Compare the specific transaction schema against the request parameters
+
   isValid: () ->
     try
       @schema = require '../../../schemas/' + @trx.getTransactionType() + '.json'

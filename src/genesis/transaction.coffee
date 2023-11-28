@@ -58,6 +58,8 @@ IDebitPayin         = require './transactions/financial/obp/idebit/payin'
 IDebitPayout        = require './transactions/financial/obp/idebit/payout'
 InstaDebitPayin     = require './transactions/financial/obp/insta_debit/payin'
 InstaDebitPayout    = require './transactions/financial/obp/insta_debit/payout'
+OnlineBankingPayin  = require './transactions/financial/obp/online_banking/payin'
+OnlineBankingPayout = require './transactions/financial/obp/online_banking/payout'
 
 ###
   Direct Debit
@@ -82,7 +84,9 @@ CashU = require './transactions/financial/vouchers/cashu'
 ###
   MethodContinue
 ###
-MethodContinue = require './transactions/financial/cards/threeds/v2/method_continue'
+MethodContinue     = require './transactions/financial/cards/threeds/v2/method_continue'
+
+OnlineBankingPayin = require './transactions/financial/obp/online_banking/payin'
 
 class Transaction
 
@@ -221,6 +225,12 @@ class Transaction
 
   insta_debit_payout: (params) ->
     new InstaDebitPayout(params)
+
+  online_banking_payin: (params) ->
+    new OnlineBankingPayin(params)
+
+  online_banking_payout: (params) ->
+    new OnlineBankingPayout(params)
 
   ###
     Direct Debit
