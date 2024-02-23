@@ -83,6 +83,9 @@
     },
     "credential_on_file": {
       "$ref": "/definitions/attributes/credential_on_file#credential_on_file"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
     }
   }
 }

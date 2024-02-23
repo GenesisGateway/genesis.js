@@ -1,19 +1,18 @@
 {
-  "$id": "https://genesis.js/paysafecard",
+  "$id": "https://genesis.js/nativa",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "transaction_id",
     "transaction_type",
-    "remote_ip",
     "return_success_url",
     "return_failure_url",
     "amount",
     "currency",
-    "customer_email",
-    "customer_id",
-    "billing_address"
+    "consumer_reference",
+    "national_id",
+    "customer_email"
   ],
   "allOf": [
     {
@@ -21,9 +20,6 @@
     },
     {
       "$ref": "/definitions/definitions#common"
-    },
-    {
-      "$ref": "/definitions/attributes/financial/payment"
     }
   ],
   "properties": {
@@ -34,7 +30,7 @@
           "$ref": "/definitions/definitions#transaction_type"
         },
         {
-          "const": "paysafecard"
+          "const": "nativa"
         }
       ]
     },
@@ -43,30 +39,33 @@
     "return_success_url": {
       "$ref": "/definitions/definitions#url"
     },
-    "return_failure_url": {
-      "$ref": "/definitions/definitions#url"
-    },
+    "return_failure_url": {},
     "amount": {},
     "currency": {},
     "customer_email": {},
-    "customer_phone": {},
-    "customer_id": {},
+    "birth_date": {
+      "$ref": "/definitions/definitions#birth_date"
+    },
+    "consumer_reference": {
+      "maxLength": 20,
+      "description": "Consumer reference is a unique consumer identifier"
+    },
+    "national_id": {
+      "maxLength": 20,
+      "description": "National Identifier number of the customer"
+    },
     "billing_address": {
+      "required": [
+        "country"
+      ],
       "allOf": [
         {
           "$ref": "/definitions/attributes/customer/address#billing"
         },
         {
-          "required": ["country"],
           "properties": {
             "country": {
-              "enum": [
-                "AU", "AT", "BE", "BG", "CA", "HR", "CY", "CZ", "DK", "FI", "FR",
-                "GE", "DE", "GI", "GR", "HU", "IS", "IE", "IT", "KW", "LV", "LI",
-                "LT", "LU", "MT", "MX", "MD", "ME", "NL", "NZ", "NO", "PY", "PE",
-                "PL", "PT", "RO", "SA", "SK", "SI", "ES", "SE", "CH", "TR", "AE",
-                "GB", "US", "UY"
-              ]
+              "const": "AR"
             }
           }
         }

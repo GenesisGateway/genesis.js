@@ -14,6 +14,7 @@ InitRecurringSale   = require './transactions/financial/cards/recurring/init_rec
 InitRecurringSale3d = require './transactions/financial/cards/recurring/init_recurring_sale3d'
 Capture             = require './transactions/financial/capture'
 Refund              = require './transactions/financial/refund'
+Nativa              = require './transactions/financial/cards/nativa'
 
 ###
   Non Financial transactions
@@ -171,6 +172,9 @@ class Transaction
 
   method_continue: (params) ->
     new MethodContinue(params)
+
+  nativa: (params) ->
+    new Nativa(params)
 
   ###
     Financial Alternative transactions

@@ -2040,6 +2040,7 @@ init_recurring
 init_recurring_sale3d
 online_banking_payin
 online_banking_payout
+nativa
 p24
 pay_pal
 payout
@@ -2139,3 +2140,20 @@ Transaction Parameters
   * `russian_mobile_sale`
 
 In order to get a full list of required and optional parameters, please consult our API Documentation.
+
+## Development
+Run mocha tests
+
+```js
+npm test
+```
+Build the project
+
+```js
+npm run cake-build
+```
+Watch changed files during development
+
+```js
+npm run cake-watch
+```

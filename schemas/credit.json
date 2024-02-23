@@ -42,6 +42,9 @@
     "source_of_funds": {
       "enum": ["credit", "debit", "prepaid", "cash", "other_debit_account", "other_credit_account"],
       "description": "Specify the source of funds"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
     }
   }
 }

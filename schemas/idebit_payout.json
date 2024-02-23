@@ -55,5 +55,8 @@
       "type": "string",
       "maxLength": 32
     }
+  },
+  "use_smart_router": {
+    "$ref": "/definitions/definitions#use_smart_router"
   }
 }

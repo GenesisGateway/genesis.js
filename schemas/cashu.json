@@ -76,6 +76,9 @@
     "return_failure_url": {
       "$ref": "/definitions/definitions#url",
       "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
     }
   }
 }

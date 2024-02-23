@@ -4,17 +4,23 @@ _                    = require 'underscore'
 config               = require 'config'
 ColorDepth           = require '../../helpers/color_depth'
 JsonUtils            = require '../../utils/json_utils'
+SmartRouter          = require '../../helpers/smart_router'
 
 class FinancialBase extends Base
 
   constructor: (params) ->
     super params
 
+    @smartRouterParams      = (new SmartRouter).getSmartRouterUrlParams()
+
     if JsonUtils.isValidObjectChain(params, 'threeds_v2_params.browser.color_depth')
       @params.threeds_v2_params.browser.color_depth =
         (new ColorDepth).handleColorDepth(params.threeds_v2_params.browser.color_depth).toString()
 
   getUrl: ->
+    if @params.use_smart_router || @getForceSmartRouter()
+      return @smartRouterParams
+
     app:
       'gate'
     path:
@@ -43,8 +49,8 @@ class FinancialBase extends Base
         @params,
         {
           'transaction_type':
-            this.getTransactionType()
+           this.getTransactionType()
         }
-      )
+    )
 
 module.exports = FinancialBase

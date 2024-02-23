@@ -81,6 +81,9 @@
     "return_cancel_url": {
       "$ref": "/definitions/definitions#url",
       "description": "URL where customer is sent to when the customer cancels the payment process within the WPF."
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
     }
   }
 }

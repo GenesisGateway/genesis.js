@@ -1,4 +1,5 @@
 Response = require '../response'
+Promise       = require 'bluebird'
 
 class BaseRequestApi
 
@@ -19,7 +20,6 @@ class BaseRequestApi
     )
 
   parseErrorObject: (errorObject) ->
-
     if errorObject.response
       return {
         status: errorObject.response.status,

@@ -146,6 +146,9 @@
     },
     "billing_address": {
       "$ref": "/definitions/attributes/customer/address#billing"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
     }
   },
   "dependencies": {

@@ -1,0 +1,4 @@
+require:
+  - 'coffeescript/register'
+  - 'test/chai.coffee'
+timeout: '5000'

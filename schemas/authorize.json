@@ -126,6 +126,9 @@
     },
     "funding": {
       "$ref": "/definitions/attributes/financial/funding_attributes"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
     }
   }
 }

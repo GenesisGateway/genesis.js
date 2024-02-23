@@ -122,6 +122,9 @@
     },
     "threeds_v2_params": {
       "$ref": "/definitions/attributes/threeds/v2/threeds_v2"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
     }
   }
 }

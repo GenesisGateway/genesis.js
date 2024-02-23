@@ -78,6 +78,11 @@ class Types
   @RECURRING_SALE = 'recurring_sale'
 
   ###
+    Nativa is an Argentinian credit card provided by the National Bank of Argentina.
+  ###
+  @NATIVA = 'nativa'
+
+  ###
     Bank transfer, popular in Netherlands (via ABN)
   ###
   @ABNIDEAL = 'abn_ideal'

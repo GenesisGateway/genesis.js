@@ -5,8 +5,6 @@ axios          = require 'axios'
 https          = require 'https'
 BaseRequestApi = require './base_request_api'
 
-Promise  = require 'bluebird'
-
 class AxiosApi extends BaseRequestApi
 
   constructor: () ->

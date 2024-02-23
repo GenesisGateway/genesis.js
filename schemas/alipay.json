@@ -54,6 +54,9 @@
     },
     "shipping_address": {
       "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
     }
   }
 }
