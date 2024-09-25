@@ -62,6 +62,9 @@ class Validator
     @ajv.addSchema(
       require '../../../schemas/definitions/attributes/financial/funding_attributes.json'
     )
+    @ajv.addSchema(
+      require '../../../schemas/definitions/attributes/financial/account_owner_attributes.json'
+    )
 
 
   # Compare the specific transaction schema against the request parameters

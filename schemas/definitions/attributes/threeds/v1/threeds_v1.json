@@ -53,6 +53,9 @@
         "protocol_version": {
           "$ref": "#/definitions/protocol_version"
         },
+        "protocol_sub_version": {
+          "$ref": "#/definitions/protocol_sub_version"
+        },
         "directory_server_id": {
           "type": "string"
         }
@@ -61,6 +64,10 @@
         "protocol_version": {
           "type": "string",
           "enum": ["1", "2"]
+        },
+        "protocol_sub_version": {
+          "type": "string",
+          "enum": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
         }
       },
       "if": {

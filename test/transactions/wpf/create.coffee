@@ -13,7 +13,7 @@ FundingAttributes  = require '../../examples/attributes/financial/funding_attrib
 
 describe 'WPFCreate Transaction', ->
 
-  before ->
+  beforeEach ->
     @data        = (new FakeData).getSimpleDataAndBusinessAttributes()
     @transaction = new Transaction()
 
@@ -640,6 +640,25 @@ describe 'WPFCreate Transaction', ->
         data.consumer_id = faker.datatype.number({max: 36}).toString()
 
         assert.equal true, @transaction.setData(data).isValid()
+
+    context 'when lifetime', ->
+
+      it 'with valid value', ->
+        data        = _.extend @data
+        transaction = _.extend @transaction
+
+        data['lifetime'] = 20
+
+        assert.equal true, transaction.setData(data).isValid()
+
+      it 'with invalid value', ->
+        data        = _.extend @data
+        transaction = _.extend @transaction
+
+        data['lifetime'] = 0
+
+        assert.equal false, transaction.setData(data).isValid()
+
 
   BusinessAttributes()
   DynamicDescriptor()

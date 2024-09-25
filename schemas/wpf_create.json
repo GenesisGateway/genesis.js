@@ -120,6 +120,12 @@
       "enum": ["en", "it", "es", "fr", "de", "pl", "ja", "zh", "ar", "pt", "tr", "ru", "hi", "bg", "nl", "is", "id", "ms", "th", "cs", "hr", "sl", "fi", "no", "da", "sv"],
       "description": "WPF available language"
     },
+    "lifetime" : {
+      "type": "integer",
+      "default": 30,
+      "minimum": 1,
+      "maximum": 131487
+    },
     "reminders": {
       "description": "Settings for reminders sending when using the ’Pay Later’ feature",
       "maxItems": 3,
@@ -139,6 +145,9 @@
     },
     "funding": {
       "$ref": "/definitions/attributes/financial/funding_attributes"
+    },
+    "account_owner": {
+      "$ref": "/definitions/attributes/financial/account_owner_attributes"
     }
   },
   "dependencies": {

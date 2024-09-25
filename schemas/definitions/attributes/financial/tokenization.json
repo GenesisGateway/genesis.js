@@ -2,12 +2,14 @@
   "$id": "https://genesis.js/definitions/attributes/financial/tokenization",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "oneOf": [
+  "allOf": [
     {
-      "required": ["card_number"]
+      "if": { "properties": { "recurring_type": { "enum": [ "initial", "managed" ] } } },
+      "then": { "oneOf": [ { "required": [ "card_number" ] }, { "required": [ "token" ] } ] }
     },
     {
-      "required": ["token"]
+      "if": { "properties": { "recurring_type": { "enum": ["subsequent"] } } },
+      "then": true
     }
   ],
   "properties": {

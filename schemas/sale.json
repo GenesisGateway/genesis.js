@@ -6,9 +6,7 @@
   "required": [
     "transaction_id",
     "transaction_type",
-    "amount",
-    "currency",
-    "card_holder"
+    "amount"
   ],
   "allOf": [
     {
@@ -18,7 +16,7 @@
       "$ref": "/definitions/definitions#common"
     },
     {
-      "$ref": "/definitions/definitions#card"
+      "$ref": "/definitions/definitions#subsequent_card"
     },
     {
       "$ref": "/definitions/attributes/financial/payment"
@@ -123,6 +121,9 @@
     },
     "use_smart_router": {
       "$ref": "/definitions/definitions#use_smart_router"
+    },
+    "account_owner": {
+      "$ref": "/definitions/attributes/financial/account_owner_attributes"
     }
   }
 }

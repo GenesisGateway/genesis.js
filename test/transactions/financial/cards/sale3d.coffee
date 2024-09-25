@@ -19,6 +19,7 @@ CredentialOnFile  = require '../../../examples/attributes/credential_on_file'
 TravelData         = require '../../../examples/attributes/financial/travel_data/travel_data'
 CSEncription       = require '../../../examples/attributes/client_side_encryption'
 FundingAttributes  = require '../../../examples/attributes/financial/funding_attributes'
+MpiParams          = require '../../../examples/attributes/threeds/v1/mpi_params'
 
 describe 'Sale 3D Transaction', ->
 
@@ -47,3 +48,4 @@ describe 'Sale 3D Transaction', ->
   TravelData()
   CSEncription()
   FundingAttributes()
+  MpiParams()

@@ -94,6 +94,9 @@
     },
     "use_smart_router": {
       "$ref": "/definitions/definitions#use_smart_router"
+    },
+    "account_owner": {
+      "$ref": "/definitions/attributes/financial/account_owner_attributes"
     }
   }
 }

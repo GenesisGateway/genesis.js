@@ -2,10 +2,11 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-FakeData      = require '../../fake_data'
-Transaction   = require path.resolve './src/genesis/transactions/financial/cards/credit'
-FinancialBase = require '../financial_base'
-Crypto        = require '../../../examples/attributes/financial/crypto'
+FakeData               = require '../../fake_data'
+Transaction            = require path.resolve './src/genesis/transactions/financial/cards/credit'
+FinancialBase          = require '../financial_base'
+Crypto                 = require '../../../examples/attributes/financial/crypto'
+AccountOwnerAttributes = require '../../../examples/attributes/financial/account_owner_attributes'
 
 describe 'Credit Transaction', ->
 
@@ -29,3 +30,4 @@ describe 'Credit Transaction', ->
     assert.equal false, @transaction.setData(data).isValid()
 
   Crypto()
+  AccountOwnerAttributes()

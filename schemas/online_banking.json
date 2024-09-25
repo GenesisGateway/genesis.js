@@ -44,7 +44,7 @@
         },
         {
           "enum": ["CNY", "CLP", "THB", "MYR", "PYG", "IDR", "INR", "PHP", "SGD", "UYU", "VND",
-            "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN"
+            "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN", "AUD"
           ]
         }
       ]

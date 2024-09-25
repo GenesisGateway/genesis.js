@@ -1,0 +1,23 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/financial/account_owner_attributes",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "first_name": {
+      "description": "Account owner first name",
+      "type": "string",
+      "maxLength": 35
+    },
+    "middle_name": {
+      "description": "Account owner middle name",
+      "type": "string",
+      "maxLength": 35
+    },
+    "last_name": {
+      "description": "Account owner last name",
+      "type": "string",
+      "maxLength": 35
+    }
+  }
+}

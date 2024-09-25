@@ -17,7 +17,7 @@ describe 'Online Banking Payin Transaction', ->
     @data.return_failure_url      = faker.internet.url()
     @data.currency                = faker.random.arrayElement(
       ["CNY", "CLP", "THB", "MYR", "PYG", "IDR", "INR", "PHP", "SGD", "UYU", "VND",
-        "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN"]
+        "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN", "AUD"]
     )
     @data.amount                  = '50000'
     @data.customer_email          = faker.internet.email()

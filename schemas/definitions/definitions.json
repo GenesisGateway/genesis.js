@@ -69,7 +69,7 @@
       "$id": "#card",
       "properties": {
         "card_holder": {
-          "$id": "card_holder",
+          "$id": "#card_holder",
           "description": "Full name of customer as printed on credit card (first name and last name at least)",
           "type": "string",
           "message": "Expected: full name"
@@ -131,6 +131,58 @@
         {
           "if": { "properties": { "client_side_encryption": { "enum": [ false ] } } },
           "then": { "properties": { "cvv": { "pattern": "^[0-9]{3,4}$"} } }
+        }
+      ]
+    },
+    "subsequent_card": {
+      "$id": "#subsequent_card",
+      "properties": {
+        "card_holder": {
+          "$ref": "#card_holder"
+        },
+        "card_number": {
+          "$ref": "#card_number"
+        },
+        "cvv": {
+          "$ref": "#cvv"
+        },
+        "expiration_month": {
+          "$ref": "#expiration_month"
+        },
+        "expiration_year": {
+          "$ref": "#expiration_year"
+        },
+        "birth_date": {
+          "$ref": "#birth_date"
+        },
+        "client_side_encryption": {
+          "$ref": "#client_side_encryption"
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "client_side_encryption": { "enum": [ false ] }, "recurring_type": { "enum": [false, "initial", "managed"] } } },
+          "then": { "properties": { "card_holder": { "pattern": "^(?!^[\\d\\s]*$).+\\s+.+$" } } }
+        },
+        {
+          "if": { "properties": { "client_side_encryption": { "enum": [ false ] }, "recurring_type": { "enum": [false, "initial", "managed"] } } },
+          "then": { "properties": { "card_number": { "pattern": "^[0-9]{13,19}$" } } }
+        },
+        {
+          "if": { "properties": { "client_side_encryption": { "enum": [ false ] }, "recurring_type": { "enum": [false, "initial", "managed"] } } },
+          "then": { "properties": { "expiration_month": { "pattern": "^(0?[1-9]|1[012])$" } } }
+        },
+        {
+          "if": { "properties": { "client_side_encryption": { "enum": [ false ] }, "recurring_type": { "enum": [false, "initial", "managed"] } } },
+          "then": { "properties": { "expiration_year": { "pattern": "^(20)\\d{2}$" } } }
+        },
+        {
+          "if": { "properties": { "client_side_encryption": { "enum": [ false ] }, "recurring_type": { "enum": [false, "initial", "managed"] } } },
+          "then": { "properties": { "cvv": { "pattern": "^[0-9]{3,4}$"} } }
+        },
+        {
+          "if": { "properties": { "recurring_type": { "enum": ["initial", "managed"] } } },
+          "then": { "required": ["card_holder", "currency"] }
         }
       ]
     },
