@@ -4,8 +4,9 @@ config = require 'config'
 
 class Reconcile extends Base
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
+    @configuration = configuration
 
   getTransactionType: ->
     'reconcile'
@@ -19,7 +20,7 @@ class Reconcile extends Base
     path:
       'reconcile'
     token:
-      config.customer.token
+      @configuration.getCustomerToken()
 
   getTrxData: ->
     'reconcile':

@@ -46,17 +46,6 @@
     },
     {
       "if": {
-        "properties": { "payment_type": { "const": "giropay" } }
-      },
-      "then": {
-        "allOf": [
-          { "properties": { "currency": { "const": "EUR" } } },
-          { "properties": { "billing_address": { "properties": { "country": { "const": "DE" } } } } }
-        ]
-      }
-    },
-    {
-      "if": {
         "properties": { "payment_type": { "const": "bcmc" } }
       },
       "then": {
@@ -102,7 +91,7 @@
     },
     "payment_type": {
       "type": "string",
-      "enum": ["my_bank", "eps", "giropay", "bcmc", "safetypay"],
+      "enum": ["my_bank", "eps", "bcmc", "safetypay"],
       "description": "Chosen payment via PPRO"
     },
     "return_success_url": {

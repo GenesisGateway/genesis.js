@@ -34,6 +34,8 @@ In order to process transactions via Genesis, you'll have to acquire the necessa
 Configuration
 -------------
 
+* File-based configuration
+
 You can override the path to the directory holding your configuration files (by default its ```config``` in the root directory of the module) via environmental variable ```NODE_CONFIG_DIR```. The first file to parse configuration from, is ```<your-config-dir>/default.json``` and based on the environment variable (```NODE_ENV```), you can specify your custom file; for example ```<your-config-dir>/<NODE_ENV_NAME>.json```.
 
 Note: Its good practice to prevent web/direct access to your config directory and protect the files inside
@@ -52,6 +54,59 @@ You can override the config inside your code:
 
   config.customer.token = '<your token>'
   ```
+  
+* Manual 
+   
+You can set the configuration parameters by creating JSON object and then passing these parameters to the constructor of the Transaction class, as shown below:
+
+- CoffeeScript
+```
+configuration = {
+    customer : 
+        "username":            "<enter-your-username>"
+        "password"           : "<enter-your-password>"
+        "token"              : "<enter-your-token>"
+        "force_smart_routing": false
+    gateway :
+        "protocol" : "https"
+        "hostname" : "<please-select-the-endpoint-you-want-e-comprocessing.net-or-emerchantpay.net>"
+        "timeout"  : "60000"
+        "testing"  : true
+    notifications :
+        "host"     : "<hostname>"
+        "port"     : "<port>",
+        "path"     : "<path>"
+}
+
+transaction = new genesis.transaction( configuration )
+```
+
+- JavaScript
+```
+configuration = {
+    customer : {
+        "username":            "<enter-your-username>", 
+        "password"           : "<enter-your-password>",
+        "token"              : "<enter-your-token>",
+        "force_smart_routing": false,
+    },
+    gateway : {
+        "protocol" : "https",
+        "hostname" : "<please-select-the-endpoint-you-want-e-comprocessing.net-or-emerchantpay.net>",
+        "timeout"  : "60000",
+        "testing"  : true
+    },
+    notifications : {
+        "host"     : "<hostname>",
+        "port"     : "<port>",
+        "path"     : "<path>"
+    }
+};
+
+transaction = new genesis.transaction configuration 
+```
+_The minimum required parameters are customer and gateway. Within customer, the mandatory fields are username and password. For gateway, the required fields are hostname and testing.  
+If you choose to use file-based configuration instead of a configuration object, you won't need to inject anything into the Transaction class constructor._     
 
 Sale Transaction
 ----------------
@@ -95,6 +150,7 @@ transaction.sale({
       address1: '123 Str.',
       zip_code: '10000',
       city: 'New York',
+      neighborhood: 'Holywood',
       country: 'US'
     }
   })
@@ -132,12 +188,13 @@ transaction.sale({
     customer_email    : 'email@example.com'
     customer_phone    : '0123456789'
     billing_address   :
-        first_name: 'John'
-        last_name : 'Doe'
-        address1  : '123 Str.'
-        zip_code  : '10000'
-        city      : 'New York'
-        country   : 'US'
+        first_name   : 'John'
+        last_name    : 'Doe'
+        address1     : '123 Str.'
+        zip_code     : '10000'
+        city         : 'New York'
+        neighborhood : 'Holywood'
+        country      : 'US'
     })
     .send()
     .then(success)
@@ -248,6 +305,7 @@ transaction.sale3d({
         address1: '834 Huels Wells',
         zip_code: '52036-7047',
         city: 'Bettyeview',
+        neighborhood: 'Holywood',
         country: 'IQ'
     },
     // 3DSv2 params
@@ -563,6 +621,7 @@ transaction.google_pay({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
+        neighborhood: 'Holywood',
         country: 'US'
     },
     shipping_address: {
@@ -571,6 +630,7 @@ transaction.google_pay({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
+        neighborhood: 'Holywood',
         country: 'US'
     },
     notification_url: 'http://my.host.name.tld:1234/notifier',
@@ -619,12 +679,13 @@ transaction.google_pay({
     city      : 'New York',
     country   : 'US'
   shipping_address         :
-    first_name: 'John',
-    last_name : 'Doe',
-    address1  : '123 Str.',
-    zip_code  : '10000',
-    city      : 'New York',
-    country   : 'US'
+    first_name   : 'John',
+    last_name    : 'Doe',
+    address1     : '123 Str.',
+    zip_code     : '10000',
+    city         : 'New York',
+    neighborhood : 'Holywood',
+    country      : 'US'
   notification_url  : 'http://my.host.name.tld:1234/notifier',
   return_success_url: 'http://my.host.name.tld/success',
   return_failure_url: 'http://my.host.name.tld/failure',
@@ -768,6 +829,7 @@ transaction.apple_pay({
       address1: '123 Str.',
       zip_code: '10000',
       city: 'New York',
+      neighborhood: 'Holywood',
       country: 'US'
   },
   shipping_address: {
@@ -776,6 +838,7 @@ transaction.apple_pay({
       address1: '123 Str.',
       zip_code: '10000',
       city: 'New York',
+      neighborhood: 'Holywood',
       country: 'US'
   }
 })
@@ -963,20 +1026,22 @@ transaction.pay_pal({
     remote_ip      : '245.253.2.12',
     birth_date     : '12-12-2008',
     billing_address: {
-      first_name: 'John',
-      last_name : 'Doe',
-      address1  : '123 Str.',
-      zip_code  : '10000',
-      city      : 'New York',
-      country   : 'US'
+      first_name   : 'John',
+      last_name    : 'Doe',
+      address1     : '123 Str.',
+      zip_code     : '10000',
+      city         : 'New York',
+      neighborhood : 'Holywood',
+      country      : 'US'
     },
     shipping_address: {
-      first_name: 'John',
-      last_name : 'Doe',
-      address1  : '123 Str.',
-      zip_code  : '10000',
-      city      : 'New Yok',
-      country   : 'US',
+      first_name   : 'John',
+      last_name    : 'Doe',
+      address1     : '123 Str.',
+      zip_code     : '10000',
+      city         : 'New Yok',
+      neighborhood : 'Holywood',
+      country      : 'US',
     },
     notification_url   : 'http://my.host.name.tld/notification',
     return_success_url : 'http://my.host.name.tld/success',
@@ -1016,19 +1081,21 @@ transaction.pay_pal({
   remote_ip      : '245.253.2.12'
   birth_date     : '12-12-2008'
   billing_address:
-    first_name: 'John'
-    last_name : 'Doe'
-    address1  : '123 Str.'
-    zip_code  : '10000'
-    city      : 'New York'
-    country   : 'US'
+    first_name   : 'John'
+    last_name    : 'Doe'
+    address1     : '123 Str.'
+    zip_code     : '10000'
+    city         : 'New York'
+    neighborhood : 'Holywood',
+    country      : 'US'
   shipping_address:
-    first_name: 'John'
-    last_name : 'Doe'
-    address1  : '123 Str.'
-    zip_code  : '10000'
-    city      : 'New Yok'
-    country   : 'US'
+    first_name   : 'John'
+    last_name    : 'Doe'
+    address1     : '123 Str.'
+    zip_code     : '10000'
+    city         : 'New Yok'
+    neighborhood : 'Holywood',
+    country      : 'US'
   notification_url   : 'http://my.host.name.tld/notification',
   return_success_url : 'http://my.host.name.tld/success',
   return_failure_url : 'http://my.host.name.tld/failure',
@@ -1084,6 +1151,7 @@ transaction.wpf_create({
       address1: '123 Str.',
       zip_code: '10000',
       city: 'New York',
+      neighborhood: 'Holywood',
       country: 'US'
     },
     transaction_types: ['authorize3d', 'sale']
@@ -1122,12 +1190,13 @@ transaction.wpf_create({
     return_failure_url: 'http://my.host.name.tld/failure'
     return_cancel_url : 'http://my.host.name.tld/cancel'
     billing_address   :
-        first_name: 'John'
-        last_name : 'Doe'
-        address1  : '123 Str.'
-        zip_code  : '10000'
-        city      : 'New York'
-        country   : 'US'
+        first_name   : 'John'
+        last_name    : 'Doe'
+        address1     : '123 Str.'
+        zip_code     : '10000'
+        city         : 'New York'
+        neighborhood : 'Holywood',
+        country      : 'US'
     transaction_types: [
         'authorize3d'
         'sale'
@@ -1170,6 +1239,7 @@ transaction.wpf_create({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
+        neighborhood: 'Holywood',
         country: 'US',
         state: 'California'
     },
@@ -1240,13 +1310,14 @@ transaction.wpf_create({
     return_failure_url: 'http://my.host.name.tld/failure'
     return_cancel_url : 'http://my.host.name.tld/cancel'
     billing_address   :
-        first_name: 'John'
-        last_name : 'Doe'
-        address1  : '123 Str.'
-        zip_code  : '10000'
-        city      : 'New York'
-        country   : 'US'
-        state     : 'California'
+        first_name   : 'John'
+        last_name    : 'Doe'
+        address1     : '123 Str.'
+        zip_code     : '10000'
+        city         : 'New York'
+        neighborhood : 'Holywood',
+        country      : 'US'
+        state        : 'California'
     transaction_types: [
         # Authorize
         authorize:
@@ -1314,6 +1385,7 @@ transaction.wpf_create({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
+        neighborhood: 'Holywood',
         country: 'US',
         state: 'California'
     },
@@ -1407,13 +1479,14 @@ transaction.wpf_create({
     return_failure_url: 'http://my.host.name.tld/failure'
     return_cancel_url : 'http://my.host.name.tld/cancel'
     billing_address   :
-      first_name: 'John'
-      last_name : 'Doe'
-      address1  : '123 Str.'
-      zip_code  : '10000'
-      city      : 'New York'
-      country   : 'US'
-      state     : 'California'
+      first_name   : 'John'
+      last_name    : 'Doe'
+      address1     : '123 Str.'
+      zip_code     : '10000'
+      city         : 'New York'
+      neighborhood : 'Holywood',
+      country      : 'US'
+      state        : 'California'
     transaction_types: ['authorize', 'sale3d']
 
     # Full list of business attributes
@@ -1513,6 +1586,7 @@ transaction.wpf_create({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
+        neighborhood: 'Holywood',
         country: 'US'
     },
     shipping_address: {
@@ -1521,6 +1595,7 @@ transaction.wpf_create({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
+        neighborhood: 'Holywood',
         country: 'US'
     },
     transaction_types: [
@@ -1569,20 +1644,22 @@ transaction.wpf_create({
     return_failure_url: 'http://my.host.name.tld/failure'
     return_cancel_url : 'http://my.host.name.tld/cancel'
     billing_address   :
-      first_name: 'John'
-      last_name : 'Doe'
-      address1  : '123 Str.'
-      zip_code  : '10000'
-      city      : 'New York'
-      country   : 'US'
-      state     : 'CA'
+      first_name   : 'John'
+      last_name    : 'Doe'
+      address1     : '123 Str.'
+      zip_code     : '10000'
+      city         : 'New York'
+      neighborhood : 'Holywood',
+      country      : 'US'
+      state        : 'CA'
     shipping_address:
-      first_name: 'John'
-      last_name: 'Doe'
-      address1: '123 Str.'
-      zip_code: '10000'
-      city: 'New York'
-      country: 'US'
+      first_name   : 'John'
+      last_name    : 'Doe'
+      address1     : '123 Str.'
+      zip_code     : '10000'
+      city         : 'New York'
+      neighborhood : 'Holywood',
+      country      : 'US'
     transaction_types: [
       init_recurring_sale:
         managed_recurring:
@@ -1737,6 +1814,7 @@ transaction.wpf_create({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
+        neighborhood: 'Holywood',
         country: 'US'
     },
     shipping_address: {
@@ -1745,6 +1823,7 @@ transaction.wpf_create({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
+        neighborhood: 'Holywood',
         country: 'US'
     },
     transaction_types: [sale],
@@ -1795,19 +1874,21 @@ transaction.wpf_create({
     return_failure_url: 'http://my.host.name.tld/failure'
     return_cancel_url : 'http://my.host.name.tld/cancel'
     billing_address   :
-      first_name: 'John'
-      last_name : 'Doe'
-      address1  : '123 Str.'
-      zip_code  : '10000'
-      city      : 'New York'
-      country   : 'US'
-      state     : 'CA'
+      first_name   : 'John'
+      last_name    : 'Doe'
+      address1     : '123 Str.'
+      zip_code     : '10000'
+      city         : 'New York'
+      neighborhood : 'Holywood',
+      country      : 'US'
+      state        : 'CA'
     shipping_address:
       first_name: 'John'
       last_name: 'Doe'
       address1: '123 Str.'
       zip_code: '10000'
       city: 'New York'
+      neighborhood: 'Holywood',
       country: 'US'
     transaction_types: ['sale'],
     pay_later: true,
@@ -1840,7 +1921,18 @@ var success, failure, genesis, notification, notification_url;
 
 genesis = require('./lib/genesis.js');
 
-notification = new genesis.notification();
+configuration = {
+    customer : {
+        "username":            "<enter-your-username>", 
+        "password"           : "<enter-your-password>",
+    },
+    gateway : {
+        "hostname" : "<please-select-the-endpoint-you-want-e-comprocessing.net-or-emerchantpay.net>",
+        "testing"  : true,
+    }
+};
+
+notification = new genesis.notification(configuration);
 
 success = function(result) {
   return console.log(result);
@@ -1860,7 +1952,18 @@ notification_url = notification.getUrl();
 ```coffee
 genesis = require './lib/genesis.js'
 
-notification = new genesis.notification()
+genesis = require('./lib/genesis.js');
+
+configuration = {
+    customer :
+        "username":            "<enter-your-username>", 
+        "password"           : "<enter-your-password>"
+    gateway : 
+        "hostname" : "<please-select-the-endpoint-you-want-e-comprocessing.net-or-emerchantpay.net>",
+        "testing"  : true
+};
+
+notification = new genesis.notification(configuration)
 
 success = (result) =>
   console.log result
@@ -2022,7 +2125,6 @@ Transaction Types
 -----------------
 
 ```text
-account_verification
 apple_pay
 authorize
 authorize3d
@@ -2068,7 +2170,6 @@ Transaction Parameters
   * `sale3d`
   * `init_recurring_sale`
   * `init_recurring_sale3d`
-  * `account_verification`
   * `alipay`
   * `argencard`
   * `aura`
@@ -2091,7 +2192,6 @@ Transaction Parameters
   * `elo`
   * `eps`
   * `fashioncheque`
-  * `giropay`
   * `google_pay`
   * `apple_pay`
   * `invoice`
@@ -2110,7 +2210,6 @@ Transaction Parameters
   * `oxxo`
   * `ppro`
       * `eps`
-      * `giropay`
       * `ideal`
       * `przelewy24`
       * `safetypay`

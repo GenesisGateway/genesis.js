@@ -71,6 +71,16 @@
       "type": "string",
       "maxLength": 16,
       "description": "Allows to dynamically override the merchant service phone number."
+    },
+    "merchant_geo_coordinates": {
+      "type": "string",
+      "maxLength": 20,
+      "description": "Merchant service geographic coordinates. Length of geographic coordinates is a range of 15-20 symbols. Latitude and Longitude separated by a comma. Example: 40.73061,-73.93524"
+    },
+    "merchant_service_geo_coordinates": {
+      "type": "string",
+      "maxLength": 20,
+      "description": "Merchant service geographic coordinates. Length of geographic coordinates is a range of 15-20 symbols. Latitude and Longitude separated by a comma. Example: 40.73061,-73.93524"
     }
   }
 }

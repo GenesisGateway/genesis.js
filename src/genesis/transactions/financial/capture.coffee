@@ -8,7 +8,7 @@ class Capture extends FinancialBase
   getTransactionType: ->
     TransactionTypes.CAPTURE
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
 module.exports = Capture

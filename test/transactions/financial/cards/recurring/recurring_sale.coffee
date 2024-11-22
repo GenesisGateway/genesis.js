@@ -10,6 +10,7 @@ Transaction        =
 Moto               = require '../../../../examples/attributes/financial/moto'
 Gaming             = require '../../../../examples/attributes/financial/gaming'
 TravelData         = require '../../../../examples/attributes/financial/travel_data/travel_data'
+FundingAttributes  = require '../../../../examples/attributes/financial/funding_attributes'
 
 describe 'RecurringSale Transaction', ->
 
@@ -31,3 +32,4 @@ describe 'RecurringSale Transaction', ->
   Moto()
   Gaming()
   TravelData()
+  FundingAttributes()

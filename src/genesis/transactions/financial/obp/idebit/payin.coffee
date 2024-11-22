@@ -9,8 +9,8 @@ class IDebitPayin extends FinancialBase
   getTransactionType: ->
     TransactionTypes.IDEBIT_PAYIN
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
 
 module.exports = IDebitPayin

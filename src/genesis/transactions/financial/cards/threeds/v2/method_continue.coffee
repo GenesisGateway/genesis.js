@@ -8,9 +8,10 @@ class MethodContinue extends Request
 
   THREEDS_METHOD_URL: 'threeds/threeds_method/'
 
-  constructor: (@params) ->
-    super('form')
+  constructor: (@params, configuration) ->
+    super('form', configuration)
     @currency = new Currency
+    @configuration = configuration
 
   getTransactionType: ->
     TransactionTypes.METHOD_CONTINUE
@@ -23,7 +24,7 @@ class MethodContinue extends Request
   ###
   getSignature: ->
     @params.amount = @currency.convertToMinorUnits @params.amount, @params.currency
-    ThreedsUtils.generateSignature @params.unique_id, @params.amount, @params.timestamp
+    ThreedsUtils.generateSignature @params.unique_id, @params.amount, @params.timestamp, @configuration.getCustomerPassword()
 
   ###
     Returns relative path with provided unique_id

@@ -6,8 +6,8 @@ Validator = require './validator'
 
 class Base extends Request
 
-  constructor: (@params) ->
-    super('xml')
+  constructor: (@params, configuration) ->
+    super('xml', configuration)
     @currency = new Currency
 
   setData: (@params) ->

@@ -8,7 +8,7 @@ class Refund extends FinancialBase
   getTransactionType: ->
     TransactionTypes.REFUND
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
 module.exports = Refund

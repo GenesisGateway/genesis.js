@@ -26,6 +26,9 @@
         "city": {
           "$ref": "#city"
         },
+        "neighborhood": {
+          "$ref": "#neighborhood"
+        },
         "country": {
           "$ref": "/definitions/country"
         },
@@ -114,6 +117,12 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "type": "string",
       "title": "City"
+    },
+    "neighborhood": {
+      "$id": "#neighborhood",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "string",
+      "title": "Neighborhood"
     },
     "state": {
       "$id": "#state",

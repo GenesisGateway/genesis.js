@@ -1,27 +1,27 @@
-_             = require 'underscore'
-fs            = require 'fs'
-path          = require 'path'
-util          = require 'util'
-config        = require 'config'
-https         = require 'https'
-Response      = require './response'
-Promise       = require 'bluebird'
-Builders      = require './builders/builders'
-AxiosApi      = require './network/axios_api'
-Validator     = require './transactions/validator'
-Domains       = require './constants/domains'
-Environments = require './constants/environments'
-JsonUtils    = require './utils/json_utils'
+_                 = require 'underscore'
+fs                = require 'fs'
+path              = require 'path'
+util              = require 'util'
+https             = require 'https'
+Response          = require './response'
+Promise           = require 'bluebird'
+Builders          = require './builders/builders'
+AxiosApi          = require './network/axios_api'
+Validator         = require './transactions/validator'
+Domains           = require './constants/domains'
+Environments      = require './constants/environments'
+JsonUtils         = require './utils/json_utils'
 
 class Request
 
   METHOD_POST : 'POST'
   METHOD_PUT  : 'PUT'
 
-  constructor: (builderInterface = 'xml') ->
+  constructor: (builderInterface = 'xml', configuration) ->
     @builderInterface = builderInterface
     @builderContext = (new Builders(@builderInterface))
     @response = new Response
+    @configuration = configuration
 
   initConfiguration: ->
     @loadBuilderInterface()
@@ -49,16 +49,16 @@ class Request
   formatUrl: (params) ->
     if params.token
       util.format '%s://%s.%s/%s/%s'
-      , config.gateway.protocol
+      , @configuration.getGatewayProtocol()
       , @getURLEnvironment(params.app)
-      , config.gateway.hostname
+      , @configuration.getGatewayHostname()
       , params.path
       , params.token
     else
       util.format '%s://%s.%s/%s'
-      , config.gateway.protocol
+      , @configuration.getGatewayProtocol()
       , @getURLEnvironment(params.app)
-      , config.gateway.hostname
+      , @configuration.getGatewayHostname()
       , params.path
 
   ###
@@ -69,6 +69,9 @@ class Request
 
     if typeof configValidation == "object"
       return Promise.reject configValidation
+
+    if !@isValidConfig()
+      return Promise.reject @getValidationErrorResponse()
 
     if !@isValid()
       return Promise.reject @getValidationErrorResponse()
@@ -87,6 +90,8 @@ class Request
     return true
 
   initXmlConfiguration: ->
+    version = @configuration.getVersion()
+
     method: @METHOD_POST
     httpsAgent: new https.Agent({
       rejectUnauthorized: true
@@ -95,12 +100,12 @@ class Request
     })
     headers:
       'Content-Type': 'text/xml'
-      'User-Agent': 'Genesis Node.js client v' + config.module.version
+      'User-Agent': 'Genesis Node.js client v' + version
       'Authorization': 'Basic ' +
         Buffer.from(
-          config.customer.username + ':' + config.customer.password
+          @configuration.getCustomerUsername() + ':' + @configuration.getCustomerPassword()
         ).toString('base64')
-    timeout: Number(config.gateway.timeout)
+    timeout: Number(@configuration.getGatewayTimeout())
     validateStatus: (status) ->
       status >= 200 && status < 300
 
@@ -110,7 +115,7 @@ class Request
       'Content-Type': 'application/x-www-form-urlencoded'
 
   getURLEnvironment: (app) ->
-    return if config.gateway.testing
+    return if (@configuration.getGatewayTesting())
     then Domains.SUBDOMAINS[app][Environments.STAGING]
     else Domains.SUBDOMAINS[app][Environments.PRODUCTION]
 
@@ -118,8 +123,12 @@ class Request
     # Sanitize the parameters
     @sanitizeParams(@params)
 
-    @validator = new Validator(this)
+    @validator = new Validator @
     return @validator.isValid()
+
+  isValidConfig: () ->
+    @validator = new Validator @
+    return @validator.isValidConfig()
 
   getErrors: ->
     @validator.getErrors()
@@ -150,8 +159,5 @@ class Request
         ) || _.isNull(value)
       )
         delete rawParams[field]
-
-  getForceSmartRouter: ->
-    config.customer.force_smart_routing
 
 module.exports = Request

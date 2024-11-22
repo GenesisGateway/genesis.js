@@ -13,6 +13,7 @@ DynamicDescriptor       = require '../../../../examples/attributes/financial/dyn
 CredentialOnFile        = require '../../../../examples/attributes/credential_on_file'
 TravelData              = require '../../../../examples/attributes/financial/travel_data/travel_data'
 AccountOwnerAttributes  = require '../../../../examples/attributes/financial/account_owner_attributes'
+FundingAttributes       = require '../../../../examples/attributes/financial/funding_attributes'
 
 describe 'InitRecurringSale Transaction', ->
 
@@ -31,3 +32,4 @@ describe 'InitRecurringSale Transaction', ->
   CredentialOnFile()
   TravelData()
   AccountOwnerAttributes()
+  FundingAttributes()

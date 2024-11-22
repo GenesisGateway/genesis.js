@@ -37,6 +37,12 @@ describe 'Apple Pay Transaction', ->
 
       assert.equal true, @transaction.setData(data).isValid()
 
+    it 'works with valid recurring_type', ->
+      data = _.clone(@data)
+      data['recurring_type'] = 'initial'
+
+      assert.equal true, @transaction.setData(data).isValid()
+
   context 'with invalid request', ->
 
     it 'fails with invalid payment_subtype', ->
@@ -98,3 +104,7 @@ describe 'Apple Pay Transaction', ->
       delete data['payment_token']['paymentData']['header']
 
       assert.equal false, @transaction.setData(data).isValid()
+
+    it 'fails with invalid recurring_type', ->
+      data = _.clone(@data)
+      data['recurring_type'] = 'INVALID_VALUE'

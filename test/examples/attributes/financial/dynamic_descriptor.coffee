@@ -21,6 +21,8 @@ DynamicDescriptor = () ->
         "merchant_service_state": faker.random.alpha(3)
         "merchant_service_zip_code": faker.random.alpha(10)
         "merchant_service_phone": faker.random.alpha(16)
+        "merchant_geo_coordinates": faker.random.alpha(20)
+        "merchant_service_geo_coordinates": faker.random.alpha(20)
       }
     })
 
@@ -173,6 +175,26 @@ DynamicDescriptor = () ->
     data = _.extend(data, {
       dynamic_descriptor_params: {
         "merchant_service_phone": faker.random.alpha(20)
+      }
+    })
+
+    assert.equal false, @transaction.setData(data).isValid()
+
+  it 'fail with more than 20 symbols in merchant_geo_coordinates', ->
+    data = _.clone @data
+    data = _.extend(data, {
+      dynamic_descriptor_params: {
+        "merchant_geo_coordinates": faker.random.alpha(21)
+      }
+    })
+
+    assert.equal false, @transaction.setData(data).isValid()
+
+  it 'fail with more than 20 symbols in merchant_service_geo_coordinates', ->
+    data = _.clone @data
+    data = _.extend(data, {
+      dynamic_descriptor_params: {
+        "merchant_service_geo_coordinates": faker.random.alpha(21)
       }
     })
 

@@ -95,29 +95,6 @@ describe 'PPRO Transaction', ->
       it 'with valid attributes', ->
         assert.equal true, @transaction.setData(@data).isValid()
 
-  describe 'when giropay payment type', ->
-    beforeEach ->
-      @data['payment_type']               = 'giropay'
-      @data['billing_address']['country'] = 'DE'
-      @data['currency']                   = 'EUR'
-
-    describe 'when invalid request', ->
-      it 'with invalid currency', ->
-        data = _.clone @data
-        data['currency'] = 'USD'
-
-        assert.equal false, @transaction.setData(data).isValid()
-
-      it 'with invalid billing country', ->
-        data = _.clone @data
-        data['billing_address']['country'] = 'IT'
-
-        assert.equal false, @transaction.setData(data).isValid()
-
-    describe 'when valid request', ->
-      it 'with valid attributes', ->
-        assert.equal true, @transaction.setData(@data).isValid()
-
   describe 'when bancontact payment type', ->
     beforeEach ->
       @data['payment_type']               = 'bcmc'

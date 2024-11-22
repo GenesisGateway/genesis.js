@@ -5,7 +5,7 @@ Country       = require '../../../helpers/country'
 
 class AlternativeBase extends  FinancialBase
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
 module.exports = AlternativeBase

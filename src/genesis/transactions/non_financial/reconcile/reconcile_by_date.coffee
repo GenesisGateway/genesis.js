@@ -4,8 +4,9 @@ config = require 'config'
 
 class ReconcileByDate extends Base
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
+    @configuration = configuration
 
   getTransactionType: ->
     'reconcile_by_date'
@@ -19,7 +20,7 @@ class ReconcileByDate extends Base
     path:
       'reconcile/by_date'
     token:
-      config.customer.token
+      @configuration.getCustomerToken()
 
   getTrxData: ->
     'reconcile':

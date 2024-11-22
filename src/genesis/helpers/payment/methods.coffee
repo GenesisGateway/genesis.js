@@ -10,13 +10,6 @@ class Methods
   @EPS = 'eps'
 
   ###
-    GiroPay
-
-    PPRO transaction
-  ###
-  @GIRO_PAY = 'giropay'
-
-  ###
     iDEAL
 
     PPRO transaction

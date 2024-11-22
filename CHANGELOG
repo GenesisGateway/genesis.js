@@ -1,3 +1,15 @@
+3.2.0
+-----
+* Added Dynamic Descriptor Geo coordinates support
+* Removed GiroPay transaction request
+* Added Funding parameters for VISA support
+* Added Neighborhood parameter support to Billing and Shipping address nodes
+* Added Recurring Type parameter support to the following transaction requests which provides recurring mobile payment flow:
+  * Google Pay
+  * Apple Pay
+* Removed Account Verification transaction request
+* Added ability to configure each transaction request Manually
+
 3.1.3
 -----
 * Added Account Owner attributes support to the following transaction requests:

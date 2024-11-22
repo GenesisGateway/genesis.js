@@ -1,3 +1,4 @@
+Config              = require './utils/configuration/config'
 
 ###
   Financial transactions
@@ -19,7 +20,6 @@ Nativa              = require './transactions/financial/cards/nativa'
 ###
   Non Financial transactions
 ###
-AccountVerification = require './transactions/non_financial/account_verification'
 Chargeback          = require './transactions/non_financial/fraud/chargeback/chargeback'
 ChargebackByDate    = require './transactions/non_financial/fraud/chargeback/chargeback_by_date'
 Blacklist           = require './transactions/non_financial/blacklist'
@@ -91,188 +91,188 @@ OnlineBankingPayin = require './transactions/financial/obp/online_banking/payin'
 
 class Transaction
 
+  constructor: ( configuration = null ) ->
+    @config = new Config(configuration)
+
   ###
     Non Financial transactions
   ###
-  account_verification: (params) ->
-    new AccountVerification(params)
-
   blacklist: (params) ->
-    new Blacklist(params)
+    new Blacklist(params, @config)
 
   chargeback: (params) ->
-    new Chargeback(params)
+    new Chargeback(params, @config)
 
   chargeback_by_date: (params) ->
-    new ChargebackByDate(params)
+    new ChargebackByDate(params, @config)
 
   fraud_report: (params) ->
-    new FraudReport(params)
+    new FraudReport(params, @config)
 
   fraud_report_by_date: (params) ->
-    new FraudReportByDate(params)
+    new FraudReportByDate(params, @config)
 
   retrieval: (params) ->
-    new Retrieval(params)
+    new Retrieval(params, @config)
 
   retrieval_by_date: (params) ->
-    new RetrievalByDate(params)
+    new RetrievalByDate(params, @config)
 
   reconcile: (params) ->
-    new Reconcile(params)
+    new Reconcile(params, @config)
 
   reconcile_by_date: (params) ->
-    new ReconcileByDate(params)
+    new ReconcileByDate(params, @config)
 
   avs: (params) ->
-    new Avs(params)
+    new Avs(params, @config)
 
   ###
     Financial transactions
   ###
   authorize: (params) ->
-    new Authorize(params)
+    new Authorize(params, @config)
 
   authorize3d: (params) ->
-    new Authorize3d(params)
+    new Authorize3d(params, @config)
 
   credit: (params) ->
-    new Credit(params)
+    new Credit(params, @config)
 
   init_recurring_sale: (params) ->
-    new InitRecurringSale(params)
+    new InitRecurringSale(params, @config)
 
   init_recurring_sale3d: (params) ->
-    new InitRecurringSale3d(params)
+    new InitRecurringSale3d(params, @config)
 
   recurring_sale: (params) ->
-    new RecurringSale(params)
+    new RecurringSale(params, @config)
 
   payout: (params) ->
-    new Payout(params)
+    new Payout(params, @config)
 
   sale: (params) ->
-    new Sale(params)
+    new Sale(params, @config)
 
   sale3d: (params) ->
-    new Sale3d(params)
+    new Sale3d(params, @config)
 
   cancel: (params) ->
-    new Cancel(params)
+    new Cancel(params, @config)
 
   # keep this for backward compatibility
   void: (params) ->
-    this.cancel(params)
+    this.cancel(params, @config)
 
   capture: (params) ->
     new Capture(params)
 
   refund: (params) ->
-    new Refund(params)
+    new Refund(params, @config)
 
   method_continue: (params) ->
-    new MethodContinue(params)
+    new MethodContinue(params, @config)
 
   nativa: (params) ->
-    new Nativa(params)
+    new Nativa(params, @config)
 
   ###
     Financial Alternative transactions
   ###
   p24: (params) ->
-    new P24(params)
+    new P24(params, @config)
 
   poli: (params) ->
-    new Poli(params)
+    new Poli(params, @config)
 
   paysafecard: (params) ->
-    new Paysafecard(params)
+    new Paysafecard(params, @config)
     
   sofort: (params) ->
-    new Sofort(params)
+    new Sofort(params, @config)
     
   ppro: (params) ->
-    new PPRO(params)
+    new PPRO(params, @config)
     
   trustly_sale: (params) ->
-    new TrustlySale(params)
+    new TrustlySale(params, @config)
     
   trustly_withdrawal: (params) ->
-    new TrustlyWithdrawal(params)
+    new TrustlyWithdrawal(params, @config)
 
   cashu: (params) ->
-    new CashU(params)
+    new CashU(params, @config)
 
   ###
     Financial OBP transactions
   ###
   paysec: (params) ->
-    new PaySecPayin(params)
+    new PaySecPayin(params, @config)
 
   paysec_payout: (params) ->
-    new PaySecPayout(params)
+    new PaySecPayout(params, @config)
 
   wechat: (params) ->
-    new Wechat(params)
+    new Wechat(params, @config)
 
   alipay: (params) ->
-    new Alipay(params)
+    new Alipay(params, @config)
 
   idebit_payin: (params) ->
-    new IDebitPayin(params)
+    new IDebitPayin(params, @config)
 
   idebit_payout: (params) ->
-    new IDebitPayout(params)
+    new IDebitPayout(params, @config)
 
   insta_debit_payin: (params) ->
-    new InstaDebitPayin(params)
+    new InstaDebitPayin(params, @config)
 
   insta_debit_payout: (params) ->
-    new InstaDebitPayout(params)
+    new InstaDebitPayout(params, @config)
 
   online_banking_payin: (params) ->
-    new OnlineBankingPayin(params)
+    new OnlineBankingPayin(params, @config)
 
   online_banking_payout: (params) ->
-    new OnlineBankingPayout(params)
+    new OnlineBankingPayout(params, @config)
 
   ###
     Direct Debit
   ###
   sdd_sale: (params) ->
-    new SddSale(params)
+    new SddSale(params, @config)
 
   sdd_init_recurring_sale: (params) ->
-    new SddInitRecurringSale(params)
+    new SddInitRecurringSale(params, @config)
 
   sdd_recurring_sale: (params) ->
-    new SddRecurringSale(params)
+    new SddRecurringSale(params, @config)
 
   sdd_refund: (params) ->
-    new SddRefund(params)
+    new SddRefund(params, @config)
 
   ###
     Web Payment Form
   ###
   wpf_create: (params) ->
-    new WpfCreate(params)
+    new WpfCreate(params, @config)
 
   wpf_reconcile: (params) ->
-    new WpfReconcile(params)
+    new WpfReconcile(params, @config)
 
   ###
     Financial mobile transactions
   ###
   google_pay: (params) ->
-    new GooglePay(params)
+    new GooglePay(params, @config)
 
   apple_pay: (params) ->
-    new ApplePay(params)
+    new ApplePay(params, @config)
 
   ###
     Financial Wallets transactions
   ###
   pay_pal: (params) ->
-    new PayPal(params)
+    new PayPal(params, @config)
 
 module.exports = Transaction

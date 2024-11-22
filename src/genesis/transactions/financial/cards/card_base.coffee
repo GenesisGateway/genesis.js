@@ -4,8 +4,8 @@ _                   = require 'underscore'
 
 class CardBase extends FinancialBase
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
   isValid: () ->
     valid = super()

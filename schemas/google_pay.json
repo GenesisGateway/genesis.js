@@ -107,6 +107,10 @@
     },
     "use_smart_router": {
       "$ref": "/definitions/definitions#use_smart_router"
+    },
+    "recurring_type": {
+      "type": "string",
+      "enum": ["initial"]
     }
   }
 }

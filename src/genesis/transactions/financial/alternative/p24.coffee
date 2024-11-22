@@ -7,7 +7,7 @@ class P24 extends AlternativeBase
   getTransactionType: ->
     TransactionTypes.P24
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
 module.exports = P24

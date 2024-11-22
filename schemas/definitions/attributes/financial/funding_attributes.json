@@ -11,6 +11,11 @@
         "business_disbursement", "government_or_non_profit_disbursement", "rapid_merchant_settlement",
         "general_business_to_business", "own_staged_digital_wallet_account", "own_debit_or_prepaid_card_account"]
     },
+    "business_application_identifier": {
+      "type": "string",
+      "enum": ["funds_disbursement", "pension_disbursement", "account_to_account", "bank_initiated", "fund_transfer",
+        "person_to_person", "prepaid_card_load", "wallet_transfer", "liquid_assets"]
+    },
     "receiver": {
       "first_name": {
         "description": "First name of the receiver",
@@ -34,6 +39,44 @@
         "description": "Receiver account number type",
         "enum": ["rtn_and_bank_account_number", "iban", "card_account", "email",
           "phone_number", "bank_account_number_and_bic", "wallet_id", "social_network_id", "other"]
+      },
+      "address": {
+        "type": "string",
+        "description": "Receiver address. Only required in case of VISA and Canadian cards"
+      },
+      "state": {
+        "type": "Receiver state. Only required in case of VISA and Canadian cards",
+        "description": "Receiver state. Only required in case of VISA and Canadian cards"
+      },
+      "city": {
+        "type": "string",
+        "description": "Receiver city. Only required in case of VISA and Canadian cards"
+      }
+    },
+    "sender": {
+      "name": {
+        "type": "string",
+        "description": "Sender name. Only required in case of VISA"
+      },
+      "reference_number": {
+        "type": "string",
+        "description": "Sender Reference Number. Only required in case of VISA. This is option if Receiver Account Number is provided"
+      },
+      "country": {
+        "type": "string",
+        "description": "Sender country. Only required in case of VISA. If not provided billing address is used"
+      },
+      "address": {
+        "type": "string",
+        "description": "Sender address. Only required in case of VISA. If not provided billing address is used"
+      },
+      "state": {
+        "type": "string",
+        "description": "Sender state. Only required in case of VISA and Canadian card. If not provided billing address is used"
+      },
+      "city": {
+        "type": "string",
+        "description": "Sender city. Only required in case of VISA. If not provided billing address is used"
       }
     }
   }

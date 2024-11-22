@@ -1,16 +1,39 @@
-path   = require 'path'
-_      = require 'underscore'
-faker  = require 'faker'
-url    = require 'url'
-config = require 'config'
-sinon  = require 'sinon'
-Domains   = require path.resolve './src/genesis/constants/domains'
-Request   = require path.resolve './src/genesis/request'
+path          = require 'path'
+_             = require 'underscore'
+faker         = require 'faker'
+url           = require 'url'
+sinon         = require 'sinon'
+Domains       = require path.resolve './src/genesis/constants/domains'
+Request       = require path.resolve './src/genesis/request'
+Config        = require path.resolve './src/genesis/utils/configuration/config'
 
 describe 'Request', ->
 
   beforeEach ->
-    @request = new Request
+
+    @conf = {
+      customer : {
+        "username":            "username",
+        "password"           : "123456",
+        "token"              : "123456",
+        "force_smart_routing": false,
+      },
+      gateway : {
+        "protocol" : "https",
+        "hostname" : "emerchantpay.net",
+        "timeout"  : "60000",
+        "testing"  : true
+      },
+      notifications : {
+        "host"     : "<hostname>",
+        "port"     : "<port>",
+        "path"     : "<path>"
+      }
+    };
+
+    @configuration = new Config @conf
+
+    @request = new Request @configuration
     @params =
       url:
         app: faker.random.arrayElement(
@@ -21,51 +44,55 @@ describe 'Request', ->
 
   it 'formats valid url', ->
     # with token
-    result = url.parse(@request.formatUrl @params.url)
+    request = new Request('xml', @configuration)
+    result = url.parse(request.formatUrl @params.url)
 
     assert.typeOf result, 'object'
     assert.isNotNull result.hostname
 
     # without token
-    result = url.parse(@request.formatUrl _.omit @params.url, 'token')
+    result = url.parse(request.formatUrl _.omit @params.url, 'token')
 
     assert.typeOf result, 'object'
     assert.isNotNull result.hostname
 
   it 'returns gate string for prod envinroment', ->
-    config.gateway.testing = false
+    @conf.gateway.testing = false
+    request = new Request('xml', (new Config @conf))
 
-    assert.equal 'gate', @request.getURLEnvironment('gate')
+    assert.equal 'gate', request.getURLEnvironment('gate')
 
   it 'returns wpf string for prod envinroment', ->
-    config.gateway.testing = false
+    @conf.gateway.testing = false
+    request = new Request('xml', (new Config @conf))
 
-    assert.equal 'wpf', @request.getURLEnvironment('wpf')
+    assert.equal 'wpf', request.getURLEnvironment('wpf')
 
   it 'returns prod.api string for prod envinroment', ->
-    config.gateway.testing = false
+    @conf.gateway.testing = false
+    request = new Request('xml', (new Config(@conf)))
 
-    assert.equal 'prod.api', @request.getURLEnvironment('smart_router')
+    assert.equal 'prod.api', request.getURLEnvironment('smart_router')
 
   it 'returns staging.gate environment string', ->
-    config.gateway.testing = true
+    request = new Request('xml', @configuration)
 
-    assert.equal 'staging.gate', @request.getURLEnvironment('gate')
+    assert.equal 'staging.gate', request.getURLEnvironment('gate')
 
   it 'returns staging.wpf environment string', ->
-    config.gateway.testing = true
+    request = new Request('xml', @configuration)
 
-    assert.equal 'staging.wpf', @request.getURLEnvironment('wpf')
-
-  it 'returns staging.api environment string', ->
-    config.gateway.testing = true
-
-    assert.equal 'staging.api', @request.getURLEnvironment('smart_router')
+    assert.equal 'staging.wpf', request.getURLEnvironment('wpf')
 
   it 'returns staging.api environment string', ->
-    config.gateway.testing = true
+    request = new Request('xml', @configuration)
 
-    assert.equal 'staging.api', @request.getURLEnvironment('smart_router')
+    assert.equal 'staging.api', request.getURLEnvironment('smart_router')
+
+  it 'returns staging.api environment string', ->
+    request = new Request('xml', @configuration)
+
+    assert.equal 'staging.api', request.getURLEnvironment('smart_router')
 
   it 'returns true when app exists', ->
     @params.url.app = "gate"
@@ -93,3 +120,4 @@ describe 'Request', ->
         throw new Error('Not expected to send')
       .catch (reason) ->
         assert.deepEqual reason, output
+

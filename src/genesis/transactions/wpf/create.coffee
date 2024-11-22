@@ -8,8 +8,8 @@ i18n             = require '../../helpers/i18n'
 
 class Create extends Base
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
     # Set Locale
     @setLocale()

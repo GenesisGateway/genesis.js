@@ -24,6 +24,7 @@ describe 'Nativa Transaction', ->
       address1: '123 Str.',
       zip_code: '10000',
       city: 'New York',
+      neighborhood: 'Holywood',
       country: 'AR'
     }
 
@@ -33,6 +34,7 @@ describe 'Nativa Transaction', ->
       address1: '123 Str.',
       zip_code: '10000',
       city: 'New York',
+      neighborhood: 'Holywood',
       country: 'AR'
     }
 

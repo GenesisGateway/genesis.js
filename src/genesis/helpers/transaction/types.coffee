@@ -12,11 +12,6 @@ class Types
   @AVS = 'avs';
 
   ###
-     Account Verification
-  ###
-  @ACCOUNT_VERIFICATION = 'account_verification'
-
-  ###
     A standard Authorization
   ###
   @AUTHORIZE = 'authorize'
@@ -128,7 +123,7 @@ class Types
   @PAYSAFECARD = 'paysafecard'
 
   ###
-    Supports payments via EPS, TeleIngreso, SafetyPay, TrustPay, ELV, Przelewy24, QIWI, and GiroPay
+    Supports payments via EPS, TeleIngreso, SafetyPay, TrustPay, ELV, Przelewy24, QIWI
   ###
   @PPRO = 'ppro'
 

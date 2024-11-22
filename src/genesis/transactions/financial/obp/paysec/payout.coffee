@@ -10,8 +10,8 @@ class PaySecPayout extends FinancialBase
   getTransactionType: ->
     TransactionTypes.PAYSEC_PAYOUT
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
     @requiredFields =
       _.union(

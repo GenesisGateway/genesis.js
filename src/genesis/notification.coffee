@@ -1,19 +1,21 @@
 crypto      = require 'crypto'
-config      = require 'config'
 http        = require 'http'
 util        = require 'util'
 connect     = require 'connect'
 xmlObj      = require 'xml-object'
 bodyParser  = require 'body-parser'
 Promise     = require 'bluebird'
-
 Transaction = require './transaction'
+Config      = require './utils/configuration/config'
 
 class Notification
 
-  constructor: ->
+  constructor: (configuration = null) ->
     @callbacks = { }
-    @listener  = config.notifications
+    @conf = configuration
+    @configuration = new Config(@conf)
+
+    @listener  = @configuration.getNotifications()
 
   ###
     Setup a listener for incoming notification requests
@@ -68,7 +70,7 @@ class Notification
     @return Promise Returns transaction request promise
   ###
   reconcile: (params) ->
-    transaction = new Transaction()
+    transaction = new Transaction(@conf)
 
     reconcileParams =
       unique_id:
@@ -118,15 +120,15 @@ class Notification
     switch params.signature.length
       when 40  then hash = crypto.
                             createHash('sha1').
-                            update(unique_id + config.customer.password).
+                            update(unique_id + @configuration.getCustomerPassword()).
                             digest('hex')
       when 64  then hash = crypto.
                             createHash('sha256').
-                            update(unique_id + config.customer.password).
+                            update(unique_id + @configuration.getCustomerPassword()).
                             digest('hex')
       when 128 then hash = crypto.
                             createHash('sha512').
-                            update(unique_id + config.customer.password).
+                            update(unique_id + @configuration.getCustomerPassword()).
                             digest('hex')
       else hash = new String
 

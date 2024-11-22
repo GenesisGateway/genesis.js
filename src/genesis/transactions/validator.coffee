@@ -29,6 +29,7 @@ class Validator
   constructor: (@trx) ->
     @baseUrl = 'https://genesis.js/'
     @validationErrors = []
+    @isConfigSchema = false
 
     @ajv = new ajv allErrors: true
 
@@ -66,7 +67,6 @@ class Validator
       require '../../../schemas/definitions/attributes/financial/account_owner_attributes.json'
     )
 
-
   # Compare the specific transaction schema against the request parameters
 
   isValid: () ->
@@ -79,6 +79,18 @@ class Validator
       return false
 
     @ajv.validate @schema, @trx.getData()
+
+  isValidConfig: () ->
+    @isConfigSchema = true
+    try
+      @schema = require '../../../schemas/config/config.json'
+    catch error
+      @addError
+        message:
+          'JSON schema not found for this request'
+      return false
+
+    @ajv.validate @schema, @trx.configuration.getConfig()
 
   # Get all ajv errors
   # Possible with ajv allErrors: true option
@@ -184,15 +196,19 @@ class Validator
         when 'dependencies'         then "Request #{error.message}"
         when 'anyOf'                then "Check API Documentation."
         else ''
-
     if suffix
       suffix = ". #{suffix}"
-
     "#{@getMessagePrefix(error)}#{suffix}"
+
+  switchSchema: () ->
+    if @isConfigSchema == true
+      @ajv.getSchema("#{@baseUrl}config")
+    else
+      @ajv.getSchema("#{@baseUrl}#{@trx.getTransactionType()}")
 
   getMessage: (error) ->
     ref    = @getRefErrorSchema(error)
-    schema = @ajv.getSchema("#{@baseUrl}#{@trx.getTransactionType()}")
+    schema = @switchSchema()
 
     # The schema property predefined message has first priority
     message = @getPropertyMessage(ref, schema, error.keyword)

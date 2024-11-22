@@ -3,9 +3,6 @@ Base = require '../base'
 
 class Reconcile extends Base
 
-  constructor: (params) ->
-    super params
-
   getTransactionType: ->
     'wpf_reconcile'
 

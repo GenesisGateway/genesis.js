@@ -55,6 +55,8 @@ class FakeData
         faker.address.zipCode()
       'city':
         faker.address.city()
+      'neighborhood':
+        faker.address.city()
       'country':
         faker.address.countryCode()
 
@@ -69,6 +71,8 @@ class FakeData
       'zip_code':
         faker.address.zipCode()
       'city':
+        faker.address.city()
+      'neighborhood':
         faker.address.city()
       'country':
         faker.address.countryCode()

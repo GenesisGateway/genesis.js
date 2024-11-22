@@ -26,6 +26,7 @@ describe 'Authorize Transaction', ->
 
   before ->
     @data                      = (new FakeData).getDataWithBusinessAttributes()
+
     @transaction               = new Transaction()
     @data['managed_recurring'] = (new FakeData).getManagedRecurringAutomatic()
 

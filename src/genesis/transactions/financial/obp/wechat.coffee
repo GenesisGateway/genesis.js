@@ -9,8 +9,8 @@ class Wechat extends FinancialBase
   getTransactionType: ->
     TransactionTypes.WECHAT
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
     @requiredFields =
       _.union(

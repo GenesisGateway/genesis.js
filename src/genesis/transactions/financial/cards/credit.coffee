@@ -8,7 +8,7 @@ class Credit extends FinancialBase
   getTransactionType: ->
     TransactionTypes.CREDIT
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
 module.exports = Credit

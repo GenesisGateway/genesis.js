@@ -97,6 +97,9 @@
     },
     "account_owner": {
       "$ref": "/definitions/attributes/financial/account_owner_attributes"
+    },
+    "funding": {
+      "$ref": "/definitions/attributes/financial/funding_attributes"
     }
   }
 }

@@ -31,6 +31,10 @@ describe 'GooglePay Transaction', ->
 
       assert.equal true, @transaction.setData(data).isValid()
 
+    it 'works with valid recurring_type', ->
+      data = _.clone(@data)
+      data['recurring_type'] = 'initial'
+
   context 'with invalid request', ->
 
     it 'fails with invalid payment_subtype', ->
@@ -92,3 +96,7 @@ describe 'GooglePay Transaction', ->
       data['payment_token'] = ""
 
       assert.equal false, @transaction.setData(data).isValid()
+
+    it 'fails with invalid recurring_type', ->
+      data = _.clone(@data)
+      data['recurring_type'] = 'INVALID_VALUE'

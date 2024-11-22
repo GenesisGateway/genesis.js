@@ -3,8 +3,8 @@ Base = require '../base'
 
 class Blacklist extends Base
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
   getTransactionType: ->
     'blacklist_request'

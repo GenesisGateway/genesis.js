@@ -9,8 +9,8 @@ class RecurringSale extends FinancialBase
   getTransactionType: ->
     TransactionTypes.RECURRING_SALE
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
 
   getTrxData: ->

@@ -3,17 +3,10 @@ process.env.NODE_CONFIG_DIR =
     process.env.NODE_CONFIG_DIR
   else require('path').join(__dirname, '..', 'config')
 
-config = require "config"
-
-params =
-  version: '3.1.3'
-
-config.util.setModuleDefaults 'module', params
-
 genesis =
-  currency:     require './genesis/helpers/currency'
-  notification: require './genesis/notification'
-  request:      require './genesis/request'
-  transaction:  require './genesis/transaction'
+  currency:      require './genesis/helpers/currency'
+  notification:  require './genesis/notification'
+  request:       require './genesis/request'
+  transaction:   require './genesis/transaction'
 
 module.exports = genesis

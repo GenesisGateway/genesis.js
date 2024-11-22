@@ -1,0 +1,74 @@
+{
+  "$id": "https://genesis.js/config",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "customer",
+    "gateway"
+  ],
+  "properties": {
+    "customer": {
+      "type": "object",
+      "required": [
+        "username",
+        "password"
+      ],
+      "properties": {
+        "username": {
+          "type": "string",
+          "minLength": 1
+        },
+        "password": {
+          "type": "string",
+          "minLength": 1
+        },
+        "token": {
+          "type": "string"
+        },
+        "force_smart_routing": {
+          "type": "boolean"
+        }
+      }
+    },
+    "gateway": {
+      "type": "object",
+      "required": [
+        "hostname",
+        "testing"
+      ],
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "default": "https"
+        },
+        "hostname": {
+          "type": "string",
+          "enum": ["emerchantpay.net", "e-comprocessing.net"],
+          "minLength": 1
+        },
+        "timeout": {
+          "type": "string",
+          "default": "60000"
+        },
+        "testing": {
+          "type": "boolean",
+          "minLength": 1
+        }
+      }
+    },
+    "notifications": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "port": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

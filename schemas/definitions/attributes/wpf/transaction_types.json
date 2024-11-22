@@ -29,9 +29,6 @@
       "init_recurring_sale3d": {
         "$ref": "/definitions/attributes/wpf/recurring"
       },
-      "account_verification": {
-        "$ref": "/definitions/attributes/wpf/verification"
-      },
       "alipay": {
         "additionalProperties": false,
         "properties": {
@@ -158,9 +155,6 @@
       "fashioncheque": {
         "$ref": "/definitions/attributes/wpf/transaction_types/common"
       },
-      "giropay": {
-        "$ref": "/definitions/attributes/wpf/transaction_types/common"
-      },
       "google_pay": {
         "additionalProperties": false,
         "required": [
@@ -269,7 +263,7 @@
         "additionalProperties": false,
         "properties": {
           "payment_type": {
-            "enum": ["eps", "giropay", "ideal", "przelewy24", "safetypay", "trustpay", "bcmc", "mybank"],
+            "enum": ["eps", "ideal", "przelewy24", "safetypay", "trustpay", "bcmc", "mybank"],
             "description": "PPRO payment type"
           },
           "default": {

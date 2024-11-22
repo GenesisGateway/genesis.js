@@ -1,16 +1,37 @@
-path  = require 'path'
-_     = require 'underscore'
-faker = require 'faker'
-url   = require 'url'
-config   = require 'config'
+path                = require 'path'
+_                   = require 'underscore'
+faker               = require 'faker'
+url                 = require 'url'
+config              = require 'config'
+Config              = require path.resolve './src/genesis/utils/configuration/config'
 
 Notification   = require path.resolve './src/genesis/notification'
 
 describe 'Notification', ->
 
   beforeEach ->
-    @notification = new Notification
-    config.customer.password = "123456"
+
+    confData = {
+      customer : {
+        "username":            "username",
+        "password"           : "123456",
+        "token"              : "token",
+        "force_smart_routing": false,
+      },
+      gateway : {
+        "protocol" : "https",
+        "hostname" : "emerchantpay.net",
+        "timeout"  : "60000",
+        "testing"  : true
+      },
+      notifications : {
+        "host"     : "<hostname>",
+        "port"     : "<port>",
+        "path"     : "<path>"
+      }
+    };
+
+    @notification = new Notification(confData)
 
   it 'works with valid signature of 40 symbols', ->
 
@@ -45,7 +66,6 @@ describe 'Notification', ->
       unique_id: '44177a21403427eb96664a6d7e5d5d48'
 
     assert.equal false, @notification.verifySignature(params)
-
 
   it 'fails with invalid signature of 64 symbols', ->
 

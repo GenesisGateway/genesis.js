@@ -9,8 +9,8 @@ class Withdrawal extends AlternativeBase
   getTransactionType: ->
     TransactionTypes.TRUSTLY_WITHDRAWAL
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
     @requiredFields =
       _.union(

@@ -3,8 +3,8 @@ Base = require '../../../base'
 
 class FraudReport extends Base
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
   getTransactionType: ->
     'fraud_report_request'

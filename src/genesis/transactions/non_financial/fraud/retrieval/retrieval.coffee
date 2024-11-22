@@ -3,8 +3,8 @@ Base = require '../../../base'
 
 class Retrieval extends Base
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
   getTransactionType: ->
     'retrieval_request_request'

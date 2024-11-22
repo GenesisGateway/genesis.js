@@ -11,8 +11,9 @@ class Avs extends Base
   getTransactionType: ->
     TransactionTypes.AVS
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
+    @configuration = configuration
 
     creditCardValidator = new CreditCardValidator
 
@@ -35,7 +36,7 @@ class Avs extends Base
     path:
       'process'
     token:
-      config.customer.token
+      @configuration.getCustomerToken()
 
   getTrxData: ->
     'payment_transaction':

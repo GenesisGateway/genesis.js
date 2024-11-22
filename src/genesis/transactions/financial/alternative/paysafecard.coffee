@@ -7,7 +7,7 @@ class Paysafecard extends AlternativeBase
   getTransactionType: ->
     TransactionTypes.PAYSAFECARD
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
 module.exports = Paysafecard

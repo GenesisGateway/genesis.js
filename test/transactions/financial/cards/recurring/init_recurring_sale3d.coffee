@@ -18,6 +18,7 @@ CredentialOnFile        = require '../../../../examples/attributes/credential_on
 TravelData              = require '../../../../examples/attributes/financial/travel_data/travel_data'
 AccountOwnerAttributes  = require '../../../../examples/attributes/financial/account_owner_attributes'
 MpiParams               = require '../../../../examples/attributes/threeds/v1/mpi_params'
+FundingAttributes       = require '../../../../examples/attributes/financial/funding_attributes'
 
 describe 'InitRecurringSale 3D Transaction', ->
 
@@ -44,3 +45,4 @@ describe 'InitRecurringSale 3D Transaction', ->
   TravelData()
   AccountOwnerAttributes()
   MpiParams()
+  FundingAttributes()

@@ -7,8 +7,8 @@ class Sofort extends AlternativeBase
   getTransactionType: ->
     TransactionTypes.SOFORT
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
 
     @fieldsValues['billing_address.country'] = [
       'AT', 'BE', 'DE', 'ES', 'FR', 'GB', 'IT', 'NL', 'CH', 'PL'

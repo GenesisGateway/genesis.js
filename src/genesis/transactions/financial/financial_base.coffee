@@ -8,8 +8,9 @@ SmartRouter          = require '../../helpers/smart_router'
 
 class FinancialBase extends Base
 
-  constructor: (params) ->
-    super params
+  constructor: (params, configuration) ->
+    super params, configuration
+    @configuration = configuration
 
     @smartRouterParams      = (new SmartRouter).getSmartRouterUrlParams()
 
@@ -18,7 +19,7 @@ class FinancialBase extends Base
         (new ColorDepth).handleColorDepth(params.threeds_v2_params.browser.color_depth).toString()
 
   getUrl: ->
-    if @params.use_smart_router || @getForceSmartRouter()
+    if @params.use_smart_router || @configuration.getCustomerForceSmartRouter()
       return @smartRouterParams
 
     app:
@@ -26,7 +27,7 @@ class FinancialBase extends Base
     path:
       'process'
     token:
-      config.customer.token
+      @configuration.getCustomerToken()
 
   getTrxData: ->
 
