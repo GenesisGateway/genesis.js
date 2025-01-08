@@ -1,0 +1,82 @@
+{
+  "$id": "https://genesis.js/trustly_sale",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "remote_ip",
+    "amount",
+    "currency",
+    "return_success_url",
+    "return_failure_url",
+    "customer_email",
+    "billing_address"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "trustly_sale"
+        }
+      ]
+    },
+    "remote_ip": {},
+    "usage": {},
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "return_success_url_target": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "amount": {},
+    "currency": {},
+    "customer_email": {},
+    "customer_phone": {},
+    "user_id": {},
+    "birth_date": {},
+    "billing_address": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "required": ["country"],
+          "properties": {
+            "country": {
+              "enum": [
+                "AT", "BE", "CZ", "DK", "EE", "FI", "DE", "LV", "LT", "NL", "NO", "PL",
+                "SK", "ES", "SE", "GB"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "business_attributes": {
+      "$ref": "/definitions/attributes/business_attributes"
+    }
+  }
+}

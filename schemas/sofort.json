@@ -1,0 +1,83 @@
+{
+  "$id": "https://genesis.js/sofort",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "amount",
+    "currency",
+    "return_success_url",
+    "return_failure_url",
+    "customer_email",
+    "billing_address"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    },
+    {
+      "$ref": "/definitions/definitions#bank"
+    }
+  ],
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "sofort"
+        }
+      ]
+    },
+    "remote_ip": {},
+    "usage": {},
+    "notification_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "return_pending_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "amount": {},
+    "currency": {},
+    "customer_email": {},
+    "customer_phone": {},
+    "iban": {},
+    "bic": {},
+    "billing_address": {
+      "required": ["country"],
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "properties": {
+            "country": {
+              "enum": [
+                "AT", "BE", "DE", "IT", "NL", "PL", "ES", "CH"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    }
+  }
+}

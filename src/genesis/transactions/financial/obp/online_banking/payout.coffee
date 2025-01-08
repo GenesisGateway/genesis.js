@@ -7,5 +7,4 @@ class OnlineBankingPayout extends FinancialBase
   getTransactionType: ->
     TransactionTypes.ONLINE_BANKING_PAYOUT
 
-
 module.exports = OnlineBankingPayout

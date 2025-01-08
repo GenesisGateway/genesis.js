@@ -10,7 +10,7 @@ describe 'SddSale', ->
 
   SDDBase()
 
-  before ->
+  beforeEach ->
     @data['iban'] = "DE09100100101234567891"
     @data['bic']  = "PBNKDEFFXXX"
 
@@ -37,8 +37,8 @@ describe 'SddSale', ->
 
       context 'without bic', ->
 
-        it 'is invalid', ->
-          assert.isNotTrue @transaction.setData(_.omit @data, 'bic').isValid()
+        it 'is valid', ->
+          assert.isTrue @transaction.setData(_.omit @data, 'bic').isValid()
 
       context 'with wrong bic', ->
 
@@ -73,3 +73,12 @@ describe 'SddSale', ->
           data = _.clone @data
           data['billing_address'] = _.omit data['billing_address'], 'last_name'
           assert.isNotTrue @transaction.setData(data).isValid()
+
+  context 'with valid request', ->
+
+    it 'works with return, success and pending URLs', ->
+      @data['return_success_url'] = faker.internet.url()
+      @data['return_failure_url'] = faker.internet.url()
+      @data['return_pending_url'] = faker.internet.url()
+
+      assert.equal true, @transaction.setData(@data).isValid()

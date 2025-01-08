@@ -12,6 +12,21 @@ class Types
   @AVS = 'avs';
 
   ###
+    Aura is a local Brazilian credit card.
+  ###
+  @AURA = 'aura'
+
+  ###
+    Argencard is a debit or credit card used in Argentina.
+  ###
+  @ARGENCARD = 'argencard';
+
+  ###
+     Bancontact is a local Belgian debit card scheme.
+  ###
+  @BANCONTACT = 'bcmc';
+
+  ###
     A standard Authorization
   ###
   @AUTHORIZE = 'authorize'
@@ -20,6 +35,16 @@ class Types
     3D-Secure Authorization
   ###
   @AUTHORIZE_3D = 'authorize3d'
+
+  ###
+    Cabal is a local debit/credit card brand in Argentina which can be used for online purchases.
+  ###
+  @CABAL = 'cabal'
+
+  ###
+    Cencosud is a local credit card in Argentina
+  ###
+  @CENCOSUD = 'cencosud';
 
   ###
     A standard Sale
@@ -224,6 +249,27 @@ class Types
   @INSTA_DEBIT_PAYOUT = 'insta_debit_payout'
 
   ###
+     Bancomer offers two options for payments in Mexico, cash payment and bank transfer.
+  ###
+  @BANCOMER = 'bancomer'
+
+  ###
+     BancoDoBrasil - oBeP-style alternative payment method
+  ###
+  @BANCO_DO_BRASIL = 'banco_do_brasil'
+
+  ###
+     Bradesco is a payment service in Brazil
+  ###
+  @BRADESCO = 'bradesco'
+
+  ###
+    Davivienda is offering the Bill pay service which is a fast, easy and secure way to pay and
+    manage your bills online to anyone, anytime in Colombia.
+  ###
+  @DAVIVIENDA = 'davivienda'
+
+  ###
     Citadel is an oBeP-style alternative payment method.
     It offers merchants the ability to send/receive consumer payments via the use of bank transfer
     functionality available from the consumer’s online banking website.
@@ -279,9 +325,23 @@ class Types
   @GOOGLE_PAY = 'google_pay'
 
   ###
+    African Mobile Sale, otherwise known as Charge, is an APM used to process Mobile network operator payments.
+    It is an async payment method and will be approved once the payment is processed with the Mobile network
+    operator
+  ###
+  @AFRICAN_MOBILE_SALE = 'african_mobile_sale'
+
+  ###
     Apple pay is payment method working with apple devices
   ###
   @APPLE_PAY = 'apple_pay'
+
+   ###
+     Russian Mobile Sale, otherwise known as Charge, is an APM used to process Mobile network operator payments.
+     It is an async payment method and will be approved once the payment is processed by the Mobile network operator.
+     Notice: Russian Mobile Sale does not support refund and void.
+  ###
+  @RUSSIAN_MOBILE_SALE = 'russian_mobile_sale'
 
   ###
     PayPal transaction is a fast and easy way for buyers to pay with their PayPal account.
@@ -308,6 +368,72 @@ class Types
   ###
   @ONLINE_BANKING_PAYOUT = 'bank_payout'
 
+  ###
+    MyBank is an overlay banking system.
+  ###
+  @MY_BANK = 'my_bank';
+
+  ###
+    Cash payment methods allows customers to pay bills and online purchases in cash at convenient physical locations such as stores,
+    banks, ATMs, even pharmacies in some countries. Usually, at checkout a voucher is generated with a barcode or another payment
+    reference and the shopper can go to one of the supported shops/locations for the specific payment method and pay this voucher in cash.
+  ###
+  @CASH = 'cash'
+
+  ###
+     Banco de Occidente is a cash payment method for Colombia
+     Banco de Occidente transanction will be soon deprecated. Please start using Online Banking transaction with BO bank code instead.
+  ###
+  @BANCO_DE_OCCIDENTE = 'banco_de_occidente'
+
+  ###
+    Baloto is a cash payment option in Colombia. It allows the customers to receive a voucher at check-out.
+    The voucher can then be paid in any of the Via Boleto offices in cash.
+  ###
+  @BALOTO = 'baloto'
+
+  ###
+     Boleto is a payment service in Brazil
+  ###
+  @BOLETO = 'boleto'
+
+  ###
+     Naranja is a local credit card issued in Argentina which can be used for purchases over the internet.
+  ###
+  @NARANJA = 'naranja'
+
+  ###
+    Tarjeta Shopping is a card payment in Argentina.
+   ###
+  @TARJETA_SHOPPING = 'tarjeta_shopping'
+
+  ###
+    Efecty is a cash-based payment method.
+  ###
+  @EFECTY = 'efecty'
+
+  ###
+    OXXO is the preferred payment method in Mexico. It is a cash payment via a barcode document thats accepted in more than 14,000 stores.
+  ###
+  @OXXO = 'oxxo'
+
+  ###
+     Pago Facil is a cash-based payment used for online purchases.
+  ###
+  @PAGO_FACIL = 'pago_facil'
+
+  ###
+    Pix is a payment service created by the Central Bank of Brazil (BACEN), which represents a new way of receiving/sending money.
+    Pix allows payments to be made instantly. The customer can pay bills, invoices, public utilities, transfer and receive credits
+    in a facilitated manner, using only Pix keys (CPF/CNPJ).
+  ###
+  @PIX = 'pix'
+
+  ###
+     Redpagos is a cash payment in Uruguay
+  ###
+  @REDPAGOS = 'redpagos'
+
   getTypes: ->
     value for key, value of @constructor
 
@@ -316,8 +442,13 @@ class Types
 
   getWPFTypes: ->
     [
+      @constructor.AURA,
+      @constructor.ARGENCARD,
       @constructor.AUTHORIZE,
       @constructor.AUTHORIZE_3D,
+      @constructor.BANCONTACT,
+      @constructor.CABAL,
+      @constructor.CENCOSUD,
       @constructor.SALE,
       @constructor.SALE_3D,
       @constructor.INIT_RECURRING_SALE,
@@ -341,13 +472,33 @@ class Types
       @constructor.TRUSTLY_WITHDRAWAL,
       @constructor.CITADEL_PAYIN,
       @constructor.INSTA_DEBIT_PAYIN,
+      @constructor.BANCOMER,
+      @constructor.BRADESCO,
+      @constructor.DAVIVIENDA,
       @constructor.WECHAT,
+      @constructor.MY_BANK,
       @constructor.ALIPAY,
       @constructor.PAYSEC_PAYIN,
       @constructor.PAYSEC_PAYOUT,
       @constructor.IDEBIT_PAYIN,
+      @constructor.AFRICAN_MOBILE_SALE,
+      @constructor.BANCO_DO_BRASIL,
       @constructor.APPLE_PAY,
-      @constructor.PAY_PAl
+      @constructor.RUSSIAN_MOBILE_SALE,
+      @constructor.PAY_PAl,
+      @constructor.CASH,
+      @constructor.PAY_PAl,
+      @constructor.BALOTO,
+      @constructor.BANCO_DE_OCCIDENTE,
+      @constructor.BOLETO,
+      @constructor.CASH,
+      @constructor.EFECTY,
+      @constructor.OXXO,
+      @constructor.PIX,
+      @constructor.PAGO_FACIL,
+      @constructor.REDPAGOS,
+      @constructor.NARANJA,
+      @constructor.TARJETA_SHOPPING
     ]
 
   isValidWPFType: (type) ->

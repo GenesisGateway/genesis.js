@@ -7,7 +7,4 @@ class Poli extends AlternativeBase
   getTransactionType: ->
     TransactionTypes.POLI
 
-  constructor: (params, configuration) ->
-    super params, configuration
-
 module.exports = Poli

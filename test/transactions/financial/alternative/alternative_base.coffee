@@ -12,7 +12,8 @@ AlternativeBase = () ->
       it 'fails when missing required remote_ip parameter', ->
         # Skips for PPRO transaction type
         if not _.contains(@transaction.getData(), 'ppro', 'transaction_type') and
-           not _.contains(@transaction.getData(), 'poli', 'transaction_type')
+           not _.contains(@transaction.getData(), 'poli', 'transaction_type') and
+           not _.contains(@transaction.getData(), 'sofort', 'transaction_type')
 
           data = _.clone(@data)
           delete data.remote_ip
@@ -32,7 +33,9 @@ AlternativeBase = () ->
 
       it 'fails when missing required customer_email parameter', ->
         # Skips for PPRO transaction type
-        if not _.contains(@transaction.getData(), 'ppro', 'transaction_type')
+        if not _.contains(@transaction.getData(), 'ppro', 'transaction_type') and
+           not _.contains(@transaction.getData(), 'cash', 'transaction_type')
+
           data = _.clone(@data)
           delete data.customer_email
           assert.equal false, @transaction.setData(data).isValid()

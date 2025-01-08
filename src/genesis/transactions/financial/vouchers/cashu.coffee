@@ -6,7 +6,4 @@ class CashU extends FinancialBase
   getTransactionType: ->
     TransactionTypes.CASHU
 
-  constructor: (params, configuration) ->
-    super params, configuration
-
 module.exports = CashU

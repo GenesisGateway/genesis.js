@@ -7,8 +7,7 @@
     "transaction_id",
     "transaction_type",
     "amount",
-    "currency",
-    "card_holder"
+    "currency"
   ],
   "allOf": [
     {

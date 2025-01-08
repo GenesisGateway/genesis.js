@@ -1,0 +1,75 @@
+{
+  "$id": "https://genesis.js/my_bank",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "return_success_url",
+    "return_failure_url",
+    "amount",
+    "currency",
+    "billing_address"
+  ],
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "my_bank"
+        }
+      ]
+    },
+    "usage": {},
+    "remote_ip": {},
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after successful payment."
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "return_pending_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to when asynchronous payment is pending confirmation."
+    },
+    "amount": {
+      "$ref": "/definitions/attributes/financial/payment#amount"
+    },
+    "currency": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/financial/payment#currency"
+        },
+        {
+          "enum": ["EUR"]
+        }
+      ]
+    },
+    "billing_address": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "required": ["country"],
+          "properties": {
+            "country": {
+              "enum": [
+                "IT", "BE", "PT", "ES"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    }
+  }
+}

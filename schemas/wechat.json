@@ -1,0 +1,78 @@
+{
+  "$id": "https://genesis.js/wechat",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "notification_url",
+    "return_url",
+    "usage",
+    "amount",
+    "currency",
+    "billing_address"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "wechat"
+        }
+      ]
+    },
+    "usage": {},
+    "remote_ip": {},
+    "notification_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "return_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "amount": {},
+    "currency": {},
+    "product_code": {
+      "type": "string",
+      "maxLength": 60,
+      "description": "Product code"
+    },
+    "product_num": {
+      "type": "string",
+      "maxLength": 10,
+      "description": "Product number"
+    },
+    "product_desc": {
+      "type": "string",
+      "maxLength": 255,
+      "description": "Product description"
+    },
+    "customer_email": {},
+    "customer_phone": {},
+    "billing_address": {
+      "required": ["country"],
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        }
+      ]
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    }
+  }
+}

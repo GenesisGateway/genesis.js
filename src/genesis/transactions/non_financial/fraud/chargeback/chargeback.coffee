@@ -3,9 +3,6 @@ Base = require '../../../base'
 
 class Chargeback extends Base
 
-  constructor: (params, configuration) ->
-    super params, configuration
-
   getTransactionType: ->
     'chargeback_request'
 

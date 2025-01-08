@@ -1,3 +1,39 @@
+3.3.0
+-----
+* Added NZD currency support in Online Banking PayIn
+* Added Scotiabank payment type support in Online Banking PayIn
+* Added Cash transaction request
+* Added Aura transaction request
+* Added Argencard transaction request
+* Added MyBank transaction request
+* Added Tarjeta Shopping transaction request
+* Added Bancomer transaction request
+* Added Naranja transaction request
+* Added Banco do Brasil transaction request
+* Added Bradesco transaction request
+* Added Davivienda transaction request
+* Added Baloto transaction request
+* Added Banco de Occidente transaction request
+* Added Boleto transaction request
+* Added Efecty transaction request
+* Added OXXO transaction request
+* Added Pago Facil transaction request
+* Added PIX transaction request
+* Added Redpagos transaction request
+* Added Cencosud transaction request
+* Added Cabal transaction request
+* Added Bancontact transaction request
+* Added Russian Mobile Sale transaction request
+* Added African Mobile Sale transaction request
+* Added UCOF parameters support to Online Banking Payout transaction request
+* Added Recurring V2 subsequent non/reference requests through Authorize or Sale
+* Improved validations for Sofort, Trustly Sale, and WeChat transaction requests
+* Updated SDD Sale and SDD Init Recurring Sale transaction requests with the following changes:
+* Added support for return_success_url, return_failure_url and return_pending_url parameters
+* BIC parameter is no longer mandatory
+* Removed Card Holder mandatory parameter in Authorize3D and Sale3D for Tokenization requests
+* Removed obsolete PaySec transaction requests
+
 3.2.0
 -----
 * Added Dynamic Descriptor Geo coordinates support

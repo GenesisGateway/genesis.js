@@ -10,7 +10,7 @@ Node.js client library for Genesis Payment Gateway
 Overview
 --------
 
-Client Library for processing payments through Genesis Payment Processing Gateway. Its highly recommended to checkout "Genesis Payment Gateway API Documentation" first, in order to get an overview of Genesis's Payment Gateway API and functionality.
+Client Library for processing payments through Genesis Payment Processing Gateway. It's highly recommended to check out "Genesis Payment Gateway API Documentation" first, in order to get an overview of Genesis's Payment Gateway API and functionality.
 
 Requirements
 ------------
@@ -36,9 +36,9 @@ Configuration
 
 * File-based configuration
 
-You can override the path to the directory holding your configuration files (by default its ```config``` in the root directory of the module) via environmental variable ```NODE_CONFIG_DIR```. The first file to parse configuration from, is ```<your-config-dir>/default.json``` and based on the environment variable (```NODE_ENV```), you can specify your custom file; for example ```<your-config-dir>/<NODE_ENV_NAME>.json```.
+You can override the path to the directory holding your configuration files (by default it's ```config``` in the root directory of the module) via environmental variable ```NODE_CONFIG_DIR```. The first file to parse configuration from, is ```<your-config-dir>/default.json``` and based on the environment variable (```NODE_ENV```), you can specify your custom file; for example ```<your-config-dir>/<NODE_ENV_NAME>.json```.
 
-Note: Its good practice to prevent web/direct access to your config directory and protect the files inside
+Note: It's good practice to prevent web/direct access to your config directory and protect the files inside.
 
 You can override the config inside your code:
 
@@ -57,13 +57,13 @@ You can override the config inside your code:
   
 * Manual 
    
-You can set the configuration parameters by creating JSON object and then passing these parameters to the constructor of the Transaction class, as shown below:
+You can set the configuration parameters by creating JSON object and then pass these parameters to the constructor of the Transaction class, as shown below:
 
 - CoffeeScript
 ```
 configuration = {
     customer : 
-        "username":            "<enter-your-username>"
+        "username"           : "<enter-your-username>"
         "password"           : "<enter-your-password>"
         "token"              : "<enter-your-token>"
         "force_smart_routing": false
@@ -85,7 +85,7 @@ transaction = new genesis.transaction( configuration )
 ```
 configuration = {
     customer : {
-        "username":            "<enter-your-username>", 
+        "username"           : "<enter-your-username>",
         "password"           : "<enter-your-password>",
         "token"              : "<enter-your-token>",
         "force_smart_routing": false,
@@ -133,15 +133,14 @@ success = function(data) {
 transaction.sale({
     transaction_id: crypto.randomBytes(16).toString('hex'),
     usage: 'Demo Payment Transaction',
-    description: 'This is my first payment',
     remote_ip: '127.0.0.1',
     amount: '100',
     currency: 'USD',
     card_holder: 'John Doe',
     card_number: '4200000000000000',
     cvv: '000',
-    expiration_month: 12,
-    expiration_year: 2020,
+    expiration_month: '12',
+    expiration_year: '2020',
     customer_email: 'email@example.com',
     customer_phone: '0123456789',
     billing_address: {
@@ -150,7 +149,7 @@ transaction.sale({
       address1: '123 Str.',
       zip_code: '10000',
       city: 'New York',
-      neighborhood: 'Holywood',
+      neighborhood: 'Hollywood',
       country: 'US'
     }
   })
@@ -176,15 +175,14 @@ success = (data) ->
 transaction.sale({
     transaction_id    : crypto.randomBytes(16).toString('hex')
     usage             : 'Demo Payment Transaction'
-    description       : 'This is my first payment'
     remote_ip         : '127.0.0.1'
     amount            : '100'
     currency          : 'USD'
     card_holder       : 'John Doe'
     card_number       : '4200000000000000'
     cvv               : '000'
-    expiration_month  : 12
-    expiration_year   : 2020
+    expiration_month  : '12'
+    expiration_year   : '2020'
     customer_email    : 'email@example.com'
     customer_phone    : '0123456789'
     billing_address   :
@@ -193,7 +191,7 @@ transaction.sale({
         address1     : '123 Str.'
         zip_code     : '10000'
         city         : 'New York'
-        neighborhood : 'Holywood'
+        neighborhood : 'Hollywood'
         country      : 'US'
     })
     .send()
@@ -216,7 +214,7 @@ Also, an example is provided for the 3DS-Method-continue API call that will have
 ```js
 var crypto, failure, genesis, success, transaction;
 
-genesis        = require('./lib/genesis.js');
+genesis = require('./lib/genesis.js');
 
 crypto = require('crypto');
 
@@ -280,7 +278,7 @@ transaction.sale3d({
     currency: 'USD',
     amount: '50',
     // Return URLS
-    notification_url: 'http://example.com/',
+    notification_url: 'https://example.com/',
     return_success_url: 'https://success.ss',
     return_failure_url: 'https://failure.ff',
     // Customer Details
@@ -289,12 +287,12 @@ transaction.sale3d({
     // Credit Card Details
     card_holder: 'Test Tester',
     card_number: '4012000000060085', // Test Case: Synchronous 3DSv2 Request with Frictionless flow
-//    Test Cases
-//    card_number: '4066330000000004', // Test Case: Asynchronous 3DSv2 Request with 3DS-Method and Frictionless flow
-//    card_number: '4918190000000002', // Test Case: Asynchronous 3DSv2 Request with Challenge flow
-//    card_number: '4938730000000001', // Test Case: Asynchronous 3DSv2 Request with 3DS-Method Challenge flow
-//    card_number: '4901170000000003', // Test Case: Asynchronous 3DSv2 Request with Fallback flow
-//    card_number: '4901164281364345', // Test Case: Asynchronous 3DSv2 Request with 3DS-Method Fallback flow
+    // Test Cases
+    // card_number: '4066330000000004', // Test Case: Asynchronous 3DSv2 Request with 3DS-Method and Frictionless flow
+    // card_number: '4918190000000002', // Test Case: Asynchronous 3DSv2 Request with Challenge flow
+    // card_number: '4938730000000001', // Test Case: Asynchronous 3DSv2 Request with 3DS-Method Challenge flow
+    // card_number: '4901170000000003', // Test Case: Asynchronous 3DSv2 Request with Fallback flow
+    // card_number: '4901164281364345', // Test Case: Asynchronous 3DSv2 Request with 3DS-Method Fallback flow
     cvv: '123',
     expiration_month: '01',
     expiration_year: '2020',
@@ -305,7 +303,7 @@ transaction.sale3d({
         address1: '834 Huels Wells',
         zip_code: '52036-7047',
         city: 'Bettyeview',
-        neighborhood: 'Holywood',
+        neighborhood: 'Hollywood',
         country: 'IQ'
     },
     // 3DSv2 params
@@ -327,7 +325,7 @@ transaction.sale3d({
             delivery_timeframe: 'electronic',
             reorder_items_indicator: 'reordered',
             pre_order_purchase_indicator: 'merchandise_available',
-            pre_order_date: '19-08-2024',
+            pre_order_date: '19-08-2029',
             gift_card: 'true',
             gift_card_count: 99
         },
@@ -402,29 +400,29 @@ success = (data) ->
   if data.status == 'pending_async' then
     if data.redirect_url
       console.log(data.redirect_url_type)
-    console.log(data.redirect_url)
+      console.log(data.redirect_url)
 
-  if data.threeds_method_url
-     transaction.method_continue(data)
-      .send()
-      .then data ->
-        if data.status == 'approved' then
-          # Transaction APPROVED no customer action required
-          # Test Case: Asynchronous 3DSv2 Request with 3DS-Method and Frictionless flow
+    if data.threeds_method_url
+      transaction.method_continue(data)
+        .send()
+        .then data ->
+          if data.status == 'approved' then
+            # Transaction APPROVED no customer action required
+            # Test Case: Asynchronous 3DSv2 Request with 3DS-Method and Frictionless flow
         
-          if data.status == 'pending_async'
+          if data.status == 'pending_async' then
             # Customer action required
         
-          if data.redirect_url
-            # Test Case: Asynchronous 3DSv2 Request with 3DS-Method Challenge flow
-            # Test Case: Asynchronous 3DSv2 Request with 3DS-Method Fallback flow
-            console.log(data.redirect_url_type)
-            console.log(data.redirect_url)
+            if data.redirect_url
+              # Test Case: Asynchronous 3DSv2 Request with 3DS-Method Challenge flow
+              # Test Case: Asynchronous 3DSv2 Request with 3DS-Method Fallback flow
+              console.log(data.redirect_url_type)
+              console.log(data.redirect_url)
         
-            if data.status == 'declined' || data.status == 'error' then
-              # Transaction declined no customer action required
-              # Synchronous 3DSv2 Request with Frictionless flow
-      .catch failure
+          if data.status == 'declined' || data.status == 'error' then
+            # Transaction declined no customer action required
+            # Synchronous 3DSv2 Request with Frictionless flow
+        .catch failure
 
   return console.log(data)
 
@@ -435,7 +433,7 @@ transaction.sale3d({
   currency      : 'USD'
   amount        : '50'
   # Return URLS
-  notification_url  : 'http://example.com/'
+  notification_url  : 'https://example.com/'
   return_success_url: 'https://success.ss'
   return_failure_url: 'https://failure.ff'
   # Customer Details
@@ -477,7 +475,7 @@ transaction.sale3d({
       delivery_timeframe          : 'electronic'
       reorder_items_indicator     : 'reordered'
       pre_order_purchase_indicator: 'merchandise_available'
-      pre_order_date              : '19-08-2024'
+      pre_order_date              : '19-08-2029'
       gift_card                   : 'true'
       gift_card_count             : 99
     card_holder_account:
@@ -520,11 +518,12 @@ transaction.sale3d({
 ```
 </details>
 
-Standalone ThreedsV2 Method Continue Request.
+Standalone ThreedsV2 Method Continue Request
 
 <details>
 <summary>JavaScript example</summary>
 
+```js
 var failure, genesis, success, transaction;
 
 genesis = require('./lib/genesis.js');
@@ -548,11 +547,13 @@ transaction.method_continue({
     .send()
     .then(success)
     .catch(failure);
+```
 </details>
 
 <details>
 <summary>CoffeeScript example</summary>
 
+```coffee
 genesis = require './lib/genesis.js'
 crypto  = require 'crypto'
 
@@ -572,8 +573,8 @@ transaction.method_continue({
 })
     .send()
     .then(success)
-    .catch(failure);  
-  
+    .catch(failure);
+```
 </details>
 
 
@@ -621,7 +622,7 @@ transaction.google_pay({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
-        neighborhood: 'Holywood',
+        neighborhood: 'Hollywood',
         country: 'US'
     },
     shipping_address: {
@@ -630,7 +631,7 @@ transaction.google_pay({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
-        neighborhood: 'Holywood',
+        neighborhood: 'Hollywood',
         country: 'US'
     },
     notification_url: 'http://my.host.name.tld:1234/notifier',
@@ -662,33 +663,33 @@ payment_token = {"protocolVersion":"ECv2","signature":"MEQCIH6Q4OwQ0jAceFEkGF0JI
 
 transaction.google_pay({
   transaction_id           : crypto.randomBytes(16).toString('hex')
-  usage                    : 'Demo Authorize Transaction',
-  payment_subtype          : 'sale',
-  payment_token            : payment_token,
-  amount                   : '100',
-  currency                 : 'USD',
-  customer_email           : 'email@test.com',
-  customer_phone           : '0123456789',
-  remote_ip                : '245.253.2.12',
-  birth_date               : '12-12-2008',
+  usage                    : 'Demo Authorize Transaction'
+  payment_subtype          : 'sale'
+  payment_token            : payment_token
+  amount                   : '100'
+  currency                 : 'USD'
+  customer_email           : 'email@test.com'
+  customer_phone           : '0123456789'
+  remote_ip                : '245.253.2.12'
+  birth_date               : '12-12-2008'
   billing_address          :
-    first_name: 'John',
-    last_name : 'Doe',
-    address1  : '123 Str.',
-    zip_code  : '10000',
-    city      : 'New York',
+    first_name: 'John'
+    last_name : 'Doe'
+    address1  : '123 Str.'
+    zip_code  : '10000'
+    city      : 'New York'
     country   : 'US'
   shipping_address         :
-    first_name   : 'John',
-    last_name    : 'Doe',
-    address1     : '123 Str.',
-    zip_code     : '10000',
-    city         : 'New York',
-    neighborhood : 'Holywood',
+    first_name   : 'John'
+    last_name    : 'Doe'
+    address1     : '123 Str.'
+    zip_code     : '10000'
+    city         : 'New York'
+    neighborhood : 'Hollywood'
     country      : 'US'
-  notification_url  : 'http://my.host.name.tld:1234/notifier',
-  return_success_url: 'http://my.host.name.tld/success',
-  return_failure_url: 'http://my.host.name.tld/failure',
+  notification_url  : 'http://my.host.name.tld:1234/notifier'
+  return_success_url: 'http://my.host.name.tld/success'
+  return_failure_url: 'http://my.host.name.tld/failure'
 })
   .send()
   .then(success)
@@ -726,7 +727,6 @@ transaction.wpf_create({
             'google_pay' : {
                 payment_subtype: 'sale'
             }
-
         }
     ],
     usage: 'Genesis JS Client Automated Request',
@@ -762,11 +762,11 @@ success = (data) ->
   console.log data
 
 transaction.wpf_create({
-  transaction_id     : crypto.randomBytes(16).toString('hex'),
+  transaction_id     : crypto.randomBytes(16).toString('hex')
   transaction_types  : [
     'google_pay' :
       payment_subtype: 'sale'
-  ],
+  ]
   usage             : 'Demo WPF Transaction'
   description       : 'This is my first WPF transaction'
   amount            : '100'
@@ -778,7 +778,7 @@ transaction.wpf_create({
   return_failure_url: 'http://my.host.name.tld/failure'
   return_cancel_url : 'http://my.host.name.tld/cancel'
 })
- .send()
+  .send()
   .then(success)
   .catch(failure);
 ```
@@ -829,7 +829,7 @@ transaction.apple_pay({
       address1: '123 Str.',
       zip_code: '10000',
       city: 'New York',
-      neighborhood: 'Holywood',
+      neighborhood: 'Hollywood',
       country: 'US'
   },
   shipping_address: {
@@ -838,7 +838,7 @@ transaction.apple_pay({
       address1: '123 Str.',
       zip_code: '10000',
       city: 'New York',
-      neighborhood: 'Holywood',
+      neighborhood: 'Hollywood',
       country: 'US'
   }
 })
@@ -1031,7 +1031,7 @@ transaction.pay_pal({
       address1     : '123 Str.',
       zip_code     : '10000',
       city         : 'New York',
-      neighborhood : 'Holywood',
+      neighborhood : 'Hollywood',
       country      : 'US'
     },
     shipping_address: {
@@ -1040,7 +1040,7 @@ transaction.pay_pal({
       address1     : '123 Str.',
       zip_code     : '10000',
       city         : 'New Yok',
-      neighborhood : 'Holywood',
+      neighborhood : 'Hollywood',
       country      : 'US',
     },
     notification_url   : 'http://my.host.name.tld/notification',
@@ -1086,7 +1086,7 @@ transaction.pay_pal({
     address1     : '123 Str.'
     zip_code     : '10000'
     city         : 'New York'
-    neighborhood : 'Holywood',
+    neighborhood : 'Hollywood',
     country      : 'US'
   shipping_address:
     first_name   : 'John'
@@ -1094,7 +1094,7 @@ transaction.pay_pal({
     address1     : '123 Str.'
     zip_code     : '10000'
     city         : 'New Yok'
-    neighborhood : 'Holywood',
+    neighborhood : 'Hollywood',
     country      : 'US'
   notification_url   : 'http://my.host.name.tld/notification',
   return_success_url : 'http://my.host.name.tld/success',
@@ -1136,7 +1136,6 @@ transaction.wpf_create({
     transaction_id: crypto.randomBytes(16).toString('hex'),
     usage: 'Demo WPF Transaction',
     description: 'This is my first WPF transaction',
-    remote_ip: '127.0.0.1',
     amount: '100',
     currency: 'USD',
     customer_email: 'email@example.com',
@@ -1151,7 +1150,7 @@ transaction.wpf_create({
       address1: '123 Str.',
       zip_code: '10000',
       city: 'New York',
-      neighborhood: 'Holywood',
+      neighborhood: 'Hollywood',
       country: 'US'
     },
     transaction_types: ['authorize3d', 'sale']
@@ -1169,18 +1168,17 @@ crypto  = require 'crypto'
 
 transaction = new genesis.transaction();
 
-failure = (error, body) ->
-    console.log error, body
+failure = (reason) ->
+    console.log reason
 
-success = (response, body) ->
-   console.log body
+success = (data) ->
+    console.log data
    
 transaction.wpf_create({
     locale            : 'de'
     transaction_id    : crypto.randomBytes(16).toString('hex')
     usage             : 'Demo WPF Transaction'
     description       : 'This is my first WPF transaction'
-    remote_ip         : '127.0.0.1'
     amount            : '100'
     currency          : 'USD'
     customer_email    : 'email@example.com'
@@ -1195,7 +1193,7 @@ transaction.wpf_create({
         address1     : '123 Str.'
         zip_code     : '10000'
         city         : 'New York'
-        neighborhood : 'Holywood',
+        neighborhood : 'Hollywood'
         country      : 'US'
     transaction_types: [
         'authorize3d'
@@ -1211,142 +1209,8 @@ The example above is going to create a new ```WPF``` instance with German (```de
 
 Web Payment Form Transaction with custom attributes in transaction types
 ----------------------------
-
-- JavaScript
-
-```js
-
-
-transaction.wpf_create({
-    locale: 'en',
-    transaction_id: crypto.randomBytes(16).toString('hex'),
-    usage: 'Demo WPF Transaction',
-    description: 'This is my first WPF transaction',
-    remote_ip: '127.0.0.1',
-    amount: '100',
-    currency: 'EUR',
-    // Customer Details
-    customer_email: 'email@example.com',
-    customer_phone: '0123456789',
-    notification_url: 'http://my.host.name.tld:1234/notifier',
-    return_success_url: 'http://my.host.name.tld/success',
-    return_failure_url: 'http://my.host.name.tld/failure',
-    return_cancel_url: 'http://my.host.name.tld/cancel',
-    // Billing/Invoice Details
-    billing_address: {
-        first_name: 'John',
-        last_name: 'Doe',
-        address1: '123 Str.',
-        zip_code: '10000',
-        city: 'New York',
-        neighborhood: 'Holywood',
-        country: 'US',
-        state: 'California'
-    },
-    transaction_types: [
-        // Authorize
-        {
-            authorize: {
-                // custom attributes bellow aren`t required
-                bin: '111111',
-                tail: '0000',
-                expiration_date: '2020-10'
-            }
-        },
-        // Sale
-        {
-            sale: {
-                // custom attributes bellow aren`t required
-                bin: '111',
-                tail: '000',
-                crypto: 'true',
-                fx_rate_id: '123',
-            }
-        },
-        // Trusly Sale
-        // Transaction type requires user_id as shown below
-        {
-            trustly_sale: {
-                // return_success_url_target is required for trusly_sale
-                return_success_url_target: 'top'
-            }
-        }
-    ],
-    user_id: '123456', // Required when trustly_sale transaction type is used
-    customer_account_id: 123456,
-    payment_method: "eps"
-})
-    .send()
-    .then(success)
-    .catch(failure);
-```
-
-- CoffeeScript
-
-```coffee
-genesis = require './lib/genesis.js'
-crypto  = require 'crypto'
-
-transaction = new genesis.transaction();
-
-failure = (reason) ->
-    console.log reason
-
-success = (data) ->
-    console.log data
-
-transaction.wpf_create({
-    locale            : 'de'
-    transaction_id    : crypto.randomBytes(16).toString('hex')
-    usage             : 'Demo WPF Transaction'
-    description       : 'This is my first WPF transaction'
-    remote_ip         : '127.0.0.1'
-    amount            : '100'
-    currency          : 'USD'
-    customer_email    : 'email@example.com'
-    customer_phone    : '0123456789'
-    notification_url  : 'http://my.host.name.tld:1234/notifier'
-    return_success_url: 'http://my.host.name.tld/success'
-    return_failure_url: 'http://my.host.name.tld/failure'
-    return_cancel_url : 'http://my.host.name.tld/cancel'
-    billing_address   :
-        first_name   : 'John'
-        last_name    : 'Doe'
-        address1     : '123 Str.'
-        zip_code     : '10000'
-        city         : 'New York'
-        neighborhood : 'Holywood',
-        country      : 'US'
-        state        : 'California'
-    transaction_types: [
-        # Authorize
-        authorize:
-            # custom attributes bellow are not required
-            bin: '111111',
-            tail: '0000',
-            expiration_date: '2020-10'
-        # Sale
-        sale:
-            # custom attributes bellow are not required
-            bin: '111',
-            tail: '000',
-            crypto: 'true',
-            fx_rate_id: '123',
-        # Trusly Sale
-        # Transaction type requires user_id as shown below
-        trustly_sale:
-            # return_success_url_target is required for trusly_sale
-            return_success_url_target: 'top'
-    ]
-})
-.send()
-.then(success)
-.catch(failure)
-```
-Web Payment Form Transaction with business_attributes 
-----------------------------
-
-- Javascript
+<details>
+<summary>JavaScript example</summary>
 
 ```js
 var crypto, failure, genesis, success, transaction;
@@ -1370,7 +1234,156 @@ transaction.wpf_create({
     transaction_id: crypto.randomBytes(16).toString('hex'),
     usage: 'Demo WPF Transaction',
     description: 'This is my first WPF transaction',
-    remote_ip: '127.0.0.1',
+    amount: '100',
+    currency: 'EUR',
+    // Customer Details
+    customer_email: 'email@example.com',
+    customer_phone: '0123456789',
+    notification_url: 'http://my.host.name.tld:1234/notifier',
+    return_success_url: 'http://my.host.name.tld/success',
+    return_failure_url: 'http://my.host.name.tld/failure',
+    return_cancel_url: 'http://my.host.name.tld/cancel',
+    // Billing/Invoice Details
+    billing_address: {
+        first_name: 'John',
+        last_name: 'Doe',
+        address1: '123 Str.',
+        zip_code: '10000',
+        city: 'New York',
+        neighborhood: 'Hollywood',
+        country: 'US',
+        state: 'CA'
+    },
+    transaction_types: [
+        // Authorize
+        {
+            authorize: {
+                // custom attributes bellow aren`t required
+                bin: '111111',
+                tail: '0000',
+                expiration_date: '2030-10'
+            }
+        },
+        // Sale
+        {
+            sale: {
+                // custom attributes bellow aren`t required
+                bin: '111111',
+                tail: '0000',
+                crypto: true,
+                fx_rate_id: 123,
+            }
+        },
+        // Trusly Sale
+        // Transaction type requires user_id as shown below
+        {
+            trustly_sale: {
+                // return_success_url_target is required for trusly_sale
+                return_success_url_target: 'top',
+                user_id: '123456', // Required when trustly_sale transaction type is used
+            }
+        }
+    ],
+})
+    .send()
+    .then(success)
+    .catch(failure);
+```
+</details>
+
+<details>
+<summary>CoffeeScript example</summary>
+
+```coffee
+genesis = require './lib/genesis.js'
+crypto  = require 'crypto'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+    console.log reason
+
+success = (data) ->
+    console.log data
+
+transaction.wpf_create({
+    locale            : 'de'
+    transaction_id    : crypto.randomBytes(16).toString('hex')
+    usage             : 'Demo WPF Transaction'
+    description       : 'This is my first WPF transaction'
+    amount            : '100'
+    currency          : 'USD'
+    customer_email    : 'email@example.com'
+    customer_phone    : '0123456789'
+    notification_url  : 'http://my.host.name.tld:1234/notifier'
+    return_success_url: 'http://my.host.name.tld/success'
+    return_failure_url: 'http://my.host.name.tld/failure'
+    return_cancel_url : 'http://my.host.name.tld/cancel'
+    billing_address   :
+        first_name   : 'John'
+        last_name    : 'Doe'
+        address1     : '123 Str.'
+        zip_code     : '10000'
+        city         : 'New York'
+        neighborhood : 'Hollywood'
+        country      : 'US'
+        state        : 'CA'
+    transaction_types: [
+        # Authorize
+        authorize:
+            # custom attributes bellow are not required
+            bin: '111111'
+            tail: '0000'
+            expiration_date: '2030-10'
+        # Sale
+        sale:
+            # custom attributes bellow are not required
+            bin: '111111'
+            tail: '0000'
+            crypto: true
+            fx_rate_id: 123
+        # Trusly Sale
+        # Transaction type requires user_id as shown below
+        trustly_sale:
+            # return_success_url_target is required for trusly_sale
+            return_success_url_target: 'top'
+            user_id: '123456'
+    ]
+})
+.send()
+.then(success)
+.catch(failure)
+```
+</details>
+
+Web Payment Form Transaction with business_attributes 
+----------------------------
+
+<details>
+<summary>JavaScript example</summary>
+
+```js
+var crypto, failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+
+crypto = require('crypto');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+transaction.wpf_create({
+    locale: 'en',
+    transaction_id: crypto.randomBytes(16).toString('hex'),
+    usage: 'Demo WPF Transaction',
+    description: 'This is my first WPF transaction',
     amount: '100',
     currency: 'EUR',
     customer_email: 'email@example.com',
@@ -1385,13 +1398,11 @@ transaction.wpf_create({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
-        neighborhood: 'Holywood',
+        neighborhood: 'Hollywood',
         country: 'US',
-        state: 'California'
+        state: 'CA'
     },
     transaction_types: ['authorize', 'sale3d'],
-    customer_account_id: 11111,
-
     // Full list of business attributes
     business_attributes: {
         // Airlines Air Carriers
@@ -1449,8 +1460,10 @@ transaction.wpf_create({
     .then(success)
     .catch(failure);
 ```
+</details>
 
-- CoffeeScript
+<details>
+<summary>CoffeeScript example</summary>
 
 ```coffee
 genesis = require './lib/genesis.js'
@@ -1469,7 +1482,6 @@ transaction.wpf_create({
     transaction_id    : crypto.randomBytes(16).toString('hex')
     usage             : 'Demo WPF Transaction'
     description       : 'This is my first WPF transaction'
-    remote_ip         : '127.0.0.1'
     amount            : '100'
     currency          : 'USD'
     customer_email    : 'email@example.com'
@@ -1484,59 +1496,59 @@ transaction.wpf_create({
       address1     : '123 Str.'
       zip_code     : '10000'
       city         : 'New York'
-      neighborhood : 'Holywood',
+      neighborhood : 'Hollywood'
       country      : 'US'
-      state        : 'California'
+      state        : 'CA'
     transaction_types: ['authorize', 'sale3d']
 
     # Full list of business attributes
     business_attributes:
       # Airlines Air Carriers
-      flight_arrival_date: '31-12-2021',
-      airline_code: '1111',
-      flight_ticket_number: '123456789',
-      flight_origin_city: 'Sofia',
-      flight_destination_city: 'Berlin',
-      airline_tour_operator_name: 'Test',
+      flight_arrival_date: '31-12-2021'
+      airline_code: '1111'
+      flight_ticket_number: '123456789'
+      flight_origin_city: 'Sofia'
+      flight_destination_city: 'Berlin'
+      airline_tour_operator_name: 'Test'
 
       # Event Management
-      event_start_date: '12-10-2021',
-      event_end_date: '01-10-2021',
-      event_organizer_id: '11111',
-      event_id: '321',
+      event_start_date: '12-10-2021'
+      event_end_date: '01-10-2021'
+      event_organizer_id: '11111'
+      event_id: '321'
 
       # Furniture
-      date_of_order: '12-10-2020',
-      delivery_date: '31-12-2020',
-      name_of_the_supplier: 'Supplier',
+      date_of_order: '12-10-2020'
+      delivery_date: '31-12-2020'
+      name_of_the_supplier: 'Supplier'
 
       # Hotels and Real estate rentals
-      check_in_date: '12-10-2020',
-      check_out_date: '16-10-2020',
-      travel_agency_name: 'test',
+      check_in_date: '12-10-2020'
+      check_out_date: '16-10-2020'
+      travel_agency_name: 'test'
 
       # Car, Plane and Boat Rentals
-      vehicle_pick_up_date: '11-10-2020',
-      vehicle_return_date: '12-10-2020',
-      supplier_name: 'Rent a car',
+      vehicle_pick_up_date: '11-10-2020'
+      vehicle_return_date: '12-10-2020'
+      supplier_name: 'Rent a car'
 
       # Cruise Lines
-      cruise_start_date: '12-10-2020',
-      cruise_end_date: '12-11-2020',
+      cruise_start_date: '12-10-2020'
+      cruise_end_date: '12-11-2020'
 
       # Travel Agencies
-      arrival_date: '12-12-2020',
-      departure_date: '13-12-2020',
-      carrier_code: '333',
-      flight_number: '32',
-      ticket_number: '111111111111',
-      origin_city: 'Berlin',
-      destination_city: 'Sofia',
-      travel_agency: 'Agency',
-      contractor_name: 'Contractor',
-      atol_certificate: '123456',
-      pick_up_date: '12-10-2020',
-      return_date: '13-10-2020',
+      arrival_date: '12-12-2020'
+      departure_date: '13-12-2020'
+      carrier_code: '333'
+      flight_number: '32'
+      ticket_number: '111111111111'
+      origin_city: 'Berlin'
+      destination_city: 'Sofia'
+      travel_agency: 'Agency'
+      contractor_name: 'Contractor'
+      atol_certificate: '123456'
+      pick_up_date: '12-10-2020'
+      return_date: '13-10-2020'
 
       # Common
       payment_type: 'deposit' # deposit or balance
@@ -1545,10 +1557,15 @@ transaction.wpf_create({
 .then(success)
 .catch(failure)
 ```
+</details>
+
 Web Payment Form Transaction with managed_recurring 
 ----------------------------
 
-- Javascript
+The example is going to create a new ```WPF``` with ```Init Recurring Sale``` transaction with ```managed_recurring``` attributes.
+
+<details>
+<summary>JavaScript example</summary>
 
 ```js
 var crypto, failure, genesis, success, transaction;
@@ -1586,7 +1603,7 @@ transaction.wpf_create({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
-        neighborhood: 'Holywood',
+        neighborhood: 'Hollywood',
         country: 'US'
     },
     shipping_address: {
@@ -1595,7 +1612,7 @@ transaction.wpf_create({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
-        neighborhood: 'Holywood',
+        neighborhood: 'Hollywood',
         country: 'US'
     },
     transaction_types: [
@@ -1604,7 +1621,7 @@ transaction.wpf_create({
             managed_recurring: {
               mode: "automatic",
               interval: "days",
-              first_date: "2023-12-18",
+              first_date: "2030-12-18",
               time_of_day: 5,
               period: 22,
               amount: 500,
@@ -1614,9 +1631,14 @@ transaction.wpf_create({
         }
     ]
 })
+    .send()
+    .then(success)
+    .catch(failure);
 ```
+</details>
 
-- CoffeeScript
+<details>
+<summary>CoffeeScript example</summary>
 
 ```coffee
 genesis = require './lib/genesis.js'
@@ -1649,7 +1671,7 @@ transaction.wpf_create({
       address1     : '123 Str.'
       zip_code     : '10000'
       city         : 'New York'
-      neighborhood : 'Holywood',
+      neighborhood : 'Hollywood'
       country      : 'US'
       state        : 'CA'
     shipping_address:
@@ -1658,14 +1680,14 @@ transaction.wpf_create({
       address1     : '123 Str.'
       zip_code     : '10000'
       city         : 'New York'
-      neighborhood : 'Holywood',
+      neighborhood : 'Hollywood'
       country      : 'US'
     transaction_types: [
       init_recurring_sale:
         managed_recurring:
           mode: "automatic"
           interval: "days"
-          first_date: "2023-12-18"
+          first_date: "2030-12-18"
           time_of_day: 5
           period: 22
           amount: 500
@@ -1676,8 +1698,8 @@ transaction.wpf_create({
 .then(success)
 .catch(failure)
 ```
+</details>
 
-The example above is going to create a new ```WPF``` with ```Init Recurring Sale``` transaction with ```managed_recurring``` attributes.
 
 Travel Data Attributes
 -------------------------
@@ -1773,10 +1795,9 @@ Up to 3 reminders can be configured for each payment.
  - The time for sending a reminder is set in number of minutes after payment creation.
  - The time for sending of each reminder shouldn't be greater that the configured payment lifetime.
 
-- Javascript
 
 <details>
-<summary>Details</summary>
+<summary>JavaScript Example</summary>
 
 ```js
 var crypto, failure, genesis, success, transaction;
@@ -1814,7 +1835,7 @@ transaction.wpf_create({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
-        neighborhood: 'Holywood',
+        neighborhood: 'Hollywood',
         country: 'US'
     },
     shipping_address: {
@@ -1823,10 +1844,10 @@ transaction.wpf_create({
         address1: '123 Str.',
         zip_code: '10000',
         city: 'New York',
-        neighborhood: 'Holywood',
+        neighborhood: 'Hollywood',
         country: 'US'
     },
-    transaction_types: [sale],
+    transaction_types: ['sale'],
     pay_later: true,
     reminder_language: 'en',
     reminders: [
@@ -1840,13 +1861,14 @@ transaction.wpf_create({
       }
     ]
 })
+    .send()
+    .then(success)
+    .catch(failure);
 ```
 </details>
 
-- CoffeeScript
-
 <details>
-<summary>Details</summary>
+<summary>CoffeeScript example</summary>
 
 ```coffee
 genesis = require './lib/genesis.js'
@@ -1879,7 +1901,7 @@ transaction.wpf_create({
       address1     : '123 Str.'
       zip_code     : '10000'
       city         : 'New York'
-      neighborhood : 'Holywood',
+      neighborhood : 'Hollywood'
       country      : 'US'
       state        : 'CA'
     shipping_address:
@@ -1888,18 +1910,18 @@ transaction.wpf_create({
       address1: '123 Str.'
       zip_code: '10000'
       city: 'New York'
-      neighborhood: 'Holywood',
+      neighborhood: 'Hollywood'
       country: 'US'
-    transaction_types: ['sale'],
-    pay_later: true,
-    reminder_language: 'en',
+    transaction_types: ['sale']
+    pay_later: true
+    reminder_language: 'en'
     reminders: [
       {
-        channel: 'email',
+        channel: 'email'
         after: 40
       },
       {
-        channel: 'sms',
+        channel: 'sms'
         after: 10
       }
     ]
@@ -1923,12 +1945,17 @@ genesis = require('./lib/genesis.js');
 
 configuration = {
     customer : {
-        "username":            "<enter-your-username>", 
-        "password"           : "<enter-your-password>",
+        "username" : "<enter-your-username>", 
+        "password" : "<enter-your-password>",
     },
     gateway : {
         "hostname" : "<please-select-the-endpoint-you-want-e-comprocessing.net-or-emerchantpay.net>",
         "testing"  : true,
+    },
+    "notifications": {
+        "host"     : "<hostname>",
+        "port"     : "<port>",
+        "path"     : "<path>"
     }
 };
 
@@ -1952,15 +1979,17 @@ notification_url = notification.getUrl();
 ```coffee
 genesis = require './lib/genesis.js'
 
-genesis = require('./lib/genesis.js');
-
 configuration = {
     customer :
-        "username":            "<enter-your-username>", 
-        "password"           : "<enter-your-password>"
+        "username" : "<enter-your-username>", 
+        "password" : "<enter-your-password>"
     gateway : 
         "hostname" : "<please-select-the-endpoint-you-want-e-comprocessing.net-or-emerchantpay.net>",
         "testing"  : true
+    notifications :
+        "host"     : "<hostname>",
+        "port"     : "<port>",
+        "path"     : "<path>"
 };
 
 notification = new genesis.notification(configuration)
@@ -1976,13 +2005,13 @@ notification.listen success, failure
 notification_url = notification.getUrl()
 ```
 
-The example above would create a notification listener on ```my.host.name.tld:1234/notifier``` which you can use as notification handler for async transactions. If a notification is received and its successfully verified against our backend, the callback will be called with details of the transaction you're being notified for.
+The example above will create a notification listener on ```my.host.name.tld:1234/notifier``` which you can use as notification handler for async transactions. If a notification is received and it's successfully verified against our backend, the callback will be called with details of the transaction you're being notified for.
 
 Handle notifications with separate web server
 ---------------------
 
-In case you have already setup web server and do not what to start another. 
-Or you just what to use different one like [Express](https://expressjs.com/) for example. 
+In case you have already set up web server and do not want to start another. 
+Or you just want to use different one like [Express](https://expressjs.com/) for example. 
 
 You can accomplish this by calling handle method in your web server route.
 
@@ -2087,7 +2116,7 @@ Upon received status >= 300 from the Gateway or upon invalid request the followi
   status: "HTTP Status Code"
   message: "Brief explanation about the error"
   response: {
-    // Received Response from the server if there is any
+    // The Response from the server if there is any
   }
 }
 ```
@@ -2115,7 +2144,7 @@ Upon received status >= 300 from the Gateway or upon invalid request the followi
 ```object
 { 
   status: 'ENOTFOUND',
-  message: 'No response received from hostname: examlpe.com',
+  message: 'No response received from hostname: example.com',
   response: undefined
 }
 ```
@@ -2125,37 +2154,62 @@ Transaction Types
 -----------------
 
 ```text
+african_mobile_sale
 apple_pay
+argencard
+aura
 authorize
 authorize3d
 avs
+baloto
+banco_de_occidente
+banco_do_brasil
+bancomer
+bcmc
 blacklist
+boleto
+bradesco
+cabal
 capture
+cash
 cashu
+cencosud
 chargeback
 chargeback_by_date
 credit
+davivienda
+efecty
 fraud_report
 fraud_report_by_date
 google_pay
 init_recurring
 init_recurring_sale3d
+my_bank
+naranja
+nativa
 online_banking_payin
 online_banking_payout
-nativa
+oxxo
 p24
+pago_facil
 pay_pal
 payout
-ppro
+pix
 poli
+ppro
 reconcile
 reconcile_by_date
 recurring_sale
+redpagos
 refund
 retrieval
 retrieval_by_date
+russian_mobile_sale
 sale
 sale3d
+sdd_init_recurring_sale
+sdd_sale
+tarjeta_shopping
 void
 wpf_create
 wpf_reconcile
@@ -2164,42 +2218,41 @@ wpf_reconcile
 Transaction Parameters
 ----------------------
 `wpf_create.transaction_types`:
-  * `authorize`
-  * `authorize3d`
-  * `sale`
-  * `sale3d`
-  * `init_recurring_sale`
-  * `init_recurring_sale3d`
+  * `african_mobile_sale`
   * `alipay`
+  * `apple_pay`
   * `argencard`
   * `aura`
-  * `bancomer`
-  * `boleto`
-  * `bcmc`
+  * `authorize3d`
+  * `authorize`
   * `baloto`
   * `banco_do_brasil`
-  * `bitpay_sale`
+  * `bancomer`
+  * `bcmc`
   * `bitpay_payout`
+  * `bitpay_sale`
+  * `boleto`
   * `bradesco`
-  * `cashu`
-  * `container_store`
   * `cabal`
+  * `cashu`
   * `cencosud`
+  * `container_store`
   * `davivienda`
-  * `ezeewallet`
   * `e_wallet`
   * `efecty`
   * `elo`
   * `eps`
+  * `ezeewallet`
   * `fashioncheque`
   * `google_pay`
-  * `apple_pay`
-  * `invoice`
-  * `itau`
   * `ideal`
   * `idebit_payin`
+  * `init_recurring_sale3d`
+  * `init_recurring_sale`
   * `insta_debit_payin`
   * `intersolve`
+  * `invoice`
+  * `itau`
   * `multibanco`
   * `my_bank`
   * `naranja`
@@ -2208,35 +2261,38 @@ Transaction Parameters
   * `neteller`
   * `online_banking`
   * `oxxo`
-  * `ppro`
-      * `eps`
-      * `ideal`
-      * `przelewy24`
-      * `safetypay`
-      * `trustpay`
-      * `bcmc`
-      * `mybank`
-  * `poli`
   * `p24`
+  * `pago_facil`
   * `pay_pal`
   * `payu`
+  * `poli`
   * `post_finance`
-  * `pago_facil`
+  * `ppro`
+    * `bcmc`
+    * `eps`
+    * `ideal`
+    * `mybank`
+    * `przelewy24`
+    * `safetypay`
+    * `trustpay`
   * `pse`
-  * `upi`
-  * `rapi_pago`
   * `radpagos`
-  * `santander`
+  * `rapi_pago`
+  * `russian_mobile_sale`
   * `safetypay`
-  * `sofort`
-  * `webmoney`
+  * `sale3d`
+  * `sale`
+  * `santander`
   * `sdd_init_recurring_sale`
+  * `sdd_sale`
+  * `sofort`
   * `tarjeta_shopping`
-  * `trustpay`
   * `trustly_sale`
+  * `trustpay`
+  * `upi`
+  * `webmoney`
   * `webpay`
   * `wechat`
-  * `russian_mobile_sale`
 
 In order to get a full list of required and optional parameters, please consult our API Documentation.
 

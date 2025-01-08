@@ -29,7 +29,7 @@
       "then": {
         "allOf": [
           { "properties": { "currency": { "const": "EUR" } } },
-          { "properties": { "billing_address": { "properties": { "country": { "const": "IT" } } } } }
+          { "properties": { "billing_address": { "properties": { "country": { "enum": ["IT", "BE", "PT", "ES"] } } } } }
         ]
       }
     },

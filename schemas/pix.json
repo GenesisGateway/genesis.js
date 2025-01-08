@@ -1,0 +1,142 @@
+{
+  "$id": "https://genesis.js/pix",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_type",
+    "transaction_id",
+    "amount",
+    "currency",
+    "document_id"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "pix"
+        }
+      ]
+    },
+    "transaction_id": {
+      "$ref": "/definitions/definitions#transaction_id"
+    },
+    "usage": {},
+    "remote_ip": {},
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after successful payment."
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "return_pending_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to when asynchronous payment is pending confirmation"
+    },
+    "amount": {},
+    "currency": {},
+    "document_id": {
+      "$ref": "/definitions/definitions#document_id"
+    },
+    "customer_email": {},
+    "mothers_name": {
+      "type": "string"
+    },
+    "gender": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": ["0", "1", "2"]
+        },
+        {
+          "type": "integer",
+          "enum": [0, 1, 2]
+        }
+      ]
+    },
+    "marital_status": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": ["0", "1", "2", "3", "4", "5", "6"]
+        },
+        {
+          "type": "integer",
+          "enum": [0, 1, 2, 3, 4, 5, 6]
+        }
+      ]
+    },
+    "sender_occupation": {
+      "type": "string"
+    },
+    "nationality": {
+      "type": "string"
+    },
+    "country_of_origin": {
+      "$ref": "/definitions/country"
+    },
+    "birth_city": {
+      "type": "string"
+    },
+    "birth_state": {
+      "type": "string"
+    },
+    "company_type": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
+        },
+        {
+          "type": "integer",
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+        }
+      ]
+    },
+    "company_activity": {
+      "type": "string"
+    },
+    "birth_date": {
+      "$ref": "/definitions/definitions#birth_date"
+    },
+    "incorporation_date": {
+      "$ref": "/definitions/definitions#date-dd-mm-yyyy"
+    },
+    "billing_address": {
+      "required": [
+        "country"
+      ],
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "properties": {
+            "country": {
+              "const": "BR"
+            }
+          }
+        }
+      ]
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    }
+  }
+}

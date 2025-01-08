@@ -8,7 +8,6 @@ class ApplePay extends FinancialBase
   getTransactionType: ->
     TransactionTypes.APPLE_PAY
 
-
   getTrxData: ->
     super()
     'payment_transaction':

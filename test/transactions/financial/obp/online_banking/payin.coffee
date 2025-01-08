@@ -17,7 +17,7 @@ describe 'Online Banking Payin Transaction', ->
     @data.return_failure_url      = faker.internet.url()
     @data.currency                = faker.random.arrayElement(
       ["CNY", "CLP", "THB", "MYR", "PYG", "IDR", "INR", "PHP", "SGD", "UYU", "VND",
-        "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN", "AUD"]
+        "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN", "AUD", "NZD"]
     )
     @data.amount                  = '50000'
     @data.customer_email          = faker.internet.email()
@@ -27,7 +27,7 @@ describe 'Online Banking Payin Transaction', ->
     @data.consumer_reference      = 'Consumer Reference'
     @data.user_category           = 'default'
     @data.payment_type            = faker.random.arrayElement(
-      ["online_banking", "qr_payment", "quick_payment", "netbanking", "alipay_qr"]
+      ["online_banking", "qr_payment", "quick_payment", "netbanking", "alipay_qr", "scotiabank"]
     )
     @data.auth_code               = '123456'
     @data.billing_address         = {

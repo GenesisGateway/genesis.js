@@ -3,8 +3,13 @@ Config              = require './utils/configuration/config'
 ###
   Financial transactions
 ###
+Aura                = require './transactions/financial/cards/aura'
+Argencard           = require './transactions/financial/cards/argencard'
 Authorize           = require './transactions/financial/cards/authorize'
 Authorize3d         = require './transactions/financial/cards/authorize3d'
+Bancontact          = require './transactions/financial/cards/bancontact'
+Cabal               = require './transactions/financial/cards/cabal'
+Cencosud            = require './transactions/financial/cards/cencosud'
 Sale                = require './transactions/financial/cards/sale'
 Sale3d              = require './transactions/financial/cards/sale3d'
 Cancel              = require './transactions/financial/cancel'
@@ -16,6 +21,21 @@ InitRecurringSale3d = require './transactions/financial/cards/recurring/init_rec
 Capture             = require './transactions/financial/capture'
 Refund              = require './transactions/financial/refund'
 Nativa              = require './transactions/financial/cards/nativa'
+Naranja             = require './transactions/financial/cards/naranja'
+TarjetaShopping     = require './transactions/financial/cards/tarjeta_shopping'
+
+###
+  CashPayment
+###
+Cash                = require './transactions/financial/cash_payments/cash'
+BancoDeOccidente    = require './transactions/financial/cash_payments/banco_de_occidente'
+Baloto              = require './transactions/financial/cash_payments/baloto'
+Boleto              = require './transactions/financial/cash_payments/boleto'
+Efecty              = require './transactions/financial/cash_payments/efecty'
+Oxxo                = require './transactions/financial/cash_payments/oxxo'
+PagoFacil           = require './transactions/financial/cash_payments/pago_facil'
+Pix                 = require './transactions/financial/cash_payments/pix'
+Redpagos            = require './transactions/financial/cash_payments/redpagos'
 
 ###
   Non Financial transactions
@@ -51,8 +71,6 @@ TrustlyWithdrawal   = require './transactions/financial/alternative/trustly/with
 ###
   Financial OBP transactions
 ###
-PaySecPayin         = require './transactions/financial/obp/paysec/payin'
-PaySecPayout        = require './transactions/financial/obp/paysec/payout'
 Wechat              = require './transactions/financial/obp/wechat'
 Alipay              = require './transactions/financial/obp/alipay'
 IDebitPayin         = require './transactions/financial/obp/idebit/payin'
@@ -61,6 +79,11 @@ InstaDebitPayin     = require './transactions/financial/obp/insta_debit/payin'
 InstaDebitPayout    = require './transactions/financial/obp/insta_debit/payout'
 OnlineBankingPayin  = require './transactions/financial/obp/online_banking/payin'
 OnlineBankingPayout = require './transactions/financial/obp/online_banking/payout'
+MyBank              = require './transactions/financial/obp/my_bank'
+Bancomer            = require './transactions/financial/obp/bancomer'
+BancoDoBrasil       = require './transactions/financial/obp/banco_do_brasil'
+Bradesco            = require './transactions/financial/obp/bradesco'
+Davivienda          = require './transactions/financial/obp/davivienda'
 
 ###
   Direct Debit
@@ -73,9 +96,11 @@ SddRefund            = require './transactions/financial/direct_debit/sdd_refund
 ###
   Financial mobile transactions
 ###
-GooglePay = require './transactions/financial/mobile/google_pay'
-ApplePay  = require './transactions/financial/mobile/apple_pay'
-PayPal    = require './transactions/financial/wallets/pay_pal'
+GooglePay         = require './transactions/financial/mobile/google_pay'
+ApplePay          = require './transactions/financial/mobile/apple_pay'
+AfricanMobileSale = require './transactions/financial/mobile/african_mobile_sale'
+PayPal            = require './transactions/financial/wallets/pay_pal'
+RussianMobileSale = require './transactions/financial/mobile/russian_mobile_sale'
 
 ###
   Vouchers
@@ -95,46 +120,56 @@ class Transaction
     @config = new Config(configuration)
 
   ###
-    Non Financial transactions
-  ###
-  blacklist: (params) ->
-    new Blacklist(params, @config)
+      Financial Alternative transactions
+    ###
+  p24: (params) ->
+    new P24(params, @config)
 
-  chargeback: (params) ->
-    new Chargeback(params, @config)
+  poli: (params) ->
+    new Poli(params, @config)
 
-  chargeback_by_date: (params) ->
-    new ChargebackByDate(params, @config)
+  paysafecard: (params) ->
+    new Paysafecard(params, @config)
 
-  fraud_report: (params) ->
-    new FraudReport(params, @config)
+  sofort: (params) ->
+    new Sofort(params, @config)
 
-  fraud_report_by_date: (params) ->
-    new FraudReportByDate(params, @config)
+  ppro: (params) ->
+    new PPRO(params, @config)
 
-  retrieval: (params) ->
-    new Retrieval(params, @config)
+  trustly_sale: (params) ->
+    new TrustlySale(params, @config)
 
-  retrieval_by_date: (params) ->
-    new RetrievalByDate(params, @config)
+  trustly_withdrawal: (params) ->
+    new TrustlyWithdrawal(params, @config)
 
-  reconcile: (params) ->
-    new Reconcile(params, @config)
+  cashu: (params) ->
+    new CashU(params, @config)
 
-  reconcile_by_date: (params) ->
-    new ReconcileByDate(params, @config)
-
-  avs: (params) ->
-    new Avs(params, @config)
 
   ###
     Financial transactions
   ###
+  aura: (params) ->
+    new Aura(params, @config)
+
+  argencard: (params) ->
+    new Argencard(params, @config)
+
   authorize: (params) ->
     new Authorize(params, @config)
 
   authorize3d: (params) ->
     new Authorize3d(params, @config)
+
+  bcmc: (params) ->
+    new Bancontact(params, @config)
+
+  cabal: (params) ->
+    new Cabal(params, @config)
+
+  cencosud: (params) ->
+    new Cencosud(params, @config)
 
   credit: (params) ->
     new Credit(params, @config)
@@ -176,42 +211,75 @@ class Transaction
   nativa: (params) ->
     new Nativa(params, @config)
 
+  naranja: (params) ->
+    new Naranja(params, @config)
+
+  tarjeta_shopping: (params) ->
+    new TarjetaShopping(params, @config)
+
   ###
-    Financial Alternative transactions
+    Cash Payments transactions
   ###
-  p24: (params) ->
-    new P24(params, @config)
+  baloto: (params) ->
+    new Baloto(params, @config)
 
-  poli: (params) ->
-    new Poli(params, @config)
+  banco_de_occidente: (params) ->
+    new BancoDeOccidente(params, @config)
 
-  paysafecard: (params) ->
-    new Paysafecard(params, @config)
-    
-  sofort: (params) ->
-    new Sofort(params, @config)
-    
-  ppro: (params) ->
-    new PPRO(params, @config)
-    
-  trustly_sale: (params) ->
-    new TrustlySale(params, @config)
-    
-  trustly_withdrawal: (params) ->
-    new TrustlyWithdrawal(params, @config)
+  boleto: (params) ->
+    new Boleto(params, @config)
 
-  cashu: (params) ->
-    new CashU(params, @config)
+  cash: (params) ->
+    new Cash(params, @config)
+
+  efecty: (params) ->
+    new Efecty(params, @config)
+
+  oxxo: (params) ->
+    new Oxxo(params, @config)
+
+  pago_facil: (params) ->
+    new PagoFacil(params, @config)
+
+  pix: (params) ->
+    new Pix(params, @config)
+
+  redpagos: (params) ->
+    new Redpagos(params, @config)
+
+  ###
+    Direct Debit
+  ###
+  sdd_sale: (params) ->
+    new SddSale(params, @config)
+
+  sdd_init_recurring_sale: (params) ->
+    new SddInitRecurringSale(params, @config)
+
+  sdd_recurring_sale: (params) ->
+    new SddRecurringSale(params, @config)
+
+  sdd_refund: (params) ->
+    new SddRefund(params, @config)
+
+  ###
+    Financial mobile transactions
+  ###
+  google_pay: (params) ->
+    new GooglePay(params, @config)
+
+  african_mobile_sale: (params) ->
+    new AfricanMobileSale(params, @config)
+
+  apple_pay: (params) ->
+    new ApplePay(params, @config)
+
+  russian_mobile_sale: (params) ->
+    new RussianMobileSale(params, @config)
 
   ###
     Financial OBP transactions
   ###
-  paysec: (params) ->
-    new PaySecPayin(params, @config)
-
-  paysec_payout: (params) ->
-    new PaySecPayout(params, @config)
-
   wechat: (params) ->
     new Wechat(params, @config)
 
@@ -230,26 +298,65 @@ class Transaction
   insta_debit_payout: (params) ->
     new InstaDebitPayout(params, @config)
 
+  bradesco: (params) ->
+    new Bradesco(params, @config)
+
+  davivienda: (params) ->
+    new Davivienda(params, @config)
+
   online_banking_payin: (params) ->
     new OnlineBankingPayin(params, @config)
 
   online_banking_payout: (params) ->
     new OnlineBankingPayout(params, @config)
 
+  my_bank: (params) ->
+    new MyBank(params, @config)
+
+  bancomer: (params) ->
+    new Bancomer(params, @config)
+
+  banco_do_brasil: (params) ->
+    new BancoDoBrasil(params, @config)
+
   ###
-    Direct Debit
+    Financial Wallets transactions
   ###
-  sdd_sale: (params) ->
-    new SddSale(params, @config)
+  pay_pal: (params) ->
+    new PayPal(params, @config)
 
-  sdd_init_recurring_sale: (params) ->
-    new SddInitRecurringSale(params, @config)
+  ###
+    Non Financial transactions
+  ###
+  blacklist: (params) ->
+    new Blacklist(params, @config)
 
-  sdd_recurring_sale: (params) ->
-    new SddRecurringSale(params, @config)
+  chargeback: (params) ->
+    new Chargeback(params, @config)
 
-  sdd_refund: (params) ->
-    new SddRefund(params, @config)
+  chargeback_by_date: (params) ->
+    new ChargebackByDate(params, @config)
+
+  fraud_report: (params) ->
+    new FraudReport(params, @config)
+
+  fraud_report_by_date: (params) ->
+    new FraudReportByDate(params, @config)
+
+  retrieval: (params) ->
+    new Retrieval(params, @config)
+
+  retrieval_by_date: (params) ->
+    new RetrievalByDate(params, @config)
+
+  reconcile: (params) ->
+    new Reconcile(params, @config)
+
+  reconcile_by_date: (params) ->
+    new ReconcileByDate(params, @config)
+
+  avs: (params) ->
+    new Avs(params, @config)
 
   ###
     Web Payment Form
@@ -260,19 +367,6 @@ class Transaction
   wpf_reconcile: (params) ->
     new WpfReconcile(params, @config)
 
-  ###
-    Financial mobile transactions
-  ###
-  google_pay: (params) ->
-    new GooglePay(params, @config)
 
-  apple_pay: (params) ->
-    new ApplePay(params, @config)
-
-  ###
-    Financial Wallets transactions
-  ###
-  pay_pal: (params) ->
-    new PayPal(params, @config)
 
 module.exports = Transaction

@@ -7,7 +7,4 @@ class Cancel extends FinancialBase
   getTransactionType: ->
     TransactionTypes.VOID
 
-  constructor: (params, configuration) ->
-    super params, configuration
-
 module.exports = Cancel

@@ -16,7 +16,9 @@ describe 'PPRO Transaction', ->
 
     _.extend(@data, @fakeData.getShippingData())
     @data['payment_type']               = 'my_bank'
-    @data['billing_address']['country'] = 'IT'
+    @data['billing_address']['country'] = faker.random.arrayElement([
+      "IT", "BE", "PT", "ES"
+    ])
     @data['currency']                   = 'EUR'
     @data['remote_ip']                  = faker.internet.ip()
     @data['return_success_url']         = faker.internet.url()
@@ -52,7 +54,9 @@ describe 'PPRO Transaction', ->
   describe 'when my_bank payment type', ->
     beforeEach ->
       @data['payment_type']               = 'my_bank'
-      @data['billing_address']['country'] = 'IT'
+      @data['billing_address']['country'] =  faker.random.arrayElement([
+        "IT", "BE", "PT", "ES"
+      ])
       @data['currency']                   = 'EUR'
 
     describe 'when invalid request', ->

@@ -2,10 +2,12 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-FakeData           = require '../../../fake_data'
-Transaction        = require path.resolve (
+FakeData    = require path.resolve './test/transactions/fake_data'
+Transaction = require path.resolve (
   './src/genesis/transactions/financial/obp/online_banking/payout'
 )
+UCOF        = require '../../../../examples/attributes/ucof'
+
 
 describe 'Online Banking Payout Transaction', ->
 
@@ -167,3 +169,6 @@ describe 'Online Banking Payout Transaction', ->
       delete data['bank_name']
 
       assert.equal true, @transaction.setData(data).isValid()
+
+  UCOF()
+

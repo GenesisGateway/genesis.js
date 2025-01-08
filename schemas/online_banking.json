@@ -28,7 +28,7 @@
     "usage": {},
     "return_success_url": {
       "$ref": "/definitions/definitions#url",
-      "description": "URL where customer is sent to after unsuccessful payment."
+      "description": "URL where customer is sent to after successful payment."
     },
     "return_failure_url": {
       "$ref": "/definitions/definitions#url",
@@ -44,7 +44,7 @@
         },
         {
           "enum": ["CNY", "CLP", "THB", "MYR", "PYG", "IDR", "INR", "PHP", "SGD", "UYU", "VND",
-            "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN", "AUD"
+            "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN", "AUD", "NZD"
           ]
         }
       ]
@@ -60,7 +60,7 @@
     "payment_type": {
       "type": "string",
       "description": "The payment type describes the type of online banking used to process the transaction.",
-      "enum": ["online_banking", "qr_payment", "quick_payment", "netbanking", "alipay_qr"]
+      "enum": ["online_banking", "qr_payment", "quick_payment", "netbanking", "alipay_qr", "scotiabank"]
     },
     "virtual_payment_address": {
       "type": "string",

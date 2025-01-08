@@ -9,7 +9,4 @@ class Alipay extends FinancialBase
   getTransactionType: ->
     TransactionTypes.ALIPAY
 
-  constructor: (params, configuration) ->
-    super params, configuration
-
 module.exports = Alipay

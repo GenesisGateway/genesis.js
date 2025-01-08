@@ -131,6 +131,10 @@
         {
           "if": { "properties": { "client_side_encryption": { "enum": [ false ] } } },
           "then": { "properties": { "cvv": { "pattern": "^[0-9]{3,4}$"} } }
+        },
+        {
+          "if": { "properties": { "token": { "const": false } } },
+          "then": { "required": ["card_holder", "card_number", "expiration_year", "expiration_month", "cvv", "currency"] }
         }
       ]
     },
@@ -181,8 +185,8 @@
           "then": { "properties": { "cvv": { "pattern": "^[0-9]{3,4}$"} } }
         },
         {
-          "if": { "properties": { "recurring_type": { "enum": ["initial", "managed"] } } },
-          "then": { "required": ["card_holder", "currency"] }
+          "if": { "properties": { "token": { "const": false }, "recurring_type": { "enum": [false, "initial", "managed"] } } },
+          "then": { "required": ["card_holder", "card_number", "expiration_year", "expiration_month", "cvv", "currency"] }
         }
       ]
     },
@@ -251,6 +255,16 @@
       "$id": "#use_smart_router",
       "type": "boolean",
       "description": "Force Smart Router endpoint for Financial transactions"
+    },
+    "consumer_reference": {
+      "$id": "#consumer_reference",
+      "maxLength": 20,
+      "description": "Consumer reference is a unique consumer identifier"
+    },
+    "national_id": {
+      "$id": "#national_id",
+      "maxLength": 20,
+      "description": "National Identifier number of the customer"
     }
   }
 }

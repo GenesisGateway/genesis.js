@@ -9,7 +9,6 @@
     "amount",
     "currency",
     "iban",
-    "bic",
     "billing_address",
     "usage"
   ],
@@ -39,8 +38,17 @@
         }
       ]
     },
-    "remote_ip": {},
     "usage": {},
+    "remote_ip": {},
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "return_pending_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url"
+    },
     "amount": {},
     "currency": {},
     "iban": {},

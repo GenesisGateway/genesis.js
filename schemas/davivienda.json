@@ -1,0 +1,92 @@
+{
+  "$id": "https://genesis.js/davivienda",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_type",
+    "transaction_id",
+    "return_success_url",
+    "return_failure_url",
+    "amount",
+    "currency",
+    "consumer_reference",
+    "national_id",
+    "customer_email",
+    "billing_address"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "davivienda"
+        }
+      ]
+    },
+    "transaction_id": {},
+    "usage": {},
+    "remote_ip": {},
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after successful payment."
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "return_pending_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to when asynchronous payment is pending confirmation."
+    },
+    "amount": {
+      "$ref": "/definitions/attributes/financial/payment#amount"
+    },
+    "currency": {
+      "$ref": "/definitions/attributes/financial/payment#currency"
+    },
+    "consumer_reference": {
+      "$ref": "/definitions/definitions#consumer_reference"
+    },
+    "national_id": {
+      "$ref": "/definitions/definitions#national_id"
+    },
+    "birth_date": {
+      "$ref": "/definitions/definitions#birth_date"
+    },
+    "customer_email": {},
+    "billing_address": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "required": ["country"],
+          "properties": {
+            "country": {
+              "enum": [
+                "CO"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    }
+  }
+}

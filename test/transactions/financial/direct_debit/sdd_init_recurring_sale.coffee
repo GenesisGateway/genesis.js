@@ -35,8 +35,8 @@ describe 'SddInitRecurringSale', ->
 
     context 'without bic', ->
 
-      it 'is invalid', ->
-        assert.isNotTrue @transaction.setData(_.omit @data, 'bic').isValid()
+      it 'is valid', ->
+        assert.isTrue @transaction.setData(_.omit @data, 'bic').isValid()
 
     context 'with wrong bic', ->
 
@@ -71,3 +71,10 @@ describe 'SddInitRecurringSale', ->
         data = _.clone @data
         data['billing_address'] = _.omit data['billing_address'], 'last_name'
         assert.isNotTrue @transaction.setData(data).isValid()
+
+  context 'with billing_address.country validation', ->
+
+    it 'is invalid', ->
+      data = _.clone @data
+      data['billing_address']['country'] = 'BG'
+      assert.isNotTrue @transaction.setData(data).isValid()
