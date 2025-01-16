@@ -1,23 +1,17 @@
-_            = require 'underscore'
-ThreedsUtils = require '../../../../../utils/threeds_utils'
-Request      = require '../../../../../request'
-Currency     = require '../../../../../helpers/currency'
+_                = require 'underscore'
+Request          = require '../../../../../request'
+ThreedsUtils     = require '../../../../../utils/threeds_utils'
 TransactionTypes = require '../../../../../helpers/transaction/types'
 
 class MethodContinue extends Request
 
   THREEDS_METHOD_URL: 'threeds/threeds_method/'
 
-  constructor: (@params, configuration) ->
-    super('form', configuration)
-    @currency = new Currency
-    @configuration = configuration
+  constructor: (params, configuration) ->
+    super(params, configuration, 'form')
 
   getTransactionType: ->
     TransactionTypes.METHOD_CONTINUE
-
-  setData: (@params) ->
-    @
 
   ###
      Returns SHA512 hash of а concatenated string (unique_id, amount, timestamp, customer.password)
@@ -32,20 +26,15 @@ class MethodContinue extends Request
   getRelativePath =  ->
     @THREEDS_METHOD_URL + @params.unique_id
 
-  getData: () ->
-    @params
-
-  getTrxParams: ->
+  getTrxData: ->
     unique_id: @params.unique_id
     signature: @getSignature()
 
-  getArguments:() ->
-    trx:
-      @getTrxParams()
-    url:
-      app:
-        'gate'
-      path:
-        getRelativePath.call(@)
+  getUrl: ->
+    app:
+      'gate'
+    path:
+      getRelativePath.call(@)
+
 
 module.exports = MethodContinue

@@ -20,6 +20,7 @@ TravelData         = require '../../../examples/attributes/financial/travel_data
 CSEncription       = require '../../../examples/attributes/client_side_encryption'
 FundingAttributes  = require '../../../examples/attributes/financial/funding_attributes'
 MpiParams          = require '../../../examples/attributes/threeds/v1/mpi_params'
+UCOF               = require '../../../examples/attributes/ucof'
 
 describe 'Sale 3D Transaction', ->
 
@@ -49,3 +50,4 @@ describe 'Sale 3D Transaction', ->
   CSEncription()
   FundingAttributes()
   MpiParams()
+  UCOF()

@@ -1,7 +1,7 @@
 
-Base = require '../../../base'
+Request = require '../../../../request'
 
-class FraudReportByDate extends Base
+class FraudReportByDate extends Request
 
   getTransactionType: ->
     'fraud_report_by_date_request'

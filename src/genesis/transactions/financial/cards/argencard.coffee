@@ -1,8 +1,7 @@
-CardBase         = require './card_base'
 TransactionTypes = require '../../../helpers/transaction/types'
-_                = require 'underscore'
+FinancialBase    = require '../financial_base'
 
-class Argencard extends CardBase
+class Argencard extends FinancialBase
 
   getTransactionType: ->
     TransactionTypes.ARGENCARD

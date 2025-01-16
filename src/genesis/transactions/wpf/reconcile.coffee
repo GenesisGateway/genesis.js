@@ -1,7 +1,7 @@
 
-Base = require '../base'
+Request = require '../../request'
 
-class Reconcile extends Base
+class Reconcile extends Request
 
   getTransactionType: ->
     'wpf_reconcile'

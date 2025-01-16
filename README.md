@@ -2155,6 +2155,7 @@ Transaction Types
 
 ```text
 african_mobile_sale
+african_mobile_payout
 apple_pay
 argencard
 aura
@@ -2179,6 +2180,14 @@ chargeback_by_date
 credit
 davivienda
 efecty
+eps
+itau
+multibanco
+ideal
+elo
+pse
+post_finance
+santander
 fraud_report
 fraud_report_by_date
 google_pay
@@ -2194,6 +2203,7 @@ p24
 pago_facil
 pay_pal
 payout
+payu
 pix
 poli
 ppro
@@ -2205,12 +2215,14 @@ refund
 retrieval
 retrieval_by_date
 russian_mobile_sale
+russian_mobile_payout
 sale
 sale3d
 sdd_init_recurring_sale
 sdd_sale
 tarjeta_shopping
 void
+webpay
 wpf_create
 wpf_reconcile
 ```
@@ -2219,6 +2231,7 @@ Transaction Parameters
 ----------------------
 `wpf_create.transaction_types`:
   * `african_mobile_sale`
+  * `african_mobile_payout`
   * `alipay`
   * `apple_pay`
   * `argencard`
@@ -2238,6 +2251,7 @@ Transaction Parameters
   * `cencosud`
   * `container_store`
   * `davivienda`
+  * `multibanco`
   * `e_wallet`
   * `efecty`
   * `elo`
@@ -2267,6 +2281,7 @@ Transaction Parameters
   * `payu`
   * `poli`
   * `post_finance`
+  * `santander`
   * `ppro`
     * `bcmc`
     * `eps`
@@ -2279,6 +2294,7 @@ Transaction Parameters
   * `radpagos`
   * `rapi_pago`
   * `russian_mobile_sale`
+  * `russian_mobile_payout`
   * `safetypay`
   * `sale3d`
   * `sale`

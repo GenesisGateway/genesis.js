@@ -21,6 +21,7 @@ CSEncription           = require '../../../examples/attributes/client_side_encry
 FundingAttributes      = require '../../../examples/attributes/financial/funding_attributes'
 AccountOwnerAttributes = require '../../../examples/attributes/financial/account_owner_attributes'
 MpiParams              = require '../../../examples/attributes/threeds/v1/mpi_params'
+UCOF                   = require '../../../examples/attributes/ucof'
 
 describe 'Authorize 3D Transaction', ->
 
@@ -51,3 +52,4 @@ describe 'Authorize 3D Transaction', ->
   FundingAttributes()
   AccountOwnerAttributes()
   MpiParams()
+  UCOF()

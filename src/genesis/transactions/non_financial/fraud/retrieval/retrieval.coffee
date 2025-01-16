@@ -1,7 +1,7 @@
 
-Base = require '../../../base'
+Request = require '../../../../request'
 
-class Retrieval extends Base
+class Retrieval extends Request
 
   getTransactionType: ->
     'retrieval_request_request'

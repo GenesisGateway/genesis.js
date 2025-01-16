@@ -1,3 +1,24 @@
+3.3.1
+-----
+* Added EPS transaction request
+* Added Itau transaction request
+* Added Multibanco transaction request
+* Added African Mobile Payout transaction request
+* Added iDeal transaction request
+* Added PayU transaction request
+* Added Russian Mobile Payout transaction request
+* Added Elo transaction request
+* Added POLi transaction request
+* Added PSE transaction request
+* Added PostFinance transaction request
+* Added WebPay transaction request
+* Added Santander transaction request
+* Added UCOF parameters support to the following transaction requests:
+  * Authorize 3D
+  * Sale 3D
+  * Init Recurring Sale 3D
+* Fixed Method Continue request endpoint build issue caused by the previously added Manual Configuration feature
+
 3.3.0
 -----
 * Added NZD currency support in Online Banking PayIn

@@ -1,0 +1,82 @@
+{
+  "$id": "https://genesis.js/elo",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_type",
+    "transaction_id",
+    "return_success_url",
+    "return_failure_url",
+    "amount",
+    "currency",
+    "consumer_reference",
+    "national_id",
+    "customer_email",
+    "billing_address"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "elo"
+        }
+      ]
+    },
+    "transaction_id": {},
+    "usage": {},
+    "remote_ip": {},
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "amount": {},
+    "currency": {},
+    "birth_date": {
+      "$ref": "/definitions/definitions#birth_date"
+    },
+    "consumer_reference": {
+      "$ref": "/definitions/definitions#consumer_reference"
+    },
+    "national_id": {
+      "$ref": "/definitions/definitions#national_id"
+    },
+    "customer_email": {},
+    "billing_address": {
+      "required": [
+        "country"
+      ],
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "properties": {
+            "country": {
+              "const": "BR"
+            }
+          }
+        }
+      ]
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    }
+  }
+}

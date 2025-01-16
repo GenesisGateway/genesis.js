@@ -1,32 +1,43 @@
 _                 = require 'underscore'
-fs                = require 'fs'
-path              = require 'path'
-util              = require 'util'
-https             = require 'https'
-Response          = require './response'
-Promise           = require 'bluebird'
-Builders          = require './builders/builders'
 AxiosApi          = require './network/axios_api'
-Validator         = require './transactions/validator'
+Builders          = require './builders/builders'
+Currency          = require './helpers/currency'
 Domains           = require './constants/domains'
 Environments      = require './constants/environments'
+https             = require 'https'
 JsonUtils         = require './utils/json_utils'
+util              = require 'util'
+Promise           = require 'bluebird'
+Response          = require './response'
+Validator         = require './transactions/validator'
 
 class Request
 
   METHOD_POST : 'POST'
   METHOD_PUT  : 'PUT'
 
-  constructor: (builderInterface = 'xml', configuration) ->
+  constructor: (@params, configuration, builderInterface = 'xml') ->
     @builderInterface = builderInterface
-    @builderContext = (new Builders(@builderInterface))
-    @response = new Response
-    @configuration = configuration
+    @builderContext   = (new Builders(@builderInterface))
+    @response         = new Response
+    @configuration    = configuration
+    @axiosApi         = new AxiosApi
+    @currency         = new Currency
 
   initConfiguration: ->
     @loadBuilderInterface()
 
+  setData: (@params) ->
+    @
+
+  getData: () ->
+    @params
+
   getArguments: ->
+    trx:
+      @getTrxData()
+    url:
+      @getUrl()
 
   getUrl: ->
     app:
@@ -35,6 +46,8 @@ class Request
       ''
     token:
       ''
+
+  getTrxData: ->
 
   loadBuilderInterface: ->
     switch @builderInterface
@@ -65,7 +78,11 @@ class Request
     Send the transaction to the Gateway
   ###
   send: () ->
-    configValidation = @validateConfiguration(@getUrl().app)
+    if !@isValid()
+      return Promise.reject @getValidationErrorResponse()
+
+    params           = @getArguments()
+    configValidation = @validateConfiguration(params.url.app)
 
     if typeof configValidation == "object"
       return Promise.reject configValidation
@@ -73,15 +90,10 @@ class Request
     if !@isValidConfig()
       return Promise.reject @getValidationErrorResponse()
 
-    if !@isValid()
-      return Promise.reject @getValidationErrorResponse()
-
-    params        = @getArguments()
     requestConfig = @initConfiguration @builderInterface
     data          = @builderContext.getBuilder params.trx
-    axiosApi      = new AxiosApi
 
-    axiosApi.request_query((@formatUrl params.url), requestConfig, data)
+    @axiosApi.request_query((@formatUrl params.url), requestConfig, data)
 
   validateConfiguration: (app) ->
     if !JsonUtils.isValidObjectChain(Domains.SUBDOMAINS, app)

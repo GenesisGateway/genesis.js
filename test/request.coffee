@@ -110,8 +110,9 @@ describe 'Request', ->
     assert.typeOf result, 'object'
 
   it 'when invalid app with proper response', ->
+    sinon.stub(@request, 'isValid').returns(true)
     @params.url.app = "fake"
-    sinon.stub(@request, 'getUrl').returns(@params.url)
+    sinon.stub(@request, 'getArguments').returns(@params)
     output = @request.getEnvironmentErrorMessage()
 
     @request

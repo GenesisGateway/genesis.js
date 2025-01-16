@@ -21,6 +21,9 @@
     },
     {
       "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
     }
   ],
   "properties": {

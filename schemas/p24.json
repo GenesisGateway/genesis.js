@@ -4,14 +4,15 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "transaction_id",
     "transaction_type",
+    "transaction_id",
     "remote_ip",
     "return_success_url",
     "return_failure_url",
     "amount",
     "currency",
-    "customer_email"
+    "customer_email",
+    "billing_address"
   ],
   "allOf": [
     {
@@ -22,10 +23,33 @@
     },
     {
       "$ref": "/definitions/attributes/financial/payment"
+    },
+    {
+      "if": {
+        "properties": {
+          "currency": {
+            "enum": ["EUR", "PLN"]
+          }
+        }
+      },
+      "then": {
+        "required": ["bank_code"],
+        "properties": {
+          "bank_code": {
+            "oneOf": [
+              {
+                "enum": [154, 94, 178, 1000, 135, 146, 102, 177, 25]
+              },
+              {
+                "enum": ["154", "94", "178", "1000", "135", "146", "102", "177", "25"]
+              }
+            ]
+          }
+        }
+      }
     }
   ],
   "properties": {
-    "transaction_id": {},
     "transaction_type": {
       "allOf": [
         {
@@ -36,30 +60,23 @@
         }
       ]
     },
-    "remote_ip": {},
+    "transaction_id": {},
     "usage": {},
+    "remote_ip": {},
     "return_success_url": {
-      "$ref": "/definitions/definitions#url"
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after successful payment."
     },
     "return_failure_url": {
-      "$ref": "/definitions/definitions#url"
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
     },
     "amount": {},
     "currency": {},
     "customer_email": {},
     "customer_phone": {},
     "bank_code": {
-      "oneOf": [
-        { "const": "154", "title": "BLIK - PSP" },
-        { "const": "94", "title": "EuroBank" },
-        { "const": "178", "title": "Przekaz tradycyjny" },
-        { "const": "1000", "title": "Przekaz/Przelew tradycyjny" },
-        { "const":  "135", "title": "Płac ̨e z IKO" },
-        { "const":  "146", "title": "Płac ̨e z Orange" },
-        { "const":  "102", "title":  "Raiffeisen Bank PBL" },
-        { "const":  "177", "title": "U ̇zyj przedpłaty" },
-        { "const":  "25", "title": "mBank-mTransfer" }
-      ]
+      "type": ["string", "integer"]
     },
     "billing_address": {
       "allOf": [
@@ -67,16 +84,7 @@
           "$ref": "/definitions/attributes/customer/address#billing"
         },
         {
-          "required": ["country"],
-          "properties": {
-            "country": {
-              "enum": [
-                "AD", "AT", "BE", "CY", "CZ", "DK", "EE", "FI", "FR", "EL", "ES", "NL", "IE", "IS", "LT", "LV", "LU",
-                "MT", "DE", "NO", "PL", "PT", "SM", "SK", "SI", "CH", "SE", "HU", "GB", "IT", "US", "CA", "JP", "UA",
-                "BY", "RU"
-              ]
-            }
-          }
+          "required": ["country"]
         }
       ]
     },

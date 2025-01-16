@@ -1,18 +1,17 @@
 
-Base                 = require '../base'
+Request              = require '../../request'
 _                    = require 'underscore'
-config               = require 'config'
 ColorDepth           = require '../../helpers/color_depth'
 JsonUtils            = require '../../utils/json_utils'
 SmartRouter          = require '../../helpers/smart_router'
 
-class FinancialBase extends Base
+class FinancialBase extends Request
 
   constructor: (params, configuration) ->
     super params, configuration
-    @configuration = configuration
+    @configuration     = configuration
 
-    @smartRouterParams      = (new SmartRouter).getSmartRouterUrlParams()
+    @smartRouterParams = (new SmartRouter).getSmartRouterUrlParams()
 
     if JsonUtils.isValidObjectChain(params, 'threeds_v2_params.browser.color_depth')
       @params.threeds_v2_params.browser.color_depth =
@@ -30,7 +29,6 @@ class FinancialBase extends Base
       @configuration.getCustomerToken()
 
   getTrxData: ->
-
     # convert amount to minor units
     if @params.amount and @params.currency
       @params.amount = @currency.convertToMinorUnits @params.amount, @params.currency
@@ -52,6 +50,13 @@ class FinancialBase extends Base
           'transaction_type':
            this.getTransactionType()
         }
+    )
+
+  getData: () ->
+    _.extend(
+      {},
+      @params,
+      transaction_type: @getTransactionType()
     )
 
 module.exports = FinancialBase

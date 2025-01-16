@@ -10,7 +10,8 @@
     "amount",
     "currency",
     "return_success_url",
-    "return_failure_url"
+    "return_failure_url",
+    "billing_address"
   ],
   "allOf": [
     {

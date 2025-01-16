@@ -19,6 +19,7 @@ TravelData              = require '../../../../examples/attributes/financial/tra
 AccountOwnerAttributes  = require '../../../../examples/attributes/financial/account_owner_attributes'
 MpiParams               = require '../../../../examples/attributes/threeds/v1/mpi_params'
 FundingAttributes       = require '../../../../examples/attributes/financial/funding_attributes'
+UCOF                    = require '../../../../examples/attributes/ucof'
 
 describe 'InitRecurringSale 3D Transaction', ->
 
@@ -46,3 +47,4 @@ describe 'InitRecurringSale 3D Transaction', ->
   AccountOwnerAttributes()
   MpiParams()
   FundingAttributes()
+  UCOF()

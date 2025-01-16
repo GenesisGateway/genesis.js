@@ -1,8 +1,8 @@
 
-Base   = require '../../base'
-config = require 'config'
+Request = require '../../../request'
+config  = require 'config'
 
-class Reconcile extends Base
+class Reconcile extends Request
 
   constructor: (params, configuration) ->
     super params, configuration

@@ -1,7 +1,7 @@
 
-Base = require '../base'
+Request = require '../../request'
 
-class Blacklist extends Base
+class Blacklist extends Request
 
   getTransactionType: ->
     'blacklist_request'

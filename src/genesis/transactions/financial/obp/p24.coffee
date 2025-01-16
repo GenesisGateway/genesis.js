@@ -1,5 +1,5 @@
 
-AlternativeBase  = require './alternative_base'
+AlternativeBase  = require '../alternative/alternative_base'
 TransactionTypes = require '../../../helpers/transaction/types'
 
 class P24 extends AlternativeBase

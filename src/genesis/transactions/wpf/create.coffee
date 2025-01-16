@@ -1,12 +1,11 @@
 
-Base             = require '../base'
+Request          = require '../../request'
 util             = require 'util'
 _                = require 'underscore'
-AmountValidator  = require '../../helpers/validators/amount_validator'
 TransactionTypes = require '../../helpers/transaction/types'
 i18n             = require '../../helpers/i18n'
 
-class Create extends Base
+class Create extends Request
 
   constructor: (params, configuration) ->
     super params, configuration
@@ -27,6 +26,13 @@ class Create extends Base
   setData: (@params) ->
     @setLocale()
     @
+
+  getData: () ->
+    _.extend(
+      {},
+      @params,
+      transaction_type: @getTransactionType()
+    )
 
   getUrl: ->
     app:

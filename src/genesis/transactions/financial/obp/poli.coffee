@@ -1,8 +1,7 @@
-
-AlternativeBase  = require './alternative_base'
+FinancialBase    = require '../financial_base'
 TransactionTypes = require '../../../helpers/transaction/types'
 
-class Poli extends AlternativeBase
+class Poli extends FinancialBase
 
   getTransactionType: ->
     TransactionTypes.POLI

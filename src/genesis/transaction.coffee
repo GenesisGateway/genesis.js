@@ -10,6 +10,7 @@ Authorize3d         = require './transactions/financial/cards/authorize3d'
 Bancontact          = require './transactions/financial/cards/bancontact'
 Cabal               = require './transactions/financial/cards/cabal'
 Cencosud            = require './transactions/financial/cards/cencosud'
+Elo                 = require './transactions/financial/cards/elo'
 Sale                = require './transactions/financial/cards/sale'
 Sale3d              = require './transactions/financial/cards/sale3d'
 Cancel              = require './transactions/financial/cancel'
@@ -60,8 +61,6 @@ WpfReconcile        = require './transactions/wpf/reconcile'
 ###
   Financial Alternative transactions
 ###
-P24                 = require './transactions/financial/alternative/p24'
-Poli                = require './transactions/financial/alternative/poli'
 Paysafecard         = require './transactions/financial/alternative/paysafecard'
 Sofort              = require './transactions/financial/alternative/sofort'
 PPRO                = require './transactions/financial/alternative/ppro'
@@ -84,6 +83,17 @@ Bancomer            = require './transactions/financial/obp/bancomer'
 BancoDoBrasil       = require './transactions/financial/obp/banco_do_brasil'
 Bradesco            = require './transactions/financial/obp/bradesco'
 Davivienda          = require './transactions/financial/obp/davivienda'
+Eps                 = require './transactions/financial/obp/eps'
+Itau                = require './transactions/financial/obp/itau'
+Multibanco          = require './transactions/financial/obp/multibanco'
+P24                 = require './transactions/financial/obp/p24'
+Ideal               = require './transactions/financial/obp/ideal'
+Payu                = require './transactions/financial/obp/payu'
+Poli                = require './transactions/financial/obp/poli'
+Pse                 = require './transactions/financial/obp/pse'
+PostFinance         = require './transactions/financial/obp/post_finance'
+Santander           = require './transactions/financial/obp/santander'
+Webpay              = require './transactions/financial/obp/webpay'
 
 ###
   Direct Debit
@@ -101,6 +111,18 @@ ApplePay          = require './transactions/financial/mobile/apple_pay'
 AfricanMobileSale = require './transactions/financial/mobile/african_mobile_sale'
 PayPal            = require './transactions/financial/wallets/pay_pal'
 RussianMobileSale = require './transactions/financial/mobile/russian_mobile_sale'
+
+###
+  Financial Payout transactions
+###
+AfricanMobilePayout = require './transactions/financial/payout/african_mobile_payout'
+
+
+###
+  Financial payout transactions
+###
+RussianMobilePayout = require './transactions/financial/payout/russian_mobile_payout'
+
 
 ###
   Vouchers
@@ -146,7 +168,6 @@ class Transaction
   cashu: (params) ->
     new CashU(params, @config)
 
-
   ###
     Financial transactions
   ###
@@ -173,6 +194,9 @@ class Transaction
 
   credit: (params) ->
     new Credit(params, @config)
+
+  elo: (params) ->
+    new Elo(params, @config)
 
   init_recurring_sale: (params) ->
     new InitRecurringSale(params, @config)
@@ -278,6 +302,12 @@ class Transaction
     new RussianMobileSale(params, @config)
 
   ###
+    Financial payout transactions
+  ###
+  russian_mobile_payout: (params) ->
+    new RussianMobilePayout(params, @config)
+
+  ###
     Financial OBP transactions
   ###
   wechat: (params) ->
@@ -304,6 +334,30 @@ class Transaction
   davivienda: (params) ->
     new Davivienda(params, @config)
 
+  eps: (params) ->
+    new Eps(params, @config)
+
+  itau: (params) ->
+    new Itau(params, @config)
+
+  multibanco: (params) ->
+    new Multibanco(params, @config)
+
+  ideal: (params) ->
+    new Ideal(params, @config)
+
+  payu: (params) ->
+    new Payu(params, @config)
+
+  pse: (params) ->
+    new Pse(params, @config)
+
+  post_finance: (params) ->
+    new PostFinance(params, @config)
+
+  santander: (params) ->
+    new Santander(params, @config)
+
   online_banking_payin: (params) ->
     new OnlineBankingPayin(params, @config)
 
@@ -318,6 +372,15 @@ class Transaction
 
   banco_do_brasil: (params) ->
     new BancoDoBrasil(params, @config)
+
+  webpay: (params) ->
+    new Webpay(params, @config)
+
+  ###
+    Financial Payout transactions
+  ###
+  african_mobile_payout: (params) ->
+    new AfricanMobilePayout(params, @config)
 
   ###
     Financial Wallets transactions

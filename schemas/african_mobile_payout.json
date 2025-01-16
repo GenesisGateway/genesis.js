@@ -1,0 +1,162 @@
+{
+  "$id": "https://genesis.js/african_mobile_payout",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_type",
+    "transaction_id",
+    "return_success_url",
+    "return_failure_url",
+    "amount",
+    "currency",
+    "operator",
+    "target",
+    "customer_phone",
+    "billing_address"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    },
+    {
+      "if": {
+        "properties": { "billing_address": { "properties": { "country": { "enum": [ "GH" ] } } } }
+      },
+      "then": {
+        "allOf": [
+          { "properties": { "currency": { "const": "GHS" } } },
+          { "properties": { "operator": { "enum": ["AIRTEL", "MTN", "TIGO", "VODACOM"] } } }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": { "billing_address": { "properties": { "country": { "enum": [ "KE" ] } } } }
+      },
+      "then": {
+        "allOf": [
+          { "properties": { "currency": { "const": "KES" } } },
+          { "properties": { "operator": { "enum": ["AIRTEL", "SAFARICOM"] } } }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": { "billing_address": { "properties": { "country": { "enum": [ "MZ" ] } } } }
+      },
+      "then": {
+        "allOf": [
+          { "properties": { "currency": { "const": "MZN" } } },
+          { "properties": { "operator": { "enum": ["MOVITEL", "VODACOM"] } } }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": { "billing_address": { "properties": { "country": { "enum": [ "RW" ] } } } }
+      },
+      "then": {
+        "allOf": [
+          { "properties": { "currency": { "const": "RWF" } } },
+          { "properties": { "operator": { "enum": ["MTN", "TIGO"] } } }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": { "billing_address": { "properties": { "country": { "enum": [ "TZ" ] } } } }
+      },
+      "then": {
+        "allOf": [
+          { "properties": { "currency": { "const": "TZS" } } },
+          { "properties": { "operator": { "enum": ["AIRTEL", "TIGO", "VODACOM"] } } }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": { "billing_address": { "properties": { "country": { "enum": [ "UG" ] } } } }
+      },
+      "then": {
+        "allOf": [
+          { "properties": { "currency": { "const": "UGX" } } },
+          { "properties": { "operator": { "enum": ["AIRTEL", "MTN"] } } }
+        ]
+      }
+    }
+  ],
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "african_mobile_payout"
+        }
+      ]
+    },
+    "remote_ip": {},
+    "usage": {},
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after successful payment."
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "amount": {
+      "$ref": "/definitions/attributes/financial/payment#amount"
+    },
+    "currency": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/financial/payment#currency"
+        },
+        {
+          "enum": ["GHS", "KES", "MZN", "RWF", "TZS", "UGX"]
+        }
+      ]
+    },
+    "operator": {
+      "type": "string",
+      "description": "Name of the Mobile network operator (MNO) which should process the transaction",
+      "enum": [ "AIRTEL", "MTN", "MOVITEL", "SAFARICOM", "TIGO", "VODACOM" ]
+    },
+    "target": {
+      "type": "string",
+      "description": "Number of the Paybill for which the transaction is intended"
+    },
+    "customer_email": {},
+    "customer_phone": {},
+    "billing_address": {
+      "required": ["country"],
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "properties": {
+            "country": {
+              "enum": [
+                "GH", "KE", "MZ", "RW", "TZ", "UG"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    }
+  }
+}

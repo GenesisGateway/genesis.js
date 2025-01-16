@@ -1,7 +1,7 @@
 
-Base = require '../../../base'
+Request = require '../../../../request'
 
-class Chargeback extends Base
+class Chargeback extends Request
 
   getTransactionType: ->
     'chargeback_request'

@@ -270,6 +270,54 @@ class Types
   @DAVIVIENDA = 'davivienda'
 
   ###
+    Itau is a real-time online bank transfer method and a virtual card.
+    Itau transaction will be soon deprecated. Please start using Online Banking transaction with IT bank code instead.
+  ###
+  @ITAU = 'itau'
+
+  ###
+    Multibanco allows Portuguese shoppers to do payments through the Internet by using virtual credit cards
+  ###
+  @MULTIBANCO = 'multibanco'
+
+  ###
+    iDeal is the most popular payment method in the Netherlands and is a real-time bank transfer system
+    covering all major Dutch consumer banks.
+  ###
+  @IDEAL = 'ideal'
+
+  ###
+    PayU is a payment method for Czech Republic and Poland
+  ###
+  @PAYU = 'payu'
+
+  ###
+    PSE transaction will be soon deprecated. Please start using Online Banking transaction with PS bank code instead.
+   *
+    PSE (Pagos Seguros en Linea) is the preferred alternative payment solution in Colombia.The solution consists of an
+    interface that offers the client the option to pay for their online purchases in cash, directing it to their
+    online banking.
+  ###
+  @PSE = 'pse'
+
+  ###
+    PostFinance is an online banking provider in Switzerland
+   *
+    PostFinance transaction will be soon deprecated. Please start using Online Banking transaction with
+    PF bank code instead.
+  ###
+  @POST_FINANCE = 'post_finance'
+
+  ###
+    Santander transaction will be soon deprecated. Please start using Online Banking transaction with
+    SN bank code instead.
+   *
+     Santander is an online bank transfer for ecommerce purchases. Consumers use their trusted home banking environment,
+     merchants benefit from payment guarantee and swift settlement.
+  ###
+  @SANTANDER = 'santander'
+
+  ###
     Citadel is an oBeP-style alternative payment method.
     It offers merchants the ability to send/receive consumer payments via the use of bank transfer
     functionality available from the consumer’s online banking website.
@@ -317,6 +365,11 @@ class Types
     your ebank account.
   ###
   @PAYSEC_PAYOUT = 'paysec_payout'
+
+  ###
+     EPS is the main bank transfer payment method in Austria. Every transaction is guaranteed via the scheme.
+  ###
+  @EPS = 'eps'
 
   ###
     Google Pay allows customer to purchase with credit and debit cards linked to their
@@ -434,6 +487,29 @@ class Types
   ###
   @REDPAGOS = 'redpagos'
 
+  ###
+    African Mobile Payout, or otherwise known as Disbursement, is an APM used to process Mobile network operator payments.
+    It is an async payment method and will be approved once the payment is processed with the Mobile network operator.
+  ###
+  @AFRICAN_MOBILE_PAYOUT = 'african_mobile_payout'
+
+  ###
+    Russian Mobile Payout, or otherwise known as Disbursement, is an APM used to process Mobile network operator payments.
+    It is an async payment method and will be approved once the payment is processed by the Mobile network operator.
+    Notice: Russian Mobile Payout does not support refund and void.
+  ###
+  @RUSSIAN_MOBILE_PAYOUT = 'russian_mobile_payout'
+
+  ###
+     Elo is a local Brazilian payment card
+  ###
+  @ELO = 'elo'
+
+  ###
+     Webpay is a Chilean real-time bank transfer method.
+  ###
+  @WEBPAY = 'webpay'
+
   getTypes: ->
     value for key, value of @constructor
 
@@ -449,6 +525,7 @@ class Types
       @constructor.BANCONTACT,
       @constructor.CABAL,
       @constructor.CENCOSUD,
+      @constructor.ELO,
       @constructor.SALE,
       @constructor.SALE_3D,
       @constructor.INIT_RECURRING_SALE,
@@ -475,11 +552,19 @@ class Types
       @constructor.BANCOMER,
       @constructor.BRADESCO,
       @constructor.DAVIVIENDA,
+      @constructor.ITAU,
+      @constructor.MULTIBANCO,
+      @constructor.IDEAL,
+      @constructor.PAYU,
+      @constructor.PSE,
+      @constructor.POST_FINANCE,
+      @constructor.SANTANDER,
       @constructor.WECHAT,
       @constructor.MY_BANK,
       @constructor.ALIPAY,
       @constructor.PAYSEC_PAYIN,
       @constructor.PAYSEC_PAYOUT,
+      @constructor.EPS,
       @constructor.IDEBIT_PAYIN,
       @constructor.AFRICAN_MOBILE_SALE,
       @constructor.BANCO_DO_BRASIL,
@@ -498,7 +583,10 @@ class Types
       @constructor.PAGO_FACIL,
       @constructor.REDPAGOS,
       @constructor.NARANJA,
+      @constructor.TARJETA_SHOPPING,
+      @constructor.AFRICAN_MOBILE_PAYOUT
       @constructor.TARJETA_SHOPPING
+      @constructor.RUSSIAN_MOBILE_PAYOUT
     ]
 
   isValidWPFType: (type) ->

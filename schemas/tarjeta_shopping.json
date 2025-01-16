@@ -12,7 +12,8 @@
     "currency",
     "consumer_reference",
     "national_id",
-    "customer_email"
+    "customer_email",
+    "billing_address"
   ],
   "allOf": [
     {

@@ -4,13 +4,15 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "transaction_id",
     "transaction_type",
+    "transaction_id",
+    "remote_ip",
     "return_success_url",
     "return_failure_url",
     "amount",
     "currency",
-    "customer_email"
+    "customer_email",
+    "billing_address"
   ],
   "allOf": [
     {
@@ -24,7 +26,6 @@
     }
   ],
   "properties": {
-    "transaction_id": {},
     "transaction_type": {
       "allOf": [
         {
@@ -35,8 +36,17 @@
         }
       ]
     },
-    "remote_ip": {},
+    "transaction_id": {},
     "usage": {},
+    "remote_ip": {},
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
     "amount": {},
     "currency": {
       "allOf": [
@@ -69,14 +79,6 @@
     },
     "shipping_address": {
       "$ref": "/definitions/attributes/customer/address#shipping"
-    },
-    "return_success_url": {
-      "$ref": "/definitions/definitions#url",
-      "description": "URL where customer is sent to after unsuccessful payment."
-    },
-    "return_failure_url": {
-      "$ref": "/definitions/definitions#url",
-      "description": "URL where customer is sent to after unsuccessful payment."
     },
     "use_smart_router": {
       "$ref": "/definitions/definitions#use_smart_router"

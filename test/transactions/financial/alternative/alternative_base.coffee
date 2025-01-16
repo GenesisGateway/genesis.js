@@ -1,9 +1,11 @@
 FinancialBase = require '../financial_base'
+RequiredBillingAddress = require '../../../examples/attributes/required_billing_address'
 _             = require 'underscore'
 
 AlternativeBase = () ->
 
   FinancialBase()
+  RequiredBillingAddress()
 
   context 'with Alternative Base request', ->
 
@@ -13,7 +15,9 @@ AlternativeBase = () ->
         # Skips for PPRO transaction type
         if not _.contains(@transaction.getData(), 'ppro', 'transaction_type') and
            not _.contains(@transaction.getData(), 'poli', 'transaction_type') and
-           not _.contains(@transaction.getData(), 'sofort', 'transaction_type')
+           not _.contains(@transaction.getData(), 'sofort', 'transaction_type') and
+           not _.contains(@transaction.getData(), 'santander', 'transaction_type') and
+           not _.contains(@transaction.getData(), 'webpay', 'transaction_type')
 
           data = _.clone(@data)
           delete data.remote_ip
