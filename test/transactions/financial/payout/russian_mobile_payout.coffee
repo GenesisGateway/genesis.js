@@ -2,16 +2,17 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
+FakeConfig         = require path.resolve './test/transactions/fake_config'
 FakeData           = require path.resolve './test/transactions/fake_data'
+FinancialBase      = require path.resolve './test/transactions/financial/financial_base'
 Transaction        =
   require path.resolve './src/genesis/transactions/financial/payout/russian_mobile_payout'
-FinancialBase      = require path.resolve './test/transactions/financial/financial_base'
 
 describe 'Russian Mobile Payout Transaction', ->
 
   beforeEach ->
     fakeData     = new FakeData
-    @transaction = new Transaction()
+    @transaction = new Transaction(@data, FakeConfig.getConfig())
 
     @data                         = fakeData.getSimpleData()
     @data.return_success_url      = faker.internet.url()

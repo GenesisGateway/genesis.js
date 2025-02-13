@@ -2,16 +2,17 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
+FakeConfig         = require path.resolve './test/transactions/fake_config'
 FakeData           = require '../../fake_data'
-Transaction        = require path.resolve './src/genesis/transactions/financial/obp/my_bank'
 FinancialBase      = require '../financial_base'
+Transaction        = require path.resolve './src/genesis/transactions/financial/obp/my_bank'
 
 describe 'MyBank Transaction', ->
 
   beforeEach ->
     @data                     = (new FakeData).getMinimumData()
 
-    @data.usage                   = '40208 concert tickets'
+    @data.usage               = '40208 concert tickets'
     @data.remote_ip           = faker.internet.ip()
     @data.return_success_url  = faker.internet.url()
     @data.return_failure_url  = faker.internet.url()
@@ -41,7 +42,7 @@ describe 'MyBank Transaction', ->
       country: 'AR'
     }
 
-    @transaction              = new Transaction()
+    @transaction              = new Transaction(@data, FakeConfig.getConfig())
 
   context 'with valid request', ->
 

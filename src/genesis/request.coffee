@@ -1,20 +1,18 @@
-_                 = require 'underscore'
-AxiosApi          = require './network/axios_api'
-Builders          = require './builders/builders'
-Currency          = require './helpers/currency'
-Domains           = require './constants/domains'
-Environments      = require './constants/environments'
-https             = require 'https'
-JsonUtils         = require './utils/json_utils'
-util              = require 'util'
-Promise           = require 'bluebird'
-Response          = require './response'
-Validator         = require './transactions/validator'
+_         = require 'underscore'
+AxiosApi  = require './network/axios_api'
+Builders  = require './builders/builders'
+Currency  = require './helpers/currency'
+https     = require 'https'
+Promise   = require 'bluebird'
+Response  = require './response'
+util      = require 'util'
+Validator = require './transactions/validator'
 
 class Request
 
   METHOD_POST : 'POST'
   METHOD_PUT  : 'PUT'
+  METHOD_GET  : 'GET'
 
   constructor: (@params, configuration, builderInterface = 'xml') ->
     @builderInterface = builderInterface
@@ -23,6 +21,7 @@ class Request
     @configuration    = configuration
     @axiosApi         = new AxiosApi
     @currency         = new Currency
+    @validator        = new Validator @
 
   initConfiguration: ->
     @loadBuilderInterface()
@@ -51,28 +50,22 @@ class Request
 
   loadBuilderInterface: ->
     switch @builderInterface
-      when 'xml'
+      when @builderContext.XML
         @initXmlConfiguration()
-      when 'form'
+      when @builderContext.FORM
         @initFormConfiguration()
+      else
+        @initGetConfiguration()
 
   ###
     Format and return the endpoint URL based on the transaction parameters
   ###
   formatUrl: (params) ->
-    if params.token
-      util.format '%s://%s.%s/%s/%s'
-      , @configuration.getGatewayProtocol()
-      , @getURLEnvironment(params.app)
-      , @configuration.getGatewayHostname()
-      , params.path
-      , params.token
-    else
-      util.format '%s://%s.%s/%s'
-      , @configuration.getGatewayProtocol()
-      , @getURLEnvironment(params.app)
-      , @configuration.getGatewayHostname()
-      , params.path
+    util.format '%s://%s.%s/%s'
+    , @configuration.getGatewayProtocol()
+    , @configuration.getSubDomain(params.app)
+    , @configuration.getGatewayHostname()
+    , if params.token? then "#{params.path}/#{params.token}" else params.path
 
   ###
     Send the transaction to the Gateway
@@ -81,25 +74,11 @@ class Request
     if !@isValid()
       return Promise.reject @getValidationErrorResponse()
 
-    params           = @getArguments()
-    configValidation = @validateConfiguration(params.url.app)
-
-    if typeof configValidation == "object"
-      return Promise.reject configValidation
-
-    if !@isValidConfig()
-      return Promise.reject @getValidationErrorResponse()
-
+    params        = @getArguments()
     requestConfig = @initConfiguration @builderInterface
     data          = @builderContext.getBuilder params.trx
 
     @axiosApi.request_query((@formatUrl params.url), requestConfig, data)
-
-  validateConfiguration: (app) ->
-    if !JsonUtils.isValidObjectChain(Domains.SUBDOMAINS, app)
-      return @getEnvironmentErrorMessage()
-
-    return true
 
   initXmlConfiguration: ->
     version = @configuration.getVersion()
@@ -113,10 +92,7 @@ class Request
     headers:
       'Content-Type': 'text/xml'
       'User-Agent': 'Genesis Node.js client v' + version
-      'Authorization': 'Basic ' +
-        Buffer.from(
-          @configuration.getCustomerUsername() + ':' + @configuration.getCustomerPassword()
-        ).toString('base64')
+      'Authorization': @getAuthorizationHeader()
     timeout: Number(@configuration.getGatewayTimeout())
     validateStatus: (status) ->
       status >= 200 && status < 300
@@ -126,21 +102,23 @@ class Request
     headers:
       'Content-Type': 'application/x-www-form-urlencoded'
 
-  getURLEnvironment: (app) ->
-    return if (@configuration.getGatewayTesting())
-    then Domains.SUBDOMAINS[app][Environments.STAGING]
-    else Domains.SUBDOMAINS[app][Environments.PRODUCTION]
+  initGetConfiguration: ->
+    method: @METHOD_GET
+    headers:
+      'User-Agent': 'Genesis Node.js client v' + @configuration.getVersion()
+      'Authorization': @getAuthorizationHeader()
 
   isValid: () ->
+    if !@validator.isValidConfig()
+      return false
+
     # Sanitize the parameters
     @sanitizeParams(@params)
 
-    @validator = new Validator @
-    return @validator.isValid()
+    if !@validator.isValid()
+      return false
 
-  isValidConfig: () ->
-    @validator = new Validator @
-    return @validator.isValidConfig()
+    return true
 
   getErrors: ->
     @validator.getErrors()
@@ -150,13 +128,6 @@ class Request
       "status": "INVALID_INPUT"
       "message": "Please verify the transaction parameters and check input data for errors.",
       "response": @getErrors()
-    }
-
-  getEnvironmentErrorMessage: ->
-    return {
-      "status": "INVALID_INPUT"
-      "message": "Please verify request APP parameters. Use one for the following: " + Object.keys(Domains.SUBDOMAINS).join(", ")
-      "response": []
     }
 
   sanitizeParams: (rawParams) ->
@@ -171,5 +142,11 @@ class Request
         ) || _.isNull(value)
       )
         delete rawParams[field]
+
+  getAuthorizationHeader: ->
+    'Basic ' +
+      Buffer.from(
+        @configuration.getCustomerUsername() + ':' + @configuration.getCustomerPassword()
+      ).toString('base64')
 
 module.exports = Request

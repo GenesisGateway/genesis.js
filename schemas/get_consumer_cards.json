@@ -1,0 +1,20 @@
+{
+  "$id": "https://genesis.js/get_consumer_cards",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "consumer_id",
+    "email"
+  ],
+  "properties": {
+    "consumer_id": {
+      "$ref": "/definitions/attributes/financial/tokenization#consumer_id"
+    },
+    "email": {
+      "type": "string",
+      "description": "The consumer email address must be unique. If another consumer exists with this email address, the request will be rejected.",
+      "format": "email"
+    }
+  }
+}

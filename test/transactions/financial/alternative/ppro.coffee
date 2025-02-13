@@ -2,6 +2,7 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
+FakeConfig  = require path.resolve './test/transactions/fake_config'
 FakeData    = require '../../fake_data'
 Transaction = require path.resolve './src/genesis/transactions/financial/alternative/ppro'
 
@@ -10,9 +11,9 @@ AlternativeBase = require './alternative_base'
 describe 'PPRO Transaction', ->
 
   beforeEach ->
-    @fakeData     = new FakeData
+    @fakeData    = new FakeData
     @data        = @fakeData.getApmData()
-    @transaction = new Transaction()
+    @transaction = new Transaction(@data, FakeConfig.getConfig())
 
     _.extend(@data, @fakeData.getShippingData())
     @data['payment_type']               = 'my_bank'

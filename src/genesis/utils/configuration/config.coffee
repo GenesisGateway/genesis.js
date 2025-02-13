@@ -1,5 +1,7 @@
-_ = require 'underscore'
-FileConfiguration = require './file_configuration'
+_                   = require 'underscore'
+Domains             = require '../../constants/domains'
+Environments        = require '../../constants/environments'
+FileConfiguration   = require './file_configuration'
 ManualConfiguration = require './manual_configuration'
 
 class Config
@@ -7,7 +9,7 @@ class Config
   # Manual configuration identifier
   MANUAL: 'manual'
   # Version configuration identifier
-  VERSION: '3.3.1'
+  VERSION: '3.3.2'
 
   constructor: (@configuration) ->
     @initConfig()
@@ -27,6 +29,14 @@ class Config
       ManualConfiguration.getType()
     else
       FileConfiguration.getType()
+
+  getEnvironment: () ->
+    if @getGatewayTesting() then Environments.STAGING else Environments.PRODUCTION
+
+  getSubDomain: (sub) ->
+    if !Domains.SUBDOMAINS[sub]? then throw Error("Invalid subdomain value provided: #{sub}")
+
+    Domains.SUBDOMAINS[sub][@getEnvironment()]
 
   getCustomerUsername: () ->
     @getConfig().customer.username

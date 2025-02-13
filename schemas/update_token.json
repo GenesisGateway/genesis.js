@@ -1,0 +1,31 @@
+{
+  "$id": "https://genesis.js/update_token",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Updates the tokenized data corresponding to an existing valid token.",
+  "required": [
+    "consumer_id",
+    "email",
+    "token",
+    "token_type",
+    "card_data"
+  ],
+  "properties": {
+    "consumer_id": {
+      "$ref": "/definitions/attributes/tokenization/tokenization_attributes#consumer_id"
+    },
+    "email": {
+      "$ref": "/definitions/attributes/tokenization/tokenization_attributes#email"
+    },
+    "token": {
+      "$ref": "/definitions/attributes/tokenization/tokenization_attributes#token"
+    },
+    "token_type": {
+      "$ref": "/definitions/attributes/tokenization/tokenization_attributes#token_type"
+    },
+    "card_data": {
+      "$ref": "/definitions/attributes/tokenization/tokenization_attributes#card_data"
+    }
+  }
+}

@@ -2,6 +2,7 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
+FakeConfig         = require path.resolve './test/transactions/fake_config'
 FakeData           = require path.resolve './test/transactions/fake_data'
 Transaction        = require path.resolve (
   './src/genesis/transactions/financial/cash_payments/cash'
@@ -33,7 +34,7 @@ describe 'Cash Transaction', ->
       city: 'New York',
       country: 'US'
     }
-    @transaction                  = new Transaction()
+    @transaction                  = new Transaction(@data, FakeConfig.getConfig())
 
   context 'with invalid request', ->
 

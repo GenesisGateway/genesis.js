@@ -7,11 +7,6 @@ PaymentMethods = require '../payment/methods'
 class Types
 
   ###
-    Address Verification
-  ###
-  @AVS = 'avs';
-
-  ###
     Aura is a local Brazilian credit card.
   ###
   @AURA = 'aura'
@@ -510,6 +505,75 @@ class Types
   ###
   @WEBPAY = 'webpay'
 
+  ###
+     TransferTo Payout is an APM which provides 3 different payment services:
+     BankAccount, MobileWallet and CashPickup. Merchant sends money to a consumer.
+  ###
+  @TRANSFER_TO_PAYERS = 'transfer_to_payers'
+
+  ###
+    Creates a consumer based on email address. Optionally, one can provide billing and shipping address.
+    Addresses will be used, if none given, in Processing or WPF APIs.
+  ###
+  @CREATE_CONSUMER = 'create_consumer'
+
+  ###
+     Updates consumer email and addresses.
+  ###
+  @UPDATE_CONSUMER = 'update_consumer'
+
+  ###
+     Disable consumer from usage until further action.
+  ###
+  @DISABLE_CONSUMER = 'disable_consumer'
+
+  ###
+     Enable consumer that was disabled in the past.
+  ###
+  @ENABLE_CONSUMER = 'enable_consumer'
+
+  ###
+    Get previously tokenized card details for a consumer.
+  ###
+  @GET_CONSUMER_CARDS = 'get_consumer_cards'
+
+  ###
+     Retrieves consumer details based on consumer id or email.
+  ###
+  @RETRIEVE_CONSUMER = 'retrieve_consumer'
+
+  ###
+  Tokenizes cardholder data and issues a corresponding token. Merchants should take care to save the plain-text
+  token value in their system as once issued it is not possible to obtain it again. Attempting to tokenize the same
+  cardholder data will issue a new token. The token can be used in the Processing API instead of the cardholder data.
+  ###
+  @TOKENIZE = 'tokenize'
+
+  ###
+     Exchanges the token with the tokenized cardholder data
+  ###
+  @DETOKENIZE = 'detokenize'
+
+  ###
+      Updates the tokenized data corresponding to an existing valid token.
+  ###
+  @UPDATE_TOKEN = 'update_token'
+
+  ###
+      Validates if a token is active, owned by a merchant, etc.
+  ###
+  @VALIDATE_TOKEN = 'validate_token'
+
+  ###
+      Deletes a token.
+  ###
+  @DELETE_TOKEN = 'delete_token'
+
+  ###
+      Exchanges the token with the tokenized masked cardholder data
+  ###
+  @GET_TOKENIZED_CARD = 'get_tokenized_card'
+
   getTypes: ->
     value for key, value of @constructor
 
@@ -584,8 +648,7 @@ class Types
       @constructor.REDPAGOS,
       @constructor.NARANJA,
       @constructor.TARJETA_SHOPPING,
-      @constructor.AFRICAN_MOBILE_PAYOUT
-      @constructor.TARJETA_SHOPPING
+      @constructor.AFRICAN_MOBILE_PAYOUT,
       @constructor.RUSSIAN_MOBILE_PAYOUT
     ]
 

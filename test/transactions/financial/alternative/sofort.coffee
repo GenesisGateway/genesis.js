@@ -2,6 +2,7 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
+FakeConfig  = require path.resolve './test/transactions/fake_config'
 FakeData    = require '../../fake_data'
 Transaction = require path.resolve './src/genesis/transactions/financial/alternative/sofort'
 
@@ -11,7 +12,7 @@ describe 'Sofort Transaction', ->
 
   beforeEach ->
     @data        = (new FakeData).getApmData()
-    @transaction = new Transaction()
+    @transaction = new Transaction(@data, FakeConfig.getConfig())
 
     @data['currency']                   = 'EUR'
     @data['return_success_url']         = faker.internet.url()

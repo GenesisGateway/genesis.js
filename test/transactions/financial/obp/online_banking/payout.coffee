@@ -2,6 +2,7 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
+FakeConfig  = require path.resolve './test/transactions/fake_config'
 FakeData    = require path.resolve './test/transactions/fake_data'
 Transaction = require path.resolve (
   './src/genesis/transactions/financial/obp/online_banking/payout'
@@ -55,7 +56,7 @@ describe 'Online Banking Payout Transaction', ->
     @data.incorporation_date              = '2021-01-01'
     @data.mothers_name                    = ''
     @data.pix_key                         = ''
-    @transaction                          = new Transaction()
+    @transaction                          = new Transaction(@data, FakeConfig.getConfig())
 
   context 'with invalid request', ->
 

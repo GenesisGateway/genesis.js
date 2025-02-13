@@ -30,7 +30,7 @@
     },
     "transaction_id": {},
     "payment_type": {
-      "enum": ["authorize", "sale"],
+      "enum": ["authorize", "sale", "express"],
       "description": "Use either authorize for Authorize, sale for Sale transactions or init_recurring_sale for Initial Recurring Sale transactions."
     },
     "usage": {},

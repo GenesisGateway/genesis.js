@@ -1,0 +1,27 @@
+{
+  "$id": "https://genesis.js/get_tokenized_card",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Exchanges the token with the tokenized masked cardholder data",
+  "required": [
+    "consumer_id",
+    "email",
+    "token",
+    "token_type"
+  ],
+  "properties": {
+    "consumer_id": {
+      "$ref": "/definitions/attributes/tokenization/tokenization_attributes#consumer_id"
+    },
+    "email": {
+      "$ref": "/definitions/attributes/tokenization/tokenization_attributes#email"
+    },
+    "token": {
+      "$ref": "/definitions/attributes/tokenization/tokenization_attributes#token"
+    },
+    "token_type": {
+      "$ref": "/definitions/attributes/tokenization/tokenization_attributes#token_type"
+    }
+  }
+}

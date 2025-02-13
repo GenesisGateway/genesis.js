@@ -2,10 +2,11 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
+FakeConfig         = require path.resolve './test/transactions/fake_config'
 FakeData           = require path.resolve './test/transactions/fake_data'
+FinancialBase      = require path.resolve './test/transactions/financial/financial_base'
 Transaction        =
   require path.resolve './src/genesis/transactions/financial/payout/african_mobile_payout'
-FinancialBase      = require path.resolve './test/transactions/financial/financial_base'
 
 describe 'African Mobile Payout Transaction', ->
 
@@ -22,7 +23,7 @@ describe 'African Mobile Payout Transaction', ->
     @data.billing_address.country = 'GH'
     @data.shipping_address        = fakeData.getShippingData().shipping_address
 
-    @transaction                  = new Transaction()
+    @transaction                  = new Transaction(@data, FakeConfig.getConfig())
 
   FinancialBase()
 

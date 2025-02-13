@@ -2,9 +2,10 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
+FakeConfig    = require path.resolve './test/transactions/fake_config'
 FakeData      = require path.resolve './test/transactions/fake_data'
-Transaction   = require path.resolve './src/genesis/transactions/financial/obp/eps'
 FinancialBase = require path.resolve './test/transactions/financial/financial_base'
+Transaction   = require path.resolve './src/genesis/transactions/financial/obp/eps'
 
 describe 'EPS Transaction', ->
 
@@ -37,7 +38,7 @@ describe 'EPS Transaction', ->
       country: 'AT'
     }
 
-    @transaction              = new Transaction()
+    @transaction              = new Transaction(@data, FakeConfig.getConfig())
 
   context 'with valid request', ->
 

@@ -2,6 +2,7 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
+FakeConfig    = require path.resolve './test/transactions/fake_config'
 FakeData      = require '../../fake_data'
 Transaction   = require path.resolve './src/genesis/transactions/financial/direct_debit/sdd_sale'
 SDDBase       = require './sdd_base'
@@ -17,7 +18,7 @@ describe 'SddSale', ->
     delete @data['customer_phone']
     delete @data['customer_email']
 
-    @transaction = new Transaction()
+    @transaction = new Transaction(@data, FakeConfig.getConfig())
 
   context 'with iban validation', ->
 

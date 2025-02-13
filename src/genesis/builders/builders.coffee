@@ -20,12 +20,12 @@ class Builders
         @context = new Xml()
       when @FORM
         @context = new Form()
+      else
+        @context = null
 
   getBuilder: (structure) ->
+    return '' if @context == null
+
     @context.getConverter(structure)
-
-
-
-
 
 module.exports = Builders

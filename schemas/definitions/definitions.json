@@ -265,6 +265,22 @@
       "$id": "#national_id",
       "maxLength": 20,
       "description": "National Identifier number of the customer"
+    },
+    "mode": {
+      "$id": "#mode",
+      "type": "string",
+      "enum": ["list"],
+      "description": "Mode of the request: list"
+    },
+    "original_transaction_unique_id": {
+      "$id": "#original_transaction_unique_id",
+      "type": "string",
+      "description": "The unique id of the initial transaction"
+    },
+    "arn": {
+      "$id": "#arn",
+      "type": "string",
+      "description": "ARN of the chargeback’s transaction"
     }
   }
 }

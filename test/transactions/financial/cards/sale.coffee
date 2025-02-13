@@ -3,32 +3,32 @@ path  = require 'path'
 _     = require 'underscore'
 
 
-
-FakeData                      = require '../../fake_data'
-Transaction                   = require path.resolve './src/genesis/transactions/financial/cards/sale'
-CardBase                      = require './card_base'
-BusinessAttributes            = require '../../business_attributes'
-ScaParams                     = require '../../../examples/attributes/sca_params'
-Moto                          = require '../../../examples/attributes/financial/moto'
-Gaming                        = require '../../../examples/attributes/financial/gaming'
-Crypto                        = require '../../../examples/attributes/financial/crypto'
-RecurringType                 = require '../../../examples/attributes/financial/recurring_type'
-ManagedRecurring              = require '../../../examples/attributes/financial/recurring/managed_recurring'
-RiskParams                    = require '../../../examples/attributes/risk_params'
-DynamicDescriptor             = require '../../../examples/attributes/financial/dynamic_descriptor'
-CredentialOnFile              = require '../../../examples/attributes/credential_on_file'
-UCOF                          = require '../../../examples/attributes/ucof'
-TravelData                    = require '../../../examples/attributes/financial/travel_data/travel_data'
-CSEncription                  = require '../../../examples/attributes/client_side_encryption'
-FundingAttributes             = require '../../../examples/attributes/financial/funding_attributes'
 AccountOwnerAttributes        = require '../../../examples/attributes/financial/account_owner_attributes'
+BusinessAttributes            = require '../../business_attributes'
+CardBase                      = require './card_base'
+CredentialOnFile              = require '../../../examples/attributes/credential_on_file'
+Crypto                        = require '../../../examples/attributes/financial/crypto'
+CSEncription                  = require '../../../examples/attributes/client_side_encryption'
+DynamicDescriptor             = require '../../../examples/attributes/financial/dynamic_descriptor'
+FakeConfig                    = require path.resolve './test/transactions/fake_config'
+FakeData                      = require '../../fake_data'
+FundingAttributes             = require '../../../examples/attributes/financial/funding_attributes'
+Gaming                        = require '../../../examples/attributes/financial/gaming'
+ManagedRecurring              = require '../../../examples/attributes/financial/recurring/managed_recurring'
+Moto                          = require '../../../examples/attributes/financial/moto'
+RecurringType                 = require '../../../examples/attributes/financial/recurring_type'
+RiskParams                    = require '../../../examples/attributes/risk_params'
+ScaParams                     = require '../../../examples/attributes/sca_params'
 SubsequentRecurringAttributes = require '../../../examples/attributes/financial/recurring/subsequent_recurring_attributes'
+Transaction                   = require path.resolve './src/genesis/transactions/financial/cards/sale'
+TravelData                    = require '../../../examples/attributes/financial/travel_data/travel_data'
+UCOF                          = require '../../../examples/attributes/ucof'
 
 describe 'Sale Transaction', ->
 
   before ->
     @data        = (new FakeData).getDataWithBusinessAttributes()
-    @transaction = new Transaction()
+    @transaction = new Transaction(@data, FakeConfig.getConfig())
     @data['managed_recurring'] = (new FakeData).getManagedRecurringAutomatic()
 
   CardBase()

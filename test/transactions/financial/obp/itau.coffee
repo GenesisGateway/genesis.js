@@ -3,9 +3,10 @@ _     = require 'underscore'
 faker = require 'faker'
 
 Currency      = require path.resolve './src/genesis/helpers/currency'
+FakeConfig    = require path.resolve './test/transactions/fake_config'
 FakeData      = require path.resolve './test/transactions/fake_data'
-Transaction   = require path.resolve './src/genesis/transactions/financial/obp/itau'
 FinancialBase = require path.resolve './test/transactions/financial/financial_base'
+Transaction   = require path.resolve './src/genesis/transactions/financial/obp/itau'
 
 describe 'Itau Transaction', ->
 
@@ -41,7 +42,7 @@ describe 'Itau Transaction', ->
       country: 'BR'
     }
 
-    @transaction              = new Transaction()
+    @transaction              = new Transaction(@data, FakeConfig.getConfig())
 
   context 'with valid request', ->
 

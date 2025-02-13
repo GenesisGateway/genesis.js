@@ -1,16 +1,17 @@
 faker                  = require 'faker'
 path                   = require 'path'
 _                      = require 'underscore'
+FakeConfig             = require path.resolve './test/transactions/fake_config'
 FakeData               = require '../../fake_data'
-Transaction            = require path.resolve './src/genesis/transactions/financial/cards/bancontact'
 FinancialExamples      = require '../financial_base'
 RequiredBillingAddress = require '../../../examples/attributes/required_billing_address'
+Transaction            = require path.resolve './src/genesis/transactions/financial/cards/bancontact'
 
 describe 'Bancontact Transaction', ->
 
   beforeEach ->
     fakeData     = new FakeData()
-    @transaction = new Transaction()
+    @transaction = new Transaction(@data, FakeConfig.getConfig())
 
     @data                         = fakeData.getMinimumData()
     @data.currency                = 'EUR'

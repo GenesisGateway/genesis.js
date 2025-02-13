@@ -164,6 +164,11 @@ class FakeData
     },
     "transactionIdentifier": faker.datatype.number().toString()
 
+  getTokenizationData: ->
+    'consumer_id': faker.datatype.number().toString()
+    'email': faker.internet.email()
+    'token_type': 'uuid'
+
   getSimpleData: ->
     @data
 

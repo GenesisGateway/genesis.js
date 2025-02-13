@@ -1,3 +1,29 @@
+3.3.2
+-----
+* Added ACS Transaction Id parameter support part of the MPI parameters
+* Added PayPal with Express payment type through the Web Payment Form
+* Added Consumer API support:
+  - Create Consumer
+  - Retrieve Consumer
+  - Update Consumer
+  - Disable Consumer
+  - Enable Consumer
+  - Get Consumer Cards
+* Added Transfer To Payers API support
+* Improved specific components of the project
+* Added Tokenization API support:
+  - Tokenize
+  - Detokenize
+  - Update Token
+  - Validate Token
+  - Delete Token
+  - Get Tokenized Card
+* Added mode parameter support to Chargeback API
+* Added mode parameter support to Fraud API
+* Added Import Date, Report Start Date and Report End Date parameters support to Fraud API
+* Added mode parameter support to Retrieval API
+* Added Import Date, Externally Processed and Processing Type parameters support to Retrieval API
+
 3.3.1
 -----
 * Added EPS transaction request

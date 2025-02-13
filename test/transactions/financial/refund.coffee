@@ -2,15 +2,16 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
+FakeConfig    = require path.resolve './test/transactions/fake_config'
 FakeData      = require '../fake_data'
-Transaction   = require path.resolve './src/genesis/transactions/financial/refund'
 FinancialBase = require './financial_base'
+Transaction   = require path.resolve './src/genesis/transactions/financial/refund'
 
 describe 'Refund Transaction', ->
 
   before ->
     @data        = (new FakeData).getSimpleData()
-    @transaction = new Transaction()
+    @transaction = new Transaction(@data, FakeConfig.getConfig())
 
     delete @data['customer_phone']
     delete @data['customer_email']

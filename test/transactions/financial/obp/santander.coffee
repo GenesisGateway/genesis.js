@@ -2,17 +2,17 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-Currency            = require path.resolve './src/genesis/helpers/currency'
-FakeData            = require '../../fake_data'
-Transaction         = require path.resolve './src/genesis/transactions/financial/obp/santander'
-FinancialBase       = require '../financial_base'
 AlternativeExamples = require '../alternative/alternative_base'
+Currency            = require path.resolve './src/genesis/helpers/currency'
+FakeConfig          = require path.resolve './test/transactions/fake_config'
+FakeData            = require '../../fake_data'
+FinancialBase       = require '../financial_base'
+Transaction         = require path.resolve './src/genesis/transactions/financial/obp/santander'
 
 describe 'Santander Transaction', ->
 
   beforeEach ->
     fakeData     = new FakeData()
-    @transaction = new Transaction()
     @data        = fakeData.getApmData()
     delete @data.customer_phone
 
@@ -29,7 +29,7 @@ describe 'Santander Transaction', ->
     @data.birth_date              = '30-12-1992'
     @data.shipping_address        = fakeData.getShippingData().shipping_address
 
-    @transaction                  = new Transaction()
+    @transaction                  = new Transaction(@data, FakeConfig.getConfig())
 
   AlternativeExamples()
 

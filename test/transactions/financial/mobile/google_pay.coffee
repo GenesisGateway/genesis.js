@@ -2,18 +2,18 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-FakeData           = require '../../fake_data'
-Transaction        =
-  require path.resolve './src/genesis/transactions/financial/mobile/google_pay'
-FinancialBase      = require '../financial_base'
 BusinessAttributes = require '../../business_attributes'
 DynamicDescriptor  = require '../../../examples/attributes/financial/dynamic_descriptor'
+FakeConfig         = require path.resolve './test/transactions/fake_config'
+FakeData           = require '../../fake_data'
+FinancialBase      = require '../financial_base'
+Transaction        = require path.resolve './src/genesis/transactions/financial/mobile/google_pay'
 
 describe 'GooglePay Transaction', ->
 
   beforeEach ->
     @data                       = (new FakeData).getSimpleDataAndBusinessAttributes()
-    @transaction                = new Transaction()
+    @transaction                = new Transaction(@data, FakeConfig.getConfig())
 
     @data['payment_subtype']    = 'authorize'
     @data['payment_token']      = (new FakeData).getGooglePaymentTokenData()

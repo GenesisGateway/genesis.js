@@ -73,6 +73,7 @@ ThreeDBase = () ->
       'eci':  faker.datatype.number().toString(),
       'cavv': faker.datatype.number().toString(),
       'xid':  faker.datatype.number().toString()
+      'acs_transaction_id': faker.datatype.number().toString()
     }
 
     assert.equal true, @transaction.setData(@data).isValid()

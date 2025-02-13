@@ -2,6 +2,7 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
+FakeConfig          = require path.resolve './test/transactions/fake_config'
 FakeData            = require '../../fake_data'
 Transaction         = require path.resolve './src/genesis/transactions/financial/obp/webpay'
 AlternativeExamples = require '../alternative/alternative_base'
@@ -10,7 +11,7 @@ describe 'Webpay Transaction', ->
 
   beforeEach ->
     fakeData     = new FakeData()
-    @transaction = new Transaction()
+    @transaction = new Transaction(@data, FakeConfig.getConfig())
     @data        = fakeData.getApmData()
     delete @data.customer_phone
 

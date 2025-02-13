@@ -1,0 +1,27 @@
+{
+  "$id": "https://genesis.js/tokenize",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Tokenizes cardholder data and issues a corresponding token. Merchants should take care to save the plain-text token value in their system as once issued it is not possible to obtain it again. Attempting to tokenize the same cardholder data will issue a new token. The token can be used in the Processing API instead of the cardholder data.",
+  "required": [
+    "consumer_id",
+    "email",
+    "token_type",
+    "card_data"
+  ],
+  "properties": {
+    "consumer_id": {
+      "$ref": "/definitions/attributes/tokenization/tokenization_attributes#consumer_id"
+    },
+    "email": {
+      "$ref": "/definitions/attributes/tokenization/tokenization_attributes#email"
+    },
+    "token_type": {
+      "$ref": "/definitions/attributes/tokenization/tokenization_attributes#token_type"
+    },
+    "card_data": {
+      "$ref": "/definitions/attributes/tokenization/tokenization_attributes#card_data"
+    }
+  }
+}

@@ -12,6 +12,7 @@ MpiParams = () ->
         @mpi_data['mpi_params']['protocol_version']     = '2'
         @mpi_data['mpi_params']['protocol_sub_version'] = '9'
         @mpi_data['mpi_params']['directory_server_id']  = faker.datatype.number().toString()
+        @mpi_data['mpi_params']['acs_transaction_id']   = faker.datatype.number().toString()
 
         @transaction.setData(@mpi_data)
 
@@ -42,6 +43,9 @@ MpiParams = () ->
 
       it 'with non empty directory_server_id', ->
         assert.isNotEmpty @transaction.getTrxData().payment_transaction.mpi_params.directory_server_id
+
+      it 'with non empty acs_transaction_id', ->
+        assert.isNotEmpty @transaction.getTrxData().payment_transaction.mpi_params.acs_transaction_id
 
 
 

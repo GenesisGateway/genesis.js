@@ -1,0 +1,56 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/tokenization/tokenization_attributes",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "consumer_id": {
+      "$id": "#consumer_id",
+      "$ref": "/definitions/attributes/financial/tokenization#consumer_id"
+    },
+    "email": {
+      "$id": "#email",
+      "type": "string",
+      "format": "email",
+      "description": "Consumer e-mail address"
+    },
+    "token_type": {
+      "$id": "#token_type",
+      "type": "string",
+      "description": "Token type format"
+    },
+    "token": {
+      "$id": "#token",
+      "type": "string",
+      "description": "Plain-text token value",
+      "maxLength": 36
+    },
+    "card_data": {
+      "$id": "#card_data",
+      "type": "object",
+      "required": ["card_number"],
+      "properties": {
+        "card_number": {
+          "type": "string",
+          "pattern": "^[0-9]{13,19}$",
+          "description": "Complete credit/debit card number of customer"
+        },
+        "card_holder": {
+          "type": "string",
+          "maxLength": 255,
+          "description": "Full name of customer as printed on credit card (first name and last name at least)"
+        },
+        "expiration_month": {
+          "type": "string",
+          "pattern": "^(0?[1-9]|1[012])$",
+          "description": "Expiration month as printed on credit card"
+        },
+        "expiration_year": {
+          "type": "string",
+          "pattern": "^(20)\\d{2}$",
+          "description": "Expiration year as printed on credit card"
+        }
+      }
+    }
+  }
+}

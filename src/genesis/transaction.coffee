@@ -50,7 +50,13 @@ Retrieval           = require './transactions/non_financial/fraud/retrieval/retr
 RetrievalByDate     = require './transactions/non_financial/fraud/retrieval/retrieval_by_date'
 Reconcile           = require './transactions/non_financial/reconcile/reconcile'
 ReconcileByDate     = require './transactions/non_financial/reconcile/reconcile_by_date'
-Avs                 = require './transactions/non_financial/avs'
+Payers              = require './transactions/non_financial/alternatives/transfer_to/payers'
+CreateConsumer      = require './transactions/non_financial/consumers/create'
+UpdateConsumer      = require './transactions/non_financial/consumers/update'
+DisableConsumer     = require './transactions/non_financial/consumers/disable'
+EnableConsumer      = require './transactions/non_financial/consumers/enable'
+GetCards            = require './transactions/non_financial/consumers/get_cards'
+RetrieveConsumer    = require './transactions/non_financial/consumers/retrieve'
 
 ###
   Web Payment Form
@@ -135,6 +141,16 @@ CashU = require './transactions/financial/vouchers/cashu'
 MethodContinue     = require './transactions/financial/cards/threeds/v2/method_continue'
 
 OnlineBankingPayin = require './transactions/financial/obp/online_banking/payin'
+
+###
+  Tokenization
+###
+Tokenize         = require './transactions/non_financial/tokenization/tokenize'
+UpdateToken      = require './transactions/non_financial/tokenization/update_token'
+Detokenize       = require './transactions/non_financial/tokenization/detokenize'
+ValidateToken    = require './transactions/non_financial/tokenization/validate_token'
+DeleteToken      = require './transactions/non_financial/tokenization/delete_token'
+GetTokenizedCard = require './transactions/non_financial/tokenization/get_tokenized_card'
 
 class Transaction
 
@@ -418,8 +434,47 @@ class Transaction
   reconcile_by_date: (params) ->
     new ReconcileByDate(params, @config)
 
-  avs: (params) ->
-    new Avs(params, @config)
+  transfer_to_payers: () ->
+    new Payers(null, @config)
+
+  create_consumer: (params) ->
+    new CreateConsumer(params, @config)
+
+  update_consumer: (params) ->
+     new UpdateConsumer(params, @config)
+
+  disable_consumer: (params) ->
+    new DisableConsumer(params, @config)
+
+  enable_consumer: (params) ->
+    new EnableConsumer(params, @config)
+
+  get_consumer_cards: (params) ->
+    new GetCards(params, @config)
+
+  retrieve_consumer: (params) ->
+    new RetrieveConsumer(params, @config)
+
+  ###
+    Tokenization
+  ###
+  tokenize: (params) ->
+    new Tokenize(params, @config)
+
+  update_token: (params) ->
+    new UpdateToken(params, @config)
+
+  detokenize: (params) ->
+    new Detokenize(params, @config)
+
+  validate_token: (params) ->
+    new ValidateToken(params, @config)
+
+  delete_token: (params) ->
+    new DeleteToken(params, @config)
+
+  get_tokenized_card: (params) ->
+    new GetTokenizedCard(params, @config)
 
   ###
     Web Payment Form

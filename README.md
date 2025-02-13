@@ -2153,81 +2153,159 @@ Upon received status >= 300 from the Gateway or upon invalid request the followi
 Transaction Types
 -----------------
 
+### Card
 ```text
-african_mobile_sale
-african_mobile_payout
-apple_pay
 argencard
 aura
 authorize
 authorize3d
-avs
-baloto
-banco_de_occidente
-banco_do_brasil
-bancomer
 bcmc
-blacklist
-boleto
-bradesco
 cabal
 capture
-cash
-cashu
 cencosud
-chargeback
-chargeback_by_date
 credit
-davivienda
-efecty
-eps
-itau
-multibanco
-ideal
 elo
-pse
-post_finance
-santander
-fraud_report
-fraud_report_by_date
-google_pay
 init_recurring
 init_recurring_sale3d
-my_bank
 naranja
 nativa
-online_banking_payin
-online_banking_payout
-oxxo
-p24
-pago_facil
-pay_pal
-payout
-payu
-pix
-poli
-ppro
-reconcile
-reconcile_by_date
 recurring_sale
-redpagos
-refund
-retrieval
-retrieval_by_date
-russian_mobile_sale
-russian_mobile_payout
 sale
 sale3d
-sdd_init_recurring_sale
-sdd_sale
 tarjeta_shopping
-void
+```
+
+### Wallets
+```text
+pay_pal
+```
+
+### Vouchers
+```text
+cashu
+```
+
+### Online Banking ePayments
+```text
+banco_do_brasil
+bancomer
+bradesco
+davivienda
+eps
+ideal
+itau
+multibanco
+my_bank
+online_banking_payin
+p24
+payu
+poli
+post_finance
+ppro
+pse
+santander
+sdd_init_recurring_sale
+sdd_refund
+sdd_sale
 webpay
+```
+
+### Cash Payments
+```text
+baloto
+banco_de_occidente
+boleto
+cash
+efecty
+oxxo
+pago_facil
+pix
+redpagos
+```
+
+### Payouts
+```text
+african_mobile_payout
+online_banking_payout
+payout
+russian_mobile_payout
+```
+
+### Mobile Payments
+```text
+african_mobile_sale
+apple_pay
+google_pay
+russian_mobile_sale
+```
+
+### Reversals
+```text
+refund
+void
+```
+
+### Web Payment Form
+```text
 wpf_create
 wpf_reconcile
 ```
 
-Transaction Parameters
+### Blacklist API service
+```text
+blacklist
+```
+
+### Chargeback API service
+```text
+chargeback
+chargeback_by_date
+```
+
+### Consumer API service
+```text
+create_consumer
+retrieve_consumer
+update_consumer
+disable_consumer
+enable_consumer
+get_consumer_cards
+```
+
+### Tokenization API service
+```text
+tokenize
+detokenize
+update_token
+validate_token
+delete_token
+get_tokenized_card
+```
+
+### Fraud reports API service
+```text
+fraud_report
+fraud_report_by_date
+```
+
+### Reconcile API service
+```text
+reconcile
+reconcile_by_date
+```
+
+### Retrieval API service
+```text
+retrieval
+retrieval_by_date
+```
+
+### APM API services
+```text
+transfer_to_payers
+```
+
+Web Payment Form Transaction Parameters
 ----------------------
 `wpf_create.transaction_types`:
   * `african_mobile_sale`

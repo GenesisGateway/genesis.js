@@ -2,6 +2,7 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
+FakeConfig    = require path.resolve './test/transactions/fake_config'
 FakeData      = require '../../fake_data'
 SDDBase       = require './sdd_base'
 Transaction   =
@@ -15,7 +16,7 @@ describe 'SddInitRecurringSale', ->
     @data['iban'] = "DE09100100101234567891"
     @data['bic']  = "PBNKDEFFXXX"
 
-    @transaction = new Transaction()
+    @transaction = new Transaction(@data, FakeConfig.getConfig())
 
   context 'with iban validation', ->
 

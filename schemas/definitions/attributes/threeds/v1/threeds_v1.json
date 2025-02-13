@@ -58,6 +58,10 @@
         },
         "directory_server_id": {
           "type": "string"
+        },
+        "acs_transaction_id": {
+          "type": "string",
+          "description": "The ACS Transaction ID and is optional for 3DS transactions, but highly recommended for increasing the approval ratio."
         }
       },
       "definitions": {

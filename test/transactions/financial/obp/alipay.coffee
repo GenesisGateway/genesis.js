@@ -2,9 +2,10 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-FakeData           = require '../../fake_data'
-Transaction        = require path.resolve './src/genesis/transactions/financial/obp/alipay'
-FinancialBase      = require '../financial_base'
+FakeConfig    = require path.resolve './test/transactions/fake_config'
+FakeData      = require '../../fake_data'
+FinancialBase = require '../financial_base'
+Transaction   = require path.resolve './src/genesis/transactions/financial/obp/alipay'
 
 describe 'Alipay Transaction', ->
 
@@ -13,7 +14,7 @@ describe 'Alipay Transaction', ->
     @data['currency']           = 'EUR'
     @data['return_success_url'] = faker.internet.url()
     @data['return_failure_url'] = faker.internet.url()
-    @transaction                = new Transaction()
+    @transaction                = new Transaction(@data, FakeConfig.getConfig())
 
   FinancialBase()
 

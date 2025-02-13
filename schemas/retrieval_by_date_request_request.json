@@ -3,20 +3,51 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "start_date"
+  "oneOf": [
+    {
+      "required": ["start_date"]
+    },
+    {
+      "required": ["import_date"]
+    }
   ],
+  "messages": {
+    "oneOf": "Only the start date or the import date should be provided, not both!"
+  },
   "properties": {
     "start_date": {
-      "type": "string",
-      "format": "date"
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "The start of the requested date range"
     },
     "end_date": {
-      "type": "string",
-      "format": "date"
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "The end of the requested date range"
+    },
+    "import_date": {
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "The date of import in our system. Spans from beginning until end of day."
     },
     "page": {
-      "type": "integer"
+      "type": "integer",
+      "default": 1,
+      "description": "The page within the paginated result."
+    },
+    "per_page": {
+      "type": "integer",
+      "default": 100,
+      "description": "Number of entities on page."
+    },
+    "externally_processed": {
+      "type": "string",
+      "default": "genesis",
+      "enum": ["genesis", "external", "all"],
+      "description": "Filters retrieval requests by being externally processed or being native to Genesis."
+    },
+    "processing_type": {
+      "type": "string",
+      "default": "all",
+      "enum": ["card_present", "card_not_present", "all"],
+      "description": "Filters retrieval requests by being card present or card not present."
     }
   }
 }

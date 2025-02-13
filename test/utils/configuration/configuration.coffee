@@ -1,38 +1,24 @@
 path = require('path')
 
 Config      = require path.resolve './src/genesis/utils/configuration/config'
-Transaction = require path.resolve './src/genesis/transactions/financial/cards/authorize'
+FakeConfig  = require path.resolve './test/transactions/fake_config'
 FakeData    = require path.resolve './test/transactions/fake_data'
-faker = require 'faker'
+Transaction = require path.resolve './src/genesis/transactions/financial/cards/authorize'
 
 describe 'ManualConfiguration', ->
 
-  before ->
+  beforeEach ->
     @data = (new FakeData).getDataWithBusinessAttributes()
 
+    @configParams = FakeConfig.getConfigData()
+
   it 'works with proper configuration object', ->
+    @configParams.customer.username = "username"
+    @configParams.customer.password = "password"
+    @configParams.customer.token    = "token"
+    @configParams.gateway.hostname  = "test.com"
 
-    configParams = {
-      customer      : {
-        "username"            : "username",
-        "password"            : "password",
-        "token"               : "token",
-        "force_smart_routing" : false,
-      },
-      gateway       : {
-        "protocol" : "https",
-        "hostname" : "test.com",
-        "timeout"  : "60000",
-        "testing"  : true
-      },
-      notifications : {
-        "host"     : "<hostname>"
-        "port"     : "<port>"
-        "path"     : "<path>"
-      }
-    };
-
-    configuration = new Config configParams
+    configuration = new Config @configParams
 
     cnf_obj = {
       customer      : {
@@ -57,433 +43,187 @@ describe 'ManualConfiguration', ->
     assert.deepEqual cnf_obj, configuration.getConfig()
 
   it 'works with all config properties', ->
-
-    configParam = {
-      customer      : {
-        username            : faker.random.alpha(40),
-        password            : faker.random.alpha(40),
-        token               : faker.random.alpha(40),
-        force_smart_routing : false,
-      },
-      gateway : {
-        protocol : "https",
-        timeout  : "60000",
-        hostname : faker.random.arrayElement(['emerchantpay.net', 'e-comprocessing.net']),
-        testing  : true
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal true, transaction.isValidConfig()
+    assert.equal true, transaction.isValid()
 
   it 'works without customer token', ->
+    delete @configParams.customer.token
 
-    configParam = {
-      customer      : {
-        username            : faker.random.alpha(40),
-        password            : faker.random.alpha(40),
-        force_smart_routing : false,
-      },
-      gateway : {
-        protocol : "https",
-        timeout  : "60000",
-        hostname : faker.random.arrayElement(['emerchantpay.net', 'e-comprocessing.net']),
-        testing  : true
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal true, transaction.isValidConfig()
+    assert.equal true, transaction.isValid()
 
   it 'works without customer force_smart_routing property ', ->
+    delete @configParams.customer.force_smart_routing
 
-    configParam = {
-      customer      : {
-        username            : faker.random.alpha(40),
-        password            : faker.random.alpha(40),
-        token               : faker.random.alpha(40),
-      },
-      gateway : {
-        protocol : "https",
-        timeout  : "60000",
-        hostname : faker.random.arrayElement(['emerchantpay.net', 'e-comprocessing.net']),
-        testing  : true
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal true, transaction.isValidConfig()
+    assert.equal true, transaction.isValid()
 
   it 'works without gateway protocol property ', ->
+    delete @configParams.gateway.protocol
 
-    configParam = {
-      customer      : {
-        username            : faker.random.alpha(40),
-        password            : faker.random.alpha(40),
-        token               : faker.random.alpha(40),
-      },
-      gateway : {
-        timeout  : "60000",
-        hostname : faker.random.arrayElement(['emerchantpay.net', 'e-comprocessing.net']),
-        testing  : true
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal true, transaction.isValidConfig()
+    assert.equal true, transaction.isValid()
 
   it 'works without gateway timeout property ', ->
+    delete @configParams.gateway.timeout
 
-    configParam = {
-      customer      : {
-        username            : faker.random.alpha(40),
-        password            : faker.random.alpha(40),
-        token               : faker.random.alpha(40),
-      },
-      gateway : {
-        protocol : "https",
-        hostname : faker.random.arrayElement(['emerchantpay.net', 'e-comprocessing.net']),
-        testing  : true
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal true, transaction.isValidConfig()
+    assert.equal true, transaction.isValid()
 
   it 'works without notifications object', ->
+    delete @configParams.notifications
 
-    configParam = {
-      customer      : {
-        username            : faker.random.alpha(40),
-        password            : faker.random.alpha(40),
-        token               : faker.random.alpha(40),
-      },
-      gateway : {
-        protocol : "https",
-        hostname : faker.random.arrayElement(['emerchantpay.net', 'e-comprocessing.net']),
-        testing  : true
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal true, transaction.isValidConfig()
+    assert.equal true, transaction.isValid()
+
+  it 'returns gate subdomain for prod environment', ->
+    @configParams.gateway.testing = false
+
+    config = new Config @configParams
+
+    assert.equal 'gate', config.getSubDomain('gate')
+
+  it 'returns wpf subdomain for prod environment', ->
+    @configParams.gateway.testing = false
+
+    config = new Config @configParams
+
+    assert.equal 'wpf', config.getSubDomain('wpf')
+
+  it 'returns prod.api subdomain for prod environment', ->
+    @configParams.gateway.testing = false
+
+    config = new Config @configParams
+
+    assert.equal 'prod.api', config.getSubDomain('smart_router')
+
+  it 'returns staging.gate environment subdomain', ->
+    config = new Config @configParams
+
+    assert.equal 'staging.gate', config.getSubDomain('gate')
+
+  it 'returns staging.wpf environment subdomain', ->
+    config = new Config @configParams
+
+    assert.equal 'staging.wpf', config.getSubDomain('wpf')
+
+  it 'returns staging.api environment subdomain', ->
+    config = new Config @configParams
+
+    assert.equal 'staging.api', config.getSubDomain('smart_router')
+
+  it 'throws error with invalid subdomain', ->
+    config = new Config @configParams
+
+    subdomain = 'invalid_subdomain'
+
+    expect(config.getSubDomain.bind(config, subdomain)).to.throw(
+      Error, "Invalid subdomain value provided: #{subdomain}"
+    )
+
+  it 'throws error with missing subdomain', ->
+    config = new Config @configParams
+
+    expect(config.getSubDomain.bind(config)).to.throw(Error)
+    expect(config.getSubDomain.bind(config, null)).to.throw(Error)
 
   it 'fails with missing customer object', ->
+    delete @configParams.customer
 
-    configParam = {
-      gateway : {
-        protocol : "https",
-        timeout  : "60000",
-        hostname : faker.random.arrayElement(['emerchantpay.net', 'e-comprocessing.net']),
-        testing  : true
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal false, transaction.isValidConfig()
+    assert.equal false, transaction.isValid()
 
   it 'fails with missing customer username property', ->
+    delete @configParams.customer.username
 
-    configParam = {
-      customer      : {
-        password            : faker.random.alpha(40),
-        token               : faker.random.alpha(40),
-      },
-      gateway : {
-        protocol : "https",
-        timeout  : "60000",
-        hostname : faker.random.arrayElement(['emerchantpay.net', 'e-comprocessing.net']),
-        testing  : true
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal false, transaction.isValidConfig()
+    assert.equal false, transaction.isValid()
 
   it 'fails with missing customer password property', ->
+    delete @configParams.customer.password
 
-    configParam = {
-      customer      : {
-        username            : faker.random.alpha(40),
-        token               : faker.random.alpha(40),
-      },
-      gateway : {
-        protocol : "https",
-        timeout  : "60000",
-        hostname : faker.random.arrayElement(['emerchantpay.net', 'e-comprocessing.net']),
-        testing  : true
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal false, transaction.isValidConfig()
+    assert.equal false, transaction.isValid()
 
   it 'fails with missing gateway node', ->
+    delete @configParams.gateway
 
-    configParam = {
-      customer      : {
-        "username"            : faker.random.alpha(40),
-        "password"            : faker.random.alpha(40),
-        "token"               : faker.random.alpha(40),
-        "force_smart_routing" : false,
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal false, transaction.isValidConfig()
+    assert.equal false, transaction.isValid()
 
 
   it 'fails with missing gateway hostname property', ->
+    delete @configParams.gateway.hostname
 
-    configParam = {
-      customer      : {
-        username            : faker.random.alpha(40),
-        password            : faker.random.alpha(40),
-        token               : faker.random.alpha(40),
-        force_smart_routing : false,
-      },
-      gateway : {
-        protocol : "https",
-        timeout  : "60000",
-        testing  : true
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal false, transaction.isValidConfig()
+    assert.equal false, transaction.isValid()
 
   it 'fails with missing gateway testing property', ->
+    delete @configParams.gateway.testing
 
-    configParam = {
-      customer      : {
-        username            : faker.random.alpha(40),
-        password            : faker.random.alpha(40),
-        token               : faker.random.alpha(40),
-        force_smart_routing : false,
-      },
-      gateway : {
-        protocol : "https",
-        timeout  : "60000",
-        hostname : faker.random.arrayElement(['emerchantpay.net', 'e-comprocessing.net']),
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal false, transaction.isValidConfig()
+    assert.equal false, transaction.isValid()
 
   it 'fails with wrong gateway hostname property', ->
+    @configParams.gateway.hostname = "test.net"
 
-    configParam = {
-      customer      : {
-        username            : faker.random.alpha(40),
-        password            : faker.random.alpha(40),
-        token               : faker.random.alpha(40),
-        force_smart_routing : false,
-      },
-      gateway : {
-        protocol : "https",
-        timeout  : "60000",
-        hostname : "test.net",
-        testing  : true
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal false, transaction.isValidConfig()
+    assert.equal false, transaction.isValid()
 
   it 'fails with null value of customer force_smart_routing property', ->
+    @configParams.customer.force_smart_routing = null
 
-    configParam = {
-      customer      : {
-        username            : faker.random.alpha(40),
-        password            : faker.random.alpha(40),
-        token               : faker.random.alpha(40),
-        force_smart_routing : null,
-      },
-      gateway : {
-        protocol : "https",
-        timeout  : "60000",
-        hostname : "test.net",
-        testing  : true
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal false, transaction.isValidConfig()
+    assert.equal false, transaction.isValid()
 
   it 'fails with string value of customer force_smart_routing property', ->
+    @configParams.customer.force_smart_routing = "true"
 
-    configParam = {
-      customer      : {
-        username            : faker.random.alpha(40),
-        password            : faker.random.alpha(40),
-        token               : faker.random.alpha(40),
-        force_smart_routing : "true",
-      },
-      gateway : {
-        protocol : "https",
-        timeout  : "60000",
-        hostname : "test.net",
-        testing  : true
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal false, transaction.isValidConfig()
+    assert.equal false, transaction.isValid()
 
   it 'fails with null value of gateway testing property', ->
+    @configParams.gateway.testing = null
 
-    configParam = {
-      customer      : {
-        username            : faker.random.alpha(40),
-        password            : faker.random.alpha(40),
-        token               : faker.random.alpha(40),
-        force_smart_routing : false,
-      },
-      gateway : {
-        protocol : "https",
-        timeout  : "60000",
-        hostname : "test.net",
-        testing  : null
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal false, transaction.isValidConfig()
+    assert.equal false, transaction.isValid()
 
   it 'fails with string value of customer testing property', ->
+    @configParams.gateway.testing = "true"
 
-    configParam = {
-      customer      : {
-        username            : faker.random.alpha(40),
-        password            : faker.random.alpha(40),
-        token               : faker.random.alpha(40),
-        force_smart_routing : "true",
-      },
-      gateway : {
-        protocol : "https",
-        timeout  : "60000",
-        hostname : "test.net",
-        testing  : "true"
-      },
-      notifications: {
-        host : "<hostname>",
-        port : "<port>",
-        path : "<path>"
-      }
-    };
-
-    config      = new Config configParam
+    config      = new Config @configParams
     transaction = new Transaction(@data, config)
 
-    assert.equal false, transaction.isValidConfig()
-
-
-
+    assert.equal false, transaction.isValid()

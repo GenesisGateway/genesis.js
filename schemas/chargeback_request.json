@@ -13,10 +13,13 @@
   ],
   "properties": {
     "arn": {
-      "type": "string"
+      "$ref": "/definitions/definitions#arn"
     },
     "original_transaction_unique_id": {
-      "type": "string"
+      "$ref": "/definitions/definitions#original_transaction_unique_id"
+    },
+    "mode": {
+      "$ref": "/definitions/definitions#mode"
     }
   }
 }

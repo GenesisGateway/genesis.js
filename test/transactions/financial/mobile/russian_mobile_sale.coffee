@@ -2,10 +2,10 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-FakeData           = require '../../fake_data'
-Transaction        =
-  require path.resolve './src/genesis/transactions/financial/mobile/russian_mobile_sale'
-FinancialBase      = require '../financial_base'
+FakeConfig    = require path.resolve './test/transactions/fake_config'
+FakeData      = require '../../fake_data'
+FinancialBase = require '../financial_base'
+Transaction   = require path.resolve './src/genesis/transactions/financial/mobile/russian_mobile_sale'
 
 describe 'Russian Mobile Sale Transaction', ->
 
@@ -40,7 +40,7 @@ describe 'Russian Mobile Sale Transaction', ->
       neighborhood: 'Holywood',
       country: 'RU'
     }
-    @transaction             = new Transaction()
+    @transaction             = new Transaction(@data, FakeConfig.getConfig())
 
   context 'with valid request', ->
 

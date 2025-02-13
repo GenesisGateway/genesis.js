@@ -2,20 +2,23 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-FakeData           = require '../fake_data'
-Transaction        = require path.resolve './src/genesis/transactions/wpf/create'
-FinancialBase      = require '../financial/financial_base'
 BusinessAttributes = require '../business_attributes'
-i18n               = require path.resolve 'src/genesis/helpers/i18n'
 DynamicDescriptor  = require '../../examples/attributes/financial/dynamic_descriptor'
-PayLater           = require '../../examples/attributes/pay_later'
+FakeConfig         = require '../fake_config'
+FakeData           = require '../fake_data'
+FinancialBase      = require '../financial/financial_base'
 FundingAttributes  = require '../../examples/attributes/financial/funding_attributes'
+i18n               = require path.resolve 'src/genesis/helpers/i18n'
+PayLater           = require '../../examples/attributes/pay_later'
+Transaction        = require path.resolve './src/genesis/transactions/wpf/create'
+
 
 describe 'WPFCreate Transaction', ->
 
   beforeEach ->
     @data        = (new FakeData).getSimpleDataAndBusinessAttributes()
-    @transaction = new Transaction()
+
+    @transaction = new Transaction(@data, FakeConfig.getConfig())
 
     delete @data.remote_ip
     @data['transaction_types']  = [

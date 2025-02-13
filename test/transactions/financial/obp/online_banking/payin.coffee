@@ -2,10 +2,9 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-FakeData           = require '../../../fake_data'
-Transaction        = require path.resolve (
-  './src/genesis/transactions/financial/obp/online_banking/payin'
-)
+FakeConfig  = require path.resolve './test/transactions/fake_config'
+FakeData    = require '../../../fake_data'
+Transaction = require path.resolve './src/genesis/transactions/financial/obp/online_banking/payin'
 
 describe 'Online Banking Payin Transaction', ->
 
@@ -38,7 +37,7 @@ describe 'Online Banking Payin Transaction', ->
       city: 'New York',
       country: 'US'
     }
-    @transaction                  = new Transaction()
+    @transaction                  = new Transaction(@data, FakeConfig.getConfig())
 
   context 'with invalid request', ->
 

@@ -3,20 +3,52 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "start_date"
+  "oneOf": [
+    {
+      "required": ["start_date", "end_date"]
+    },
+    {
+      "required": ["import_date"]
+    },
+    {
+      "required": ["report_start_date", "report_end_date"]
+    }
   ],
+  "messages": {
+    "oneOf": [
+      "You need to either send start/end_date, import_date or report_start/end_date."
+    ]
+  },
   "properties": {
     "start_date": {
-      "type": "string",
-      "format": "date"
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "Start of the requested date range"
     },
     "end_date": {
-      "type": "string",
-      "format": "date"
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "End of the requested date range"
+    },
+    "import_date": {
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "Date of import in our system. Spans from beginning until end of day."
+    },
+    "report_start_date": {
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "Start of the requested date range for the date when the fraud was reported"
+    },
+    "report_end_date": {
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "End of the requested date range for the date when the fraud was reported"
     },
     "page": {
-      "type": "integer"
+      "type": "integer",
+      "default": 1,
+      "description": "The page within the paginated result."
+    },
+    "per_page": {
+      "type": "integer",
+      "default": 100,
+      "description": "Number of entities on page."
     }
   }
 }

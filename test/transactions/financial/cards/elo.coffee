@@ -2,15 +2,16 @@ faker             = require 'faker'
 path              = require 'path'
 _                 = require 'underscore'
 Currency          = require path.resolve './src/genesis/helpers/currency'
+FakeConfig        = require path.resolve './test/transactions/fake_config'
 FakeData          = require '../../fake_data'
-Transaction       = require path.resolve './src/genesis/transactions/financial/cards/elo'
 FinancialExamples = require '../../../transactions/financial/financial_base'
+Transaction       = require path.resolve './src/genesis/transactions/financial/cards/elo'
 
 describe 'Elo Transaction', ->
 
   beforeEach ->
     fakeData     = new FakeData()
-    @transaction = new Transaction()
+    @transaction = new Transaction(@data, FakeConfig.getConfig())
 
     @data                         = fakeData.getMinimumData()
     @data.currency                = faker.random.arrayElement (new Currency).getCurrencies()

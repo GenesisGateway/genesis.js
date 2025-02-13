@@ -3,16 +3,17 @@ path                   = require 'path'
 _                      = require 'underscore'
 Currency               = require path.resolve './src/genesis/helpers/currency'
 Country                = require path.resolve './src/genesis/helpers/country'
+FakeConfig             = require path.resolve './test/transactions/fake_config'
 FakeData               = require '../../fake_data'
-Transaction            = require path.resolve './src/genesis/transactions/financial/cards/cencosud'
 FinancialExamples      = require '../financial_base'
 RequiredBillingAddress = require '../../../examples/attributes/required_billing_address'
+Transaction            = require path.resolve './src/genesis/transactions/financial/cards/cencosud'
 
 describe 'Cencosud Transaction', ->
 
   beforeEach ->
     fakeData = new FakeData()
-    @transaction = new Transaction()
+    @transaction = new Transaction(@data, FakeConfig.getConfig())
 
     @data                         = (new FakeData).getMinimumData()
     @data.currency                = faker.random.arrayElement (new Currency).getCurrencies()

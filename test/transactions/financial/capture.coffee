@@ -3,16 +3,17 @@ _     = require 'underscore'
 faker = require 'faker'
 sinon = require 'sinon'
 
-FakeData      = require '../fake_data'
-Transaction   = require path.resolve './src/genesis/transactions/financial/capture'
-FinancialBase = require './financial_base'
-BusinessAttributes    = require '../business_attributes'
+BusinessAttributes = require '../business_attributes'
+FakeConfig         = require path.resolve './test/transactions/fake_config'
+FakeData           = require '../fake_data'
+FinancialBase      = require './financial_base'
+Transaction        = require path.resolve './src/genesis/transactions/financial/capture'
 
 describe 'Capture Transaction', ->
 
   before ->
     @data        = (new FakeData).getSimpleDataAndBusinessAttributes()
-    @transaction = new Transaction()
+    @transaction = new Transaction(@data, FakeConfig.getConfig())
 
     delete @data['customer_phone']
     delete @data['customer_email']

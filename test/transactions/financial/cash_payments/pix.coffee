@@ -3,6 +3,7 @@ _     = require 'underscore'
 faker = require 'faker'
 
 Currency    = require path.resolve './src/genesis/helpers/currency'
+FakeConfig  = require path.resolve './test/transactions/fake_config'
 FakeData    = require path.resolve './test/transactions/fake_data'
 Transaction = require path.resolve ('./src/genesis/transactions/financial/cash_payments/pix')
 
@@ -50,7 +51,7 @@ describe 'Pix Transaction', ->
       country: 'BR'
     }
 
-    @transaction              = new Transaction()
+    @transaction              = new Transaction(@data, FakeConfig.getConfig())
 
   context 'with valid request', ->
 

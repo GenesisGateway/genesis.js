@@ -1,0 +1,22 @@
+{
+  "$id": "https://genesis.js/create_consumer",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "email"
+  ],
+  "properties": {
+    "email": {
+      "type": "string",
+      "description": "The consumer email address must be unique. If another consumer exists with this email address, the request will be rejected.",
+      "format": "email"
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "billing_address": {
+      "$ref": "/definitions/attributes/customer/address#billing"
+    }
+  }
+}

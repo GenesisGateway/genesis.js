@@ -2,15 +2,16 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
+AlternativeBase = require path.resolve './test/transactions/base'
+FakeConfig      = require path.resolve './test/transactions/fake_config'
 FakeData        = require path.resolve './test/transactions/fake_data'
 Transaction     = require path.resolve './src/genesis/transactions/financial/obp/poli'
-AlternativeBase = require path.resolve './test/transactions/base'
 
 describe 'Poli Transaction', ->
 
   beforeEach ->
     @data        = (new FakeData).getApmData()
-    @transaction = new Transaction()
+    @transaction = new Transaction(@data, FakeConfig.getConfig())
 
     @data['remote_ip']                  = faker.internet.ip()
     @data['return_success_url']         = faker.internet.url()

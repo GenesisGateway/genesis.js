@@ -2,10 +2,11 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
+FakeConfig             = require path.resolve './test/transactions/fake_config'
 FakeData               = require '../../fake_data'
-Transaction            = require path.resolve './src/genesis/transactions/financial/obp/post_finance'
 FinancialBase          = require '../financial_base'
 RequiredBillingAddress = require '../../../examples/attributes/required_billing_address'
+Transaction            = require path.resolve './src/genesis/transactions/financial/obp/post_finance'
 
 describe 'PostFinance Transaction', ->
 
@@ -18,7 +19,7 @@ describe 'PostFinance Transaction', ->
     @data.return_success_url      = faker.internet.url()
     @data.return_failure_url      = faker.internet.url()
     @data.return_pending_url      = faker.internet.url()
-    @transaction                  = new Transaction()
+    @transaction                  = new Transaction(@data, FakeConfig.getConfig())
 
   FinancialBase()
   RequiredBillingAddress()
