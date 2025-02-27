@@ -1,7 +1,6 @@
 path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
-sinon = require 'sinon'
 
 BusinessAttributes = require '../business_attributes'
 FakeConfig         = require path.resolve './test/transactions/fake_config'

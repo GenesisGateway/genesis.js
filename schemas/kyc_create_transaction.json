@@ -1,0 +1,336 @@
+{
+  "$id": "https://genesis.js/kyc_create_transaction",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "customer_information",
+    "deposit_limits",
+    "transaction_unique_id",
+    "payment_details",
+    "transaction_created_at",
+    "customer_ip_address"
+  ],
+  "properties": {
+    "session_id": {
+      "$ref": "/definitions/attributes/kyc/common#session_id"
+    },
+    "customer_username" : {
+      "$ref": "/definitions/attributes/kyc/common#customer_username"
+    },
+    "customer_unique_id" : {
+      "$ref": "/definitions/attributes/kyc/common#customer_unique_id"
+    },
+    "customer_status": {
+      "type": "string",
+      "description": "Current status of the customer account in your system"
+    },
+    "customer_loyalty_level": {
+      "type": "string",
+      "description": "Customer loyalty level; for example: VIP; Bronze; Platinum; Gold; etc. This is an open text variable"
+    },
+    "customer_registration_date": {
+      "$ref": "/definitions/attributes/kyc/common#customer_registration_date"
+    },
+    "customer_registration_ip_address": {
+      "$ref": "/definitions/attributes/kyc/common#customer_registration_ip_address"
+    },
+    "customer_registration_device_id": {
+      "$ref": "/definitions/attributes/kyc/common#customer_registration_device_id"
+    },
+    "customer_information": {
+      "$ref": "/definitions/attributes/kyc/customer_information"
+    },
+    "first_deposit_date": {
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "Empty if first deposit"
+    },
+    "first_withdrawal_date": {
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "Empty if 0 withdrawals"
+    },
+    "deposits_count": {
+      "type": "integer"
+    },
+    "withdrawals_count": {
+      "type": "integer"
+    },
+    "current_balance": {
+      "type": "integer"
+    },
+    "deposit_limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "payment_method"
+      ],
+      "properties": {
+        "payment_method": {
+          "type": "string",
+          "enum": ["CC", "EC"],
+          "description": "CC - CreditCard; EC - Echeck"
+        },
+        "minimum": {
+          "type": "integer",
+          "description": "Lowest valid amount for deposit in minor currency units; ex: 100 = $1"
+        },
+        "daily_maximum": {
+          "type": "integer",
+          "description": "In minor currency units"
+        },
+        "weekly_maximum": {
+          "type": "integer",
+          "description": "In minor currency units"
+        },
+        "monthly_maximum": {
+          "type": "integer",
+          "description": "In minor currency units"
+        }
+      }
+    },
+    "transaction_unique_id": {
+      "$ref": "/definitions/attributes/kyc/common#transaction_unique_id"
+    },
+    "billing_information": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "first_name": {
+          "$ref": "/definitions/attributes/kyc/common#first_name"
+        },
+        "last_name": {
+          "$ref": "/definitions/attributes/kyc/common#last_name"
+        },
+        "customer_email": {
+          "$ref": "/definitions/attributes/kyc/common#customer_email"
+        },
+        "address1": {
+          "$ref": "/definitions/attributes/kyc/common#address1"
+        },
+        "address2": {
+          "$ref": "/definitions/attributes/kyc/common#address2"
+        },
+        "city": {
+          "$ref": "/definitions/attributes/kyc/common#city"
+        },
+        "province": {
+          "$ref": "/definitions/attributes/kyc/common#province"
+        },
+        "zip_code": {
+          "$ref": "/definitions/attributes/kyc/common#zip_code"
+        },
+        "country": {
+          "$ref": "/definitions/attributes/kyc/common#country"
+        },
+        "phone1": {
+          "$ref": "/definitions/attributes/kyc/common#phone1",
+          "description": ""
+        },
+        "birth_date": {
+          "$ref": "/definitions/attributes/kyc/common#birth_date",
+          "description": "Required for Visa only when MCC is a Financial Services one (e.g. MCC 6012)"
+        },
+        "gender": {
+          "$ref": "/definitions/attributes/kyc/common#gender"
+        }
+      }
+    },
+    "shipping_information": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "first_name": {
+          "$ref": "/definitions/attributes/kyc/common#first_name"
+        },
+        "last_name": {
+          "$ref": "/definitions/attributes/kyc/common#last_name"
+        },
+        "customer_email": {
+          "$ref": "/definitions/attributes/kyc/common#customer_email"
+        },
+        "address1": {
+          "$ref": "/definitions/attributes/kyc/common#address1"
+        },
+        "address2": {
+          "$ref": "/definitions/attributes/kyc/common#address2"
+        },
+        "city": {
+          "$ref": "/definitions/attributes/kyc/common#city"
+        },
+        "province": {
+          "$ref": "/definitions/attributes/kyc/common#province"
+        },
+        "zip_code": {
+          "$ref": "/definitions/attributes/kyc/common#zip_code"
+        },
+        "country": {
+          "$ref": "/definitions/attributes/kyc/common#country"
+        },
+        "phone1": {
+          "$ref": "/definitions/attributes/kyc/common#phone1"
+        }
+      }
+    },
+    "payment_details": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bin": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/bin",
+          "description": "First 6 digits of the card number; Only required if Payment Method Type is Credit Card;"
+        },
+        "tail": {
+          "$ref": "/definitions/attributes/wpf/transaction_types/tail",
+          "description": "Last 4 digits of the card number; Only required if Payment Method Type is Credit Card;"
+        },
+        "cvv_present": {
+          "type": "string",
+          "description": "Indicator if the CVV was received or not; The expected values in this field are Yes or No;"
+        },
+        "hashed_pan": {
+          "type": "string",
+          "description": "Only required if Payment Method Type is Credit Card; It should be hashed using SHA256; the string to be hashed is Card Number and the MD5 hash of the Expiration Date; For example; if the card number is 1111-2222-3333-4444 with expiration date 01/22; The have should be done on the string without spaces nor dash nor other special chars; The MD5 of the Expiration Date 0122 is f0f4b6598f2cee45644673998b4f44be; That said; the string to be hashed is 1111222233334444f0f4b6598f2cee45644673998b4f44be which generates the following result fecd244b7d647b0db391e35910e0d42aaf88f7633a4f4f4883b109abad1d6d7"
+        },
+        "routing": {
+          "type": "string",
+          "description": "Routing number; Only required if Payment Method Type is eCheck;"
+        },
+        "account": {
+          "type": "string",
+          "description": "Only numbers up to 30 digits; Only required if Payment Method Type is eCheck;"
+        },
+        "ewallet_id": {
+          "type": "string",
+          "description": "Most of the times it's an email; Only required if Payment Method Type is eWallet;"
+        }
+      }
+    },
+    "amount": {
+      "type": ["number", "string"],
+      "minimum": 0,
+      "maximum": 100000000000,
+      "description": "Amount of transaction in minor currency unit",
+      "pattern": "^\\d+$",
+      "message": "Example: 100 = $1"
+    },
+    "currency": {
+      "$ref": "/definitions/currency",
+      "description": "ISO 4217 Three digits"
+    },
+    "transaction_created_at": {
+      "$ref": "/definitions/attributes/kyc/common#datetime-yyyy-mm-dd-hh:mm:ss",
+      "description": "Represents the time of the transaction on the Merchant server. Format: yyyy-mm-dd hh:mm:ss"
+    },
+    "transaction_status": {
+      "type": "integer",
+      "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+      "description": "Transaction status; it is recommended to send 0 on the initial call. Afterwards call Update Transaction endpoint to update the status. 0-Undefined; 1-Approved; 2-Pre-Auth; 3-Settled; 4-Void; 5-Rejected internally by Negative Database or other scrubber decided to reject the transaction; 6-Declined the bank / gateway / processor rejected the transaction; 7-Chargeback; 8-Return; 9-Pending; 10-Pass Transaction validation; 11-Failed transaction validation; 12-Refund; 13-Approved Review; 14-Abandon This status is used when the user just leaves the transaction;"
+    },
+    "customer_ip_address": {
+      "$ref": "/definitions/attributes/kyc/common#customer_registration_ip_address",
+      "description": "Customers IP address"
+    },
+    "third_party_device_id": {
+      "$ref": "/definitions/attributes/kyc/common#third_party_device_id"
+    },
+    "device_fingerprint": {
+      "$ref": "/definitions/attributes/kyc/common#device_fingerprint"
+    },
+    "device_fingerprint_type": {
+      "$ref": "/definitions/attributes/kyc/common#device_fingerprint_type"
+    },
+    "shopping_cart_items_count": {
+      "type": "integer",
+      "description": "Represents the quantity of items in the shopping cart"
+    },
+    "local_time": {
+      "$ref": "/definitions/attributes/kyc/common#datetime-yyyy-mm-dd-hh:mm:ss",
+      "description": "Represents the local time of the customer doing the transaction. Format: yyyy-mm-dd hh:mm:ss"
+    },
+    "order_source": {
+      "type": "string",
+      "enum": ["internet", "mobile", "inhouse"]
+    },
+    "merchant_website": {
+      "$ref": "/definitions/attributes/kyc/common#merchant_website",
+      "description": "Open text variable; it represents the website name or URL that submitted the transaction"
+    },
+    "industry_type": {
+      "$ref": "/definitions/attributes/kyc/common#industry_type"
+    },
+    "customer_password": {
+      "type": "string",
+      "description": "Open text variable; it represents the customers password in hashed format (using MD5) some companies share that information in order to look for patterns"
+    },
+    "rule_context": {
+      "$ref": "/definitions/attributes/kyc/common#rule_context"
+    },
+    "custom_variable": {
+      "type": "string",
+      "description": "Represents anything the merchant wants to store with this transaction"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "deposit_limits": {
+            "properties": {
+              "payment_method": {
+                "const": "CC"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payment_details": {
+            "type": "object",
+            "properties": {
+              "hashed_pan": {
+                "type": "string"
+              },
+              "bin": {
+                "type": "string"
+              },
+              "tail": {
+                "type": "string"
+              }
+            },
+            "required": [ "hashed_pan", "bin", "tail" ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "deposit_limits": {
+            "properties": {
+              "payment_method": {
+                "const": "EC"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payment_details": {
+            "type": "object",
+            "properties": {
+              "routing": {
+                "type": "string"
+              },
+              "account": {
+                "type": "string"
+              }
+            },
+            "required": [ "routing", "account" ]
+          }
+        }
+      }
+    }
+  ]
+}

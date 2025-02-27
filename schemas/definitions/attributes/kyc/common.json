@@ -1,0 +1,151 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/kyc/common",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "KYC requests common parameters",
+  "properties": {
+    "session_id": {
+      "$id": "#session_id",
+      "type": "string",
+      "description": "If this value is not provided the user email account should be complete and valid"
+    },
+    "customer_username" : {
+      "$id": "#customer_username",
+      "type": "string",
+      "description": "Username of the customer on your system"
+    },
+    "customer_unique_id" : {
+      "$id": "#customer_unique_id",
+      "type": "string",
+      "description": "Unique user identificator on your system"
+    },
+    "customer_registration_date": {
+      "$id": "#customer_registration_date",
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "Date in which the customer was registered in the system OR the date in which the customer was created in the cashier Database"
+    },
+    "customer_registration_ip_address": {
+      "$id": "#customer_registration_ip_address",
+      "type": "string",
+      "format": "ipv4",
+      "description": "IP address of customer used when the customer was registered in the system OR the current IP address"
+    },
+    "customer_registration_device_id": {
+      "$id": "#customer_registration_device_id",
+      "type": "string",
+      "description": "Proprietary DeviceId technology, refer to the DeviceId Instruction Manual (provided on request)"
+    },
+    "datetime": {
+      "$id": "#datetime-yyyy-mm-dd-hh:mm:ss",
+      "type": "string",
+      "pattern": "^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9]) ([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$",
+      "message": "Should match yyyy-mm-dd hh:mm:ss"
+    },
+    "third_party_device_id": {
+      "$id": "#third_party_device_id",
+      "type": "string",
+      "description": "Third Party DeviceId"
+    },
+    "device_fingerprint": {
+      "$id": "#device_fingerprint",
+      "type": "string",
+      "description": "Open Source DeviceId technologies (Interpreted as a String)"
+    },
+    "device_fingerprint_type": {
+      "$id": "#device_fingerprint_type",
+      "type": "integer",
+      "enum": [1, 2, 3],
+      "description": "1 - Custom; 2 - Open Source; 3 - Open Source 2;"
+    },
+    "merchant_website": {
+      "$id": "#merchant_website",
+      "type": "string"
+    },
+    "industry_type": {
+      "$id": "#industry_type",
+      "type": "integer",
+      "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      "description": "1 - Finance; 2 - Gambling; 3 - Crypto; 4 - Travel; 5 - Retail; 6 - Risk Vendor; 7 - Adult; 8 - Remittance/Transfer; 9 - Other;"
+    },
+    "rule_context": {
+      "$id": "#rule_context",
+      "type": "integer",
+      "description": "Number assigned to a given rule context. Please contact to get the available contexts"
+    },
+    "first_name": {
+      "$id": "#first_name",
+      "type": "string",
+      "description": "Customer first name"
+    },
+    "last_name": {
+      "$id": "#last_name",
+      "type": "string",
+      "description": "Customer last name"
+    },
+    "customer_email": {
+      "$id": "#customer_email",
+      "type": "string",
+      "format": "email",
+      "description": "Must contain valid e-mail of customer"
+    },
+    "address1": {
+      "$id": "#address1",
+      "type": "string",
+      "description": "Primary address"
+    },
+    "address2": {
+      "$id": "#address2",
+      "type": "string",
+      "description": "Secondary address"
+    },
+    "city": {
+      "$id": "#city",
+      "type": "string",
+      "description": "City"
+    },
+    "province": {
+      "$id": "#province",
+      "type": "string"
+    },
+    "zip_code": {
+      "$id": "#zip_code",
+      "type": "string",
+      "description": "ZIP code"
+    },
+    "country": {
+      "$id": "#country",
+      "$ref": "/definitions/country",
+      "description": "Two-letter ISO codes"
+    },
+    "phone1": {
+      "$id": "#phone1",
+      "type": "string",
+      "description": "Numbers only; no dash or any other separator. Please include area code if applicable. Country code is not required"
+    },
+    "birth_date": {
+      "$id": "#birth_date",
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd"
+    },
+    "gender": {
+      "$id": "#gender",
+      "type": "string",
+      "enum": [ "F", "M"],
+      "description": "F - female; M - male"
+    },
+    "reference_id": {
+      "$id": "#reference_id",
+      "type": "string"
+    },
+    "transaction_unique_id": {
+      "$id": "#transaction_unique_id",
+      "type": "string",
+      "description": "Transaction ID"
+    },
+    "reason": {
+      "$id": "#reason",
+      "type": "string",
+      "description": "Required only if status is Reject / Decline / Chargeback / Refund / Return / Void"
+    }
+  }
+}

@@ -2305,6 +2305,35 @@ retrieval_by_date
 transfer_to_payers
 ```
 
+### Processed Transaction API services
+```text
+processed_transactions
+processed_transactions_by_date
+processed_transactions_by_post_date
+```
+
+### FX API services
+```text
+fx_tier
+fx_tiers
+fx_rate
+fx_rates
+fx_search_rate
+```
+
+### KYC API services
+```text
+kyc_create_consumer
+kyc_update_consumer
+kyc_create_transaction
+kyc_update_transaction
+```
+
+### SCA API services
+```text
+sca_checker
+```
+
 Web Payment Form Transaction Parameters
 ----------------------
 `wpf_create.transaction_types`:

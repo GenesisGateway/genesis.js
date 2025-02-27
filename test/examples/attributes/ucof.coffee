@@ -5,11 +5,9 @@ UCOF = () ->
 
   it 'works with ucof parameters', ->
     data = _.clone @data
-    data = _.extend(data, {
-      credential_on_file_transaction_identifier: "MCC242736",
-      credential_on_file_settlement_date: "0107"
-      }
-    )
+    data = _.extend(data, { credential_on_file_transaction_identifier: "MCC242736" })
+    if @transaction.getTransactionType() != 'payout'
+      data = _.extend(data, { credential_on_file_settlement_date: "0107" })
 
     assert.equal true, @transaction.setData(data).isValid()
 

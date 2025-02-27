@@ -1,0 +1,29 @@
+{
+  "$id": "https://genesis.js/fx_search_rate",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "This call is used to return information about selected Rate by currency pair.",
+  "required": [
+    "tier_id",
+    "source_currency",
+    "target_currency"
+  ],
+  "properties": {
+    "tier_id": {
+      "type": ["string", "integer"],
+      "title": "Tier identifier",
+      "description": "Tier identifier"
+    },
+    "source_currency": {
+      "$ref": "/definitions/currency",
+      "title": "Source currency",
+      "description": "Source currency"
+    },
+    "target_currency": {
+      "$ref": "/definitions/currency",
+      "title": "Target currency",
+      "description": "Target currency"
+    }
+  }
+}

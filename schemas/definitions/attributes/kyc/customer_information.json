@@ -1,0 +1,70 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/kyc/customer_information",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "The fields of the customer information object.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "first_name",
+    "last_name",
+    "customer_email",
+    "address1",
+    "city",
+    "province",
+    "zip_code",
+    "country"
+  ],
+  "properties": {
+    "first_name": {
+      "$ref": "/definitions/attributes/kyc/common#first_name"
+    },
+    "middle_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "$ref": "/definitions/attributes/kyc/common#last_name"
+    },
+    "customer_email": {
+      "$ref": "/definitions/attributes/kyc/common#customer_email"
+    },
+    "address1": {
+      "$ref": "/definitions/attributes/kyc/common#address1"
+    },
+    "address2": {
+      "$ref": "/definitions/attributes/kyc/common#address2"
+    },
+    "city": {
+      "$ref": "/definitions/attributes/kyc/common#city"
+    },
+    "province": {
+      "$ref": "/definitions/attributes/kyc/common#province"
+    },
+    "zip_code": {
+      "$ref": "/definitions/attributes/kyc/common#zip_code"
+    },
+    "country": {
+      "$ref": "/definitions/attributes/kyc/common#country"
+    },
+    "phone1": {
+      "$ref": "/definitions/attributes/kyc/common#phone1"
+    },
+    "phone2": {
+      "$ref": "/definitions/attributes/kyc/common#phone1"
+    },
+    "birth_date": {
+      "$ref": "/definitions/attributes/kyc/common#birth_date",
+      "description": "Required for Visa only when MCC is a Financial Services one (e.g. MCC 6012)"
+    },
+    "document_type": {
+      "type": "integer",
+      "enum": [0, 1, 2, 3, 4, 8, 12, 13, 16, 17, 18],
+      "description": "0 - SSN; 1 - Passport Registry; 2 - Personal ID / National ID; 3 - Identity Card; 4 - Driver License; 8 - Travel Document; 12 - Residence Permit; 13 - Identity Certificate; 16 - Registro Federal de Contribuyentes; 17 - Credencial de Elector; 18 - CPF"
+    },
+    "document_number": {
+      "type": "string"
+    },
+    "gender": {
+      "$ref": "/definitions/attributes/kyc/common#gender"
+    }
+  }
+}

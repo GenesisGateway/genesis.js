@@ -1,6 +1,6 @@
 {
   "name": "genesis.js",
-  "version": "3.3.2",
+  "version": "3.3.3",
   "description": "JS library for Genesis Payment Processing Gateway",
   "main": "./lib/genesis.js",
   "repository": {
@@ -41,6 +41,7 @@
     "chai": "^4.5.0",
     "faker": "^5.5.3",
     "mocha": "^10.8.2",
-    "sinon": "^19.0.2"
+    "sinon": "^19.0.2",
+    "sinon-chai": "^3.0.0"
   }
 }

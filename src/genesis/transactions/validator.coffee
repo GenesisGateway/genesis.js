@@ -69,6 +69,12 @@ class Validator
     @ajv.addSchema(
       require '../../../schemas/definitions/attributes/tokenization/tokenization_attributes.json'
     )
+    @ajv.addSchema(
+      require '../../../schemas/definitions/attributes/kyc/customer_information.json'
+    )
+    @ajv.addSchema(
+      require '../../../schemas/definitions/attributes/kyc/common.json'
+    )
 
   # Compare the specific transaction schema against the request parameters
 

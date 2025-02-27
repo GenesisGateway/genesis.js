@@ -1,5 +1,4 @@
 path    = require 'path'
-sinon   = require 'sinon'
 Request = require path.resolve './src/genesis/request'
 
 FakeConfig  = require path.resolve './test/transactions/fake_config'

@@ -1,3 +1,27 @@
+3.3.3
+-----
+* Added Processed Transaction API support:
+  - Processed transaction
+  - Processed transactions by date
+  - Processed transactions by post date
+* Added FX API support:
+  - Get tier
+  - Get tiers
+  - Get rate
+  - Get rates
+  - Search rate
+* Added KYC services API support:
+  - Create consumer registration
+  - Update consumer registration
+  - Create transaction
+  - Update transaction
+* Add SCA Services API support:
+  - SCA Checker
+* Added root node XML response attributes parsing for Date Range and List API services
+* Added COF and UCOF parameters support to Cards\Payout transaction request
+* Removed COF and UCOF parameters support from Online Banking Payout transaction request
+* Improved core components structure
+
 3.3.2
 -----
 * Added ACS Transaction Id parameter support part of the MPI parameters

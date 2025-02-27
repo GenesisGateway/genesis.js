@@ -1,0 +1,80 @@
+{
+  "$id": "https://genesis.js/kyc_create_consumer",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "customer_unique_id",
+    "customer_registration_date",
+    "customer_registration_ip_address",
+    "customer_information"
+  ],
+  "properties": {
+    "session_id": {
+      "$ref": "/definitions/attributes/kyc/common#session_id"
+    },
+    "customer_information": {
+        "$ref": "/definitions/attributes/kyc/customer_information"
+    },
+    "customer_username" : {
+      "$ref": "/definitions/attributes/kyc/common#customer_username"
+    },
+    "customer_unique_id" : {
+      "$ref": "/definitions/attributes/kyc/common#customer_unique_id"
+    },
+    "customer_registration_date": {
+      "$ref": "/definitions/attributes/kyc/common#customer_registration_date"
+    },
+    "customer_registration_ip_address": {
+      "$ref": "/definitions/attributes/kyc/common#customer_registration_ip_address"
+    },
+    "customer_registration_device_id": {
+      "$ref": "/definitions/attributes/kyc/common#customer_registration_device_id"
+    },
+    "third_party_device_id": {
+      "$ref": "/definitions/attributes/kyc/common#third_party_device_id"
+    },
+    "device_fingerprint": {
+      "$ref": "/definitions/attributes/kyc/common#device_fingerprint"
+    },
+    "device_fingerprint_type": {
+      "$ref": "/definitions/attributes/kyc/common#device_fingerprint_type"
+    },
+    "profile_action_type": {
+      "type": "integer",
+      "enum": [1, 2],
+      "description": "1 - Registration; 2 - Profile Update;"
+    },
+    "profile_current_status": {
+      "type": "integer",
+      "enum": [0, 1, 2, 3],
+      "description": "0 - Undefined;1 - Review;2 - Denied;3 - Approved;"
+    },
+    "bonus_code": {
+      "type": "string",
+      "description": "Open text variable. Represents the code entered by the customer"
+    },
+    "bonus_submission_date": {
+      "type": "string"
+    },
+    "bonus_amount": {
+      "type": "integer"
+    },
+    "merchant_website": {
+      "$ref": "/definitions/attributes/kyc/common#merchant_website",
+      "description": "Website URL of the merchant initiating the wallet transfer"
+    },
+    "industry_type": {
+      "$ref": "/definitions/attributes/kyc/common#industry_type"
+    },
+    "how_did_you_hear": {
+      "type": "string"
+    },
+    "affiliate_id": {
+      "type": "string"
+    },
+    "rule_context": {
+      "$ref": "/definitions/attributes/kyc/common#rule_context"
+    }
+  }
+}

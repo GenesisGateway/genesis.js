@@ -1,0 +1,41 @@
+{
+  "$id": "https://genesis.js/kyc_update_transaction",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_unique_id"
+  ],
+  "properties": {
+    "session_id": {
+      "$ref": "/definitions/attributes/kyc/common#session_id"
+    },
+    "transaction_unique_id": {
+      "$ref": "/definitions/attributes/kyc/common#transaction_unique_id"
+    },
+    "reference_id": {
+      "$ref": "/definitions/attributes/kyc/common#reference_id",
+      "description": "Required only if status is Reject / Decline / Chargeback / Refund / Return / Void"
+    },
+    "transaction_status": {
+      "type": "integer",
+      "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+      "description": "1-Approved; 2-Pre-Auth; 3-Settled; 4-Void; 5-Rejected internally by Negative Database or other scrubber decided to reject the transaction; 6-Declined the bank / gateway / processor rejected the transaction; 7-Chargeback; 8-Return; 9-Pending; 10-Pass Transaction validation; 11-Failed transaction validation; 12-Refund; 13-Approved Review; 14-Abandon This status is used when the user just leaves the transaction;"
+    },
+    "reason": {
+      "$ref": "/definitions/attributes/kyc/common#reason"
+    },
+    "cvv_check_result": {
+      "type": "string",
+      "description": "Response from processor regarding CVV check"
+    },
+    "avs_check_result": {
+      "type": "string",
+      "description": "Result from processor regarding AVS check"
+    },
+    "processor_identifier": {
+      "type": "string",
+      "description": "Unique identifier of the processor attempted"
+    }
+  }
+}

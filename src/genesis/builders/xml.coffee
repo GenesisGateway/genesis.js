@@ -7,13 +7,16 @@ class Xml
      Convert Object to XML structure
   ###
   objToXml: (structure) ->
-    rootNode = _.first _.keys(structure)
+    return '<?xml version=\'1.0\'?>' if _.isEmpty(structure)
+
+    rootNode = _.first(_.keys(structure))
+
     js2xml.parse rootNode, structure[rootNode]
 
   ###
      Return object converter
   ###
-  getConverter: (structure) ->
+  buildStructure: (structure) ->
     @objToXml structure
 
 

@@ -80,6 +80,28 @@ describe 'ManualConfiguration', ->
 
     assert.equal true, transaction.isValid()
 
+  it 'when gateway timeout with default value', ->
+    delete @configParams.gateway.timeout
+
+    config = new Config @configParams
+
+    assert.equal config.getGatewayTimeout(), 60000
+
+  it 'when gateway timeout with invalid number property', ->
+    @configParams.gateway.timeout = '123aaa'
+
+    config = new Config @configParams
+
+    assert.equal config.getGatewayTimeout(), 60000
+
+  it 'when gateway timeout with proper number value', ->
+    @configParams.gateway.timeout = '123'
+
+    config = new Config @configParams
+
+    assert.isNumber config.getGatewayTimeout()
+    assert.equal config.getGatewayTimeout(), 123
+
   it 'works without notifications object', ->
     delete @configParams.notifications
 
@@ -109,6 +131,13 @@ describe 'ManualConfiguration', ->
 
     assert.equal 'prod.api', config.getSubDomain('smart_router')
 
+  it 'returns kyc subdomain for prod environment', ->
+    @configParams.gateway.testing = false
+
+    config = new Config @configParams
+
+    assert.equal 'kyc', config.getSubDomain('kyc')
+
   it 'returns staging.gate environment subdomain', ->
     config = new Config @configParams
 
@@ -123,6 +152,11 @@ describe 'ManualConfiguration', ->
     config = new Config @configParams
 
     assert.equal 'staging.api', config.getSubDomain('smart_router')
+
+  it 'returns staging.kyc environment subdomain', ->
+    config = new Config @configParams
+
+    assert.equal 'staging.kyc', config.getSubDomain('kyc')
 
   it 'throws error with invalid subdomain', ->
     config = new Config @configParams
@@ -170,7 +204,6 @@ describe 'ManualConfiguration', ->
     transaction = new Transaction(@data, config)
 
     assert.equal false, transaction.isValid()
-
 
   it 'fails with missing gateway hostname property', ->
     delete @configParams.gateway.hostname

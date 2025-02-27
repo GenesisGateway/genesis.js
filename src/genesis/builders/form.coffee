@@ -4,10 +4,10 @@ class Form
 
   #  Convert Object to URL-encoded query string structure
   objToQueryString: (structure) ->
-    new URLSearchParams(structure)
+    (new URLSearchParams(structure)).toString()
 
   # Return object converter
-  getConverter: (structure) ->
+  buildStructure: (structure) ->
     @objToQueryString structure
 
 module.exports = Form

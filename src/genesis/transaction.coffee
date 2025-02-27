@@ -41,22 +41,25 @@ Redpagos            = require './transactions/financial/cash_payments/redpagos'
 ###
   Non Financial transactions
 ###
-Chargeback          = require './transactions/non_financial/fraud/chargeback/chargeback'
-ChargebackByDate    = require './transactions/non_financial/fraud/chargeback/chargeback_by_date'
-Blacklist           = require './transactions/non_financial/blacklist'
-FraudReport         = require './transactions/non_financial/fraud/reports/fraud_report'
-FraudReportByDate   = require './transactions/non_financial/fraud/reports/fraud_report_by_date'
-Retrieval           = require './transactions/non_financial/fraud/retrieval/retrieval'
-RetrievalByDate     = require './transactions/non_financial/fraud/retrieval/retrieval_by_date'
-Reconcile           = require './transactions/non_financial/reconcile/reconcile'
-ReconcileByDate     = require './transactions/non_financial/reconcile/reconcile_by_date'
-Payers              = require './transactions/non_financial/alternatives/transfer_to/payers'
-CreateConsumer      = require './transactions/non_financial/consumers/create'
-UpdateConsumer      = require './transactions/non_financial/consumers/update'
-DisableConsumer     = require './transactions/non_financial/consumers/disable'
-EnableConsumer      = require './transactions/non_financial/consumers/enable'
-GetCards            = require './transactions/non_financial/consumers/get_cards'
-RetrieveConsumer    = require './transactions/non_financial/consumers/retrieve'
+Chargeback                      = require './transactions/non_financial/fraud/chargeback/chargeback'
+ChargebackByDate                = require './transactions/non_financial/fraud/chargeback/chargeback_by_date'
+Blacklist                       = require './transactions/non_financial/blacklist'
+FraudReport                     = require './transactions/non_financial/fraud/reports/fraud_report'
+FraudReportByDate               = require './transactions/non_financial/fraud/reports/fraud_report_by_date'
+Retrieval                       = require './transactions/non_financial/fraud/retrieval/retrieval'
+RetrievalByDate                 = require './transactions/non_financial/fraud/retrieval/retrieval_by_date'
+Reconcile                       = require './transactions/non_financial/reconcile/reconcile'
+ReconcileByDate                 = require './transactions/non_financial/reconcile/reconcile_by_date'
+Payers                          = require './transactions/non_financial/alternatives/transfer_to/payers'
+CreateConsumer                  = require './transactions/non_financial/consumers/create'
+UpdateConsumer                  = require './transactions/non_financial/consumers/update'
+DisableConsumer                 = require './transactions/non_financial/consumers/disable'
+EnableConsumer                  = require './transactions/non_financial/consumers/enable'
+GetCards                        = require './transactions/non_financial/consumers/get_cards'
+RetrieveConsumer                = require './transactions/non_financial/consumers/retrieve'
+ProcessedTransactions           = require './transactions/non_financial/processed_transactions/processed_transactions'
+ProcessedTransactionsByDate     = require './transactions/non_financial/processed_transactions/processed_transactions_by_date'
+ProcessedTransactionsByPostDate = require './transactions/non_financial/processed_transactions/processed_transactions_by_post_date'
 
 ###
   Web Payment Form
@@ -152,6 +155,31 @@ ValidateToken    = require './transactions/non_financial/tokenization/validate_t
 DeleteToken      = require './transactions/non_financial/tokenization/delete_token'
 GetTokenizedCard = require './transactions/non_financial/tokenization/get_tokenized_card'
 
+###
+  FX Services
+###
+FxTier  = require './transactions/non_financial/fx/tier'
+FxTiers = require './transactions/non_financial/fx/tiers'
+FxRate  = require './transactions/non_financial/fx/rate'
+FxRates = require './transactions/non_financial/fx/rates'
+FxSearchRate = require './transactions/non_financial/fx/search_rate'
+
+###
+  KYC Services
+###
+KycCreateConsumer    = require './transactions/non_financial/kyc/consumer_registration/kyc_create_consumer'
+KycUpdateConsumer    = require './transactions/non_financial/kyc/consumer_registration/kyc_update_consumer'
+KycCreateTransaction = require './transactions/non_financial/kyc/transaction/kyc_create_transaction'
+KycUpdateTransaction = require './transactions/non_financial/kyc/transaction/kyc_update_transaction'
+
+###
+  SCA
+###
+ScaChecker = require './transactions/non_financial/sca/checker'
+
+###
+  Library Transaction factory
+###
 class Transaction
 
   constructor: ( configuration = null ) ->
@@ -455,6 +483,15 @@ class Transaction
   retrieve_consumer: (params) ->
     new RetrieveConsumer(params, @config)
 
+  processed_transactions: (params) ->
+    new ProcessedTransactions(params, @config)
+
+  processed_transactions_by_date: (params) ->
+    new ProcessedTransactionsByDate(params, @config)
+
+  processed_transactions_by_post_date: (params) ->
+    new ProcessedTransactionsByPostDate(params, @config)
+
   ###
     Tokenization
   ###
@@ -475,6 +512,45 @@ class Transaction
 
   get_tokenized_card: (params) ->
     new GetTokenizedCard(params, @config)
+
+  ###
+    FX
+  ###
+  fx_tier: (params) ->
+    new FxTier(params, @config)
+
+  fx_tiers: ->
+    new FxTiers(null, @config)
+
+  fx_rate: (params) ->
+    new FxRate(params, @config)
+
+  fx_rates: (params) ->
+    new FxRates(params, @config)
+
+  fx_search_rate: (params) ->
+    new FxSearchRate(params, @config)
+
+  ###
+    KYC services
+  ###
+  kyc_create_consumer: (params) ->
+    new KycCreateConsumer(params, @config)
+
+  kyc_update_consumer: (params) ->
+    new KycUpdateConsumer(params, @config)
+
+  kyc_create_transaction: (params) ->
+    new KycCreateTransaction(params, @config)
+
+  kyc_update_transaction: (params) ->
+    new KycUpdateTransaction(params, @config)
+
+  ###
+    SCA
+  ###
+  sca_checker: (params) ->
+    new ScaChecker(params, @config)
 
   ###
     Web Payment Form

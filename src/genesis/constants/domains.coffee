@@ -13,6 +13,10 @@ class Domains
     "smart_router" : {
       "production"        : "prod.api",
       "sandbox"           : "staging.api"
+    },
+    "kyc" : {
+      "production"        : "kyc",
+      "sandbox"           : "staging.kyc"
     }
   }
 

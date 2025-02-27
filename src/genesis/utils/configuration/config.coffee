@@ -9,7 +9,7 @@ class Config
   # Manual configuration identifier
   MANUAL: 'manual'
   # Version configuration identifier
-  VERSION: '3.3.2'
+  VERSION: '3.3.3'
 
   constructor: (@configuration) ->
     @initConfig()
@@ -57,7 +57,7 @@ class Config
     @getConfig().gateway.hostname
 
   getGatewayTimeout: () ->
-    @getConfig().gateway.timeout || '60000'
+    Number(@getConfig().gateway.timeout) || 60000
 
   getGatewayTesting: () ->
     @getConfig().gateway.testing

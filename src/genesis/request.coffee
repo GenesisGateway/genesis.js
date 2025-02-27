@@ -1,13 +1,14 @@
 _         = require 'underscore'
-AxiosApi  = require './network/axios_api'
-Builders  = require './builders/builders'
+AxiosApi  = require './networks/axios_api'
+Builder   = require './builder'
 Currency  = require './helpers/currency'
-https     = require 'https'
 Promise   = require 'bluebird'
-Response  = require './response'
 util      = require 'util'
 Validator = require './transactions/validator'
 
+###
+  Base Gateway Request - Build the Request and send it to the Network
+###
 class Request
 
   METHOD_POST : 'POST'
@@ -16,28 +17,33 @@ class Request
 
   constructor: (@params, configuration, builderInterface = 'xml') ->
     @builderInterface = builderInterface
-    @builderContext   = (new Builders(@builderInterface))
-    @response         = new Response
+    @builderContext   = new Builder @builderInterface
     @configuration    = configuration
-    @axiosApi         = new AxiosApi
+    @network          = new AxiosApi
     @currency         = new Currency
     @validator        = new Validator @
 
+  # Load Request Network configuration
   initConfiguration: ->
     @loadBuilderInterface()
 
+  # Helper method
+  # TODO: Request.setData should be removed
   setData: (@params) ->
     @
 
+  # Accessor for @params
   getData: () ->
     @params
 
+  # Build the Network request data based on specific Gateway Request
   getArguments: ->
     trx:
       @getTrxData()
     url:
       @getUrl()
 
+  # Gateway Endpoint that each request defines
   getUrl: ->
     app:
       ''
@@ -46,20 +52,19 @@ class Request
     token:
       ''
 
+  # Payment transaction structure that each request defines along with given params
   getTrxData: ->
+    {}
 
+  # Load Request Network options based on the Gateway endpoint requirements
   loadBuilderInterface: ->
     switch @builderInterface
-      when @builderContext.XML
-        @initXmlConfiguration()
-      when @builderContext.FORM
-        @initFormConfiguration()
-      else
-        @initGetConfiguration()
+      when @builderContext.XML then @initXmlConfiguration()
+      when @builderContext.FORM then @initFormConfiguration()
+      when @builderContext.JSON then @initJsonConfiguration()
+      else @initGetConfiguration()
 
-  ###
-    Format and return the endpoint URL based on the transaction parameters
-  ###
+  # Format and return the endpoint URL based on the transaction parameters
   formatUrl: (params) ->
     util.format '%s://%s.%s/%s'
     , @configuration.getGatewayProtocol()
@@ -67,47 +72,42 @@ class Request
     , @configuration.getGatewayHostname()
     , if params.token? then "#{params.path}/#{params.token}" else params.path
 
-  ###
-    Send the transaction to the Gateway
-  ###
+  # Send the Request to the Gateway
   send: () ->
     if !@isValid()
       return Promise.reject @getValidationErrorResponse()
 
-    params        = @getArguments()
-    requestConfig = @initConfiguration @builderInterface
-    data          = @builderContext.getBuilder params.trx
+    params = @getArguments()
 
-    @axiosApi.request_query((@formatUrl params.url), requestConfig, data)
+    @network.prepareConfig @initConfiguration()
+    @network.send @formatUrl(params.url), @builderContext.getDocument(params.trx)
 
+  # Load XML Post Network Configuration
   initXmlConfiguration: ->
-    version = @configuration.getVersion()
+    options         = Object.assign { method: @METHOD_POST }, @getDefaultNetworkOptions()
+    options.headers = Object.assign options.headers, 'Content-Type': 'text/xml'
 
-    method: @METHOD_POST
-    httpsAgent: new https.Agent({
-      rejectUnauthorized: true
-      maxVersion: "TLSv1.2"
-      minVersion: "TLSv1.2"
-    })
-    headers:
-      'Content-Type': 'text/xml'
-      'User-Agent': 'Genesis Node.js client v' + version
-      'Authorization': @getAuthorizationHeader()
-    timeout: Number(@configuration.getGatewayTimeout())
-    validateStatus: (status) ->
-      status >= 200 && status < 300
+    options
 
+  # Load FORM Put Network Configuration
   initFormConfiguration: ->
-    method: @METHOD_PUT
-    headers:
-      'Content-Type': 'application/x-www-form-urlencoded'
+    options         = Object.assign { method: @METHOD_PUT }, @getDefaultNetworkOptions()
+    options.headers = Object.assign options.headers, 'Content-Type': 'application/x-www-form-urlencoded'
 
+    options
+
+  # Load JSON Post Network Configuration
+  initJsonConfiguration: ->
+    options         = Object.assign { method: @METHOD_POST }, @getDefaultNetworkOptions()
+    options.headers = Object.assign options.headers, 'Content-Type': 'application/json'
+
+    options
+
+  # Load Get Network Configuration
   initGetConfiguration: ->
-    method: @METHOD_GET
-    headers:
-      'User-Agent': 'Genesis Node.js client v' + @configuration.getVersion()
-      'Authorization': @getAuthorizationHeader()
+    Object.assign { method: @METHOD_GET }, @getDefaultNetworkOptions()
 
+  # Validate Request requirements
   isValid: () ->
     if !@validator.isValidConfig()
       return false
@@ -120,9 +120,11 @@ class Request
 
     return true
 
+  # Provides validation errors
   getErrors: ->
     @validator.getErrors()
 
+  # Provides consolidated error response upon error
   getValidationErrorResponse: ->
     return {
       "status": "INVALID_INPUT"
@@ -130,6 +132,7 @@ class Request
       "response": @getErrors()
     }
 
+  # Removes empty elements from the payment structure
   sanitizeParams: (rawParams) ->
     _this = @
     _.each rawParams, (value, field) ->
@@ -143,10 +146,17 @@ class Request
       )
         delete rawParams[field]
 
+  # Default Request Network configuration
+  getDefaultNetworkOptions: ->
+    headers:
+      'User-Agent': "Genesis Node.js client v#{@configuration.getVersion()}"
+      'Authorization': @getAuthorizationHeader()
+    timeout: @configuration.getGatewayTimeout()
+
+  # Build Authorization header
   getAuthorizationHeader: ->
-    'Basic ' +
-      Buffer.from(
-        @configuration.getCustomerUsername() + ':' + @configuration.getCustomerPassword()
-      ).toString('base64')
+    credentials = "#{@configuration.getCustomerUsername()}:#{@configuration.getCustomerPassword()}"
+
+    "Basic #{Buffer.from(credentials).toString('base64')}"
 
 module.exports = Request

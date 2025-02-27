@@ -1,6 +1,5 @@
 path    = require 'path'
 _       = require 'underscore'
-sinon   = require 'sinon'
 Request = require path.resolve './src/genesis/request'
 
 Base = () ->

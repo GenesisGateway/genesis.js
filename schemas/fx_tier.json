@@ -1,0 +1,17 @@
+{
+  "$id": "https://genesis.js/fx_tier",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "This call is used to return information about selected Tier for your merchant.",
+  "required": [
+    "id"
+  ],
+  "properties": {
+    "id": {
+      "type": ["string", "integer"],
+      "title": "Tier identifier",
+      "description": "Tier identifier"
+    }
+  }
+}

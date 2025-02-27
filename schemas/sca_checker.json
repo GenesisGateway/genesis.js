@@ -1,0 +1,48 @@
+{
+  "$id": "https://genesis.js/sca_checker",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Genesis SCA(Strong Customer Authentication) Services provides the ability to check if a transaction is in the scope of SCA. ",
+  "required": [
+    "card_number",
+    "transaction_amount",
+    "transaction_currency"
+  ],
+  "properties": {
+    "card_number": {
+      "type": ["string", "integer"],
+      "pattern": "^[0-9]{6,19}$",
+      "title": "Card Number",
+      "description": "Full card number or first 6 digits."
+    },
+    "transaction_amount": {
+      "$ref": "/definitions/attributes/financial/payment#amount"
+    },
+    "transaction_currency": {
+      "$ref": "/definitions/currency",
+      "title": "Transaction currency",
+      "description": "Transaction currency"
+    },
+    "moto": {
+      "$ref": "/definitions/attributes/financial/common#moto"
+    },
+    "mit": {
+      "type": "boolean",
+      "title": "Merchant Initiated Transaction",
+      "description": "Signifies whether a MIT (merchant initiated transaction) is performed."
+    },
+    "recurring_type": {
+      "type": "string",
+      "enum": ["initial", "subsequent"],
+      "title": "Recurring type",
+      "description": "Specifies recurring type of the transaction"
+    },
+    "transaction_exemption": {
+      "title": "SCA Exemption",
+      "description": "The exemption that the transaction should take advantage of.",
+      "type": "string",
+      "enum": ["low_value", "low_risk", "trusted_merchant", "corporate_payment", "auth_network_outage"]
+    }
+  }
+}

@@ -5,7 +5,9 @@
     "$id": "#sca_params",
     "properties": {
       "exemption": {
-        "enum": ["low_value", "low_risk", "trusted_merchant", "corporate_payment", "delegated_authentication"]
+        "enum": ["low_value", "low_risk", "trusted_merchant", "corporate_payment", "delegated_authentication", "auth_network_outage"],
+        "title": "SCA Exemption",
+        "description": "The exemption that the transaction should take advantage of."
       },
       "visa_merchant_id": {
         "type": "string"

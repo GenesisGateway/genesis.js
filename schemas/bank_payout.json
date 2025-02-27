@@ -149,15 +149,6 @@
     },
     "use_smart_router": {
       "$ref": "/definitions/definitions#use_smart_router"
-    },
-    "credential_on_file": {
-      "$ref": "/definitions/attributes/credential_on_file#credential_on_file"
-    },
-    "credential_on_file_transaction_identifier":{
-      "$ref": "/definitions/attributes/credential_on_file#credential_on_file_transaction_identifier"
-    },
-    "credential_on_file_settlement_date": {
-      "$ref": "/definitions/attributes/credential_on_file#credential_on_file_settlement_date"
     }
   },
   "dependencies": {

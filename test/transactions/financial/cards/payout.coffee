@@ -12,6 +12,7 @@ FakeData               = require '../../fake_data'
 Gaming                 = require '../../../examples/attributes/financial/gaming'
 Moto                   = require '../../../examples/attributes/financial/moto'
 Transaction            = require path.resolve './src/genesis/transactions/financial/cards/payout'
+UcofExamples           = require '../../../examples/attributes/ucof'
 
 describe 'Payout Transaction', ->
 
@@ -27,3 +28,4 @@ describe 'Payout Transaction', ->
   CredentialOnFile()
   CSEncription()
   AccountOwnerAttributes()
+  UcofExamples()

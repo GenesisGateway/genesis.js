@@ -1,0 +1,24 @@
+{
+  "$id": "https://genesis.js/processed_transactions",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "required": ["arn"]
+    },
+    {
+      "required": ["unique_id"]
+    }
+  ],
+  "properties": {
+    "arn": {
+      "$ref": "/definitions/definitions#arn",
+      "description": "Acquirer reference number"
+    },
+    "unique_id": {
+      "type": "string",
+      "description": "Unique Transaction Identifier is generated at PoS before sent for authorisation or offline approval"
+    }
+  }
+}

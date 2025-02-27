@@ -1,0 +1,39 @@
+{
+  "$id": "https://genesis.js/processed_transactions_by_date",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["start_date"],
+  "properties": {
+    "start_date": {
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "Start of the requested date range"
+    },
+    "end_date": {
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "End of the requested date range"
+    },
+    "page": {
+      "type": "integer",
+      "default": 1,
+      "description": "The page within the paginated result."
+    },
+    "per_page": {
+      "type": "integer",
+      "default": 100,
+      "description": "Number of entities on page."
+    },
+    "externally_processed": {
+      "type": "string",
+      "default": "genesis",
+      "enum": ["genesis", "external", "all"],
+      "description": "Filters transactions by being externally processed or being native to Genesis."
+    },
+    "processing_type": {
+      "type": "string",
+      "default": "all",
+      "enum": ["card_present", "card_not_present", "all"],
+      "description": "Filters transactions by being card present or card not present."
+    }
+  }
+}

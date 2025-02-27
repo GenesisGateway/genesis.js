@@ -1,0 +1,28 @@
+{
+  "$id": "https://genesis.js/fx_rate",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "This call is used to return information about selected Rate for merchant.",
+  "required": [
+    "id",
+    "tier_id"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "#/definitions/id",
+      "title": "Tier Rate identifier",
+      "description": "Tier Rate identifier"
+    },
+    "tier_id": {
+      "$ref": "#/definitions/id",
+      "title": "Tier identifier",
+      "description": "Tier identifier"
+    }
+  },
+  "definitions": {
+    "id": {
+      "type": ["string", "integer"]
+    }
+  }
+}
