@@ -22,7 +22,7 @@ class SearchRate extends Request
   # FX Search Rate endpoint
   getUrl: ->
     app:
-     'gate'
+      'gate'
     path:
       util.format FX_SEARCH_RATE, @tierId
   

@@ -2327,11 +2327,26 @@ kyc_create_consumer
 kyc_update_consumer
 kyc_create_transaction
 kyc_update_transaction
+kyc_upload_document
+kyc_download_document
+kyc_make_call
+kyc_update_call
+kyc_create_verification
+kyc_verification_status
+kyc_verification_register
+kyc_cpf
+kyc_cnpj
 ```
 
 ### SCA API services
 ```text
 sca_checker
+```
+
+### Installments API services
+```text
+installments_fetch
+installments_show_details
 ```
 
 Web Payment Form Transaction Parameters
@@ -2420,6 +2435,12 @@ Web Payment Form Transaction Parameters
 In order to get a full list of required and optional parameters, please consult our API Documentation.
 
 ## Development
+Run Coffeelint
+
+```js
+npm run styles
+```
+
 Run mocha tests
 
 ```js

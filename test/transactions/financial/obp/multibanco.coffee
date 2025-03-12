@@ -80,4 +80,4 @@ describe 'Multibanco Transaction', ->
       data['billing_address']['country'] = 'MX'
       assert.equal false, @transaction.setData(data).isValid()
 
-    FinancialBase()
+  FinancialBase()

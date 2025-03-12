@@ -1,0 +1,15 @@
+{
+  "$id": "https://genesis.js/kyc_verification_register",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "reference_id"
+  ],
+  "properties": {
+    "reference_id": {
+      "$ref": "/definitions/attributes/kyc/common#reference_id",
+      "description": "Unique value to identify the performed verification"
+    }
+  }
+}

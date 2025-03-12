@@ -35,11 +35,17 @@
     "remote_ip": {},
     "usage": {},
     "reference_id": {},
+    "installment_plan_id": {
+      "$ref": "/definitions/attributes/financial/installment_attributes#plan_id"
+    },
+    "installment_plan_reference": {
+      "$ref": "/definitions/attributes/financial/installment_attributes#plan_reference"
+    },
     "business_attributes": {
       "$ref": "/definitions/attributes/business_attributes"
     },
     "travel": {
-      "$ref": "/definitions/attributes/financial/travel_data/travel_data_attributes#ticket"
+      "$ref": "/definitions/attributes/financial/travel_data/travel_data_attributes"
     },
     "use_smart_router": {
       "$ref": "/definitions/definitions#use_smart_router"

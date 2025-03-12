@@ -1,8 +1,8 @@
 Request = require '../../../../request'
 
 ###
-  Utilize this method to update a particular transaction status so we can continue improving the data models and
-  provide the best scores and recommendations.
+  Utilize this method to update a particular transaction status so we can continue
+  improving the data models and provide the best scores and recommendations.
 ###
 class KycUpdateTransaction extends Request
 

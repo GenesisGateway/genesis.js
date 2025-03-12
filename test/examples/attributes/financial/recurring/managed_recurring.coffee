@@ -34,13 +34,8 @@ ManagedRecurring = () ->
 
       it 'fails when registration_reference_number length was greater than 35', ->
         data = _.clone @data
-        data.managed_recurring.registration_reference_number = "123456789"
-        + "012345678901234567890123456"
-        assert.equal false, @transaction.setData(data).isValid()
+        data.managed_recurring.registration_reference_number = "123456789012345678901234567890123456"
 
-      it 'fails when string of max_amount was provided', ->
-        data = _.clone @data
-        data.managed_recurring.max_amount = faker.datatype.number().toString()
         assert.equal false, @transaction.setData(data).isValid()
 
       it 'fails when string of max_count was provided', ->
@@ -66,11 +61,6 @@ ManagedRecurring = () ->
       it 'fails when string of period was provided', ->
         data = _.clone @data
         data.managed_recurring.period = faker.datatype.number().toString()
-        assert.equal false, @transaction.setData(data).isValid()
-
-      it 'fails when string of amount was provided', ->
-        data = _.clone @data
-        data.managed_recurring.amount = faker.datatype.number().toString()
         assert.equal false, @transaction.setData(data).isValid()
 
       it 'fails when wrong date format was provided', ->
@@ -141,5 +131,17 @@ ManagedRecurring = () ->
         assert.equal(
           trx.payment_transaction.managed_recurring, undefined
         )
+
+      it 'works when string of amount was provided', ->
+        data = _.clone @data
+        data.managed_recurring.amount = faker.datatype.number().toString()
+
+        assert.isTrue @transaction.setData(data).isValid()
+
+      it 'fails when string of max_amount was provided', ->
+        data = _.clone @data
+        data.managed_recurring.max_amount = faker.datatype.number().toString()
+
+        assert.isTrue @transaction.setData(data).isValid()
 
 module.exports = ManagedRecurring

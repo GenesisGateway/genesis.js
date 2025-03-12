@@ -1,5 +1,6 @@
-Base = require '../base'
-_    = require 'underscore'
+Base                = require '../base'
+_                   = require 'underscore'
+SmartRouterExamples = require '../../examples/attributes/financial/smart_router_attributes'
 
 FinancialBase = () ->
 
@@ -62,5 +63,6 @@ FinancialBase = () ->
     assert.equal '199', amount
 
   Base()
+  SmartRouterExamples()
 
 module.exports = FinancialBase

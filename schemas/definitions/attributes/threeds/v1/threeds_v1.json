@@ -3,12 +3,8 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "anyOf": [
-    {
-      "required": ["mpi_params"]
-    },
-    {
-      "required": ["notification_url"]
-    }
+    { "required": ["mpi_params"] },
+    { "required": ["notification_url"] }
   ],
   "dependencies": {
     "notification_url": ["return_success_url", "return_failure_url"],
@@ -18,7 +14,7 @@
   "properties": {
     "notification_url": {
       "$ref": "/definitions/definitions#url",
-      "descritpion": "URL at merchant where gateway sends outcome of transaction."
+      "description": "URL at merchant where gateway sends outcome of transaction."
     },
     "return_success_url": {
       "$ref": "/definitions/definitions#url",
@@ -29,58 +25,7 @@
       "description": "URL where customer is sent to after unsuccessful payment"
     },
     "mpi_params": {
-      "$ref": "https://genesis.js/definitions/attributes/threeds/v1/mpi_params"
-    }
-  },
-
-  "$def": {
-    "mpi_params": {
-      "$id": "https://genesis.js/definitions/attributes/threeds/v1/mpi_params",
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["eci"],
-      "properties": {
-        "cavv": {
-          "type": "string"
-        },
-        "eci": {
-          "type": "string"
-        },
-        "xid": {
-          "type": "string"
-        },
-        "protocol_version": {
-          "$ref": "#/definitions/protocol_version"
-        },
-        "protocol_sub_version": {
-          "$ref": "#/definitions/protocol_sub_version"
-        },
-        "directory_server_id": {
-          "type": "string"
-        },
-        "acs_transaction_id": {
-          "type": "string",
-          "description": "The ACS Transaction ID and is optional for 3DS transactions, but highly recommended for increasing the approval ratio."
-        }
-      },
-      "definitions": {
-        "protocol_version": {
-          "type": "string",
-          "enum": ["1", "2"]
-        },
-        "protocol_sub_version": {
-          "type": "string",
-          "enum": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-        }
-      },
-      "if": {
-        "properties": { "protocol_version": { "const": "2" } },
-        "required": ["protocol_version"]
-      },
-      "then": {
-        "required": ["directory_server_id"]
-      }
+      "$ref": "/definitions/attributes/threeds/v1/mpi_params"
     }
   }
 }

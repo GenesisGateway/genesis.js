@@ -2,9 +2,10 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-FakeConfig         = require path.resolve './test/transactions/fake_config'
-FakeData           = require '../../fake_data'
-Transaction        = require path.resolve './src/genesis/transactions/financial/obp/wechat'
+FakeConfig    = require path.resolve './test/transactions/fake_config'
+FakeData      = require '../../fake_data'
+Transaction   = require path.resolve './src/genesis/transactions/financial/obp/wechat'
+FinancialBase = require '../financial_base'
 
 describe 'Wechat Transaction', ->
 
@@ -19,6 +20,8 @@ describe 'Wechat Transaction', ->
     @data['product_desc']       = 'Product description'
 
     @transaction                = new Transaction(@data, FakeConfig.getConfig())
+
+  FinancialBase()
 
   context 'with valid request', ->
 

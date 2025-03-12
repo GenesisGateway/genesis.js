@@ -20,7 +20,7 @@ class Tier extends Request
   # Tier endpoint
   getUrl: ->
     app:
-     'gate'
+      'gate'
     path:
       "#{FX_TIER}/#{@identifier}"
 

@@ -93,4 +93,4 @@ describe 'Itau Transaction', ->
       delete data.customer_email
       assert.equal false, @transaction.setData(data).isValid()
 
-    FinancialBase()
+  FinancialBase()

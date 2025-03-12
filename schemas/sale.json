@@ -104,6 +104,12 @@
     "dynamic_descriptor_params": {
       "$ref": "/definitions/attributes/financial/dynamic_descriptor_params"
     },
+    "installment_plan_id": {
+      "$ref": "/definitions/attributes/financial/installment_attributes#plan_id"
+    },
+    "installment_plan_reference": {
+      "$ref": "/definitions/attributes/financial/installment_attributes#plan_reference"
+    },
     "credential_on_file": {
       "$ref": "/definitions/attributes/credential_on_file#credential_on_file"
     },
@@ -124,6 +130,9 @@
     },
     "account_owner": {
       "$ref": "/definitions/attributes/financial/account_owner_attributes"
+    },
+    "scheme_tokenized": {
+      "type": "boolean"
     }
   }
 }

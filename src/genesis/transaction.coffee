@@ -42,24 +42,33 @@ Redpagos            = require './transactions/financial/cash_payments/redpagos'
   Non Financial transactions
 ###
 Chargeback                      = require './transactions/non_financial/fraud/chargeback/chargeback'
-ChargebackByDate                = require './transactions/non_financial/fraud/chargeback/chargeback_by_date'
+ChargebackByDate                =
+  require './transactions/non_financial/fraud/chargeback/chargeback_by_date'
 Blacklist                       = require './transactions/non_financial/blacklist'
-FraudReport                     = require './transactions/non_financial/fraud/reports/fraud_report'
-FraudReportByDate               = require './transactions/non_financial/fraud/reports/fraud_report_by_date'
+FraudReport                     =
+  require './transactions/non_financial/fraud/reports/fraud_report'
+FraudReportByDate               =
+  require './transactions/non_financial/fraud/reports/fraud_report_by_date'
 Retrieval                       = require './transactions/non_financial/fraud/retrieval/retrieval'
-RetrievalByDate                 = require './transactions/non_financial/fraud/retrieval/retrieval_by_date'
+RetrievalByDate                 =
+  require './transactions/non_financial/fraud/retrieval/retrieval_by_date'
 Reconcile                       = require './transactions/non_financial/reconcile/reconcile'
 ReconcileByDate                 = require './transactions/non_financial/reconcile/reconcile_by_date'
-Payers                          = require './transactions/non_financial/alternatives/transfer_to/payers'
+Payers                          =
+  require './transactions/non_financial/alternatives/transfer_to/payers'
 CreateConsumer                  = require './transactions/non_financial/consumers/create'
 UpdateConsumer                  = require './transactions/non_financial/consumers/update'
-DisableConsumer                 = require './transactions/non_financial/consumers/disable'
+DisableConsumer                 =
+  require './transactions/non_financial/consumers/disable'
 EnableConsumer                  = require './transactions/non_financial/consumers/enable'
 GetCards                        = require './transactions/non_financial/consumers/get_cards'
 RetrieveConsumer                = require './transactions/non_financial/consumers/retrieve'
-ProcessedTransactions           = require './transactions/non_financial/processed_transactions/processed_transactions'
-ProcessedTransactionsByDate     = require './transactions/non_financial/processed_transactions/processed_transactions_by_date'
-ProcessedTransactionsByPostDate = require './transactions/non_financial/processed_transactions/processed_transactions_by_post_date'
+ProcessedTransactions           =
+  require './transactions/non_financial/processed_transactions/processed_transactions'
+ProcessedTransactionsByDate     =
+  require './transactions/non_financial/processed_transactions/processed_transactions_by_date'
+ProcessedTransactionsByPostDate =
+  require './transactions/non_financial/processed_transactions/processed_transactions_by_post_date'
 
 ###
   Web Payment Form
@@ -167,15 +176,41 @@ FxSearchRate = require './transactions/non_financial/fx/search_rate'
 ###
   KYC Services
 ###
-KycCreateConsumer    = require './transactions/non_financial/kyc/consumer_registration/kyc_create_consumer'
-KycUpdateConsumer    = require './transactions/non_financial/kyc/consumer_registration/kyc_update_consumer'
-KycCreateTransaction = require './transactions/non_financial/kyc/transaction/kyc_create_transaction'
-KycUpdateTransaction = require './transactions/non_financial/kyc/transaction/kyc_update_transaction'
+KycCreateConsumer       =
+  require './transactions/non_financial/kyc/consumer_registration/kyc_create_consumer'
+KycUpdateConsumer       =
+  require './transactions/non_financial/kyc/consumer_registration/kyc_update_consumer'
+KycCreateTransaction    =
+  require './transactions/non_financial/kyc/transaction/kyc_create_transaction'
+KycUpdateTransaction    =
+  require './transactions/non_financial/kyc/transaction/kyc_update_transaction'
+KycUploadDocument       =
+  require './transactions/non_financial/kyc/identity_document/kyc_upload_document'
+KycDownloadDocument     =
+  require './transactions/non_financial/kyc/identity_document/kyc_download_document'
+KycMakeCall             =
+  require './transactions/non_financial/kyc/call/kyc_make_call'
+KycUpdateCall           =
+  require './transactions/non_financial/kyc/call/kyc_update_call'
+KycCreateVerification   =
+  require './transactions/non_financial/kyc/verification/kyc_create_verification'
+KycVerificationStatus   =
+  require './transactions/non_financial/kyc/verification/kyc_verification_status'
+KycVerificationRegister =
+  require './transactions/non_financial/kyc/verification/kyc_verification_register'
+KycCpf               = require './transactions/non_financial/kyc/cpf/kyc_cpf'
+KycCnpj              = require './transactions/non_financial/kyc/cnpj/kyc_cnpj'
 
 ###
   SCA
 ###
 ScaChecker = require './transactions/non_financial/sca/checker'
+
+###
+  Installments API services
+###
+InstallmentsFetch       = require './transactions/non_financial/installments/fetch'
+InstallmentsShowDetails = require './transactions/non_financial/installments/show_details'
 
 ###
   Library Transaction factory
@@ -268,7 +303,7 @@ class Transaction
     this.cancel(params, @config)
 
   capture: (params) ->
-    new Capture(params)
+    new Capture(params, @config)
 
   refund: (params) ->
     new Refund(params, @config)
@@ -469,7 +504,7 @@ class Transaction
     new CreateConsumer(params, @config)
 
   update_consumer: (params) ->
-     new UpdateConsumer(params, @config)
+    new UpdateConsumer(params, @config)
 
   disable_consumer: (params) ->
     new DisableConsumer(params, @config)
@@ -546,11 +581,47 @@ class Transaction
   kyc_update_transaction: (params) ->
     new KycUpdateTransaction(params, @config)
 
+  kyc_upload_document: (params) ->
+    new KycUploadDocument(params, @config)
+
+  kyc_download_document: (params) ->
+    new KycDownloadDocument(params, @config)
+
+  kyc_make_call: (params) ->
+    new KycMakeCall(params, @config)
+
+  kyc_update_call: (params) ->
+    new KycUpdateCall(params, @config)
+
+  kyc_cpf: (params) ->
+    new KycCpf(params, @config)
+
+  kyc_cnpj: (params) ->
+    new KycCnpj(params, @config)
+
+  kyc_create_verification: (params) ->
+    new KycCreateVerification(params, @config)
+
+  kyc_verification_status: (params) ->
+    new KycVerificationStatus(params, @config)
+
+  kyc_verification_register: (params) ->
+    new KycVerificationRegister(params, @config)
+
   ###
     SCA
   ###
   sca_checker: (params) ->
     new ScaChecker(params, @config)
+
+  ###
+    Installments
+  ###
+  installments_fetch: (params) ->
+    new InstallmentsFetch(params, @config)
+
+  installments_show_details: (params) ->
+    new InstallmentsShowDetails(params, @config)
 
   ###
     Web Payment Form

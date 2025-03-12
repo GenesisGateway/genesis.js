@@ -1,0 +1,18 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/financial/installment_attributes",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "installment_plan_id": {
+      "$id": "#plan_id",
+      "type": "string",
+      "title": "Installment Plan Id",
+      "description": "The ID of the chosen installment plan"
+    },
+    "installment_plan_reference": {
+      "$id": "#plan_reference",
+      "type": "string",
+      "title": "Installment Plan Reference",
+      "description": "The installment plan reference identifier returned by the schemes"
+    }
+  }
+}

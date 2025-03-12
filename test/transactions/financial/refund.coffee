@@ -2,14 +2,15 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-FakeConfig    = require path.resolve './test/transactions/fake_config'
-FakeData      = require '../fake_data'
-FinancialBase = require './financial_base'
-Transaction   = require path.resolve './src/genesis/transactions/financial/refund'
+FakeConfig            = require path.resolve './test/transactions/fake_config'
+FakeData              = require '../fake_data'
+FinancialBase         = require './financial_base'
+Transaction           = require path.resolve './src/genesis/transactions/financial/refund'
+InstallmentAttributes = require '../../examples/attributes/financial/installment_attributes'
 
 describe 'Refund Transaction', ->
 
-  before ->
+  beforeEach ->
     @data        = (new FakeData).getSimpleData()
     @transaction = new Transaction(@data, FakeConfig.getConfig())
 
@@ -19,6 +20,7 @@ describe 'Refund Transaction', ->
     @data['reference_id'] = faker.datatype.number().toString()
 
   FinancialBase()
+  InstallmentAttributes()
 
   it 'fails when missing required reference_id parameter', ->
     assert.equal false, @transaction.setData(_.omit @data, 'reference_id').isValid()
@@ -43,19 +45,44 @@ describe 'Refund Transaction', ->
 
     assert.equal true, @transaction.setData(@data).isValid()
 
-  it 'works when Travel data ', ->
-    data = _.clone @data
-    data = _.extend(data, {
-      travel: {
-        ticket: {
-          credit_reason_indicator_1: "A",
-          credit_reason_indicator_2: "B",
-          ticket_change_indicator: "C"
-        }
-      }
-    })
+  describe 'Level 3 Travel attributes', ->
+    beforeEach ->
+      @travelData = _.extend(
+        _.clone(@data),
+        travel:
+          ticket:
+            credit_reason_indicator_1: "A"
+            credit_reason_indicator_2: "B"
+            ticket_change_indicator: "C"
+      )
 
-    assert.equal true, @transaction.setData(@data).isValid()
+    it 'with travel attributes', ->
+      assert.isNotTrue @transaction.setData(@travelData).isValid()
+
+    it 'when travel node with additional properties', ->
+      @travelData.travel.element = 'value'
+
+      assert.isNotTrue @transaction.setData(@travelData).isValid()
+
+    it 'when travel ticket node with additional properties', ->
+      @travelData.travel.ticket.element = 'value'
+
+      assert.isNotTrue @transaction.setData(@travelData).isValid()
+
+    it 'when credit_reason_indicator_1 with invalid value', ->
+      @travelData.travel.ticket.credit_reason_indicator_1 = 'C'
+
+      assert.isNotTrue @transaction.setData(@travelData).isValid()
+
+    it 'when credit_reason_indicator_2 with invalid value', ->
+      @travelData.travel.ticket.credit_reason_indicator_2 = 'C'
+
+      assert.isNotTrue @transaction.setData(@travelData).isValid()
+
+    it 'when ticket_change_indicator with invalid value', ->
+      @travelData.travel.ticket.ticket_change_indicator = 'A'
+
+      assert.isNotTrue @transaction.setData(@travelData).isValid()
 
 
 

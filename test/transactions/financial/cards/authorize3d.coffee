@@ -18,21 +18,24 @@ MpiParams              = require '../../../examples/attributes/threeds/v1/mpi_pa
 RecurringType          = require '../../../examples/attributes/financial/recurring_type'
 RiskParams             = require '../../../examples/attributes/risk_params'
 ScaParams              = require '../../../examples/attributes/sca_params'
+SchemeTokenized        = require './scheme_tokenized'
 ThreeDBase             = require './three_d_base'
 ThreedsV2              = require '../../../examples/attributes/threeds/v2/threeds_v2'
 Transaction            = require path.resolve './src/genesis/transactions/financial/cards/authorize3d'
 TravelData             = require '../../../examples/attributes/financial/travel_data/travel_data'
 UCOF                   = require '../../../examples/attributes/ucof'
+InstallmentAttributes  = require '../../../examples/attributes/financial/installment_attributes'
 
 describe 'Authorize 3D Transaction', ->
 
-  before ->
-    @data = (new FakeData).getDataWithBusinessAttributes()
+  beforeEach ->
+    @fakeData = new FakeData()
+    @data     = @fakeData.getDataWithBusinessAttributes()
 
     @data['notification_url']   = faker.internet.url()
     @data['return_success_url'] = faker.internet.url()
     @data['return_failure_url'] = faker.internet.url()
-    @data['managed_recurring'] = (new FakeData).getManagedRecurringAutomatic()
+    @data['managed_recurring']  = (new FakeData).getManagedRecurringAutomatic()
 
     @transaction = new Transaction(@data, FakeConfig.getConfig())
 
@@ -54,3 +57,5 @@ describe 'Authorize 3D Transaction', ->
   AccountOwnerAttributes()
   MpiParams()
   UCOF()
+  SchemeTokenized()
+  InstallmentAttributes()

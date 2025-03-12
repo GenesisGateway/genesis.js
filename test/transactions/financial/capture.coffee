@@ -2,11 +2,13 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-BusinessAttributes = require '../business_attributes'
-FakeConfig         = require path.resolve './test/transactions/fake_config'
-FakeData           = require '../fake_data'
-FinancialBase      = require './financial_base'
-Transaction        = require path.resolve './src/genesis/transactions/financial/capture'
+BusinessAttributes    = require '../business_attributes'
+FakeConfig            = require path.resolve './test/transactions/fake_config'
+FakeData              = require '../fake_data'
+FinancialBase         = require './financial_base'
+Transaction           = require path.resolve './src/genesis/transactions/financial/capture'
+InstallmentAttributes = require '../../examples/attributes/financial/installment_attributes'
+TravelAttributes      = require '../../examples/attributes/financial/travel_data/travel_data'
 
 describe 'Capture Transaction', ->
 
@@ -21,6 +23,8 @@ describe 'Capture Transaction', ->
 
   FinancialBase()
   BusinessAttributes()
+  InstallmentAttributes()
+  TravelAttributes()
 
   it 'fails when missing required reference_id parameter', ->
     assert.equal false, @transaction.setData(_.omit @data, 'reference_id').isValid()

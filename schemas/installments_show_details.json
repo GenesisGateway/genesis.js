@@ -1,0 +1,17 @@
+{
+  "$id": "https://genesis.js/installments_show_details",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Retrieves details about a specific installment based on its ID.",
+  "required": [
+    "installment_id"
+  ],
+  "properties": {
+    "installment_id": {
+      "type": "string",
+      "title": "Installment Id",
+      "description": "Specific Installment ID"
+    }
+  }
+}

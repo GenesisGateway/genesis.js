@@ -44,6 +44,8 @@ describe 'MyBank Transaction', ->
 
     @transaction              = new Transaction(@data, FakeConfig.getConfig())
 
+  FinancialBase()
+
   context 'with valid request', ->
 
     it 'works when valid currency parameter added', ->

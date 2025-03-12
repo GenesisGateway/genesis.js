@@ -15,7 +15,8 @@ class Json
 
   # Parse the given JSON object
   parseDocument: (document) ->
-    return @object = @processDocument(document) if typeof document == 'string' || document instanceof String
+    if typeof document == 'string' || document instanceof String
+      return @object = @processDocument(document)
 
     @object = document
 

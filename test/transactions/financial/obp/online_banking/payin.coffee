@@ -2,9 +2,10 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-FakeConfig  = require path.resolve './test/transactions/fake_config'
-FakeData    = require '../../../fake_data'
-Transaction = require path.resolve './src/genesis/transactions/financial/obp/online_banking/payin'
+FakeConfig    = require path.resolve './test/transactions/fake_config'
+FakeData      = require '../../../fake_data'
+Transaction   = require path.resolve './src/genesis/transactions/financial/obp/online_banking/payin'
+FinancialBase = require '../../financial_base'
 
 describe 'Online Banking Payin Transaction', ->
 
@@ -38,6 +39,8 @@ describe 'Online Banking Payin Transaction', ->
       country: 'US'
     }
     @transaction                  = new Transaction(@data, FakeConfig.getConfig())
+
+  FinancialBase()
 
   context 'with invalid request', ->
 

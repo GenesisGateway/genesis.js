@@ -2,8 +2,9 @@
 Request = require '../../../../request'
 
 ###
-  Review all aspects of the customer’s information, as it is received in the registration process,
-  against local and external databases to increase accuracy and produce a risk score for that customer.
+  Review all aspects of the customer’s information, as it is received in the registration
+  process, against local and external databases to increase accuracy and produce a risk score
+  for that customer.
 ###
 class KycCreateConsumer extends Request
 

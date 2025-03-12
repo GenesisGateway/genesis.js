@@ -18,7 +18,12 @@ class MethodContinue extends Request
   ###
   getSignature: ->
     @params.amount = @currency.convertToMinorUnits @params.amount, @params.currency
-    ThreedsUtils.generateSignature @params.unique_id, @params.amount, @params.timestamp, @configuration.getCustomerPassword()
+    ThreedsUtils.generateSignature(
+      @params.unique_id,
+      @params.amount,
+      @params.timestamp,
+      @configuration.getCustomerPassword()
+    )
 
   ###
     Returns relative path with provided unique_id

@@ -85,6 +85,12 @@
     "travel": {
       "$ref": "/definitions/attributes/financial/travel_data/travel_data_attributes#refund"
     },
+    "installment_plan_id": {
+      "$ref": "/definitions/attributes/financial/installment_attributes#plan_id"
+    },
+    "installment_plan_reference": {
+      "$ref": "/definitions/attributes/financial/installment_attributes#plan_reference"
+    },
     "use_smart_router": {
       "$ref": "/definitions/definitions#use_smart_router"
     }

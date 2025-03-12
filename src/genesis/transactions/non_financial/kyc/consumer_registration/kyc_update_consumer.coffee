@@ -2,8 +2,9 @@
 Request = require '../../../../request'
 
 ###
-  Update the customer registration to be able to pass on the latest status required so we can continue
-  improving the data models and provide the best scores and recommendations possible.
+  Update the customer registration to be able to pass on the latest status required so
+  we can continue improving the data models and provide the best scores and recommendations
+  possible.
 ###
 class KycUpdateConsumer extends Request
 

@@ -146,6 +146,38 @@
       "$id": "#reason",
       "type": "string",
       "description": "Required only if status is Reject / Decline / Chargeback / Refund / Return / Void"
+    },
+    "doc": {
+      "$id": "#doc",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "base64_content",
+        "mime_type"
+      ],
+      "properties": {
+        "base64_content": {
+          "type": "string"
+        },
+        "mime_type": {
+          "type": "string"
+        }
+      }
+    },
+    "document_id": {
+      "$id": "#document_id",
+      "type": "string",
+      "description": "Individual taxpayer identification number"
+    },
+    "allow_offline": {
+      "$id": "#allow_offline",
+      "type": "boolean",
+      "description": "Whether uploading of previously taken picture is allowed for verification of document/face"
+    },
+    "allow_online": {
+      "$id": "#allow_online",
+      "type": "boolean",
+      "description": "Whether the realtime usage of device camera is allowed for verification of document/face"
     }
   }
 }

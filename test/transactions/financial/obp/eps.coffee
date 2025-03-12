@@ -69,4 +69,4 @@ describe 'EPS Transaction', ->
       data.currency = 'USD'
       assert.equal false, @transaction.setData(data).isValid()
 
-    FinancialBase()
+  FinancialBase()

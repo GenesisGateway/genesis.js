@@ -1,38 +1,54 @@
 
-Request              = require '../../request'
-_                    = require 'underscore'
-ColorDepth           = require '../../helpers/color_depth'
-JsonUtils            = require '../../utils/json_utils'
-SmartRouter          = require '../../helpers/smart_router'
+Request          = require '../../request'
+_                = require 'underscore'
+ColorDepthHelper = require '../../helpers/color_depth'
+JsonUtils        = require '../../utils/json_utils'
 
 class FinancialBase extends Request
 
   constructor: (params, configuration) ->
     super params, configuration
-    @configuration     = configuration
 
-    @smartRouterParams = (new SmartRouter).getSmartRouterUrlParams()
+    @formatThreedsV2ColorDepth()
 
-    if JsonUtils.isValidObjectChain(params, 'threeds_v2_params.browser.color_depth')
-      @params.threeds_v2_params.browser.color_depth =
-        (new ColorDepth).handleColorDepth(params.threeds_v2_params.browser.color_depth).toString()
-
+  # Financial transactions endpoint
   getUrl: ->
     if @params.use_smart_router || @configuration.getCustomerForceSmartRouter()
-      return @smartRouterParams
+      return app: 'smart_router', path: 'transactions'
 
-    app:
-      'gate'
-    path:
-      'process'
-    token:
-      @configuration.getCustomerToken()
+    app: 'gate', path: 'process', token: @configuration.getCustomerToken()
 
   getTrxData: ->
+    # Remove use_smart_router from parameters sent to the gateway
+    delete @params.use_smart_router if @params.use_smart_router
+
+    @formatAmount()
+    @formatManagedRecurringAmount()
+
+    'payment_transaction':
+      _.extend(
+        @params,
+        {
+          'transaction_type':
+            this.getTransactionType()
+        }
+    )
+
+  getData: () ->
+    _.extend(
+      {},
+      @params,
+      transaction_type: @getTransactionType()
+    )
+
+  # Format the Amount into minor units
+  formatAmount: ->
     # convert amount to minor units
     if @params.amount and @params.currency
       @params.amount = @currency.convertToMinorUnits @params.amount, @params.currency
 
+  # Format the Managed Recurring Amount into minor units
+  formatManagedRecurringAmount: ->
     if @params.managed_recurring and @params.currency
       if @params.managed_recurring.amount
         @params.managed_recurring.amount = @currency.convertToMinorUnits(
@@ -43,20 +59,11 @@ class FinancialBase extends Request
           @params.managed_recurring.max_amount, @params.currency
         )
 
-    'payment_transaction':
-      _.extend(
-        @params,
-        {
-          'transaction_type':
-           this.getTransactionType()
-        }
-    )
-
-  getData: () ->
-    _.extend(
-      {},
-      @params,
-      transaction_type: @getTransactionType()
-    )
+  # Format Color Depth with correct value
+  formatThreedsV2ColorDepth: ->
+    if JsonUtils.isValidObjectChain(@params, 'threeds_v2_params.browser.color_depth')
+      @params.threeds_v2_params.browser.color_depth = (new ColorDepthHelper).handleColorDepth(
+        @params.threeds_v2_params.browser.color_depth
+      ).toString()
 
 module.exports = FinancialBase

@@ -44,6 +44,7 @@ class Validator
     @ajv.addSchema(require '../../../schemas/definitions/attributes/sca_params.json')
     @ajv.addSchema(require '../../../schemas/definitions/attributes/threeds/v1/threeds_v1.json')
     @ajv.addSchema(require '../../../schemas/definitions/attributes/threeds/v2/threeds_v2.json')
+    @ajv.addSchema(require '../../../schemas/definitions/attributes/threeds/v1/mpi_params.json')
     @ajv.addSchema(require '../../../schemas/definitions/attributes/wpf/transaction_types.json')
     @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/common.json')
     @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/payment.json')
@@ -56,9 +57,8 @@ class Validator
     @ajv.addSchema(
       require '../../../schemas/definitions/attributes/financial/dynamic_descriptor_params.json'
     )
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/financial/travel_data/travel_data_attributes.json'
-    )
+    @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/travel_data/' +
+      'travel_data_attributes.json')
     @ajv.addSchema(require '../../../schemas/definitions/attributes/cof_attributes.json')
     @ajv.addSchema(
       require '../../../schemas/definitions/attributes/financial/funding_attributes.json'
@@ -75,9 +75,11 @@ class Validator
     @ajv.addSchema(
       require '../../../schemas/definitions/attributes/kyc/common.json'
     )
+    @ajv.addSchema(
+      require '../../../schemas/definitions/attributes/financial/installment_attributes.json'
+    )
 
   # Compare the specific transaction schema against the request parameters
-
   isValid: () ->
     try
       @schema = require '../../../schemas/' + @trx.getTransactionType() + '.json'
@@ -127,7 +129,8 @@ class Validator
       'maximum',
       'dependencies',
       'anyOf',
-      'oneOf'
+      'oneOf',
+      'maxItems'
     ], error.keyword) != -1
       message = @getPreDefinedErrorMessage error
 
@@ -193,17 +196,17 @@ class Validator
     suffix =
       @getMessage(error) ||
       switch error.keyword
-        when 'required'             then @getRequiredErrorMessage(error)
+        when 'required' then @getRequiredErrorMessage(error)
         when 'additionalProperties' then @getAdditionalErrorMessage(error)
-        when 'const'                then "Allowed value is #{error.params.allowedValue}"
-        when 'enum'                 then "Allowed values are #{error.params.allowedValues.join ', '}"
-        when 'maxLength'            then "Should be string shorter or equal #{error.params.limit}"
-        when 'minLength'            then "Should be string longer or equal #{error.params.limit}"
-        when 'type'                 then "Should be #{error.params.type}"
-        when 'pattern'              then "Should match pattern #{error.params.pattern}"
-        when 'format'               then "Should be valid #{error.params.format}"
-        when 'dependencies'         then "Request #{error.message}"
-        when 'anyOf'                then "Check API Documentation."
+        when 'const' then "Allowed value is #{error.params.allowedValue}"
+        when 'enum' then "Allowed values are #{error.params.allowedValues.join ', '}"
+        when 'maxLength' then "Should be string shorter or equal #{error.params.limit}"
+        when 'minLength' then "Should be string longer or equal #{error.params.limit}"
+        when 'type' then "Should be #{error.params.type}"
+        when 'pattern' then "Should match pattern #{error.params.pattern}"
+        when 'format' then "Should be valid #{error.params.format}"
+        when 'dependencies' then "Request #{error.message}"
+        when 'anyOf' then "Check API Documentation."
         else ''
     if suffix
       suffix = ". #{suffix}"

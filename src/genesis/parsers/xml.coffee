@@ -40,7 +40,8 @@ class Xml
   removeFirstNode: ->
     keysCount = _.keys(@object).length
 
-    return @object[_.first _.keys(@object)] if keysCount == 1 && @object[_.keys(@object)[0]] instanceof Object
+    if keysCount == 1 && @object[_.keys(@object)[0]] instanceof Object
+      return @object[_.first _.keys(@object)]
 
     @object
 

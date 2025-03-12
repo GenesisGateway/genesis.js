@@ -2,10 +2,11 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-Currency    = require path.resolve './src/genesis/helpers/currency'
-FakeConfig  = require path.resolve './test/transactions/fake_config'
-FakeData    = require path.resolve './test/transactions/fake_data'
-Transaction = require path.resolve ('./src/genesis/transactions/financial/cash_payments/baloto')
+Currency      = require path.resolve './src/genesis/helpers/currency'
+FakeConfig    = require path.resolve './test/transactions/fake_config'
+FakeData      = require path.resolve './test/transactions/fake_data'
+Transaction   = require path.resolve ('./src/genesis/transactions/financial/cash_payments/baloto')
+FinancialBase = require '../financial_base'
 
 describe 'Baloto Transaction', ->
 
@@ -41,6 +42,8 @@ describe 'Baloto Transaction', ->
     }
 
     @transaction              = new Transaction(@data, FakeConfig.getConfig())
+
+  FinancialBase()
 
   context 'with valid request', ->
 

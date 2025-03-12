@@ -1,0 +1,60 @@
+{
+  "$id": "https://genesis.js/kyc_upload_document",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "required": [
+        "method",
+        "doc"
+      ]
+    },
+    {
+      "oneOf": [
+        {
+          "required": ["transaction_unique_id"]
+        },
+        {
+          "required": ["reference_id"]
+        }
+      ]
+    }
+  ],
+  "messages": {
+    "oneOf": "Only the transaction_unique_id or reference_id should be provided, not both!"
+  },
+  "properties": {
+    "customer_username": {
+      "$ref": "/definitions/attributes/kyc/common#customer_username"
+    },
+    "customer_unique_id": {
+      "$ref": "/definitions/attributes/kyc/common#customer_unique_id"
+    },
+    "transaction_unique_id": {
+      "$ref": "/definitions/attributes/kyc/common#transaction_unique_id",
+      "description": "Unique Transaction Id with info of the customer to be verified. Please note; if Transaction Id and Customer Registration Id are provided the system will use the Transaction Id. Please provide the Transaction Id or the Customer Registration Id; one of them must be provided"
+    },
+    "reference_id": {
+      "$ref": "/definitions/attributes/kyc/common#reference_id",
+      "description": "Unique Customer Registration Id with info of the customer to be verified"
+    },
+    "method": {
+      "type": "integer",
+      "enum": [1, 2, 3],
+      "description": "1 - Manual; 2 - OCR; 3 - Both;"
+    },
+    "doc": {
+      "$ref": "/definitions/attributes/kyc/common#doc"
+    },
+    "doc2": {
+      "$ref": "/definitions/attributes/kyc/common#doc"
+    },
+    "doc3": {
+      "$ref": "/definitions/attributes/kyc/common#doc"
+    },
+    "doc4": {
+      "$ref": "/definitions/attributes/kyc/common#doc"
+    }
+  }
+}

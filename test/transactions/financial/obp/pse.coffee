@@ -72,5 +72,5 @@ describe 'PSE Transaction', ->
       data.billing_address.country = 'AT'
       assert.equal false, @transaction.setData(data).isValid()
 
-    FinancialBase()
-    RequiredBillingAddress()
+  FinancialBase()
+  RequiredBillingAddress()

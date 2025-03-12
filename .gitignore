@@ -6,3 +6,4 @@ sample/
 spec/
 src/**/*.js
 mocha_report.xml
+coffeelint_report.xml

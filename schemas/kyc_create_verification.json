@@ -1,0 +1,171 @@
+{
+  "$id": "https://genesis.js/kyc_create_verification",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "email"
+  ],
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "User's email"
+    },
+    "country": {
+      "$ref": "/definitions/country"
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "AF", "SQ", "AM", "AR", "HY", "AZ", "EU", "BE", "BN", "BS", "BG", "MY", "CA", "NY", "ZH", "CO",
+        "HR", "CS", "DA", "NL", "EN", "EO", "ET", "TL", "FI", "FR", "FY", "GL", "KA", "DE", "EL", "GU",
+        "HT", "HA", "HE", "HI", "HU", "ID", "GA", "IG", "IS", "IT", "JA", "JV", "KN", "KK", "KM", "KY",
+        "KO", "KU", "LA", "LB", "LO", "LT", "LV", "MK", "MG", "MS", "ML", "MT", "MI", "MR", "MN", "NE",
+        "NO", "PA", "FA", "PL", "PS", "PT", "RO", "RU", "SD", "SM", "SR", "GD", "SN", "SI", "SK", "SL",
+        "SO", "ST", "ES", "SU", "SW", "SV", "TA", "TE", "TG", "TH", "TR", "UK", "UR", "UZ", "VI", "CY",
+        "XH", "YI", "YO", "ZU"
+      ],
+      "description": "Language Code"
+    },
+    "redirect_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where the customer is sent to after completing the verification process"
+    },
+    "reference_id": {
+      "$ref": "/definitions/attributes/kyc/common#reference_id",
+      "description": "Unique value to identify the performed verification. Should be not less than 6 characters, and not more than 250 characters."
+    },
+    "document_supported_types": {
+      "type": "array",
+      "items": {
+        "enum": [ "passport", "id_card", "driving_license", "credit_or_debit_card" ]
+      },
+      "description": "Supported types of document that can be verified."
+    },
+    "address_supported_types": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "id_card", "passport", "driving_license", "utility_bill", "bank_statement", "rent_agreement",
+          "employer_letter", "insurance_agreement", "tax_bill", "envelope", "cpr_smart_card_reader_copy"
+        ]
+      },
+      "description": "Supported types of addresses that can be verified."
+    },
+    "face": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Represents the options to be supplied to the service in order to provide face verification functionality",
+      "properties": {
+        "allow_offline": {
+          "$ref": "/definitions/attributes/kyc/common#allow_offline"
+        },
+        "allow_online": {
+          "$ref": "/definitions/attributes/kyc/common#allow_online"
+        },
+        "check_duplicate_request": {
+          "type": "boolean",
+          "description": "Whether to enable the duplicate account detection service"
+        }
+      }
+    },
+    "backside_proof_required": {
+      "type": "boolean",
+      "description": "Signifies that both sides of the document are required to verify the identity"
+    },
+    "address_backside_proof_required": {
+      "type": "boolean",
+      "description": "Signifies that both sides of the document are required to verify the address"
+    },
+    "expiry_date": {
+      "pattern": "(^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$|^$)",
+      "type": "string",
+      "description": "Document's expiry date at yyyy-mm-dd format, for example - 2025-12-31, can be a blank string. A blank string means that the user will need to enter the expiry date from the UI"
+    },
+    "allow_retry": {
+      "type": "boolean",
+      "description": "If the parameter value is set to 'true', the customer will be able to retry if the verification request is declined by the AI. On retry, the customer can re-upload the verification proof after correcting the indicated issues."
+    },
+    "verification_mode": {
+      "type": "string",
+      "enum": [ "any", "image_only", "video_only" ],
+      "description": "This key specifies the types of proof that can be used for verification."
+    },
+    "background_checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "An AML (anti-money laundering) background check will be done based on the provided data. Please note that the name and the date of birth keys will be extracted from the document service if they are missing.",
+      "properties": {
+        "first_name": {
+          "$ref": "/definitions/attributes/kyc/common#first_name"
+        },
+        "middle_name": {
+          "$ref": "/definitions/attributes/kyc/common#first_name",
+          "description": "Customer's middle name"
+        },
+        "last_name": {
+          "$ref": "/definitions/attributes/kyc/common#last_name"
+        },
+        "full_name": {
+          "type": "string",
+          "description": "Customer's full name"
+        },
+        "date_of_birth": {
+          "$ref": "/definitions/attributes/kyc/common#birth_date"
+        },
+        "async_update": {
+          "type": "boolean",
+          "description": "Will allow the system to send notifications with information about the checked person when the status has been changed. The registered asynchronous update doesn't expire and notification will be sent on each change, but not often than 15 minutes"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "sanction", "warning", "fitness-probity", "pep", "pep-class-1", "pep-class-2", "pep-class-3",
+              "pep-class-4", "adverse-media", "adverse-media-general", "adverse-media-narcotics",
+              "adverse-media-fraud", "adverse-media-terrorism", "adverse-media-sexual-crime",
+              "adverse-media-violent-crime", "adverse-media-financial-crime", "adverse-media-v2-other-minor",
+              "adverse-media-v2-other-serious", "adverse-media-v2-other-financial",
+              "adverse-media-v2-violence-non-aml-cft", "adverse-media-v2-financial-difficulty",
+              "adverse-media-v2-regulatory", "adverse-media-v2-general-aml-cft", "adverse-media-v2-cybercrime",
+              "adverse-media-v2-terrorism", "adverse-media-v2-violence-aml-cft", "adverse-media-v2-narcotics-aml-cft",
+              "adverse-media-v2-fraud-linked", "adverse-media-v2-financial-aml-cft", "adverse-media-v2-property"
+            ]
+          },
+          "description": "One or more AML Filters to query"
+        },
+        "match_score": {
+          "type": "integer",
+          "description": "Minimum match score to consider the match successful. Default: 100"
+        }
+      }
+    },
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Document represents the data used by the document verification service to check the authenticity of identity documents submitted by customers",
+      "properties": {
+        "first_name": {
+          "$ref": "/definitions/attributes/kyc/common#first_name"
+        },
+        "last_name": {
+          "$ref": "/definitions/attributes/kyc/common#last_name"
+        },
+        "full_name": {
+          "type": "string",
+          "description": "Customer's full name"
+        },
+        "date_of_birth": {
+          "$ref": "/definitions/attributes/kyc/common#birth_date"
+        },
+        "allow_offline": {
+          "$ref": "/definitions/attributes/kyc/common#allow_offline"
+        },
+        "allow_online": {
+          "$ref": "/definitions/attributes/kyc/common#allow_online"
+        }
+      }
+    }
+  }
+}

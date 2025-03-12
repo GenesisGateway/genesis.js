@@ -1,0 +1,26 @@
+{
+  "$id": "https://genesis.js/installments_fetch",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Fetch the applicable installments for a given amount, currency and card brand.",
+  "required": [
+    "amount",
+    "currency",
+    "card_number"
+  ],
+  "properties": {
+    "amount": {
+      "type": "integer",
+      "description": "Transaction amount",
+      "title": "Amount",
+      "message": "Amount of transaction in minor currency unit"
+    },
+    "currency": {
+      "$ref": "/definitions/attributes/financial/payment#currency"
+    },
+    "card_number": {
+      "$ref": "/definitions/definitions#card_number"
+    }
+  }
+}

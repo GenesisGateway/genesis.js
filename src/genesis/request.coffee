@@ -38,10 +38,10 @@ class Request
 
   # Build the Network request data based on specific Gateway Request
   getArguments: ->
-    trx:
-      @getTrxData()
     url:
       @getUrl()
+    trx:
+      @getTrxData()
 
   # Gateway Endpoint that each request defines
   getUrl: ->
@@ -92,7 +92,10 @@ class Request
   # Load FORM Put Network Configuration
   initFormConfiguration: ->
     options         = Object.assign { method: @METHOD_PUT }, @getDefaultNetworkOptions()
-    options.headers = Object.assign options.headers, 'Content-Type': 'application/x-www-form-urlencoded'
+    options.headers = Object.assign(
+      options.headers,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    )
 
     options
 

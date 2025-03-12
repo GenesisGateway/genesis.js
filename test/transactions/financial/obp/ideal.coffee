@@ -96,4 +96,4 @@ describe 'iDeal Transaction', ->
       data.bic = 'NOT_VALID_BIC_CODE_123'
       assert.equal false, @transaction.setData(data).isValid()
 
-    FinancialBase()
+  FinancialBase()

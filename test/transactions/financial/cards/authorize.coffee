@@ -18,14 +18,16 @@ Moto                          = require '../../../examples/attributes/financial/
 RecurringType                 = require '../../../examples/attributes/financial/recurring_type'
 RiskParams                    = require '../../../examples/attributes/risk_params'
 ScaParams                     = require '../../../examples/attributes/sca_params'
+SchemeTokenized               = require './scheme_tokenized'
 SubsequentRecurringAttributes = require '../../../examples/attributes/financial/recurring/subsequent_recurring_attributes'
 Transaction                   = require path.resolve './src/genesis/transactions/financial/cards/authorize'
 TravelData                    = require '../../../examples/attributes/financial/travel_data/travel_data'
 UCOF                          = require '../../../examples/attributes/ucof'
+InstallmentAttributes         = require '../../../examples/attributes/financial/installment_attributes'
 
 describe 'Authorize Transaction', ->
 
-  before ->
+  beforeEach ->
     @data                      = (new FakeData).getDataWithBusinessAttributes()
 
     @transaction               = new Transaction(@data, FakeConfig.getConfig())
@@ -48,3 +50,5 @@ describe 'Authorize Transaction', ->
   FundingAttributes()
   AccountOwnerAttributes()
   SubsequentRecurringAttributes()
+  SchemeTokenized()
+  InstallmentAttributes()

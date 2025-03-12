@@ -15,6 +15,7 @@ Moto                    = require '../../../../examples/attributes/financial/mot
 MpiParams               = require '../../../../examples/attributes/threeds/v1/mpi_params'
 RiskParams              = require '../../../../examples/attributes/risk_params'
 ScaParams               = require '../../../../examples/attributes/sca_params'
+SchemeTokenized         = require '../scheme_tokenized'
 ThreeDBase              = require '../three_d_base'
 ThreedsV2               = require '../../../../examples/attributes/threeds/v2/threeds_v2'
 Transaction             =
@@ -24,15 +25,26 @@ UCOF                    = require '../../../../examples/attributes/ucof'
 
 describe 'InitRecurringSale 3D Transaction', ->
 
-  before ->
-    @data        = (new FakeData).getDataWithBusinessAttributes()
+  beforeEach ->
+    @fakeData    = new FakeData
+    @data        = @fakeData.getDataWithBusinessAttributes()
     @transaction = new Transaction(@data, FakeConfig.getConfig())
 
     @data['notification_url']   = faker.internet.url()
     @data['return_success_url'] = faker.internet.url()
     @data['return_failure_url'] = faker.internet.url()
 
-    @data['managed_recurring'] = (new FakeData).getManagedRecurringAutomatic()
+    @data['managed_recurring'] = @fakeData.getManagedRecurringAutomatic()
+
+  describe 'when Threeds V2 Color Depth', ->
+    it 'handles color depth properly', ->
+      data = _.clone(@data)
+      data = _.extend data, @fakeData.getThreedsV2Data(), @fakeData.getThreedsV2RecurringData()
+      data.threeds_v2_params.browser.color_depth = '28'
+
+      @transaction = new Transaction(data, @configuration)
+
+      assert.equal @transaction.getTrxData().payment_transaction.threeds_v2_params.browser.color_depth, 24
 
   ThreeDBase()
   BusinessAttributes()
@@ -49,3 +61,4 @@ describe 'InitRecurringSale 3D Transaction', ->
   MpiParams()
   FundingAttributes()
   UCOF()
+  SchemeTokenized()

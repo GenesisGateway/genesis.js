@@ -1,0 +1,15 @@
+{
+  "$id": "https://genesis.js/kyc_download_document",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "identity_document_id"
+  ],
+  "properties": {
+    "identity_document_id": {
+      "type": "string",
+      "description": "Document ID"
+    }
+  }
+}

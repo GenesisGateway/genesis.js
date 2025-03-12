@@ -1,0 +1,26 @@
+{
+  "$id": "https://genesis.js/kyc_update_call",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "reference_id",
+    "security_code_input",
+    "verification_status"
+  ],
+  "properties": {
+    "reference_id": {
+      "$ref": "/definitions/attributes/kyc/common#reference_id",
+      "description": "Unique value to identify the call in back office."
+    },
+    "security_code_input": {
+      "type": "string",
+      "description": "Transaction identification in the merchants system; If not provided the system won't be able to link with the transaction that is being verified"
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": ["3", "4", "5"],
+      "description": "The first two values are defined by the system when the call is created; the ones accepted in this call are the status 3; 4 and 5 only 1-In Progress; 2-Failed; 3-Verification Failed; 4-Verification Successful; 5-Abandon;"
+    }
+  }
+}

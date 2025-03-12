@@ -1,3 +1,24 @@
+3.3.4
+-----
+* Added KYC services API support:
+  - Identity document upload
+  - Identity document download
+  - Make call
+  - Update call
+  - Create verification
+  - Verification status
+  - Verification register
+  - CPF check
+  - CNPJ check
+* Added Installments API support:
+  - Fetch applicable installments
+  - Show installment details
+* Added Installment parameters support to Authorize, Authorize 3D, Sale, Sale 3D, Capture and Refund transaction requests
+* Added Use Smart Router parameter support to all financial transaction requests
+* Added Tokenized e-commerce payment parameters to Authorize, Authorize 3D, Sale, Sale 3D, Init Recurring Sale and Init Recurring Sale 3D transaction requests
+* Added Funding Parameters support to Apple Pay and Google Pay transaction requests
+* Added Level 3 Travel data support to reference transaction requests
+
 3.3.3
 -----
 * Added Processed Transaction API support:

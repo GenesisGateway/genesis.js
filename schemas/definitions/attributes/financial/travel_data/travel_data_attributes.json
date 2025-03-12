@@ -23,6 +23,7 @@
   "$defs": {
     "ticket": {
       "$id": "/definitions/attributes/financial/travel_data/travel_data_attributes#ticket",
+      "additionalProperties": false,
       "properties": {
         "ticket_number": {
           "type": "string",
@@ -68,6 +69,12 @@
           "maxLength": 10,
           "description": "Date Of Issue"
         },
+        "restricted_ticket_indicator": {
+          "type": "string",
+          "enum": ["", "1", "0"],
+          "title": "Restricted Ticket Indicator",
+          "description": "Space or 0 = No restriction, 1 = Restriction; Allowed values: Empty String, 0, 1"
+        },
         "ticket_reference_id": {
           "type": "string",
           "maxLength": 32,
@@ -87,176 +94,226 @@
     },
     "legs": {
       "$id": "/definitions/attributes/financial/travel_data/travel_data_attributes#legs",
-      "type": "array",
-      "maxItems": 10,
-      "items": [
-        {
+      "type": "object",
+      "additionalProperties": false,
+      "properties":{
+        "leg": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "departure_date": {
+                "type": "string",
+                "maxLength": 10,
+                "description": "The departure date. Date can be in future."
+              },
+              "arrival_date": {
+                "type": "string",
+                "maxLength": 10,
+                "description": "The arrival date. Date can be in future."
+              },
+              "carrier_code": {
+                "type": "string",
+                "maxLength": 2,
+                "description": "Contains the standard abbreviation for the airline or railway carrier issuing the ticket. This should not contain all spaces or zeros. Code indicating name of carrier."
+              },
+              "service_class": {
+                "type": "string",
+                "maxLength": 1,
+                "description": "The service type. i.e. Coach, First Class. Required for reduced interchange."
+              },
+              "origin_city": {
+                "type": "string",
+                "maxLength": 3,
+                "description": "The originating airport name‘s standard abbreviation. This should not contain all spaces or zeroes."
+              },
+              "destination_city": {
+                "type": "string",
+                "maxLength": 3,
+                "description": "The destination airport or railway name‘s standard abbreviation."
+              },
+              "stopover_code": {
+                "type": "string",
+                "enum": ["1", "2"],
+                "description": "A code indicating whether there was a direct or a non-direct flight or route on the same ticket number. Allowed values: 0, 1"
+              },
+              "fare_basis_code": {
+                "type": "string",
+                "maxLength": 6,
+                "description": "A code that carriers assign to a particular ticket type, such as business class or discounted/ non-re fundable."
+              },
+              "flight_number": {
+                "type": "string",
+                "maxLength": 5,
+                "description": "The number that the operating or marketing carrier assigned."
+              },
+              "departure_time": {
+                "type": "string",
+                "maxLength": 5,
+                "description": "The time of departure provided by the airline or railway, per trip leg."
+              },
+              "departure_time_segment": {
+                "type": "string",
+                "enum": ["A", "P"],
+                "description": "Departure Time Segment. Allowed values: A, P"
+              }
+            }
+          }
+        }
+      }
+    },
+    "taxes": {
+      "$id": "/definitions/attributes/financial/travel_data/travel_data_attributes#taxes",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tax": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "fee_amount": {
+                "type": "integer",
+                "description": "Integer Fee Amount"
+              },
+              "fee_type": {
+                "type": "string",
+                "maxLength": 8,
+                "description": "Fee Type"
+              }
+            }
+          }
+        }
+      }
+    },
+    "rentals": {
+      "$id": "/definitions/attributes/financial/travel_data/travel_data_attributes#rentals",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "car_rental": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
           "type": "object",
+          "additionalProperties": false,
           "properties": {
+            "purchase_identifier": {
+              "type": "string",
+              "maxLength": 9,
+              "description": "Rental Agreement Number / Hotel Folio Number."
+            },
+            "class_id": {
+              "type": "string",
+              "maxLength": 4,
+              "description": "The car rental classification. Allowed values: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 9999",
+              "enum": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "9999"]
+            },
+            "pickup_date": {
+              "type": "string",
+              "maxLength": 10,
+              "description": "Car rental Pick-up date."
+            },
+            "renter_name": {
+              "type": "string",
+              "maxLength": 20,
+              "description": "The Renter Name"
+            },
+            "return_city": {
+              "type": "string",
+              "maxLength": 18,
+              "description": "The Rental Return City"
+            },
+            "return_state": {
+              "type": "string",
+              "maxLength": 3,
+              "description": "The Rental Return State"
+            },
+            "return_country": {
+              "type": "string",
+              "maxLength": 3,
+              "description": "The Rental Return Country"
+            },
+            "return_date": {
+              "type": "string",
+              "maxLength": 10,
+              "description": "Car Rental return date"
+            },
+            "renter_return_location_id": {
+              "type": "string",
+              "maxLength": 10,
+              "description": "Expenses or Car Rental code, Address, phone number, etc. Identifying Rental Return Location."
+            },
+            "customer_code": {
+              "type": "string",
+              "maxLength": 17,
+              "description": "The customer code. Internal Reference."
+            },
+            "extra_charges": {
+              "type": "array",
+              "maxItems": 5,
+              "items": { "enum": [1, 2, 3, 4, 5] }
+            },
+            "no_show_indicator": {
+              "type": "string",
+              "title": "No Show indicator",
+              "description": "No show indicator; Allowed values: 0, 1",
+              "enum": ["0", "1"]
+            }
+          }
+        },
+        "hotel_rental": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "purchase_identifier": {
+              "type": "string",
+              "maxLength": 10,
+              "description": "Rental Agreement Number / Hotel Folio Number."
+            },
+            "arrival_date": {
+              "type": "string",
+              "maxLength": 10,
+              "description": "Hotel check-in date."
+            },
             "departure_date": {
               "type": "string",
               "maxLength": 10,
               "description": "The departure date. Date can be in future."
             },
-            "arrival_date": {
+            "customer_code": {
               "type": "string",
-              "maxLength": 10,
-              "description": "The arrival date. Date can be in future."
+              "maxLength": 17,
+              "description": "The customer code. Internal Reference."
             },
-            "carrier_code": {
-              "type": "string",
-              "maxLength": 2,
-              "description": "Contains the standard abbreviation for the airline or railway carrier issuing the ticket. This should not contain all spaces or zeros. Code indicating name of carrier."
+            "extra_charges": {
+              "type": "array",
+              "maxItems": 6,
+              "items": { "enum": [2, 3, 4, 5, 6, 7] }
             },
-            "service_class": {
+            "no_show_indicator": {
               "type": "string",
-              "maxLength": 1,
-              "description": "The service type. i.e. Coach, First Class. Required for reduced interchange."
-            },
-            "origin_city": {
-              "type": "string",
-              "maxLength": 3,
-              "description": "The originating airport name‘s standard abbreviation. This should not contain all spaces or zeroes."
-            },
-            "destination_city": {
-              "type": "string",
-              "maxLength": 3,
-              "description": "The destination airport or railway name‘s standard abbreviation."
-            },
-            "stopover_code": {
-              "type": "string",
-              "enum": [
-                "1",
-                "2"
-              ],
-              "description": "A code indicating whether there was a direct or a non-direct flight or route on the same ticket number. Allowed values: 0, 1"
-            },
-            "fare_basis_code": {
-              "type": "string",
-              "maxLength": 6,
-              "description": "A code that carriers assign to a particular ticket type, such as business class or discounted/ non-re fundable."
-            },
-            "flight_number": {
-              "type": "string",
-              "maxLength": 5,
-              "description": "The number that the operating or marketing carrier assigned."
-            },
-            "departure_time": {
-              "type": "string",
-              "maxLength": 5,
-              "description": "The time of departure provided by the airline or railway, per trip leg."
-            },
-            "departure_time_segment": {
-              "type": "string",
-              "enum": [
-                "A",
-                "P"
-              ],
-              "description": "Departure Time Segment. Allowed values: A, P"
+              "title": "No Show indicator",
+              "description": "No show indicator; Allowed values: 0, 1",
+              "enum": ["0", "1"]
             }
           }
-        }
-        ]
-    },
-    "taxes": {
-      "$id": "/definitions/attributes/financial/travel_data/travel_data_attributes#taxes",
-      "type": "array",
-      "maxItems": 10,
-      "items": [
-        {
-          "tax": {
-            "fee_amount": {
-              "description": "Integer Fee Amount"
-            },
-            "fee_type": {
-              "type": "string",
-              "description": "Fee Type"
-            }
-          }
-        }
-      ]
-    },
-    "rentals": {
-      "$id": "/definitions/attributes/financial/travel_data/travel_data_attributes#rentals",
-      "car_rental": {
-        "purchase_identifier": {
-          "type": "string",
-          "maxLength": 9,
-          "description": "Rental Agreement Number / Hotel Folio Number."
-        },
-        "class_id": {
-          "type": "string",
-          "maxLength": 4,
-          "description": "The car rental classification. Allowed values: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 9999"
-        },
-        "pickup_date": {
-          "type": "string",
-          "maxLength": 10,
-          "description": "Car rental Pick-up date."
-        },
-        "renter_name": {
-          "type": "string",
-          "maxLength": 20,
-          "description": "The Renter Name"
-        },
-        "return_city": {
-          "type": "string",
-          "maxLength": 18,
-          "description": "The Rental Return City"
-        },
-        "return_state": {
-          "type": "string",
-          "maxLength": 3,
-          "description": "The Rental Return State"
-        },
-        "return_country": {
-          "type": "string",
-          "maxLength": 3,
-          "description": "The Rental Return Country"
-        },
-        "return_date": {
-          "type": "string",
-          "maxLength": 10,
-          "description": "Car Rental return date"
-        },
-        "renter_return_location_id": {
-          "type": "string",
-          "maxLength": 10,
-          "description": "Expenses or Car Rental code, Address, phone number, etc. Identifying Rental Return Location."
-        },
-        "customer_code": {
-          "type": "string",
-          "maxLength": 17,
-          "description": "The customer code. Internal Reference."
-        }
-      },
-      "hotel_rentals": {
-        "purchase_identifier": {
-          "type": "string",
-          "maxLength": 10,
-          "description": "Rental Agreement Number / Hotel Folio Number."
-        },
-        "arrival_date": {
-          "type": "string",
-          "maxLength": 10,
-          "description": "Hotel check-in date."
-        },
-        "departure_date": {
-          "type": "string",
-          "maxLength": 10,
-          "description": "The departure date. Date can be in future."
-        },
-        "customer_code": {
-          "type": "string",
-          "maxLength": 17,
-          "description": "The customer code. Internal Reference."
         }
       }
     },
     "charges": {
       "$id": "/definitions/attributes/financial/travel_data/travel_data_attributes#charges",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "additionalProperties": false,
       "properties": {
         "charge": {
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "additionalProperties": false,
           "properties": {
             "type": {
               "enum": [
@@ -265,29 +322,7 @@
             },
             "sub_type": {
               "enum": [
-                "BF",
-                "BG",
-                "CF",
-                "CG",
-                "CO",
-                "FF",
-                "GF",
-                "GT",
-                "IE",
-                "LG",
-                "MD",
-                "ML",
-                "OT",
-                "PA",
-                "PT",
-                "SA",
-                "SB",
-                "SF",
-                "ST",
-                "TS",
-                "UN",
-                "UP",
-                "WI"
+                "BF", "BG", "CF", "CG", "CO", "FF", "GF", "GT", "IE", "LG", "MD", "ML", "OT", "PA", "PT", "SA", "SB", "SF", "ST", "TS", "UN", "UP", "WI"
               ]
             }
           }
@@ -296,17 +331,23 @@
     },
     "refund":{
       "$id": "/definitions/attributes/financial/travel_data/travel_data_attributes#refund",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "additionalProperties": false,
       "ticket":{
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "additionalProperties": false,
         "properties": {
           "credit_reason_indicator_1": {
             "type": "string",
             "enum": ["A", "B", "P", "O"],
-            "descritpion": "This field indicates the reason for a credit to the cardholder."
+            "description": "This field indicates the reason for a credit to the cardholder."
           },
           "credit_reason_indicator_2": {
             "type": "string",
             "enum": ["A", "B", "P", "O"],
-            "descritpion": "This field indicates the reason for a credit to the cardholder."
+            "description": "This field indicates the reason for a credit to the cardholder."
           },
           "ticket_change_indicator": {
             "type": "string",

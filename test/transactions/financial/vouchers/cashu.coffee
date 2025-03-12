@@ -2,10 +2,9 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-FakeConfig  = require path.resolve './test/transactions/fake_config'
-FakeData    = require '../../fake_data'
-Transaction = require path.resolve './src/genesis/transactions/financial/vouchers/cashu'
-
+FakeConfig    = require path.resolve './test/transactions/fake_config'
+FakeData      = require '../../fake_data'
+Transaction   = require path.resolve './src/genesis/transactions/financial/vouchers/cashu'
 FinancialBase = require '../financial_base'
 
 describe 'CashU Transaction', ->
@@ -26,6 +25,8 @@ describe 'CashU Transaction', ->
       "KR", "KW", "LB", "LY", "MY", "MR", "MA", "NG", "OM", "PK", "PS",
       "QA", "SA", "SL", "SD", "SY", "TZ", "TN", "TR", "AE", "US", "YE"
     ])
+
+  FinancialBase()
 
   it 'works without remote_ip', ->
     data = _.clone @data

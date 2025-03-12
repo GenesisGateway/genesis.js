@@ -6,7 +6,6 @@ AlternativeExamples = require '../alternative/alternative_base'
 Currency            = require path.resolve './src/genesis/helpers/currency'
 FakeConfig          = require path.resolve './test/transactions/fake_config'
 FakeData            = require '../../fake_data'
-FinancialBase       = require '../financial_base'
 Transaction         = require path.resolve './src/genesis/transactions/financial/obp/santander'
 
 describe 'Santander Transaction', ->

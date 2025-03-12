@@ -21,7 +21,7 @@ class Rate extends Request
   # Rate endpoint
   getUrl: ->
     app:
-     'gate'
+      'gate'
     path:
       util.format FX_RATE, @tierId, @identifier
 

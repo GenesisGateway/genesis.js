@@ -1,0 +1,14 @@
+{
+  "$id": "https://genesis.js/kyc_cpf",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "document_id"
+  ],
+  "properties": {
+    "document_id": {
+      "$ref": "/definitions/attributes/kyc/common#document_id"
+    }
+  }
+}

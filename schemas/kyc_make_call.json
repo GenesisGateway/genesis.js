@@ -1,0 +1,43 @@
+{
+  "$id": "https://genesis.js/kyc_make_call",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_unique_id",
+    "customer_phone_number",
+    "service_language",
+    "security_code",
+    "service_type"
+  ],
+  "properties": {
+    "customer_username" : {
+      "$ref": "/definitions/attributes/kyc/common#customer_username"
+    },
+    "customer_unique_id" : {
+      "$ref": "/definitions/attributes/kyc/common#customer_unique_id"
+    },
+    "transaction_unique_id": {
+      "$ref": "/definitions/attributes/kyc/common#transaction_unique_id"
+    },
+    "customer_phone_number": {
+      "type": "string",
+      "description": "Phone number to call; It must be complete country code + phone number; No dashes; For example: 50622560000"
+    },
+    "service_language": {
+      "type": "string",
+      "enum": ["a", "zh-HK", "ca", "hr", "cs", "da", "nl", "en-AU", "en-GB", "en-US", "et", "fil", "fi", "fr", "fr-CA", "de", "el", "he", "hi", "hu", "is", "id", "it", "ja", "ko", "lv", "ln", "lt", "zh-CN", "no", "pl", "pt-BR", "pt", "ro", "ru", "sk", "es", "es-419", "sv", "th", "tr", "uk", "vi"],
+      "description": "Arabic - a; Cantonese, Chinese/Hong Kong - zh-HK; Catalan - ca; Croatian - hr; Czech - cs; Danish - da; Dutch - nl; English, Australian - en-AU; English, UK - en-GB; English, US - en-US; Estonian - et; Filipino - fil; Finnish - fi; French - fr; French, Canadian - fr-CA; German - de; Greek - el; Hebrew - he; Hindi - hi;Hungarian - hu; Icelandic - is; Indonesian - id; Italian - it; Japanese - ja; Korean - ko; Latvian - lv; Lingala - ln; Lithuanian - lt; Mandarin - zh-CN; Norwegian - no; Polish - pl; Portuguese, Brazilian - pt-BR; Portuguese, European - pt; Romanian - ro; Russian - ru; Slovakian - sk; Spanish, European - es; Spanish, Latin American - es-419; Swedish - sv; Thai - th; Turkish - tr; Ukrainian - uk; Vietnamese - vi"
+    },
+    "security_code": {
+      "type": "string",
+      "pattern": "^[0-9]{4}$",
+      "description": "Numeric value - 4 digits only; It cannot start with 0; The bot is going to say this numeric value so the user can type it back on the website;"
+    },
+    "service_type": {
+      "type": "integer",
+      "enum": [1, 2],
+      "description": "Numeric value to indicate if the system will send a text message or make a voice call; 1 for SMS; 2 for Voice call;"
+    }
+  }
+}

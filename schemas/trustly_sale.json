@@ -77,6 +77,9 @@
     },
     "business_attributes": {
       "$ref": "/definitions/attributes/business_attributes"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
     }
   }
 }

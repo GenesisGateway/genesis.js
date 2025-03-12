@@ -1,120 +1,54 @@
-faker = require 'faker'
-_     = require 'underscore'
+_        = require 'underscore'
+FakeData = require '../../../transactions/fake_data'
 
 FundingAttributes = () ->
 
-  it 'works with funding_attributes', ->
-    data = _.clone @data
-    data = _.extend(data, {
-      funding: {
-        identifier_type: faker.random.arrayElement([
-          "general_person_to_person", "person_to_person_card_account", "own_account",
-          "own_credit_card_bill", "business_disbursement",
-          "government_or_non_profit_disbursement", "rapid_merchant_settlement",
-          "general_business_to_business", "own_staged_digital_wallet_account",
-          "own_debit_or_prepaid_card_account"
-        ])
-        business_application_identifier: faker.random.arrayElement([
-          "funds_disbursement", "pension_disbursement", "account_to_account", "bank_initiated", "fund_transfer",
-          "person_to_person", "prepaid_card_load", "wallet_transfer", "liquid_assets"
-        ])
-        receiver: {
-          first_name:  faker.random.alpha(10)
-          last_name:  faker.random.alpha(10)
-          country: "AF",
-          account_number: faker.datatype.number().toString(),
-          account_number_type: faker.random.arrayElement([
-            "rtn_and_bank_account_number", "iban", "card_account", "email", "phone_number",
-            "bank_account_number_and_bic", "wallet_id", "social_network_id", "other"
-            ])
-          address: faker.random.alpha(10)
-          state: faker.random.alpha(10)
-          city: faker.random.alpha(10)
-        }
-        sender: {
-          name: faker.random.alpha(10)
-          reference_number: faker.random.alpha(10)
-          country: faker.random.alpha(10)
-          address: faker.random.alpha(10)
-          state: faker.random.alpha(10)
-          city: faker.random.alpha(10)
-        }
-      }
-    })
+  describe 'Funding Attributes', ->
+    beforeEach ->
+      @fundingData = _.clone @data
+      @fundingData = _.extend @fundingData, (new FakeData).getFundingData()
 
-    assert.equal true, @transaction.setData(data).isValid()
+    it 'works with funding_attributes', ->
+      assert.isTrue @transaction.setData(@fundingData).isValid()
 
-  it 'fail with not existing identifier_type', ->
-    data = _.clone @data
-    data = _.extend(data, {
-      funding: {
-        identifier_type: "not_exists"
-        business_application_identifier: faker.random.arrayElement([
-          "funds_disbursement", "pension_disbursement", "account_to_account", "bank_initiated", "fund_transfer",
-          "person_to_person", "prepaid_card_load", "wallet_transfer", "liquid_assets"
-        ])
-        receiver: {
-          first_name:  faker.random.alpha(10)
-          last_name:  faker.random.alpha(10)
-          country: "AF",
-          account_number: faker.datatype.number().toString(),
-          account_number_type: faker.random.arrayElement([
-            "rtn_and_bank_account_number", "iban", "card_account", "email", "phone_number",
-            "bank_account_number_and_bic", "wallet_id", "social_network_id", "other"
-          ]),
-          address: faker.random.alpha(10),
-          state: faker.random.alpha(10),
-          city: faker.random.alpha(10)
-        },
-        sender: {
-          name: faker.random.alpha(10)
-          reference_number: faker.random.alpha(10)
-          country: faker.random.alpha(10)
-          address: faker.random.alpha(10)
-          state: faker.random.alpha(10)
-          city: faker.random.alpha(10)
-        }
-      }
-    })
+    it 'fail with invalid identifier_type', ->
+      @fundingData.funding.identifier_type = 'invalid'
 
-    assert.equal false, @transaction.setData(data).isValid()
+      assert.isNotTrue @transaction.setData(@fundingData).isValid()
 
-  it 'fail with not existing business_application_identifier', ->
-    data = _.clone @data
-    data = _.extend(data, {
-      funding: {
-        identifier_type: faker.random.arrayElement([
-          "general_person_to_person", "person_to_person_card_account", "own_account",
-          "own_credit_card_bill", "business_disbursement",
-          "government_or_non_profit_disbursement", "rapid_merchant_settlement",
-          "general_business_to_business", "own_staged_digital_wallet_account",
-          "own_debit_or_prepaid_card_account"
-        ])
-        business_application_identifier: "not_exists"
-        receiver: {
-          first_name:  faker.random.alpha(10)
-          last_name:  faker.random.alpha(10)
-          country: "AF",
-          account_number: faker.datatype.number().toString(),
-          account_number_type: faker.random.arrayElement([
-            "rtn_and_bank_account_number", "iban", "card_account", "email", "phone_number",
-            "bank_account_number_and_bic", "wallet_id", "social_network_id", "other"
-          ]),
-          address: faker.random.alpha(10),
-          state: faker.random.alpha(10),
-          city: faker.random.alpha(10)
-        }
-        sender: {
-          name: faker.random.alpha(10)
-          reference_number: faker.random.alpha(10)
-          country: faker.random.alpha(10)
-          address: faker.random.alpha(10)
-          state: faker.random.alpha(10)
-          city: faker.random.alpha(10)
-        }
-      }
-    })
+    it 'fail with invalid business_application_identifier', ->
+      @fundingData.funding.business_application_identifier = 'invalid'
 
-    assert.equal false, @transaction.setData(data).isValid()
+      assert.isNotTrue @transaction.setData(@fundingData).isValid()
+
+    it 'fail with invalid account_number_type', ->
+      @fundingData.funding.receiver.account_number_type = 'invalid'
+
+      assert.isNotTrue @transaction.setData(@fundingData).isValid()
+
+    it 'fail when funding node with additional properties', ->
+      @fundingData.funding.element = 'value'
+
+      assert.isNotTrue @transaction.setData(@fundingData).isValid()
+
+    it 'fail when funding receiver node with additional properties', ->
+      @fundingData.funding.receiver.element = 'value'
+
+      assert.isNotTrue @transaction.setData(@fundingData).isValid()
+
+    it 'fail when funding sender node with addtional properties', ->
+      @fundingData.funding.sender.element = 'value'
+
+      assert.isNotTrue @transaction.setData(@fundingData).isValid()
+
+    it 'fail when funding receiver country with invalid value', ->
+      @fundingData.funding.receiver.country = 'invalid'
+
+      assert.isNotTrue @transaction.setData(@fundingData).isValid()
+
+    it 'fail when funding sender country with invalid value', ->
+      @fundingData.funding.sender.country = 'invalid'
+
+      assert.isNotTrue @transaction.setData(@fundingData).isValid()
 
 module.exports = FundingAttributes

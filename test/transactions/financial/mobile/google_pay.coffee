@@ -7,6 +7,7 @@ DynamicDescriptor  = require '../../../examples/attributes/financial/dynamic_des
 FakeConfig         = require path.resolve './test/transactions/fake_config'
 FakeData           = require '../../fake_data'
 FinancialBase      = require '../financial_base'
+FundingAttributes  = require '../../../examples/attributes/financial/funding_attributes'
 Transaction        = require path.resolve './src/genesis/transactions/financial/mobile/google_pay'
 
 describe 'GooglePay Transaction', ->
@@ -23,6 +24,7 @@ describe 'GooglePay Transaction', ->
   FinancialBase()
   BusinessAttributes()
   DynamicDescriptor()
+  FundingAttributes()
 
   context 'with valid request', ->
 

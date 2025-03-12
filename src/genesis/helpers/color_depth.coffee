@@ -4,14 +4,14 @@ class ColorDepth
 
   constructor: ->
     @colorDepth =
-    'BIT_1'  : 1,
-    'BITS_4' : 4,
-    'BITS_8' : 8,
-    'BITS_15': 15,
-    'BITS_16': 16,
-    'BITS_24': 24,
-    'BITS_32': 32,
-    'BITS_48': 48
+      'BIT_1'  : 1,
+      'BITS_4' : 4,
+      'BITS_8' : 8,
+      'BITS_15': 15,
+      'BITS_16': 16,
+      'BITS_24': 24,
+      'BITS_32': 32,
+      'BITS_48': 48
 
   getColorDepth: ->
     _.values @colorDepth

@@ -12,6 +12,7 @@ FundingAttributes       = require '../../../../examples/attributes/financial/fun
 ManagedRecurring        = require '../../../../examples/attributes/financial/recurring/managed_recurring'
 Moto                    = require '../../../../examples/attributes/financial/moto'
 RiskParams              = require '../../../../examples/attributes/risk_params'
+SchemeTokenized         = require '../scheme_tokenized'
 Transaction             =
   require path.resolve './src/genesis/transactions/financial/cards/recurring/init_recurring_sale'
 TravelData              = require '../../../../examples/attributes/financial/travel_data/travel_data'
@@ -34,3 +35,4 @@ describe 'InitRecurringSale Transaction', ->
   TravelData()
   AccountOwnerAttributes()
   FundingAttributes()
+  SchemeTokenized()

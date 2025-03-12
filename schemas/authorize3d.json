@@ -27,6 +27,35 @@
     },
     {
       "$ref": "/definitions/attributes/financial/tokenization"
+    },
+    {
+      "if": {
+        "not": {
+          "properties": {
+            "scheme_tokenized": { "const": true }
+          },
+          "required": ["scheme_tokenized"]
+        }
+      },
+      "then": {
+        "properties": {
+          "mpi_params": {
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "protocol_version": { "const": "2" }
+                  },
+                  "required": ["protocol_version"]
+                },
+                "then": {
+                  "required": ["directory_server_id"]
+                }
+              }
+            ]
+          }
+        }
+      }
     }
   ],
   "messages": {
@@ -109,6 +138,12 @@
     "dynamic_descriptor_params": {
       "$ref": "/definitions/attributes/financial/dynamic_descriptor_params"
     },
+    "installment_plan_id": {
+      "$ref": "/definitions/attributes/financial/installment_attributes#plan_id"
+    },
+    "installment_plan_reference": {
+      "$ref": "/definitions/attributes/financial/installment_attributes#plan_reference"
+    },
     "credential_on_file": {
       "$ref": "/definitions/attributes/credential_on_file#credential_on_file"
     },
@@ -129,6 +164,9 @@
     },
     "account_owner": {
       "$ref": "/definitions/attributes/financial/account_owner_attributes"
+    },
+    "scheme_tokenized": {
+      "type": "boolean"
     }
   }
 }

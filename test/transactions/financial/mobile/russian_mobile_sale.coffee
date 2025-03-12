@@ -42,6 +42,8 @@ describe 'Russian Mobile Sale Transaction', ->
     }
     @transaction             = new Transaction(@data, FakeConfig.getConfig())
 
+  FinancialBase()
+
   context 'with valid request', ->
 
     it 'works with full list of parameters', ->

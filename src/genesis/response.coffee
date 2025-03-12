@@ -42,7 +42,7 @@ class Response
 
   # Determine if the given response has application/json payload
   isResponseTypeJson: ->
-    return @network.getResponseContentType().indexOf(JSON_TYPE) >= 0;
+    return @network.getResponseContentType().indexOf(JSON_TYPE) >= 0
 
   # Attempt to process response from Genesis Payment Gateway
   processResponse: () ->
@@ -61,7 +61,10 @@ class Response
     if @responseObject.hasOwnProperty('amount') and @responseObject.hasOwnProperty('currency')
       currency = @initCurrency()
 
-      @responseObject.amount = currency.convertToNominalUnits(@responseObject.amount, @responseObject.currency)
+      @responseObject.amount = currency.convertToNominalUnits(
+        @responseObject.amount,
+        @responseObject.currency
+      )
 
     @
 
