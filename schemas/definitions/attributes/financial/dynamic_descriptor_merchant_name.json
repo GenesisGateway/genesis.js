@@ -1,0 +1,13 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/financial/dynamic_descriptor_merchant_name",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "merchant_name": {
+      "type": "string",
+      "maxLength": 25,
+      "description": "Needed by merchants/PSPs to change the charge description. Any chars above 25 are truncated. If the merchant name is less than 25 chars, it is right padded with whitespace before sent to the schemes"
+    }
+  }
+}
+

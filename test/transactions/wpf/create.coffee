@@ -2,15 +2,16 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-BusinessAttributes = require '../business_attributes'
-DynamicDescriptor  = require '../../examples/attributes/financial/dynamic_descriptor'
-FakeConfig         = require '../fake_config'
-FakeData           = require '../fake_data'
-FinancialBase      = require '../financial/financial_base'
-FundingAttributes  = require '../../examples/attributes/financial/funding_attributes'
-i18n               = require path.resolve 'src/genesis/helpers/i18n'
-PayLater           = require '../../examples/attributes/pay_later'
-Transaction        = require path.resolve './src/genesis/transactions/wpf/create'
+BusinessAttributes            = require '../business_attributes'
+DynamicDescriptor             = require '../../examples/attributes/financial/dynamic_descriptor'
+DynamicDescriptorMerchantName = require '../../examples/attributes/financial/dynamic_descriptor_merchant_name'
+FakeConfig                    = require '../fake_config'
+FakeData                      = require '../fake_data'
+FinancialBase                 = require '../financial/financial_base'
+FundingAttributes             = require '../../examples/attributes/financial/funding_attributes'
+i18n                          = require path.resolve 'src/genesis/helpers/i18n'
+PayLater                      = require '../../examples/attributes/pay_later'
+Transaction                   = require path.resolve './src/genesis/transactions/wpf/create'
 
 
 describe 'WPFCreate Transaction', ->
@@ -665,6 +666,7 @@ describe 'WPFCreate Transaction', ->
 
   BusinessAttributes()
   DynamicDescriptor()
+  DynamicDescriptorMerchantName()
   FinancialBase()
   PayLater()
   FundingAttributes()

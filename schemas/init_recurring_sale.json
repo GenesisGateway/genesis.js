@@ -84,7 +84,14 @@
       "$ref": "/definitions/attributes/risk_attributes"
     },
     "dynamic_descriptor_params": {
-      "$ref": "/definitions/attributes/financial/dynamic_descriptor_params"
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/financial/dynamic_descriptor_params"
+        },
+        {
+          "$ref": "/definitions/attributes/financial/dynamic_descriptor_merchant_name"
+        }
+      ]
     },
     "credential_on_file": {
       "$ref": "/definitions/attributes/credential_on_file#credential_on_file"

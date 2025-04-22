@@ -1,0 +1,13 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/financial/dynamic_descriptor_merchant_name_sdd",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "merchant_name": {
+      "type": "string",
+      "maxLength": 140,
+      "description": "Allows to dynamically override the charge descriptor"
+    }
+  }
+}
+

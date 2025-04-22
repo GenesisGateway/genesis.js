@@ -27,7 +27,7 @@ describe 'Online Banking Payin Transaction', ->
     @data.consumer_reference      = 'Consumer Reference'
     @data.user_category           = 'default'
     @data.payment_type            = faker.random.arrayElement(
-      ["online_banking", "qr_payment", "quick_payment", "netbanking", "alipay_qr", "scotiabank"]
+      ["online_banking", "qr_payment", "quick_payment", "netbanking", "alipay_qr", "scotiabank", "spei"]
     )
     @data.auth_code               = '123456'
     @data.billing_address         = {

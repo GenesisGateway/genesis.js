@@ -78,6 +78,16 @@
     "shipping_address": {
       "$ref": "/definitions/attributes/customer/address#shipping"
     },
+    "dynamic_descriptor_params": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/financial/dynamic_descriptor_params"
+        },
+        {
+          "$ref": "/definitions/attributes/financial/dynamic_descriptor_merchant_name_sdd"
+        }
+      ]
+    },
     "use_smart_router": {
       "$ref": "/definitions/definitions#use_smart_router"
     }

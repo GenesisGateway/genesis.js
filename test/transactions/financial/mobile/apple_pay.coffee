@@ -2,13 +2,14 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-BusinessAttributes = require '../../business_attributes'
-DynamicDescriptor  = require '../../../examples/attributes/financial/dynamic_descriptor'
-FakeConfig         = require path.resolve './test/transactions/fake_config'
-FakeData           = require '../../fake_data'
-FinancialBase      = require '../financial_base'
-FundingAttributes  = require '../../../examples/attributes/financial/funding_attributes'
-Transaction        =
+BusinessAttributes            = require '../../business_attributes'
+DynamicDescriptor             = require '../../../examples/attributes/financial/dynamic_descriptor'
+DynamicDescriptorMerchantName = require '../../../examples/attributes/financial/dynamic_descriptor_merchant_name'
+FakeConfig                    = require path.resolve './test/transactions/fake_config'
+FakeData                      = require '../../fake_data'
+FinancialBase                 = require '../financial_base'
+FundingAttributes             = require '../../../examples/attributes/financial/funding_attributes'
+Transaction                   =
   require path.resolve './src/genesis/transactions/financial/mobile/apple_pay'
 
 describe 'Apple Pay Transaction', ->
@@ -24,6 +25,7 @@ describe 'Apple Pay Transaction', ->
   FinancialBase()
   BusinessAttributes()
   DynamicDescriptor()
+  DynamicDescriptorMerchantName()
   FundingAttributes()
 
   context 'with valid request', ->

@@ -2,14 +2,16 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-FakeConfig    = require path.resolve './test/transactions/fake_config'
-FakeData      = require '../../fake_data'
-Transaction   = require path.resolve './src/genesis/transactions/financial/direct_debit/sdd_sale'
-SDDBase       = require './sdd_base'
+DynamicDescriptor = require '../../../examples/attributes/financial/dynamic_descriptor'
+FakeConfig        = require path.resolve './test/transactions/fake_config'
+FakeData          = require '../../fake_data'
+Transaction       = require path.resolve './src/genesis/transactions/financial/direct_debit/sdd_sale'
+SDDBase           = require './sdd_base'
 
 describe 'SddSale', ->
 
   SDDBase()
+  DynamicDescriptor()
 
   beforeEach ->
     @data['iban'] = "DE09100100101234567891"
@@ -83,3 +85,14 @@ describe 'SddSale', ->
       @data['return_pending_url'] = faker.internet.url()
 
       assert.equal true, @transaction.setData(@data).isValid()
+
+  context 'with dynamic descriptor merchant name', ->
+    it 'fail with more than 140 symbols', ->
+      data = _.clone @data
+      data = _.extend(data, {
+        dynamic_descriptor_params: {
+          "merchant_name": faker.datatype.string(145)
+        }
+      })
+
+      assert.isNotTrue @transaction.setData(data).isValid()

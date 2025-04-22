@@ -60,7 +60,7 @@
     "payment_type": {
       "type": "string",
       "description": "The payment type describes the type of online banking used to process the transaction.",
-      "enum": ["online_banking", "qr_payment", "quick_payment", "netbanking", "alipay_qr", "scotiabank"]
+      "enum": ["online_banking", "qr_payment", "quick_payment", "netbanking", "alipay_qr", "scotiabank", "spei"]
     },
     "virtual_payment_address": {
       "type": "string",

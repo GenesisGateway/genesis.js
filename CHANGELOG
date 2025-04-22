@@ -1,3 +1,12 @@
+3.3.5
+-----
+* Added Dynamic Descriptor parameters to SDD requests
+* Added Payer attributes to the Bank PayOut request
+* Added Beneficiary parameters to Pix request
+* Added SPEI payment type to Online banking request
+* Added Cryptogram request, part of Tokenization API services
+* Updated Bank PayOut parameters
+
 3.3.4
 -----
 * Added KYC services API support:

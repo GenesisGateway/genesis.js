@@ -12,7 +12,7 @@ FinancialBase = require '../../financial_base'
 
 describe 'Online Banking Payout Transaction', ->
 
-  before ->
+  beforeEach ->
     @data                                 = (new FakeData).getSimpleData()
     @data.currency = faker.random.arrayElement(
       ["ARS", "BRL", "CAD", "CLP", "CNY", "COP", "IDR", "INR", "MYR", "MXN", "PEN", "THB", "UYU"]
@@ -30,7 +30,6 @@ describe 'Online Banking Payout Transaction', ->
     @data.bank_account_name               = 'Anurak Nghuen'
     @data.bank_account_number             = '1234123412341234'
     @data.id_card_number                  = '123789456'
-    @data.payer_bank_phone_number         = '01234567'
     @data.bank_account_type               =  faker.random.arrayElement(
       ["C", "S", "M", "P"]
     )
@@ -40,7 +39,7 @@ describe 'Online Banking Payout Transaction', ->
     @data.user_id                         = '11111111111111111111111'
     @data.birth_date                      = '01-01-2021'
     @data.payment_type                    = faker.random.arrayElement(
-      ["bank_to_bank", "pix", "bsb", "pay_id", "bank_to_bank_b2b", "pix_b2b"]
+      ["bank_to_bank", "pix", "bsb", "pay_id", "bank_to_bank_b2b", "pix_b2b", "clabe", "cellphone"]
     )
     @data.billing_address                 =  {
       first_name: 'John',
@@ -51,11 +50,20 @@ describe 'Online Banking Payout Transaction', ->
       neighborhood: 'Holywood',
       country: 'US'
     }
+    @data.payer                           =  {
+      document_id:                     faker.datatype.string(16),
+      bank_code:                       faker.datatype.string(12),
+      bank_account_number:             faker.datatype.string(33),
+      bank_branch:                     faker.datatype.string(11),
+      bank_account_verification_digit: '5',
+      bank_phone_number:               '1234567890'
+    }
     @data.company_type                    = ''
     @data.companyActivity                 = ''
     @data.incorporation_date              = '2021-01-01'
     @data.mothers_name                    = ''
     @data.pix_key                         = ''
+    @data.document_id                     = '1234'
     @transaction                          = new Transaction(@data, FakeConfig.getConfig())
 
   FinancialBase()
@@ -86,12 +94,6 @@ describe 'Online Banking Payout Transaction', ->
 
       assert.equal false, @transaction.setData(data).isValid()
 
-    it 'fails with out of range payer_bank_phone_number length', ->
-      data = _.clone @data
-      data.payer_bank_phone_number = faker.datatype.string(12)
-
-      assert.equal false, @transaction.setData(data).isValid()
-
     it 'fails with out of range bank_account_verification_digit length', ->
       data = _.clone @data
       data.bank_account_verification_digit = faker.datatype.string(2)
@@ -112,6 +114,46 @@ describe 'Online Banking Payout Transaction', ->
 
       assert.equal false, @transaction.setData(data).isValid()
 
+    it 'fails with aditional payer element', ->
+      data = _.clone @data
+      data.payer.element = 'invalid_value'
+      assert.isNotTrue @transaction.setData(data).isValid()
+
+    it 'fails with out of range payer document_id length', ->
+      data = _.clone @data
+      data.payer.document_id = faker.datatype.string(18)
+
+      assert.isNotTrue @transaction.setData(data).isValid()
+
+    it 'fails with out of range payer bank_code length', ->
+      data = _.clone @data
+      data.payer.bank_code = faker.datatype.string(13)
+
+      assert.isNotTrue @transaction.setData(data).isValid()
+
+    it 'fails with out of range payer bank_account_number length', ->
+      data = _.clone @data
+      data.payer.bank_account_number = faker.datatype.string(34)
+
+      assert.isNotTrue @transaction.setData(data).isValid()
+
+    it 'fails with out of range payer bank_branch length', ->
+      data = _.clone @data
+      data.payer.bank_branch = faker.datatype.string(12)
+
+      assert.isNotTrue @transaction.setData(data).isValid()
+
+    it 'fails with out of range payer bank_account_verification_digit length', ->
+      data = _.clone @data
+      data.payer.bank_account_verification_digit = faker.datatype.string(2)
+
+      assert.isNotTrue @transaction.setData(data).isValid()
+
+    it 'fails with out of range payer bank_phone_number length', ->
+      data = _.clone @data
+      data.payer.bank_phone_number = faker.datatype.string(12)
+
+      assert.isNotTrue @transaction.setData(data).isValid()
 
   context 'with valid request', ->
 
@@ -134,7 +176,7 @@ describe 'Online Banking Payout Transaction', ->
     it 'works with allowed payment_type', ->
       data = _.clone @data
       data['payment_type'] = faker.random.arrayElement(
-        ["bank_to_bank", "pix", "bsb", "pay_id", "bank_to_bank_b2b", "pix_b2b"]
+        ["bank_to_bank", "pix", "bsb", "pay_id", "bank_to_bank_b2b", "pix_b2b", "clabe", "cellphone"]
       )
 
       assert.equal true, @transaction.setData(data).isValid()

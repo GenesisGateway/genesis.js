@@ -163,6 +163,7 @@ Detokenize       = require './transactions/non_financial/tokenization/detokenize
 ValidateToken    = require './transactions/non_financial/tokenization/validate_token'
 DeleteToken      = require './transactions/non_financial/tokenization/delete_token'
 GetTokenizedCard = require './transactions/non_financial/tokenization/get_tokenized_card'
+Cryptogram       = require './transactions/non_financial/tokenization/cryptogram'
 
 ###
   FX Services
@@ -547,6 +548,9 @@ class Transaction
 
   get_tokenized_card: (params) ->
     new GetTokenizedCard(params, @config)
+
+  cryptogram: (params) ->
+    new Cryptogram(params, @config)
 
   ###
     FX

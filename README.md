@@ -2280,6 +2280,7 @@ update_token
 validate_token
 delete_token
 get_tokenized_card
+cryptogram
 ```
 
 ### Fraud reports API service

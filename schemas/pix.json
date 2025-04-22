@@ -118,6 +118,28 @@
     "incorporation_date": {
       "$ref": "/definitions/definitions#date-dd-mm-yyyy"
     },
+    "beneficiary": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The beneficiary parameters",
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 255,
+          "description": "The name of the beneficiary, either a Natural Person or Legal Person"
+        },
+        "document_id": {
+          "type": "string",
+          "maxLength": 14,
+          "description": "The Document ID of the beneficiary, such as CPF or CNPJ for Brazilian entities"
+        },
+        "pix_key": {
+          "type": "string",
+          "maxLength": 36,
+          "description": "The PIX key associated with the beneficiary"
+        }
+      }
+    },
     "billing_address": {
       "required": [
         "country"

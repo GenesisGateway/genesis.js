@@ -78,6 +78,10 @@ class Validator
     @ajv.addSchema(
       require '../../../schemas/definitions/attributes/financial/installment_attributes.json'
     )
+    @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/' +
+      'dynamic_descriptor_merchant_name.json')
+    @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/' +
+        'dynamic_descriptor_merchant_name_sdd.json')
 
   # Compare the specific transaction schema against the request parameters
   isValid: () ->

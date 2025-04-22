@@ -9,6 +9,7 @@ CredentialOnFile              = require '../../../examples/attributes/credential
 Crypto                        = require '../../../examples/attributes/financial/crypto'
 CSEncription                  = require '../../../examples/attributes/client_side_encryption'
 DynamicDescriptor             = require '../../../examples/attributes/financial/dynamic_descriptor'
+DynamicDescriptorMerchantName = require '../../../examples/attributes/financial/dynamic_descriptor_merchant_name'
 FakeConfig                    = require path.resolve './test/transactions/fake_config'
 FakeData                      = require '../../fake_data'
 FundingAttributes             = require '../../../examples/attributes/financial/funding_attributes'
@@ -43,6 +44,7 @@ describe 'Authorize Transaction', ->
   ManagedRecurring()
   RiskParams()
   DynamicDescriptor()
+  DynamicDescriptorMerchantName()
   CredentialOnFile()
   UCOF()
   TravelData()

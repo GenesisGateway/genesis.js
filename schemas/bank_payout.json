@@ -83,11 +83,6 @@
       "maxLength": 30,
       "description": "ID card number."
     },
-    "payer_bank_phone_number": {
-      "type": "string",
-      "maxLength": 11,
-      "description": "Payer bank phone number"
-    },
     "bank_account_type": {
       "type": "string",
       "enum": ["C", "S", "M", "P"],
@@ -118,7 +113,7 @@
       "$ref": "/definitions/definitions#birth_date"
     },
     "payment_type": {
-      "enum": ["bank_to_bank", "pix", "bsb", "pay_id", "bank_to_bank_b2b", "pix_b2b"]
+      "enum": ["bank_to_bank", "pix", "bsb", "pay_id", "bank_to_bank_b2b", "pix_b2b", "clabe", "cellphone"]
     },
     "company_type": {
       "type": "string",
@@ -143,6 +138,48 @@
       "type": "string",
       "maxLength": 255,
       "description": "PIX key of the customer."
+    },
+    "document_id": {
+      "type": "string",
+      "maxLength": 255,
+      "description": "Document ID value"
+    },
+    "payer": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The payer details",
+      "properties": {
+        "document_id": {
+          "type": "string",
+          "maxLength": 16,
+          "description": "Payer document ID. CPF (for individuals) or CNPJ (for legal entities) in Brazil"
+        },
+        "bank_code": {
+          "type": "string",
+          "maxLength": 12,
+          "description": "The bank code used to process the transaction"
+        },
+        "bank_account_number": {
+          "type": "string",
+          "maxLength": 33,
+          "description": "The payer's bank account number"
+        },
+        "bank_branch": {
+          "type": "string",
+          "maxLength": 11,
+          "description": "The name of the bank branch where the account is held"
+        },
+        "bank_account_verification_digit": {
+          "type": "string",
+          "maxLength": 1,
+          "description": "Single digit verification code assigned by the external provider, used to validate the bank account"
+        },
+        "bank_phone_number": {
+          "type": "string",
+          "maxLength": 11,
+          "description": "The payer's bank contact phone number"
+        }
+      }
     },
     "billing_address": {
       "$ref": "/definitions/attributes/customer/address#billing"

@@ -602,6 +602,11 @@ class Types
   ###
   @GET_TOKENIZED_CARD = 'get_tokenized_card'
 
+  ###
+      Get cryptogram on behalf of a token that will be used for the authorization
+  ###
+  @CRYPTOGRAM = 'cryptogram'
+
   getTypes: ->
     value for key, value of @constructor
 

@@ -2,15 +2,17 @@ path  = require 'path'
 _     = require 'underscore'
 faker = require 'faker'
 
-FakeConfig    = require path.resolve './test/transactions/fake_config'
-FakeData      = require '../../fake_data'
-SDDBase       = require './sdd_base'
-Transaction   =
+DynamicDescriptor = require '../../../examples/attributes/financial/dynamic_descriptor'
+FakeConfig        = require path.resolve './test/transactions/fake_config'
+FakeData          = require '../../fake_data'
+SDDBase           = require './sdd_base'
+Transaction       =
   require path.resolve './src/genesis/transactions/financial/direct_debit/sdd_init_recurring_sale'
 
 describe 'SddInitRecurringSale', ->
 
   SDDBase()
+  DynamicDescriptor()
 
   before ->
     @data['iban'] = "DE09100100101234567891"
@@ -78,4 +80,15 @@ describe 'SddInitRecurringSale', ->
     it 'is invalid', ->
       data = _.clone @data
       data['billing_address']['country'] = 'BG'
+      assert.isNotTrue @transaction.setData(data).isValid()
+
+  context 'with dynamic descriptor merchant name', ->
+    it 'fail with more than 140 symbols', ->
+      data = _.clone @data
+      data = _.extend(data, {
+        dynamic_descriptor_params: {
+          "merchant_name": faker.datatype.string(145)
+        }
+      })
+
       assert.isNotTrue @transaction.setData(data).isValid()
