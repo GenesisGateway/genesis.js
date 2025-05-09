@@ -20,7 +20,14 @@
           "$id": "#remote_ip",
           "description": "IPv4 address of customer",
           "type": "string",
-          "format": "ipv4"
+          "anyOf": [
+            {
+                "format": "ipv4"
+            },
+            {
+                "format": "ipv6"
+            }
+          ]
         },
         "usage": {
           "$id": "#usage",

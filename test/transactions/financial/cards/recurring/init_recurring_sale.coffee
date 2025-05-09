@@ -17,6 +17,7 @@ SchemeTokenized               = require '../scheme_tokenized'
 Transaction                   =
   require path.resolve './src/genesis/transactions/financial/cards/recurring/init_recurring_sale'
 TravelData                    = require '../../../../examples/attributes/financial/travel_data/travel_data'
+TokenizationParams            = require '../../../../examples/attributes/financial/tokenization_params'
 
 describe 'InitRecurringSale Transaction', ->
 
@@ -38,3 +39,4 @@ describe 'InitRecurringSale Transaction', ->
   AccountOwnerAttributes()
   FundingAttributes()
   SchemeTokenized()
+  TokenizationParams()

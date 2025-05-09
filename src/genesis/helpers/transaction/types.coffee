@@ -128,16 +128,6 @@ class Types
   @WEBMONEY = 'webmoney'
 
   ###
-    PayByVouchers via oBeP
-  ###
-  @PAYBYVOUCHER_YEEPAY = 'paybyvoucher_yeepay'
-
-  ###
-    PayByVouchers via Credit/Debit Cards
-  ###
-  @PAYBYVOUCHER_SALE = 'paybyvoucher_sale'
-
-  ###
     Voucher-based payment
   ###
   @PAYSAFECARD = 'paysafecard'
@@ -607,6 +597,11 @@ class Types
   ###
   @CRYPTOGRAM = 'cryptogram'
 
+  ###
+      Neosurf is a prepaid card (voucher)
+  ###
+  @NEOSURF = 'neosurf'
+
   getTypes: ->
     value for key, value of @constructor
 
@@ -630,14 +625,12 @@ class Types
       @constructor.CASHU,
       @constructor.PAYSAFECARD,
       @constructor.EZEEWALLET,
-      @constructor.PAYBYVOUCHER_YEEPAY,
       @constructor.PPRO,
       @constructor.SOFORT,
       @constructor.NETELLER,
       @constructor.ABNIDEAL,
       @constructor.WEBMONEY,
       @constructor.POLI,
-      @constructor.PAYBYVOUCHER_SALE,
       @constructor.INPAY,
       @constructor.SDD_SALE,
       @constructor.SDD_INIT_RECURRING_SALE,
@@ -693,25 +686,6 @@ class Types
 
     if type == @constructor.PPRO
       rules.payment_method = (new PaymentMethods).getMethods()
-
-    else if type == @constructor.PAYBYVOUCHER_SALE or type == @constructor.PAYBYVOUCHER_YEEPAY
-      customParameters =
-        'card_type':
-          (new CardTypes).getCardTypes()
-        'redeem_type':
-          (new RedeemTypes).getRedeemTypes()
-
-      if type == @constructor.PAYBYVOUCHER_YEEPAY
-        customParameters =
-          _.extend(
-            customParameters,
-            'product_name':
-              null
-            'product_category':
-              null
-          )
-
-      rules = _.extend rules, customParameters
 
     else if type == @constructor.CITADEL_PAYIN
       rules.merchant_customer_id = null

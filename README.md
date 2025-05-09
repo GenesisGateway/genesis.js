@@ -2183,6 +2183,7 @@ pay_pal
 ### Vouchers
 ```text
 cashu
+neosurf
 ```
 
 ### Online Banking ePayments
@@ -2229,6 +2230,7 @@ african_mobile_payout
 online_banking_payout
 payout
 russian_mobile_payout
+sct_payout
 ```
 
 ### Mobile Payments
@@ -2335,6 +2337,7 @@ kyc_update_call
 kyc_create_verification
 kyc_verification_status
 kyc_verification_register
+kyc_verification_remote_identity
 kyc_cpf
 kyc_cnpj
 ```

@@ -834,6 +834,11 @@ class Currency
         'code': '951'
         'country': 'SAINT VINCENT AND THE GRENADINES'
         'exponent': '2'
+      'XCG':
+        'name': 'Netherlands Antillean guilder'
+        'code': '532',
+        'country': 'Central Bank of Curaçao and Sint Maarten'
+        'exponent': '2'
       'XDR':
         'name': 'SDR (Special Drawing Right)'
         'code': '960'

@@ -23,6 +23,7 @@ Transaction                   =
   require path.resolve './src/genesis/transactions/financial/cards/recurring/init_recurring_sale3d'
 TravelData                    = require '../../../../examples/attributes/financial/travel_data/travel_data'
 UCOF                          = require '../../../../examples/attributes/ucof'
+TokenizationParams            = require '../../../../examples/attributes/financial/tokenization_params'
 
 describe 'InitRecurringSale 3D Transaction', ->
 
@@ -64,3 +65,4 @@ describe 'InitRecurringSale 3D Transaction', ->
   FundingAttributes()
   UCOF()
   SchemeTokenized()
+  TokenizationParams()

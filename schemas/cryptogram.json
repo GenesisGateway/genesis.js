@@ -8,7 +8,8 @@
     "consumer_id",
     "email",
     "token",
-    "token_type"
+    "token_type",
+    "transaction_reference"
   ],
   "properties": {
     "consumer_id": {
@@ -22,6 +23,10 @@
     },
     "token_type": {
       "$ref": "/definitions/attributes/tokenization/tokenization_attributes#token_type"
+    },
+    "transaction_reference": {
+      "type": "string",
+      "description": "Unique transaction reference identifier defined by merchant"
     }
   }
 }

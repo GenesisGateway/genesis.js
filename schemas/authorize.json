@@ -146,6 +146,9 @@
     },
     "scheme_tokenized": {
       "type": "boolean"
+    },
+    "tokenization_params": {
+      "$ref": "/definitions/attributes/financial/tokenization_params"
     }
   }
 }

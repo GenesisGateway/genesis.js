@@ -26,6 +26,7 @@ Transaction                   = require path.resolve './src/genesis/transactions
 TravelData                    = require '../../../examples/attributes/financial/travel_data/travel_data'
 UCOF                          = require '../../../examples/attributes/ucof'
 InstallmentAttributes         = require '../../../examples/attributes/financial/installment_attributes'
+TokenizationParams            = require '../../../examples/attributes/financial/tokenization_params'
 
 describe 'Sale Transaction', ->
 
@@ -54,3 +55,4 @@ describe 'Sale Transaction', ->
   SubsequentRecurringAttributes()
   SchemeTokenized
   InstallmentAttributes()
+  TokenizationParams()

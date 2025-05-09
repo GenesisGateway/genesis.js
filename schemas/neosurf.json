@@ -1,0 +1,97 @@
+{
+  "$id": "https://genesis.js/neosurf",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "remote_ip",
+    "amount",
+    "currency"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "neosurf"
+        }
+      ]
+    },
+    "remote_ip": {},
+    "usage": {},
+    "amount": {},
+    "currency": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/financial/payment#currency"
+        },
+        {
+          "enum": [
+            "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "EUR", "GBP", "HKD", "HUF", "IDR",
+            "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK",
+            "SGD", "THB", "TRY", "USD", "XOF", "ZAR"
+          ]
+        }
+      ]
+    },
+    "customer_email": {},
+    "customer_phone": {},
+    "billing_address": {
+      "required": ["country"],
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "properties": {
+            "country": {
+              "enum": [
+                "AT", "DZ", "AU", "BI", "BF", "BJ", "BE", "CV", "CY", "CA", "CF", "TD", "CO", "CG", "CM",
+                "CD", "DK", "GQ", "FR", "GM", "DE", "GA", "GN", "GH", "GW", "HK", "IE", "IT", "CI", "KE",
+                "LU", "MW", "MZ", "MA", "MR", "ML", "NE", "NG", "NL", "NZ", "NO", "PL", "PT", "RW", "RU",
+                "RO", "SE", "ES", "SL", "SN", "ST", "CH", "RS", "TR", "TG", "TN", "GB", "TZ", "UG", "ZW",
+                "ZM"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "voucher_number": {
+      "type": "string",
+      "maxLength": 10,
+      "description": "Voucher number. Alphanumeric maximum 10 characters"
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment."
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
+    }
+  }
+}
+

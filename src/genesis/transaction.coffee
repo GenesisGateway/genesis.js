@@ -112,6 +112,7 @@ Pse                 = require './transactions/financial/obp/pse'
 PostFinance         = require './transactions/financial/obp/post_finance'
 Santander           = require './transactions/financial/obp/santander'
 Webpay              = require './transactions/financial/obp/webpay'
+SctPayout           = require './transactions/financial/payout/sct_payout'
 
 ###
   Direct Debit
@@ -145,7 +146,8 @@ RussianMobilePayout = require './transactions/financial/payout/russian_mobile_pa
 ###
   Vouchers
 ###
-CashU = require './transactions/financial/vouchers/cashu'
+CashU   = require './transactions/financial/vouchers/cashu'
+Neosurf = require './transactions/financial/vouchers/neosurf'
 
 ###
   MethodContinue
@@ -177,30 +179,32 @@ FxSearchRate = require './transactions/non_financial/fx/search_rate'
 ###
   KYC Services
 ###
-KycCreateConsumer       =
+KycCreateConsumer             =
   require './transactions/non_financial/kyc/consumer_registration/kyc_create_consumer'
-KycUpdateConsumer       =
+KycUpdateConsumer             =
   require './transactions/non_financial/kyc/consumer_registration/kyc_update_consumer'
-KycCreateTransaction    =
+KycCreateTransaction          =
   require './transactions/non_financial/kyc/transaction/kyc_create_transaction'
-KycUpdateTransaction    =
+KycUpdateTransaction          =
   require './transactions/non_financial/kyc/transaction/kyc_update_transaction'
-KycUploadDocument       =
+KycUploadDocument             =
   require './transactions/non_financial/kyc/identity_document/kyc_upload_document'
-KycDownloadDocument     =
+KycDownloadDocument           =
   require './transactions/non_financial/kyc/identity_document/kyc_download_document'
-KycMakeCall             =
+KycMakeCall                   =
   require './transactions/non_financial/kyc/call/kyc_make_call'
-KycUpdateCall           =
+KycUpdateCall                 =
   require './transactions/non_financial/kyc/call/kyc_update_call'
-KycCreateVerification   =
+KycCreateVerification         =
   require './transactions/non_financial/kyc/verification/kyc_create_verification'
-KycVerificationStatus   =
+KycVerificationStatus         =
   require './transactions/non_financial/kyc/verification/kyc_verification_status'
-KycVerificationRegister =
+KycVerificationRegister       =
   require './transactions/non_financial/kyc/verification/kyc_verification_register'
-KycCpf               = require './transactions/non_financial/kyc/cpf/kyc_cpf'
-KycCnpj              = require './transactions/non_financial/kyc/cnpj/kyc_cnpj'
+KycVerificationRemoteIdentity =
+  require './transactions/non_financial/kyc/verification/kyc_verification_remote_identity'
+KycCpf                        = require './transactions/non_financial/kyc/cpf/kyc_cpf'
+KycCnpj                       = require './transactions/non_financial/kyc/cnpj/kyc_cnpj'
 
 ###
   SCA
@@ -247,6 +251,9 @@ class Transaction
 
   cashu: (params) ->
     new CashU(params, @config)
+
+  neosurf: (params) ->
+    new Neosurf(params, @config)
 
   ###
     Financial transactions
@@ -456,6 +463,9 @@ class Transaction
   webpay: (params) ->
     new Webpay(params, @config)
 
+  sct_payout: (params) ->
+    new SctPayout(params, @config)
+
   ###
     Financial Payout transactions
   ###
@@ -611,6 +621,9 @@ class Transaction
 
   kyc_verification_register: (params) ->
     new KycVerificationRegister(params, @config)
+
+  kyc_verification_remote_identity: (params) ->
+    new KycVerificationRemoteIdentity(params, @config)
 
   ###
     SCA

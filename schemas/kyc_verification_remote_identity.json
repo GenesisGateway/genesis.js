@@ -1,0 +1,77 @@
+{
+  "$id": "https://genesis.js/kyc_verification_remote_identity",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "required": ["email"]
+    },
+    {
+      "required": ["reference_id"]
+    }
+  ],
+  "messages": {
+    "anyOf": ["At least one of the following parameters must exist in the request: reference_id, email or both."]
+  },
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "User's email"
+    },
+    "reference_id": {
+      "type": "string",
+      "description": "Unique value to identify the performed verification.",
+      "minLength": 6,
+      "maxLength": 250
+    },
+    "country": {
+      "$ref": "/definitions/country"
+    },
+    "backside_proof_required": {
+      "type": "boolean",
+      "description": "Signifies that both sides of the document are required to verify the identity"
+    },
+    "expiry_date": {
+      "pattern": "(^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$|^$)",
+      "type": "string",
+      "description": "Document's expiry date at yyyy-mm-dd format, for example - 2025-12-31, can be a blank string. A blank string means that the user will need to enter the expiry date from the UI"
+    },
+    "document_supported_types": {
+      "type": "array",
+      "items": {
+        "enum": [ "passport", "id_card", "driving_license", "credit_or_debit_card" ]
+      },
+      "description": "Supported types of document that can be verified."
+    },
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Document represents the data used by the document verification service to check the authenticity of identity documents submitted by customers",
+      "properties": {
+        "proof": {
+          "type": "string",
+          "description": "Base64 encoded image of the document (16MB)"
+        },
+        "date_of_birth": {
+          "$ref": "/definitions/attributes/kyc/common#birth_date"
+        },
+        "first_name": {
+          "$ref": "/definitions/attributes/kyc/common#first_name"
+        },
+        "middle_name": {
+          "$ref": "/definitions/attributes/kyc/common#middle_name"
+        },
+        "last_name": {
+          "$ref": "/definitions/attributes/kyc/common#last_name"
+        },
+        "full_address": {
+          "type": "string",
+          "maxLength": 250,
+          "description": "Customer's full address"
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,19 @@
+3.3.6
+-----
+* Added SCT Payout Transaction Request support
+* Added mandatory parameter support transaction_reference to Cryptogram Tokenization API request
+* Added IPv6 support for Remote IP parameter
+* Added XCG (Netherlands Antillean guilder) currency support
+* Added KYC Remove Identity Verification API request support
+* Added Neosurf transaction request support
+* Added Tokenization Parameters support to the following transaction requests:
+  * Authorize
+  * Authorize 3D
+  * Sale
+  * Sale 3D
+  * Init Recurring Sale
+  * Init Recurring Sale 3D
+
 3.3.5
 -----
 * Added Dynamic Descriptor parameters to SDD requests

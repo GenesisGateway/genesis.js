@@ -26,7 +26,7 @@ class FakeData
     'usage':
       'Genesis JS Client Automated Request'
     'remote_ip':
-      faker.internet.ip()
+      faker.random.arrayElement([faker.internet.ip(), faker.internet.ipv6()])
 
   getCCData: ->
     'card_holder':

@@ -1,6 +1,6 @@
 {
   "name": "genesis.js",
-  "version": "3.3.5",
+  "version": "3.3.6",
   "description": "JS library for Genesis Payment Processing Gateway",
   "main": "./lib/genesis.js",
   "repository": {
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "ajv": "^6.2.0",
-    "axios": "^1.8.1",
+    "axios": "^1.9.0",
     "bigdecimal": "^0.6.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.20.3",
@@ -41,10 +41,10 @@
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.5.0",
+    "coffeelint": "^2.1.0",
     "faker": "^5.5.3",
     "mocha": "^10.8.2",
-    "sinon": "^19.0.2",
-    "sinon-chai": "^3.0.0",
-    "coffeelint": "^2.1.0"
+    "sinon": "^19.0.5",
+    "sinon-chai": "^3.0.0"
   }
 }
