@@ -1,0 +1,95 @@
+{
+  "$id": "https://genesis.js/bitpay_payout",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "notification_url",
+    "return_success_url",
+    "return_failure_url",
+    "amount",
+    "currency",
+    "crypto_address",
+    "crypto_wallet_provider"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    },
+    {
+      "properties": {
+        "currency": {
+          "enum": ["USD", "EUR"]
+        }
+      }
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "bitpay_payout"
+        }
+      ]
+    },
+    "transaction_id": {},
+    "usage": {},
+    "remote_ip": {},
+    "notification_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL at merchant where gateway sends outcome of transaction"
+    },
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after successful payment"
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where customer is sent to after unsuccessful payment"
+    },
+    "customer_email": {
+      "$ref": "/definitions/definitions#customer_email"
+    },
+    "amount": {},
+    "currency": {},
+    "crypto_address": {
+      "type": "string",
+      "description": "Valid crypto address where the funds will be received"
+    },
+    "crypto_wallet_provider": {
+      "type": "string",
+      "description": "Crypto wallet provider",
+      "enum": [
+        "other", "bitgo", "uphold", "circle", "coinbase", "gdax", "gemini", "itbit", "kraken"
+      ]
+    },
+    "billing_address": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "properties": {
+            "country": {
+              "$ref": "/definitions/attributes/financial/crypto/bitpay/country"
+            }
+          }
+        }
+      ]
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
+    }
+  }
+}

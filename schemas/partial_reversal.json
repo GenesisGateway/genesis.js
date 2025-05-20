@@ -1,0 +1,44 @@
+{
+  "$id": "https://genesis.js/partial_reversal",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "amount",
+    "reference_id"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "partial_reversal"
+        }
+      ]
+    },
+    "transaction_id": {},
+    "usage": {},
+    "remote_ip": {},
+    "amount": {
+      "$ref": "/definitions/attributes/financial/payment#amount"
+    },
+    "currency": {
+      "$ref": "/definitions/attributes/financial/payment#currency"
+    },
+    "reference_id": {
+      "$ref": "/definitions/definitions#reference_id"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
+    }
+  }
+}

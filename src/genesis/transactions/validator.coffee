@@ -78,12 +78,24 @@ class Validator
     @ajv.addSchema(
       require '../../../schemas/definitions/attributes/financial/installment_attributes.json'
     )
+    @ajv.addSchema(
+      require '../../../schemas/definitions/attributes/financial/purpose_of_payment.json'
+    )
     @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/' +
       'dynamic_descriptor_merchant_name.json')
     @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/' +
         'dynamic_descriptor_merchant_name_sdd.json')
     @ajv.addSchema(
       require '../../../schemas/definitions/attributes/financial/tokenization_params.json'
+    )
+    @ajv.addSchema(
+      require '../../../schemas/definitions/attributes/digital_asset_types.json'
+    )
+    @ajv.addSchema(
+      require '../../../schemas/definitions/attributes/financial/crypto/bitpay/country.json'
+    )
+    @ajv.addSchema(
+      require '../../../schemas/definitions/attributes/financial/crypto/bitpay/currency.json'
     )
 
   # Compare the specific transaction schema against the request parameters

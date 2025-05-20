@@ -8,7 +8,7 @@ Crypto = () ->
     data = _.extend(data, {"crypto": true})
     assert.equal true, @transaction.setData(data).isValid()
 
-  it 'fail with invalid gaming', ->
+  it 'fail with invalid crypto', ->
     data = _.clone @data
     data = _.extend(data, {"crypto": 'true'})
     assert.equal false, @transaction.setData(data).isValid()

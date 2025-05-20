@@ -9,6 +9,7 @@ CardBase                      = require './card_base'
 CredentialOnFile              = require '../../../examples/attributes/credential_on_file'
 Crypto                        = require '../../../examples/attributes/financial/crypto'
 CSEncription                  = require '../../../examples/attributes/client_side_encryption'
+DigitalAssetTypes             = require '../../../examples/attributes/digital_asset_types'
 DynamicDescriptor             = require '../../../examples/attributes/financial/dynamic_descriptor'
 DynamicDescriptorMerchantName = require '../../../examples/attributes/financial/dynamic_descriptor_merchant_name'
 FakeConfig                    = require path.resolve './test/transactions/fake_config'
@@ -44,6 +45,7 @@ describe 'Sale Transaction', ->
   RecurringType()
   ManagedRecurring()
   RiskParams()
+  DigitalAssetTypes()
   DynamicDescriptor()
   DynamicDescriptorMerchantName()
   CredentialOnFile()

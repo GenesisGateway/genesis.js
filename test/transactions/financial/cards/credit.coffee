@@ -4,10 +4,12 @@ faker = require 'faker'
 
 AccountOwnerAttributes = require '../../../examples/attributes/financial/account_owner_attributes'
 Crypto                 = require '../../../examples/attributes/financial/crypto'
+DigitalAssetTypes      = require '../../../examples/attributes/digital_asset_types'
 FakeConfig             = require path.resolve './test/transactions/fake_config'
 FakeData               = require '../../fake_data'
 FinancialBase          = require '../financial_base'
 Transaction            = require path.resolve './src/genesis/transactions/financial/cards/credit'
+PurposeOfPayment       = require '../../../examples/attributes/financial/purpose_of_payment'
 
 describe 'Credit Transaction', ->
 
@@ -31,4 +33,6 @@ describe 'Credit Transaction', ->
     assert.equal false, @transaction.setData(data).isValid()
 
   Crypto()
+  DigitalAssetTypes()
   AccountOwnerAttributes()
+  PurposeOfPayment()

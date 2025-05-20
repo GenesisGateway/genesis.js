@@ -198,6 +198,12 @@ class Types
   @SDD_RECURRING_SALE = 'sdd_recurring_sale'
 
   ###
+    UPI (Unified Payment Interface) transaction is an alternative payment method
+   which allows users to transfer money between bank accounts.
+  ###
+  @UPI = 'upi'
+
+  ###
     iDebit connects consumers to their online banking directly from checkout, enabling secure,
     real-time payments without a credit card.
     Using iDebit allows consumers to transfer funds to merchants without
@@ -601,6 +607,38 @@ class Types
       Neosurf is a prepaid card (voucher)
   ###
   @NEOSURF = 'neosurf'
+
+  ###
+      Incremental authorizations are used in preauthorization workflow to:
+      extend the preauthorization amount
+      extend the preauthorization time-frame
+  ###
+  @INCREMENTAL_AUTHORIZE = 'incremental_authorize'
+
+  ###
+      Partial reversal transactions are used in the preauthorization workflow to release
+      a part of the total authorized amount
+  ###
+  @PARTIAL_REVERSAL = 'partial_reversal'
+
+  ###
+      BitPay is a cryptocurrency payments provider supporting blockchain payments
+      with Bitcoin (BTC) and BitcoinCash (BCH)
+  ###
+  @BITPAY_SALE = 'bitpay_sale'
+
+  ###
+      BitPay Refund is a custom refund method which will handle the asynchronous
+      BitPay refund workflow
+  ###
+  @BITPAY_REFUND = 'bitpay_refund'
+
+  ###
+      BitPay Payout is a crypto currency payout method where merchants
+      are requesting payouts in FIAT currency and the funds are transferred
+      in Bitcoin equivalent to a crypto wallet address
+  ###
+  @BITPAY_PAYOUT = 'bitpay_payout'
 
   getTypes: ->
     value for key, value of @constructor

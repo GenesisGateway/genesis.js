@@ -1,0 +1,14 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/financial/purpose_of_payment",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Purpose of Payment",
+  "description": "Purpose of Payment code, required for Visa OCTs with recipients in Argentina, Bangladesh, Egypt, India, Chile and Colombia.",
+  "type": "string",
+  "enum": [
+    "ISINTE", "ISINTX", "ISINVS", "ISLBRI", "ISLICF", "ISLIFI", "ISLOAN", "ISMDCS",
+    "ISMP2B", "ISMP2P", "ISMTUP", "ISNOWS", "ISOTHR", "ISOTLC", "ISPAYR", "ISPEFC",
+    "ISPENS", "ISPHON", "ISPPTI", "ISRELG", "ISRENT", "ISRLWY", "ISROYA", "ISSALA",
+    "ISSAVG", "ISSECU", "ISSSBE", "ISSTDY", "ISSUBS", "ISSUPP", "ISTAXR", "ISTAXS",
+    "ISTBIL", "ISTRAD", "ISTREA", "ISTRPT", "ISUBIL", "ISVATX", "ISWHLD", "ISWTER"
+  ]
+}

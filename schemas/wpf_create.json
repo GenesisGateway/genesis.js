@@ -118,6 +118,9 @@
         "$ref": "/definitions/attributes/threeds/v2/threeds_v2#card_holder_account"
       }
     },
+    "digital_asset_type": {
+      "$ref": "/definitions/attributes/digital_asset_types"
+    },
     "pay_later": {
       "type": "boolean",
       "description": "Signifies whether the ’Pay Later’ feature would be enabled on the WPF"

@@ -8,6 +8,7 @@ CardBase                      = require './card_base'
 CredentialOnFile              = require '../../../examples/attributes/credential_on_file'
 Crypto                        = require '../../../examples/attributes/financial/crypto'
 CSEncription                  = require '../../../examples/attributes/client_side_encryption'
+DigitalAssetTypes             = require '../../../examples/attributes/digital_asset_types'
 DynamicDescriptor             = require '../../../examples/attributes/financial/dynamic_descriptor'
 DynamicDescriptorMerchantName = require '../../../examples/attributes/financial/dynamic_descriptor_merchant_name'
 FakeConfig                    = require path.resolve './test/transactions/fake_config'
@@ -26,11 +27,13 @@ TravelData                    = require '../../../examples/attributes/financial/
 UCOF                          = require '../../../examples/attributes/ucof'
 InstallmentAttributes         = require '../../../examples/attributes/financial/installment_attributes'
 TokenizationParams            = require '../../../examples/attributes/financial/tokenization_params'
+Preauthorization              = require '../../../examples/attributes/financial/preauthorization'
 
 describe 'Authorize Transaction', ->
 
   beforeEach ->
     @data                      = (new FakeData).getDataWithBusinessAttributes()
+    @data['preauthorization']  = true
 
     @transaction               = new Transaction(@data, FakeConfig.getConfig())
     @data['managed_recurring'] = (new FakeData).getManagedRecurringAutomatic()
@@ -44,6 +47,7 @@ describe 'Authorize Transaction', ->
   RecurringType()
   ManagedRecurring()
   RiskParams()
+  DigitalAssetTypes()
   DynamicDescriptor()
   DynamicDescriptorMerchantName()
   CredentialOnFile()
@@ -56,3 +60,4 @@ describe 'Authorize Transaction', ->
   SchemeTokenized()
   InstallmentAttributes()
   TokenizationParams()
+  Preauthorization()

@@ -16,8 +16,10 @@ describe 'Online Banking Payin Transaction', ->
     @data.return_success_url      = faker.internet.url()
     @data.return_failure_url      = faker.internet.url()
     @data.currency                = faker.random.arrayElement(
-      ["CNY", "CLP", "THB", "MYR", "PYG", "IDR", "INR", "PHP", "SGD", "UYU", "VND",
-        "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN", "AUD", "NZD"]
+      [
+        "CNY", "CLP", "THB", "MYR", "PYG", "IDR", "INR", "PHP", "SGD", "UYU", "VND",
+        "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN", "AUD", "NZD", "GBP"
+      ]
     )
     @data.amount                  = '50000'
     @data.customer_email          = faker.internet.email()
@@ -68,8 +70,8 @@ describe 'Online Banking Payin Transaction', ->
       data = _.clone @data
       data['currency'] = faker.random.arrayElement([
         "CNY", "CLP", "THB", "MYR", "PYG", "IDR", "INR", "PHP", "SGD", "UYU", "VND",
-          "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN"
-        ])
+        "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN", "AUD", "NZD", "GBP"
+      ])
       data.bank_code = '000'
 
       assert.equal true, @transaction.setData(data).isValid()

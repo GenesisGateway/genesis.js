@@ -1,0 +1,18 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/financial/crypto/bitpay/currency",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "description": "BitPay supported currencies",
+  "enum": [
+    "AFN", "ALL", "AOA", "ARS", "AMD", "AWG", "AUD", "AZN", "BSD", "BHD", "BBD", "BYN", "BZD", "BMD", "BTN",
+    "BAM", "BWP", "BRL", "GBP", "BND", "BGN", "BIF", "XOF", "XAF", "XPF", "CAD", "CVE", "XCG", "KYD", "CLP",
+    "CNY", "COP", "KMF", "CDF", "CRC", "CUP", "CZK", "DKK", "DJF", "DOP", "XCD", "ERN", "ETB", "FKP", "FJD",
+    "GMD", "GEL", "GHS", "GIP", "GTQ", "GNF", "GYD", "HTG", "HNL", "HKD", "HUF", "ISK", "INR", "IRR", "ILS",
+    "JMD", "JPY", "JOD", "KZT", "KES", "KPW", "KWD", "LAK", "LBP", "LSL", "LRD", "LYD", "MOP", "MGA", "MWK",
+    "MYR", "MVR", "MRU", "MUR", "MXN", "MDL", "MNT", "MZN", "MMK", "NAD", "TWD", "NZD", "NIO", "NGN", "NOK",
+    "OMR", "PAB", "PGK", "PYG", "PEN", "PHP", "PLN", "QAR", "RON", "RUB", "RWF", "SHP", "SVC", "WST", "SAR",
+    "RSD", "SCR", "SLL", "SGD", "SBD", "SOS", "ZAR", "KRW", "SSP", "LKR", "SDG", "SRD", "SZL", "SEK", "CHF",
+    "SYP", "STN", "TJS", "TZS", "THB", "TOP", "TTD", "TND", "TMT", "UGX", "UAH", "AED", "UYU", "UZS", "VUV",
+    "YER", "ZMW"
+  ]
+}

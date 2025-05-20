@@ -1,0 +1,87 @@
+{
+  "$id": "https://genesis.js/upi",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "UPI (Unified Payment Interface) transaction is an alternative payment method which allows users to transfer money between bank accounts.",
+  "required": [
+    "transaction_type",
+    "transaction_id",
+    "return_success_url",
+    "return_failure_url",
+    "amount",
+    "currency",
+    "billing_address"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "upi"
+        }
+      ]
+    },
+    "transaction_id": {},
+    "usage": {},
+    "remote_ip": {},
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "amount": {},
+    "currency": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/financial/payment#currency"
+        },
+        {
+          "const": "INR"
+        }
+      ]
+    },
+    "customer_email": {},
+    "customer_phone": {},
+    "document_id": {
+      "$ref": "/definitions/definitions#document_id"
+    },
+    "virtual_payment_address": {
+      "type": "string",
+      "description": "Virtual Payment Address (VPA) of the customer."
+    },
+    "user_category": {
+      "type": "string",
+      "description": "User category. If missing, 'default' will be used."
+    },
+    "billing_address": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "required": [
+            "country"
+          ]
+        }
+      ]
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
+    }
+  }
+}

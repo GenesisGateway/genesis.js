@@ -1,6 +1,7 @@
 Base                = require '../base'
 _                   = require 'underscore'
 SmartRouterExamples = require '../../examples/attributes/financial/smart_router_attributes'
+Types               = require '../../../src/genesis/helpers/transaction/types'
 
 FinancialBase = () ->
 
@@ -15,6 +16,7 @@ FinancialBase = () ->
     assert.equal false, @transaction.setData(data).isValid()
 
   it 'fails when missing required currency parameter', ->
+    @skip() if @transaction.getTransactionType() == Types.PARTIAL_REVERSAL
     data = _.clone(@data)
     delete data.currency
     assert.equal false, @transaction.setData(data).isValid()

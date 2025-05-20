@@ -55,6 +55,9 @@
     "crypto": {
       "$ref": "/definitions/attributes/financial/common#crypto"
     },
+    "digital_asset_type": {
+      "$ref": "/definitions/attributes/digital_asset_types"
+    },
     "amount": {},
     "currency": {},
     "customer_email": {},
@@ -99,6 +102,9 @@
     },
     "account_owner": {
       "$ref": "/definitions/attributes/financial/account_owner_attributes"
+    },
+    "purpose_of_payment": {
+      "$ref": "/definitions/attributes/financial/purpose_of_payment"
     }
   }
 }

@@ -43,8 +43,9 @@
           "$ref": "/definitions/attributes/financial/payment#currency"
         },
         {
-          "enum": ["CNY", "CLP", "THB", "MYR", "PYG", "IDR", "INR", "PHP", "SGD", "UYU", "VND",
-            "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN", "AUD", "NZD"
+          "enum": [
+            "CNY", "CLP", "THB", "MYR", "PYG", "IDR", "INR", "PHP", "SGD", "UYU", "VND",
+            "PEN", "EUR", "USD", "MXN", "BRL", "CHF", "CAD", "PLN", "AUD", "NZD", "GBP"
           ]
         }
       ]

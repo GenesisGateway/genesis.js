@@ -1,3 +1,21 @@
+3.3.7
+-----
+* Added Incremental Authorize transaction request support
+* Added GBP currency support to Online Banking PayIn transaction request
+* Added Digital Asset Type parameter support to the following transaction requests:
+  * Authorize
+  * Authorize 3D
+  * Sale
+  * Sale 3D
+  * Web Payment Form
+  * Credit
+  * Payout
+* Added Preauthorization parameter support to Authorize 3D transaction request
+* Added Partial Reversal transaction request support
+* Added UPI transaction request support
+* Added BitPay Sale, Refund and Payout transaction requests support
+* Added Purpose of Payment parameter support to Payout and Credit transaction requests
+
 3.3.6
 -----
 * Added SCT Payout Transaction Request support

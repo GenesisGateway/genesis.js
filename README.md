@@ -2175,6 +2175,12 @@ sale3d
 tarjeta_shopping
 ```
 
+### Preauthorizations
+```text
+incremental_authorize
+partial_reversal
+```
+
 ### Wallets
 ```text
 pay_pal
@@ -2245,6 +2251,13 @@ russian_mobile_sale
 ```text
 refund
 void
+```
+
+### Crypto transactions
+```text
+bitpay_sale
+bitpay_refund
+bitpay_payout
 ```
 
 ### Web Payment Form

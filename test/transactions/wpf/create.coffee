@@ -3,6 +3,7 @@ _     = require 'underscore'
 faker = require 'faker'
 
 BusinessAttributes            = require '../business_attributes'
+DigitalAssetTypes             = require '../../examples/attributes/digital_asset_types'
 DynamicDescriptor             = require '../../examples/attributes/financial/dynamic_descriptor'
 DynamicDescriptorMerchantName = require '../../examples/attributes/financial/dynamic_descriptor_merchant_name'
 FakeConfig                    = require '../fake_config'
@@ -665,6 +666,7 @@ describe 'WPFCreate Transaction', ->
 
 
   BusinessAttributes()
+  DigitalAssetTypes()
   DynamicDescriptor()
   DynamicDescriptorMerchantName()
   FinancialBase()

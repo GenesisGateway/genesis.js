@@ -90,6 +90,9 @@
     "crypto": {
       "$ref": "/definitions/attributes/financial/common#crypto"
     },
+    "digital_asset_type": {
+      "$ref": "/definitions/attributes/digital_asset_types"
+    },
     "notification_url": {},
     "return_success_url": {},
     "return_failure_url": {},

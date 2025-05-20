@@ -1,0 +1,42 @@
+{
+  "$id": "https://genesis.js/incremental_authorize",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "reference_id",
+    "currency",
+    "amount"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#reference"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "incremental_authorize"
+        }
+      ]
+    },
+    "transaction_id": {},
+    "usage": {},
+    "remote_ip": {},
+    "amount": {},
+    "currency": {},
+    "reference_id": {},
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
+    }
+  }
+}

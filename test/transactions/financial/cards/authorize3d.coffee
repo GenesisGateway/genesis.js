@@ -7,6 +7,7 @@ BusinessAttributes            = require '../../business_attributes'
 CredentialOnFile              = require '../../../examples/attributes/credential_on_file'
 Crypto                        = require '../../../examples/attributes/financial/crypto'
 CSEncription                  = require '../../../examples/attributes/client_side_encryption'
+DigitalAssetTypes             = require '../../../examples/attributes/digital_asset_types'
 DynamicDescriptor             = require '../../../examples/attributes/financial/dynamic_descriptor'
 DynamicDescriptorMerchantName = require '../../../examples/attributes/financial/dynamic_descriptor_merchant_name'
 FakeConfig                    = require path.resolve './test/transactions/fake_config'
@@ -27,6 +28,7 @@ TravelData                    = require '../../../examples/attributes/financial/
 UCOF                          = require '../../../examples/attributes/ucof'
 InstallmentAttributes         = require '../../../examples/attributes/financial/installment_attributes'
 TokenizationParams            = require '../../../examples/attributes/financial/tokenization_params'
+Preauthorization              = require '../../../examples/attributes/financial/preauthorization'
 
 describe 'Authorize 3D Transaction', ->
 
@@ -51,6 +53,7 @@ describe 'Authorize 3D Transaction', ->
   RecurringType()
   ManagedRecurring()
   RiskParams()
+  DigitalAssetTypes()
   DynamicDescriptor()
   DynamicDescriptorMerchantName()
   CredentialOnFile()
@@ -63,3 +66,4 @@ describe 'Authorize 3D Transaction', ->
   SchemeTokenized()
   InstallmentAttributes()
   TokenizationParams()
+  Preauthorization()

@@ -1,0 +1,73 @@
+{
+  "$id": "https://genesis.js/bitpay_sale",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "return_url",
+    "amount",
+    "currency",
+    "customer_email"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    },
+    {
+      "properties": {
+        "currency": {
+          "$ref": "/definitions/attributes/financial/crypto/bitpay/currency"
+        }
+      }
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "bitpay_sale"
+        }
+      ]
+    },
+    "transaction_id": {},
+    "usage": {},
+    "remote_ip": {},
+    "return_url": {
+      "$ref": "/definitions/definitions#url",
+      "description": "URL where consumer is sent to after payment"
+    },
+    "amount": {},
+    "currency": {},
+    "customer_email": {
+      "$ref": "/definitions/definitions#customer_email"
+    },
+    "billing_address": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        },
+        {
+          "properties": {
+            "country": {
+              "$ref": "/definitions/attributes/financial/crypto/bitpay/country"
+            }
+          }
+        }
+      ]
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
+    }
+  }
+}

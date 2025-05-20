@@ -26,6 +26,11 @@ Naranja             = require './transactions/financial/cards/naranja'
 TarjetaShopping     = require './transactions/financial/cards/tarjeta_shopping'
 
 ###
+  Preauthorizations
+###
+IncrementalAuthorize = require './transactions/financial/preauthorization/incremental_authorize'
+
+###
   CashPayment
 ###
 Cash                = require './transactions/financial/cash_payments/cash'
@@ -37,6 +42,11 @@ Oxxo                = require './transactions/financial/cash_payments/oxxo'
 PagoFacil           = require './transactions/financial/cash_payments/pago_facil'
 Pix                 = require './transactions/financial/cash_payments/pix'
 Redpagos            = require './transactions/financial/cash_payments/redpagos'
+
+###
+  Preauthorization
+###
+PartialReversal = require './transactions/financial/preauthorization/partial_reversal'
 
 ###
   Non Financial transactions
@@ -113,6 +123,7 @@ PostFinance         = require './transactions/financial/obp/post_finance'
 Santander           = require './transactions/financial/obp/santander'
 Webpay              = require './transactions/financial/obp/webpay'
 SctPayout           = require './transactions/financial/payout/sct_payout'
+Upi                 = require './transactions/financial/obp/upi'
 
 ###
   Direct Debit
@@ -216,6 +227,13 @@ ScaChecker = require './transactions/non_financial/sca/checker'
 ###
 InstallmentsFetch       = require './transactions/non_financial/installments/fetch'
 InstallmentsShowDetails = require './transactions/non_financial/installments/show_details'
+
+###
+  Crypto
+###
+BitpaySale   = require './transactions/financial/crypto/bitpay_sale'
+BitpayRefund = require './transactions/financial/crypto/bitpay_refund'
+BitpayPayout = require './transactions/financial/crypto/bitpay_payout'
 
 ###
   Library Transaction factory
@@ -327,6 +345,12 @@ class Transaction
 
   tarjeta_shopping: (params) ->
     new TarjetaShopping(params, @config)
+
+  ###
+    Preauthorizations
+  ###
+  incremental_authorize: (params) ->
+    new IncrementalAuthorize(params, @config)
 
   ###
     Cash Payments transactions
@@ -466,11 +490,20 @@ class Transaction
   sct_payout: (params) ->
     new SctPayout(params, @config)
 
+  upi: (params) ->
+    new Upi(params, @config)
+
   ###
     Financial Payout transactions
   ###
   african_mobile_payout: (params) ->
     new AfricanMobilePayout(params, @config)
+
+  ###
+    Preauthorization
+  ###
+  partial_reversal: (params) ->
+    new PartialReversal(params, @config)
 
   ###
     Financial Wallets transactions
@@ -639,6 +672,18 @@ class Transaction
 
   installments_show_details: (params) ->
     new InstallmentsShowDetails(params, @config)
+
+  ###
+    Crypto
+  ###
+  bitpay_sale: (params) ->
+    new BitpaySale(params, @config)
+
+  bitpay_refund: (params) ->
+    new BitpayRefund(params, @config)
+
+  bitpay_payout: (params) ->
+    new BitpayPayout(params, @config)
 
   ###
     Web Payment Form

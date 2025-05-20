@@ -1,0 +1,42 @@
+{
+  "$id": "https://genesis.js/bitpay_refund",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "reference_id",
+    "amount",
+    "currency"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#reference"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "bitpay_refund"
+        }
+      ]
+    },
+    "transaction_id": {},
+    "usage": {},
+    "remote_ip": {},
+    "reference_id": {},
+    "amount": {},
+    "currency": {},
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
+    }
+  }
+}
