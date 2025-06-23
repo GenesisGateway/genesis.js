@@ -97,6 +97,9 @@ class Validator
     @ajv.addSchema(
       require '../../../schemas/definitions/attributes/financial/crypto/bitpay/currency.json'
     )
+    @ajv.addSchema(
+      require '../../../schemas/definitions/attributes/financial/id_type.json'
+    )
 
   # Compare the specific transaction schema against the request parameters
   isValid: () ->

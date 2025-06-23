@@ -2237,6 +2237,8 @@ online_banking_payout
 payout
 russian_mobile_payout
 sct_payout
+transfer_to_payout
+global_payout
 ```
 
 ### Mobile Payments
@@ -2258,6 +2260,13 @@ void
 bitpay_sale
 bitpay_refund
 bitpay_payout
+```
+
+### Gift Cards
+```text
+intersolve
+fashioncheque
+tcs
 ```
 
 ### Web Payment Form
@@ -2364,6 +2373,15 @@ sca_checker
 ```text
 installments_fetch
 installments_show_details
+```
+
+### Payee API services
+```text
+create_payee
+retrieve_payee
+create_payee_account
+retrieve_payee_account
+list_payee_accounts
 ```
 
 Web Payment Form Transaction Parameters

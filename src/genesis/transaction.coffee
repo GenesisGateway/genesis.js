@@ -146,12 +146,16 @@ RussianMobileSale = require './transactions/financial/mobile/russian_mobile_sale
   Financial Payout transactions
 ###
 AfricanMobilePayout = require './transactions/financial/payout/african_mobile_payout'
-
-
-###
-  Financial payout transactions
-###
 RussianMobilePayout = require './transactions/financial/payout/russian_mobile_payout'
+TransferToPayout    = require './transactions/financial/alternative/transfer_to_payout'
+GlobalPayout        = require './transactions/financial/payout/global_payout'
+
+###
+  Financial Gift Cards transactions
+###
+Fashioncheque = require './transactions/financial/gift_cards/fashioncheque'
+Intersolve    = require './transactions/financial/gift_cards/intersolve'
+Tcs           = require './transactions/financial/gift_cards/tcs'
 
 
 ###
@@ -234,6 +238,15 @@ InstallmentsShowDetails = require './transactions/non_financial/installments/sho
 BitpaySale   = require './transactions/financial/crypto/bitpay_sale'
 BitpayRefund = require './transactions/financial/crypto/bitpay_refund'
 BitpayPayout = require './transactions/financial/crypto/bitpay_payout'
+
+###
+  Payee API
+###
+CreatePayee          = require './transactions/non_financial/payee/create_payee'
+RetrievePayee        = require './transactions/non_financial/payee/retrieve_payee'
+CreatePayeeAccount   = require './transactions/non_financial/payee/create_payee_account'
+RetrievePayeeAccount = require './transactions/non_financial/payee/retrieve_payee_account'
+ListPayeeAccounts    = require './transactions/non_financial/payee/list_payee_accounts'
 
 ###
   Library Transaction factory
@@ -418,6 +431,16 @@ class Transaction
   russian_mobile_payout: (params) ->
     new RussianMobilePayout(params, @config)
 
+  african_mobile_payout: (params) ->
+    new AfricanMobilePayout(params, @config)
+
+  transfer_to_payout: (params) ->
+    new TransferToPayout(params, @config)
+
+  global_payout: (params) ->
+    new GlobalPayout(params, @config)
+
+
   ###
     Financial OBP transactions
   ###
@@ -494,12 +517,6 @@ class Transaction
     new Upi(params, @config)
 
   ###
-    Financial Payout transactions
-  ###
-  african_mobile_payout: (params) ->
-    new AfricanMobilePayout(params, @config)
-
-  ###
     Preauthorization
   ###
   partial_reversal: (params) ->
@@ -510,6 +527,18 @@ class Transaction
   ###
   pay_pal: (params) ->
     new PayPal(params, @config)
+
+  ###
+    Financial Gift Cards transactions
+  ###
+  fashioncheque: (params) ->
+    new Fashioncheque(params, @config)
+
+  intersolve: (params) ->
+    new Intersolve(params, @config)
+
+  tcs: (params) ->
+    new Tcs(params, @config)
 
   ###
     Non Financial transactions
@@ -684,6 +713,24 @@ class Transaction
 
   bitpay_payout: (params) ->
     new BitpayPayout(params, @config)
+
+  ###
+    Payee API
+  ###
+  create_payee: (params) ->
+    new CreatePayee(params, @config)
+
+  retrieve_payee: (params) ->
+    new RetrievePayee(params, @config)
+
+  create_payee_account: (params) ->
+    new CreatePayeeAccount(params, @config)
+
+  retrieve_payee_account: (params) ->
+    new RetrievePayeeAccount(params, @config)
+
+  list_payee_accounts: (params) ->
+    new ListPayeeAccounts(params, @config)
 
   ###
     Web Payment Form

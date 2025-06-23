@@ -1,3 +1,13 @@
+3.3.8
+-----
+* Added Intersolve Gift card transaction request support
+* Added Fashioncheque Gift card transaction request support
+* Added TCS Gift card transaction request support
+* Added TransferTo Payout transaction request support
+* Added Global Payout transaction request support
+* Added Create and Retrieve Payee API requests support
+* Added Create, Retrieve, List Payee Account API requests support
+
 3.3.7
 -----
 * Added Incremental Authorize transaction request support

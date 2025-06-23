@@ -1,0 +1,11 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/financial/id_type",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "description": "Identification type",
+  "enum": [
+    "PASSPORT", "NATIONAL_ID", "DRIVING_LICENSE", "SOCIAL_SECURITY", "TAX_ID", "SENIOR_CITIZEN_ID",
+    "BIRTH_CERTIFICATE", "VILLAGE_ELDER_ID", "RESIDENT_CARD", "ALIEN_REGISTRATION", "PAN_CARD",
+    "VOTERS_ID", "HEALTH_CARD", "EMPLOYER_ID", "OTHER"
+  ]
+}

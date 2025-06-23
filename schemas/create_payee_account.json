@@ -1,0 +1,50 @@
+{
+  "$id": "https://genesis.js/create_payee_account",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "payee_unique_id",
+    "account"
+  ],
+  "properties": {
+    "payee_unique_id": {
+      "$ref": "/definitions/definitions#payee_unique_id"
+    },
+    "account": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "number"
+      ],
+      "if": {
+        "properties": {
+          "type": {
+            "const": "bank"
+          }
+        }
+      },
+      "then": {
+        "required": ["institution_code"]
+      },
+      "properties": {
+        "type": {
+          "$ref": "/definitions/definitions#payee_account_type"
+        },
+        "country": {
+          "$ref": "/definitions/country",
+          "description": "Country code in ISO 3166. If not provided, it will be assumed that the account country is the same as the country of the payee to which it belongs."
+        },
+        "number": {
+          "type": "string",
+          "description": "The Account number"
+        },
+        "institution_code": {
+          "type": "string",
+          "description": "The institution code of the account number. It is used when the type is bank and must contain either a Bank Identifier Code (BIC) or a National Clearing Code (NCC)"
+        }
+      }
+    }
+  }
+}

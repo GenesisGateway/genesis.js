@@ -1,0 +1,63 @@
+{
+  "$id": "https://genesis.js/caontainer_store",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "amount",
+    "currency",
+    "card_number"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    },
+    {
+      "$ref": "/definitions/definitions#gift_card"
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "container_store"
+        }
+      ]
+    },
+    "transaction_id": {},
+    "usage": {},
+    "remote_ip": {},
+    "amount": {},
+    "currency": {},
+    "card_number": {},
+    "cvv": {},
+    "token": {},
+    "billing_address": {
+      "$ref": "/definitions/attributes/customer/address#billing"
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "dynamic_descriptor_params": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/financial/dynamic_descriptor_params"
+        },
+        {
+          "$ref": "/definitions/attributes/financial/dynamic_descriptor_merchant_name"
+        }
+      ]
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
+    }
+  }
+}

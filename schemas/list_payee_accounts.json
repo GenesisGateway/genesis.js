@@ -1,0 +1,26 @@
+{
+  "$id": "https://genesis.js/list_payee_account",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "payee_unique_id"
+  ],
+  "properties": {
+    "payee_unique_id": {
+      "$ref": "/definitions/definitions#payee_unique_id"
+    },
+    "number_eq": {
+      "type": "string",
+      "description": "Query parameter that limit the returned data set based on exact match of the number attribute"
+    },
+    "type_eq": {
+      "$ref": "/definitions/definitions#payee_account_type",
+      "description": "Query parameter that limit the returned data set based on exact match of the type attribute"
+    },
+    "institution_code_eq": {
+      "type": "string",
+      "description": "Query parameter that limit the returned data set based on exact match of the institution_code attribute"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$id": "https://genesis.js/create_payee",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "name",
+    "country"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["company", "person"],
+      "description": "The type of the Payee"
+    },
+    "name": {
+      "type": "string",
+      "description": "The Payee full name"
+    },
+    "country": {
+      "$ref": "/definitions/country",
+      "description": "Country code in ISO 3166. In case of person this should contain the country of birth. In case of company this should contain the country of incorporation"
+    }
+  }
+}

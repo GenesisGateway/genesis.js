@@ -1,0 +1,14 @@
+{
+  "$id": "https://genesis.js/retrieve_payee",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "payee_unique_id"
+  ],
+  "properties": {
+    "payee_unique_id": {
+      "$ref": "/definitions/definitions#payee_unique_id"
+    }
+  }
+}

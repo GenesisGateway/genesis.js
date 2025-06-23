@@ -1,0 +1,186 @@
+{
+  "$id": "https://genesis.js/transfer_to_payout",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_type",
+    "transaction_id",
+    "return_success_url",
+    "return_failure_url",
+    "amount",
+    "currency",
+    "payer_id"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "transfer_to_payout"
+        }
+      ]
+    },
+    "transaction_id": {},
+    "usage": {},
+    "remote_ip": {},
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "amount": {},
+    "currency": {},
+    "customer_email": {
+      "$ref": "/definitions/definitions#customer_email"
+    },
+    "payer_id": {
+      "type": "string",
+      "description": "ID of the Payer used to deliver the money through one of the 3 services"
+    },
+    "bank_account_number": {
+      "type": "string",
+      "description": "Bank identification number of the customer"
+    },
+    "indian_financial_system_code": {
+      "type": "string",
+      "description": "Bank code of the bank in which the consumer resides"
+    },
+    "msisdn": {
+      "type": "string",
+      "minLength": 6,
+      "maxLength": 32,
+      "description": "Phone number for payment to bank account and wallet registration number for payment to wallet"
+    },
+    "branch_number": {
+      "type": "string",
+      "description": "Branch number"
+    },
+    "account_type": {
+      "type": "string",
+      "enum": ["CHECKING", "SAVINGS", "DEPOSIT", "OTHERS"],
+      "description": "Account type"
+    },
+    "registered_name": {
+      "type": "string",
+      "description": "Registered name of the business"
+    },
+    "registration_number": {
+      "type": "string",
+      "description": "Registration number"
+    },
+    "document_reference_number": {
+      "type": "string",
+      "description": "Reference number for the contract"
+    },
+    "purpose_of_remittance": {
+      "type": "string",
+      "enum": [
+        "FAMILY_SUPPORT", "EDUCATION", "GIFT_AND_DONATION", "MEDICAL_TREATMENT", "MAINTENANCE_EXPENSES",
+        "TRAVEL", "SMALL_VALUE_REMITTANCE", "LIBERALIZED_REMITTANCE", "OTHER"
+      ],
+      "description": "Identification type"
+    },
+    "iban": {
+      "type": "string",
+      "maxLength": 34,
+      "pattern": "^[A-Z]{2}.*$",
+      "description": "Bank account number in IBAN format"
+    },
+    "id_type": {
+      "$ref": "/definitions/attributes/financial/id_type",
+      "description": "Identification type"
+    },
+    "id_number": {
+      "type": "string",
+      "description": "Identification number"
+    },
+    "sender_date_of_birth": {
+      "$ref": "/definitions/definitions#date-yyyy-mm-dd",
+      "description": "Date of birth with the following format YYYY-MM-DD"
+    },
+    "sender_first_name": {
+      "type": "string",
+      "description": "First name of the sender"
+    },
+    "sender_last_name": {
+      "type": "string",
+      "description": "Last name of the sender"
+    },
+    "sender_country_iso_code": {
+      "type": "string",
+      "description": "Three-letter country code of the sender"
+    },
+    "sender_id_number": {
+      "type": "string",
+      "description": "Identification number of the sender"
+    },
+    "sender_nationality_country_iso_code": {
+      "type": "string",
+      "description": "Three-letter country code corresponding to the nationality of the sender"
+    },
+    "sender_address": {
+      "type": "string",
+      "description": "First line of address of the sender"
+    },
+    "sender_occupation": {
+      "type": "string",
+      "description": "Occupation of the sender"
+    },
+    "sender_beneficiary_relationship": {
+      "type": "string",
+      "description": "Relationship between the sender and the beneficiary"
+    },
+    "sender_postal_code": {
+      "type": "string",
+      "description": "Relationship between the sender and the beneficiary"
+    },
+    "sender_city": {
+      "type": "string",
+      "description": "City of the sender"
+    },
+    "sender_msisdn": {
+      "type": "string",
+      "minLength": 6,
+      "maxLength": 32,
+      "description": "Phone number for payment to bank account and wallet registration number for payment to wallet."
+    },
+    "sender_gender": {
+      "type": "string",
+      "description": "Gender of the sender"
+    },
+    "sender_id_type": {
+      "$ref": "/definitions/attributes/financial/id_type",
+      "description": "Identification type of the sender"
+    },
+    "sender_province_state": {
+      "type": "string",
+      "description": "Province State of the sender"
+    },
+    "sender_source_of_funds": {
+      "type": "string",
+      "description": "Source of funds of the sender"
+    },
+    "sender_country_of_birth_iso_code": {
+      "type": "string",
+      "description": "Three-letter country code corresponding to the country of birth of the sender"
+    },
+    "billing_address": {
+      "$ref": "/definitions/attributes/customer/address#billing"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
+    }
+  }
+}

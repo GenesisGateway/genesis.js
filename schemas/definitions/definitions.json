@@ -288,6 +288,39 @@
       "$id": "#arn",
       "type": "string",
       "description": "ARN of the chargeback’s transaction"
+    },
+    "gift_card": {
+      "$id": "#gift_card",
+      "properties": {
+        "card_number": {
+          "description": "Gift card number",
+          "type": "string",
+          "pattern": "^[0-9]{19,21}$",
+          "message": "Expected: number with 19 to 21 digits"
+        },
+        "cvv": {
+          "description": "Verification code of the gift card",
+          "type": "string",
+          "pattern": "^[0-9]{5,8}$",
+          "message": "Expected: number with 5 to 8 digits"
+        },
+        "token": {
+          "type": "string",
+          "description": "Plain-text token value",
+          "maxLength": 36
+        }
+      }
+    },
+    "payee_account_type": {
+      "$id": "#payee_account_type",
+      "type": "string",
+      "enum": ["iban", "bank"],
+      "description": "The type of the Account"
+    },
+    "payee_unique_id": {
+      "$id": "#payee_unique_id",
+      "type": "string",
+      "description": "The unique identifier of the Payee"
     }
   }
 }

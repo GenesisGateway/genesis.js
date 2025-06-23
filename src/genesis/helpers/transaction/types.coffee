@@ -640,6 +640,33 @@ class Types
   ###
   @BITPAY_PAYOUT = 'bitpay_payout'
 
+  ###
+      Fashioncheque transactions are made using gift card provided by Fashioncheque
+  ###
+  @FASHIONCHEQUE = 'fashioncheque'
+
+  ###
+      Intersolve transactions are made using gift card provided by Intersolve
+  ###
+  @INTERSOLVE = 'intersolve'
+
+  ###
+      The container store transactions are made using gift cards provided by TCS
+  ###
+  @TCS = 'container_store'
+
+  ###
+      TransferTo Payout is an APM which provides 3 different payment services:
+      BankAccount, MobileWallet and CashPickup
+  ###
+  @TRANSFER_TO_PAYOUT = 'transfer_to_payout'
+
+  ###
+      Global Payout is a transaction type based on Open Banking APIs,
+      used for initiating bank payments
+  ###
+  @GLOBAL_PAYOUT = 'global_payout'
+
   getTypes: ->
     value for key, value of @constructor
 

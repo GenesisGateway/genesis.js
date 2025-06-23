@@ -1,6 +1,6 @@
 {
   "name": "genesis.js",
-  "version": "3.3.7",
+  "version": "3.3.8",
   "description": "JS library for Genesis Payment Processing Gateway",
   "main": "./lib/genesis.js",
   "repository": {
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "ajv": "^6.2.0",
-    "axios": "^1.9.0",
+    "axios": "^1.10.0",
     "bigdecimal": "^0.6.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.20.3",

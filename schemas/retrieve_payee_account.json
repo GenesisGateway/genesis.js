@@ -1,0 +1,19 @@
+{
+  "$id": "https://genesis.js/retrieve_payee_account",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "payee_unique_id",
+    "account_unique_id"
+  ],
+  "properties": {
+    "payee_unique_id": {
+      "$ref": "/definitions/definitions#payee_unique_id"
+    },
+    "account_unique_id": {
+      "type": "string",
+      "description": "The unique identifier of the Account"
+    }
+  }
+}
