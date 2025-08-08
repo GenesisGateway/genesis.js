@@ -108,7 +108,11 @@ class Types
   @CASHU = 'cashu'
 
   ###
-    Wallet-based payment
+    eZeeWallet is a comprehensive digital wallet, connecting multiple payment methods
+    simultaneously. It has the highest level of security, offering you a unique way to make secure
+    and quick online payments. Consumers can upload funds to your account using P24, Trustly,
+    Invoice (Sofort), iDeal, eps, NeoSurf and bank transfer and pay fast for goods and services
+    with their available eZeeWallet balances.
   ###
   @EZEEWALLET = 'ezeewallet'
 
@@ -301,6 +305,13 @@ class Types
     Online Banking transaction with PF bank code instead.
   ###
   @POST_FINANCE = 'post_finance'
+
+  ###
+    RapiPago from Argentina is an offline payment method used for online purchases.
+    Shoppers buy their goods and services online and pay offline at one of the 6,000+
+    RapiPago payment locations.
+  ###
+  @RAPI_PAGO = 'rapi_pago'
 
   ###
     Santander transaction will be soon deprecated. Please start using Online Banking transaction
@@ -641,6 +652,12 @@ class Types
   @BITPAY_PAYOUT = 'bitpay_payout'
 
   ###
+      eZeeCard Payout is a sync based payout method. It's merchant initiated
+      and can only reference specific transaction types:
+  ###
+  @EZEECARD_PAYOUT = 'ezeecard_payout'
+
+  ###
       Fashioncheque transactions are made using gift card provided by Fashioncheque
   ###
   @FASHIONCHEQUE = 'fashioncheque'
@@ -666,6 +683,49 @@ class Types
       used for initiating bank payments
   ###
   @GLOBAL_PAYOUT = 'global_payout'
+
+  ###
+      Payee API
+      Payee-related data is created and used to process payout payments to specific Payee accounts.
+      Payees are supported for Global Payout.
+      Full list of Payee API urls can be found in the URLs section
+  ###
+
+  ###
+      Create a Payee record.
+  ###
+  @CREATE_PAYEE = 'create_payee'
+
+  ###
+      Retrieve the details of a specific a Payee record based on it's unique ID.
+  ###
+  @RETRIEVE_PAYEE = 'retrieve_payee'
+
+  ###
+      Update a Payee record.
+  ###
+  @UPDATE_PAYEE = 'update_payee'
+
+  ###
+      Create a Account related to a specific Payee.
+  ###
+  @CREATE_PAYEE_ACCOUNT = 'create_payee_account'
+
+  ###
+      Retrieve the details of a specific Account record based on it's unique ID that
+      belongs to specific Payee.
+  ###
+  @RETRIEVE_PAYEE_ACCOUNT = 'retrieve_payee_account'
+
+  ###
+      Update Account related to a specific Payee.
+  ###
+  @UPDATE_PAYEE_ACCOUNT = 'update_payee_account'
+
+  ###
+      Retrieve the details of all Account records that belongs to specific Payee.
+  ###
+  @LIST_PAYEE_ACCOUNTS = 'list_payee_accounts'
 
   getTypes: ->
     value for key, value of @constructor

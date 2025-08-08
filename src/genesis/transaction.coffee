@@ -120,6 +120,7 @@ Payu                = require './transactions/financial/obp/payu'
 Poli                = require './transactions/financial/obp/poli'
 Pse                 = require './transactions/financial/obp/pse'
 PostFinance         = require './transactions/financial/obp/post_finance'
+RapiPago            = require './transactions/financial/obp/rapi_pago'
 Santander           = require './transactions/financial/obp/santander'
 Webpay              = require './transactions/financial/obp/webpay'
 SctPayout           = require './transactions/financial/payout/sct_payout'
@@ -140,7 +141,10 @@ GooglePay         = require './transactions/financial/mobile/google_pay'
 ApplePay          = require './transactions/financial/mobile/apple_pay'
 AfricanMobileSale = require './transactions/financial/mobile/african_mobile_sale'
 PayPal            = require './transactions/financial/wallets/pay_pal'
+WebMoney          = require './transactions/financial/wallets/webmoney'
+EzeeWallet        = require './transactions/financial/wallets/ezeewallet'
 RussianMobileSale = require './transactions/financial/mobile/russian_mobile_sale'
+Neteller          = require './transactions/financial/wallets/neteller'
 
 ###
   Financial Payout transactions
@@ -149,6 +153,7 @@ AfricanMobilePayout = require './transactions/financial/payout/african_mobile_pa
 RussianMobilePayout = require './transactions/financial/payout/russian_mobile_payout'
 TransferToPayout    = require './transactions/financial/alternative/transfer_to_payout'
 GlobalPayout        = require './transactions/financial/payout/global_payout'
+EzeeCardPayout      = require './transactions/financial/payout/ezeecard_payout'
 
 ###
   Financial Gift Cards transactions
@@ -247,6 +252,8 @@ RetrievePayee        = require './transactions/non_financial/payee/retrieve_paye
 CreatePayeeAccount   = require './transactions/non_financial/payee/create_payee_account'
 RetrievePayeeAccount = require './transactions/non_financial/payee/retrieve_payee_account'
 ListPayeeAccounts    = require './transactions/non_financial/payee/list_payee_accounts'
+UpdatePayee          = require './transactions/non_financial/payee/update_payee'
+UpdatePayeeAccount   = require './transactions/non_financial/payee/update_payeee_account'
 
 ###
   Library Transaction factory
@@ -440,6 +447,8 @@ class Transaction
   global_payout: (params) ->
     new GlobalPayout(params, @config)
 
+  ezeecard_payout: (params) ->
+    new EzeeCardPayout(params, @config)
 
   ###
     Financial OBP transactions
@@ -489,6 +498,9 @@ class Transaction
   post_finance: (params) ->
     new PostFinance(params, @config)
 
+  rapi_pago: (params) ->
+    new RapiPago(params, @config)
+
   santander: (params) ->
     new Santander(params, @config)
 
@@ -527,6 +539,19 @@ class Transaction
   ###
   pay_pal: (params) ->
     new PayPal(params, @config)
+
+  webmoney: (params) ->
+    new WebMoney(params, @config)
+
+  ezeewallet: (params) ->
+    new EzeeWallet(params, @config)
+
+  ###
+    Neteller transactions are only synchronous. When the payment reaches a final state
+    Genesis gateway sends notification to merchant on the configured url into its account.
+  ###
+  neteller: (params) ->
+    new Neteller(params, @config)
 
   ###
     Financial Gift Cards transactions
@@ -732,6 +757,12 @@ class Transaction
   list_payee_accounts: (params) ->
     new ListPayeeAccounts(params, @config)
 
+  update_payee: (params) ->
+    new UpdatePayee(params, @config)
+
+  update_payee_account: (params) ->
+    new UpdatePayeeAccount(params, @config)
+
   ###
     Web Payment Form
   ###
@@ -740,7 +771,5 @@ class Transaction
 
   wpf_reconcile: (params) ->
     new WpfReconcile(params, @config)
-
-
 
 module.exports = Transaction

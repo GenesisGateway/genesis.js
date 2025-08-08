@@ -1,0 +1,65 @@
+{
+  "$id": "https://genesis.js/ezeewallet",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_type",
+    "transaction_id",
+    "amount",
+    "currency",
+    "source_wallet_id",
+    "source_wallet_pwd",
+    "return_success_url",
+    "return_failure_url",
+    "merchant_website"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "ezeewallet"
+        }
+      ]
+    },
+    "transaction_id": {},
+    "usage": {},
+    "amount": {},
+    "currency": {},
+    "source_wallet_id": {
+      "$ref": "/definitions/definitions#customer_email"
+    },
+    "source_wallet_pwd": {
+      "type": "string"
+    },
+    "return_success_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "return_failure_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "notification_url": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "merchant_website": {
+      "$ref": "/definitions/definitions#url"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
+    }
+  }
+}

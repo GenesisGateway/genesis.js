@@ -1,0 +1,48 @@
+{
+  "$id": "https://genesis.js/ezeecard_payout",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_type",
+    "transaction_id",
+    "amount",
+    "currency",
+    "reference_id"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    }
+  ],
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "ezeecard_payout"
+        }
+      ]
+    },
+    "remote_ip": {},
+    "usage": {},
+    "amount": {
+      "$ref": "/definitions/attributes/financial/payment#amount"
+    },
+    "currency": {
+        "$ref": "/definitions/attributes/financial/payment#currency"
+    },
+    "reference_id": {
+      "$ref": "/definitions/definitions#reference_id"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
+    }
+  }
+}

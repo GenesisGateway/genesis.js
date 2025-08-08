@@ -1,3 +1,14 @@
+3.3.9
+-----
+* Added Update Payee and Update Payee Account request support
+* Added eZeeWallet request support
+* Added WebMoney request support
+* Added Neteller request support
+* Added RapiPago request support
+* Added eZeeCard Payout request support
+* Added PATCH method support
+* Added Smart Router support with Single Reconcile
+
 3.3.8
 -----
 * Added Intersolve Gift card transaction request support

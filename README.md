@@ -2183,7 +2183,10 @@ partial_reversal
 
 ### Wallets
 ```text
+ezeewallet
 pay_pal
+webmoney
+neteller
 ```
 
 ### Vouchers
@@ -2208,6 +2211,7 @@ p24
 payu
 poli
 post_finance
+rapi_pago
 ppro
 pse
 santander
@@ -2239,6 +2243,7 @@ russian_mobile_payout
 sct_payout
 transfer_to_payout
 global_payout
+ezeecard_payout
 ```
 
 ### Mobile Payments
@@ -2382,6 +2387,7 @@ retrieve_payee
 create_payee_account
 retrieve_payee_account
 list_payee_accounts
+update_payee_account
 ```
 
 Web Payment Form Transaction Parameters
@@ -2438,6 +2444,7 @@ Web Payment Form Transaction Parameters
   * `payu`
   * `poli`
   * `post_finance`
+  * `rapi_pago`
   * `santander`
   * `ppro`
     * `bcmc`

@@ -1,6 +1,7 @@
-Xml  = require './builders/xml'
-Form = require './builders/form'
-Json = require './builders/json'
+Xml   = require './builders/xml'
+Form  = require './builders/form'
+Json  = require './builders/json'
+Patch = require './builders/patch'
 
 class Builder
   # XML Builder Identifier
@@ -12,6 +13,9 @@ class Builder
   # FORM Builder Identifier
   FORM: 'form'
 
+  # JSON PATCH Builder Identifier
+  PATCH: 'patch'
+
   constructor: (builderInterface) ->
     switch builderInterface
       when @XML
@@ -20,6 +24,8 @@ class Builder
         @context = new Form()
       when @JSON
         @context = new Json()
+      when @PATCH
+        @context = new Patch()
       else
         @context = null
 

@@ -9,7 +9,7 @@ class Config
   # Manual configuration identifier
   MANUAL: 'manual'
   # Version configuration identifier
-  VERSION: '3.3.8'
+  VERSION: '3.3.9'
 
   constructor: (@configuration) ->
     @initConfig()

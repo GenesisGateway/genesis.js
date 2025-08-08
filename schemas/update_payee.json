@@ -1,0 +1,31 @@
+{
+  "$id": "https://genesis.js/update_payee",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "payee_unique_id"
+  ],
+  "properties": {
+    "payee_unique_id": {
+      "$ref": "/definitions/definitions#payee_unique_id"
+    },
+    "payee": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "country"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "country": {
+          "$ref": "/definitions/country",
+          "description": "Country code in ISO 3166. If not provided, it will be assumed that the account country is the same as the country of the payee to which it belongs."
+        }
+      }
+    }
+  }
+}

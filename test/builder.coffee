@@ -1,7 +1,8 @@
-Builder = require '../src/genesis/builder'
-Xml     = require '../src/genesis/builders/xml'
-Json    = require '../src/genesis/builders/json'
-Form    = require '../src/genesis/builders/form'
+Builder  = require '../src/genesis/builder'
+Xml      = require '../src/genesis/builders/xml'
+Json     = require '../src/genesis/builders/json'
+Patch    = require '../src/genesis/builders/patch'
+Form     = require '../src/genesis/builders/form'
 
 context 'Request Builder', ->
   context 'when default builder', ->
@@ -32,6 +33,16 @@ context 'Request Builder', ->
       assert.isTrue @builder.context instanceof Json
 
     it 'with JSON document', ->
+      assert.equal @builder.getDocument({ param1: 'value1' }), '{"param1":"value1"}'
+
+  context 'when JSON PATCH builder', ->
+    before ->
+      @builder = new Builder('patch')
+
+    it 'with JSON PATCH builder context', ->
+      assert.isTrue @builder.context instanceof Patch
+
+    it 'with JSON PATCH document', ->
       assert.equal @builder.getDocument({ param1: 'value1' }), '{"param1":"value1"}'
 
   context 'when FORM builder', ->

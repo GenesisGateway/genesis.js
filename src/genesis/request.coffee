@@ -11,9 +11,10 @@ Validator = require './transactions/validator'
 ###
 class Request
 
-  METHOD_POST : 'POST'
-  METHOD_PUT  : 'PUT'
-  METHOD_GET  : 'GET'
+  METHOD_POST  : 'POST'
+  METHOD_PUT   : 'PUT'
+  METHOD_GET   : 'GET'
+  METHOD_PATCH : 'PATCH'
 
   constructor: (@params, configuration, builderInterface = 'xml') ->
     @builderInterface = builderInterface
@@ -62,6 +63,7 @@ class Request
       when @builderContext.XML then @initXmlConfiguration()
       when @builderContext.FORM then @initFormConfiguration()
       when @builderContext.JSON then @initJsonConfiguration()
+      when @builderContext.PATCH then @initJsonPatchConfiguration()
       else @initGetConfiguration()
 
   # Format and return the endpoint URL based on the transaction parameters
@@ -102,6 +104,13 @@ class Request
   # Load JSON Post Network Configuration
   initJsonConfiguration: ->
     options         = Object.assign { method: @METHOD_POST }, @getDefaultNetworkOptions()
+    options.headers = Object.assign options.headers, 'Content-Type': 'application/json'
+
+    options
+
+  # Load JSON PATCH Network Configuration
+  initJsonPatchConfiguration: ->
+    options         = Object.assign { method: @METHOD_PATCH }, @getDefaultNetworkOptions()
     options.headers = Object.assign options.headers, 'Content-Type': 'application/json'
 
     options

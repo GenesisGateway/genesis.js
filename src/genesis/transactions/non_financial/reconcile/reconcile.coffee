@@ -6,7 +6,6 @@ class Reconcile extends Request
 
   constructor: (params, configuration) ->
     super params, configuration
-    @configuration = configuration
 
   getTransactionType: ->
     'reconcile'
@@ -15,12 +14,10 @@ class Reconcile extends Request
     @params
 
   getUrl: ->
-    app:
-      'gate'
-    path:
-      'reconcile'
-    token:
-      @configuration.getCustomerToken()
+    if @params.use_smart_router || @configuration.getCustomerForceSmartRouter()
+      return app: 'smart_router', path: 'reconcile'
+
+    app: 'gate', path: 'reconcile', token: @configuration.getCustomerToken()
 
   getTrxData: ->
     'reconcile':

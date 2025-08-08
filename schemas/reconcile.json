@@ -31,6 +31,9 @@
     },
     "arn": {
       "type": "string"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
     }
   }
 }
