@@ -33,8 +33,7 @@ SchemeTokenized = () ->
         delete data.mpi_params.directory_server_id
         assert.isTrue @transaction.setData(data).isValid()
 
-    context 'with invalid request', ->
-      it 'fails when missing document_server_id and scheme_tokenized parameter not set', ->
+      it 'not fails when missing directory_server_id and scheme_tokenized parameter not set', ->
         @skip() if @transaction.getTransactionType() in skippableTransactionTypes
 
         fakeData           = new FakeData()
@@ -42,6 +41,6 @@ SchemeTokenized = () ->
         data['mpi_params'] = fakeData.getMpiParams().mpi_params
         delete data.mpi_params.directory_server_id
         delete data.scheme_tokenized
-        assert.isNotTrue @transaction.setData(data).isValid()
+        assert.isTrue @transaction.setData(data).isValid()
 
 module.exports = SchemeTokenized

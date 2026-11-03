@@ -46,6 +46,18 @@
           "type": "string",
           "description": "Receiver address. Only required in case of VISA and Canadian cards"
         },
+        "address2": {
+          "type": "string",
+          "description": "Receiver address line 2"
+        },
+        "street_name": {
+          "type": "string",
+          "description": "Receiver street name"
+        },
+        "zip_code": {
+          "type": "string",
+          "description": "Receiver zip code"
+        },
         "state": {
           "type": "string",
           "description": "Receiver state. Only required in case of VISA and Canadian cards"

@@ -2,6 +2,7 @@ path  = require 'path'
 _     = require 'underscore'
 
 AccountOwnerAttributes        = require '../../../../examples/attributes/financial/account_owner_attributes'
+AmountConversion              = require '../../../../examples/attributes/financial/amount_conversion'
 BusinessAttributes            = require '../../../business_attributes'
 CardBase                      = require '../card_base'
 CredentialOnFile              = require '../../../../examples/attributes/credential_on_file'
@@ -11,6 +12,7 @@ FakeConfig                    = require path.resolve './test/transactions/fake_c
 FakeData                      = require '../../../fake_data'
 FundingAttributes             = require '../../../../examples/attributes/financial/funding_attributes'
 ManagedRecurring              = require '../../../../examples/attributes/financial/recurring/managed_recurring'
+MarketplaceData               = require '../../../../examples/attributes/financial/marketplace_data'
 Moto                          = require '../../../../examples/attributes/financial/moto'
 RiskParams                    = require '../../../../examples/attributes/risk_params'
 SchemeTokenized               = require '../scheme_tokenized'
@@ -38,5 +40,7 @@ describe 'InitRecurringSale Transaction', ->
   TravelData()
   AccountOwnerAttributes()
   FundingAttributes()
+  MarketplaceData()
+  AmountConversion()
   SchemeTokenized()
   TokenizationParams()

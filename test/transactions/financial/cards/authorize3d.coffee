@@ -3,6 +3,7 @@ _     = require 'underscore'
 faker = require 'faker'
 
 AccountOwnerAttributes        = require '../../../examples/attributes/financial/account_owner_attributes'
+AmountConversion              = require '../../../examples/attributes/financial/amount_conversion'
 BusinessAttributes            = require '../../business_attributes'
 CredentialOnFile              = require '../../../examples/attributes/credential_on_file'
 Crypto                        = require '../../../examples/attributes/financial/crypto'
@@ -12,9 +13,11 @@ DynamicDescriptor             = require '../../../examples/attributes/financial/
 DynamicDescriptorMerchantName = require '../../../examples/attributes/financial/dynamic_descriptor_merchant_name'
 FakeConfig                    = require path.resolve './test/transactions/fake_config'
 FakeData                      = require '../../fake_data'
+ForceThreeds                  = require '../../../examples/attributes/financial/force_threeds_attributes'
 FundingAttributes             = require '../../../examples/attributes/financial/funding_attributes'
 Gaming                        = require '../../../examples/attributes/financial/gaming'
 ManagedRecurring              = require '../../../examples/attributes/financial/recurring/managed_recurring'
+MarketplaceData               = require '../../../examples/attributes/financial/marketplace_data'
 Moto                          = require '../../../examples/attributes/financial/moto'
 MpiParams                     = require '../../../examples/attributes/threeds/v1/mpi_params'
 RecurringType                 = require '../../../examples/attributes/financial/recurring_type'
@@ -60,6 +63,8 @@ describe 'Authorize 3D Transaction', ->
   TravelData()
   CSEncription()
   FundingAttributes()
+  MarketplaceData()
+  AmountConversion()
   AccountOwnerAttributes()
   MpiParams()
   UCOF()
@@ -67,3 +72,4 @@ describe 'Authorize 3D Transaction', ->
   InstallmentAttributes()
   TokenizationParams()
   Preauthorization()
+  ForceThreeds()

@@ -257,6 +257,9 @@ class FakeData
           'bank_account_number_and_bic', 'wallet_id', 'social_network_id', 'other'
         ])
         address:             faker.random.alpha(10)
+        address2:            faker.random.alpha(10)
+        street_name:         faker.random.alpha(10)
+        zip_code:            faker.random.alpha(10)
         state:               faker.random.alpha(10)
         city:                faker.random.alpha(10)
       sender:
@@ -266,6 +269,11 @@ class FakeData
         address:          faker.random.alpha(10)
         state:            faker.random.alpha(10)
         city:             faker.random.alpha(10)
+
+  getMarketplaceData: ->
+    marketplace_data:
+      foreign_retailer_indicator: 'F'
+      foreign_retailer_transaction_amount: faker.datatype.number({min: 0, max: 100})
 
   getLevel3TravelData: ->
     travel:

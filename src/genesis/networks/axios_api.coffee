@@ -22,7 +22,9 @@ class AxiosApi extends BaseRequestApi
   getResponseContentType: ->
     return '' unless @responseHeaders instanceof AxiosHeaders
 
-    @responseHeaders.get('content-type').toLowerCase()
+    # A 204 No Content response (e.g. managed_recurring_cancel) carries no
+    # Content-Type header, so AxiosHeaders#get returns undefined.
+    (@responseHeaders.get('content-type') || '').toLowerCase()
 
   # Load the Network object from the gateway response
   initNetwork: (networkObject) ->

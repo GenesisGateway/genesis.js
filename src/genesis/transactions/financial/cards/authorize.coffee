@@ -10,9 +10,10 @@ class Authorize extends CardBase
     TransactionTypes.AUTHORIZE
 
   getTrxData: ->
-    travelData = new TravelData(@params)
+    outboundParams = @getOutboundParams()
+    travelData = new TravelData(outboundParams)
     travelData.parseTravelData()
 
-    super()
+    super(outboundParams)
 
 module.exports = Authorize

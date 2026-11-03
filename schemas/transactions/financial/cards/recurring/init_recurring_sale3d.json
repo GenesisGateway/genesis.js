@@ -1,0 +1,160 @@
+{
+  "$id": "https://genesis.js/init_recurring_sale3d",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transaction_id",
+    "transaction_type",
+    "amount",
+    "currency",
+    "card_holder"
+  ],
+  "allOf": [
+    {
+      "$ref": "/definitions/definitions#minimum"
+    },
+    {
+      "$ref": "/definitions/definitions#common"
+    },
+    {
+      "$ref": "/definitions/definitions#card"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/payment"
+    },
+    {
+      "$ref": "/definitions/attributes/threeds/v1/threeds_v1"
+    },
+    {
+      "$ref": "/definitions/attributes/financial/tokenization"
+    }
+  ],
+  "messages": {
+    "anyOf": [
+      "At least one of mpi_params or notification_url parameters should exists into the request."
+    ],
+    "oneOf": [
+      "Only one of the following parameters can exists in the request: card_number or token."
+    ]
+  },
+  "properties": {
+    "transaction_id": {},
+    "transaction_type": {
+      "allOf": [
+        {
+          "$ref": "/definitions/definitions#transaction_type"
+        },
+        {
+          "const": "init_recurring_sale3d"
+        }
+      ]
+    },
+    "remote_ip": {},
+    "usage": {},
+    "gaming": {
+      "$ref": "/definitions/attributes/financial/common#gaming"
+    },
+    "moto": {
+      "$ref": "/definitions/attributes/financial/common#moto"
+    },
+    "crypto": {
+      "$ref": "/definitions/attributes/financial/common#crypto"
+    },
+    "notification_url": {},
+    "return_success_url": {},
+    "return_failure_url": {},
+    "amount": {},
+    "currency": {},
+    "customer_email": {},
+    "customer_phone": {},
+    "card_holder": {},
+    "card_number": {},
+    "expiration_month": {},
+    "expiration_year": {},
+    "cvv": {},
+    "token": {},
+    "remember_card": {},
+    "consumer_id": {},
+    "birth_date": {},
+    "fx_rate_id": {
+      "$ref": "/definitions/definitions#fx_rate_id"
+    },
+    "billing_address": {
+      "$ref": "/definitions/attributes/customer/address#billing"
+    },
+    "shipping_address": {
+      "$ref": "/definitions/attributes/customer/address#shipping"
+    },
+    "mpi_params": {},
+    "business_attributes": {
+      "$ref": "/definitions/attributes/business_attributes"
+    },
+    "sca_params": {
+      "$ref": "/definitions/attributes/sca_params#sca_params"
+    },
+    "threeds_v2_params": {
+      "merge": {
+        "source": {
+          "$ref": "/definitions/attributes/threeds/v2/threeds_v2"
+        },
+        "with": {
+          "properties": {
+            "recurring": {
+              "$ref": "/definitions/attributes/threeds/v2/threeds_v2#recurring"
+            }
+          }
+        }
+      }
+    },
+    "managed_recurring": {
+      "$ref": "/definitions/attributes/recurring/managed_recurring"
+    },
+    "risk_params": {
+      "$ref": "/definitions/attributes/risk_attributes"
+    },
+    "dynamic_descriptor_params": {
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/financial/dynamic_descriptor_params"
+        },
+        {
+          "$ref": "/definitions/attributes/financial/dynamic_descriptor_merchant_name"
+        }
+      ]
+    },
+    "credential_on_file": {
+      "$ref": "/definitions/attributes/credential_on_file#credential_on_file"
+    },
+    "credential_on_file_transaction_identifier":{
+      "$ref": "/definitions/attributes/credential_on_file#credential_on_file_transaction_identifier"
+    },
+    "credential_on_file_settlement_date": {
+      "$ref": "/definitions/attributes/credential_on_file#credential_on_file_settlement_date"
+    },
+    "travel": {
+      "$ref": "/definitions/attributes/financial/travel_data/travel_data_attributes"
+    },
+    "account_owner": {
+      "$ref": "/definitions/attributes/financial/account_owner_attributes"
+    },
+    "use_smart_router": {
+      "$ref": "/definitions/definitions#use_smart_router"
+    },
+    "force_threeds": {
+      "$ref": "/definitions/definitions#force_threeds"
+    },
+    "funding": {
+      "$ref": "/definitions/attributes/financial/funding_attributes"
+    },
+    "marketplace_data": {
+      "$ref": "/definitions/attributes/financial/marketplace_data"
+    },
+    "scheme_tokenized": {
+      "type": "boolean"
+    },
+    "tokenization_params": {
+      "$ref": "/definitions/attributes/financial/tokenization_params"
+    }
+  }
+}

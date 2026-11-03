@@ -1,0 +1,15 @@
+{
+  "$id": "https://genesis.js/managed_recurring_item",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Fetch a single active managed recurring item by its unique id.",
+  "required": ["unique_id"],
+  "properties": {
+    "unique_id": {
+      "type": "string",
+      "title": "Unique Id",
+      "description": "The unique id of the managed recurring item"
+    }
+  }
+}

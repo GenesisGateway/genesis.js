@@ -664,6 +664,103 @@ describe 'WPFCreate Transaction', ->
 
         assert.equal false, transaction.setData(data).isValid()
 
+  context 'with scheme_tokenized', ->
+
+    it 'works with scheme_tokenized set to true', ->
+      data                   = _.clone @data
+      data.scheme_tokenized  = true
+
+      assert.equal true, @transaction.setData(data).isValid()
+
+    it 'works with scheme_tokenized set to false', ->
+      data                   = _.clone @data
+      data.scheme_tokenized  = false
+
+      assert.equal true, @transaction.setData(data).isValid()
+
+    it 'fails with invalid scheme_tokenized value', ->
+      data                   = _.clone @data
+      data.scheme_tokenized  = 'true'
+
+      assert.equal false, @transaction.setData(data).isValid()
+
+  context 'with account_owner attribute', ->
+
+    it 'works with top-level account_owner', ->
+      data = _.clone @data
+      data.account_owner = {
+        first_name:  faker.random.alpha(35),
+        middle_name: faker.random.alpha(35),
+        last_name:   faker.random.alpha(35)
+      }
+
+      assert.equal true, @transaction.setData(data).isValid()
+
+    it 'works with top-level account_owner using documented values', ->
+      data = _.clone @data
+      data.account_owner = {
+        first_name:  'Travis',
+        middle_name: 'Joe',
+        last_name:   'Pastrana'
+      }
+
+      assert.equal true, @transaction.setData(data).isValid()
+
+    it 'fails when account_owner first_name exceeds 35 characters', ->
+      data = _.clone @data
+      data.account_owner = {
+        first_name:  faker.random.alpha(36),
+        middle_name: 'Joe',
+        last_name:   'Pastrana'
+      }
+
+      assert.equal false, @transaction.setData(data).isValid()
+
+    it 'fails when account_owner is nested inside a transaction_type', ->
+      data = _.clone @data
+      data.transaction_types = [
+        {
+          sale: {
+            account_owner: {
+              first_name: 'John'
+            }
+          }
+        }
+      ]
+
+      assert.equal false, @transaction.setData(data).isValid()
+
+  context 'with billing_address.street_name', ->
+
+    it 'works when street_name is set', ->
+      data                 = _.clone @data
+      data.billing_address =
+        first_name:  faker.name.firstName()
+        last_name:   faker.name.lastName()
+        country:     faker.address.countryCode()
+        street_name: faker.random.alpha(10)
+
+      assert.equal true, @transaction.setData(data).isValid()
+
+    it 'works when street_name is omitted', ->
+      data = _.clone @data
+
+      assert.equal true, @transaction.setData(data).isValid()
+
+    it 'serializes street_name as a child of billing_address', ->
+      street_name          = faker.random.alpha(10)
+      data                 = _.clone @data
+      data.billing_address =
+        first_name:  faker.name.firstName()
+        last_name:   faker.name.lastName()
+        country:     faker.address.countryCode()
+        street_name: street_name
+
+      @transaction.setData(data)
+      trx = @transaction.getTrxData()
+
+      assert.equal trx.wpf_payment.billing_address.street_name, street_name
+
 
   BusinessAttributes()
   DigitalAssetTypes()

@@ -10,9 +10,10 @@ class Sale extends CardBase
     TransactionTypes.SALE
 
   getTrxData: ->
-    travelData = new TravelData(@params)
+    outboundParams = @getOutboundParams()
+    travelData = new TravelData(outboundParams)
     travelData.parseTravelData()
 
-    super()
+    super(outboundParams)
 
 module.exports = Sale

@@ -29,6 +29,9 @@
         "neighborhood": {
           "$ref": "#neighborhood"
         },
+        "street_name": {
+          "$ref": "#street_name"
+        },
         "country": {
           "$ref": "/definitions/country"
         },
@@ -123,6 +126,12 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "type": "string",
       "title": "Neighborhood"
+    },
+    "street_name": {
+      "$id": "#street_name",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "string",
+      "title": "Street Name"
     },
     "state": {
       "$id": "#state",

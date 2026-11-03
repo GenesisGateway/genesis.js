@@ -16,6 +16,8 @@ class FakeConfig
         faker.random.alpha(40)
       'token':
         faker.random.alpha(40)
+      'billing_api_token':
+        faker.random.alpha(40)
       'force_smart_routing':
         false
     'gateway':

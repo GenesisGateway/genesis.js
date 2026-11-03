@@ -9,14 +9,12 @@ class GooglePay extends FinancialBase
     TransactionTypes.GOOGLE_PAY
 
   getTrxData: ->
-    super()
-    'payment_transaction':
-      _.extend(
-        @params,
-        {
-          'payment_token':
-            JSON.stringify(@params['payment_token'])
-        }
-      )
+    trxData = super()
+
+    trxData.payment_transaction.payment_token = JSON.stringify(
+      trxData.payment_transaction.payment_token
+    )
+
+    trxData
 
 module.exports = GooglePay

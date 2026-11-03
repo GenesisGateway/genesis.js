@@ -144,4 +144,60 @@ ManagedRecurring = () ->
 
         assert.isTrue @transaction.setData(data).isValid()
 
+    context 'with amount conversion', ->
+
+      getConversionData = (data) ->
+        conversionData = _.clone data
+        conversionData.amount = 123.45
+        conversionData.currency = 'EUR'
+        conversionData.managed_recurring =
+          mode: 'manual'
+          payment_type: 'subsequent'
+          amount_type: 'fixed'
+          frequency: 'weekly'
+          registration_reference_number: '123456'
+          max_amount: 56.78
+          max_count: 5
+          validated: true
+          amount: 12.34
+
+        conversionData
+
+      it 'converts decimal managed_recurring amounts to minor units in outbound data', ->
+        data = getConversionData @data
+        transaction = @transaction.setData(data)
+
+        expect(transaction.isValid()).to.equal true
+        trx = transaction.getTrxData()
+        managedRecurring = trx.payment_transaction.managed_recurring
+        expect(managedRecurring.amount).to.equal '1234'
+        expect(managedRecurring.max_amount).to.equal '5678'
+
+      it 'leaves the original managed_recurring amounts unchanged after formatting', ->
+        data = getConversionData @data
+        transaction = @transaction.setData(data)
+
+        expect(transaction.isValid()).to.equal true
+        transaction.getTrxData()
+        expect(data.managed_recurring.amount).to.equal 12.34
+        expect(data.managed_recurring.max_amount).to.equal 56.78
+
+      it 'converts managed_recurring amounts identically on repeated builds', ->
+        data = getConversionData @data
+        transaction = @transaction.setData(data)
+
+        expect(transaction.isValid()).to.equal true
+        firstTrx = transaction.getTrxData()
+        secondTrx = transaction.getTrxData()
+        firstArguments = transaction.getArguments()
+        secondArguments = transaction.getArguments()
+
+        for trx in [firstTrx, secondTrx, firstArguments.trx, secondArguments.trx]
+          managedRecurring = trx.payment_transaction.managed_recurring
+          expect(managedRecurring.amount).to.equal '1234'
+          expect(managedRecurring.max_amount).to.equal '5678'
+
+        expect(data.managed_recurring.amount).to.equal 12.34
+        expect(data.managed_recurring.max_amount).to.equal 56.78
+
 module.exports = ManagedRecurring

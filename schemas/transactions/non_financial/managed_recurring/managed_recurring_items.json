@@ -1,0 +1,8 @@
+{
+  "$id": "https://genesis.js/managed_recurring_items",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Fetch all active managed recurring items for a merchant.",
+  "properties": {}
+}

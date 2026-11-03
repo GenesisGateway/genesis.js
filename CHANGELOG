@@ -1,3 +1,21 @@
+3.4.0
+-----
+* Added GraphQL request builder and Billing API base request with Bearer token authentication
+* Added `billing_api_token` configuration option
+* Added Managed Recurring API support
+* Added KYC Create Business request support
+* Added business parameter support to KYC Create Verification request
+* Added Money Transfer payout attributes to Payout request
+* Added Account Name Inquiry parameters support
+* Added Marketplace Foreign Retailer data support
+* Added `force_threeds` parameter support to 3DS and mobile transaction requests
+* Added `street_name` billing address parameter support to Web Payment Form
+* Added `scheme_tokenized` parameter support to Web Payment Form
+* Changed `Request#send` to always return a promise; synchronous request building errors are now returned as rejections
+* Removed `directory_server_id` condition
+* Fixed missing custom validation error messages after configuration schema validation
+* Restructured directory of schema JSON files
+
 3.3.9
 -----
 * Added Update Payee and Update Payee Account request support

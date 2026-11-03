@@ -10,10 +10,11 @@ class Sale3d extends CardBase
     TransactionTypes.SALE_3D
 
   getTrxData: ->
-    travelData = new TravelData(@params)
+    outboundParams = @getOutboundParams()
+    travelData = new TravelData(outboundParams)
     travelData.parseTravelData()
 
-    super()
+    super(outboundParams)
 
 
 module.exports = Sale3d

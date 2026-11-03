@@ -25,36 +25,16 @@
         "token": {
           "type": "string"
         },
+        "billing_api_token": {
+          "type": "string"
+        },
         "force_smart_routing": {
           "type": "boolean"
         }
       }
     },
     "gateway": {
-      "type": "object",
-      "required": [
-        "hostname",
-        "testing"
-      ],
-      "properties": {
-        "protocol": {
-          "type": "string",
-          "default": "https"
-        },
-        "hostname": {
-          "type": "string",
-          "enum": ["emerchantpay.net", "e-comprocessing.net"],
-          "minLength": 1
-        },
-        "timeout": {
-          "type": "string",
-          "default": "60000"
-        },
-        "testing": {
-          "type": "boolean",
-          "minLength": 1
-        }
-      }
+      "$ref": "/definitions/config/gateway"
     },
     "notifications": {
       "type": "object",

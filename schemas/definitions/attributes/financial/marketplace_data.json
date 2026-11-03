@@ -1,0 +1,23 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/financial/marketplace_data",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "foreign_retailer_indicator": {
+      "title": "Foreign Retailer Indicator",
+      "description": "Indicates the transaction involves a foreign retailer. Only accepted value is 'F'. Supported only for Visa transactions with MCC 5262.",
+      "type": "string",
+      "enum": ["F"]
+    },
+    "foreign_retailer_transaction_amount": {
+      "title": "Foreign Retailer Transaction Amount",
+      "description": "Portion of the transaction amount attributed to foreign retailers. Callers provide a numeric amount in major currency units; the SDK serializes it in minor currency units.",
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "dependencies": {
+    "foreign_retailer_transaction_amount": ["foreign_retailer_indicator"]
+  }
+}

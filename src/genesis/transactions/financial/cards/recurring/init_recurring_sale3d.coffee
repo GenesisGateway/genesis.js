@@ -10,9 +10,10 @@ class InitRecurringSale3d extends CardBase
     TransactionTypes.INIT_RECURRING_SALE_3D
 
   getTrxData: ->
-    travelData = new TravelData(@params)
+    outboundParams = @getOutboundParams()
+    travelData = new TravelData(outboundParams)
     travelData.parseTravelData()
 
-    super()
+    super(outboundParams)
 
 module.exports = InitRecurringSale3d

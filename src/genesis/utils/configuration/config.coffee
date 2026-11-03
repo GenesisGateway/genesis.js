@@ -9,7 +9,7 @@ class Config
   # Manual configuration identifier
   MANUAL: 'manual'
   # Version configuration identifier
-  VERSION: '3.3.9'
+  VERSION: '3.4.0'
 
   constructor: (@configuration) ->
     @initConfig()
@@ -49,6 +49,9 @@ class Config
 
   getCustomerForceSmartRouter: ->
     @getConfig().customer.force_smart_routing || false
+
+  getBillingApiToken: ->
+    @getConfig().customer.billing_api_token
 
   getGatewayProtocol: () ->
     @getConfig().gateway.protocol || 'https'

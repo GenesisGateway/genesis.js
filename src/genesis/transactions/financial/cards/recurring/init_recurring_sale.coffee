@@ -10,9 +10,10 @@ class InitRecurringSale extends CardBase
     TransactionTypes.INIT_RECURRING_SALE
 
   getTrxData: ->
-    travelData = new TravelData(@params)
+    outboundParams = @getOutboundParams()
+    travelData = new TravelData(outboundParams)
     travelData.parseTravelData()
 
-    super()
+    super(outboundParams)
 
 module.exports = InitRecurringSale

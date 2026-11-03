@@ -45,14 +45,14 @@ ThreeDBase = () ->
 
     assert.equal false, @transaction.setData(data).isValid()
 
-  it 'fails when is 3DSv2 without directory_server_id', ->
+  it 'works with 3DSv2 without directory_server_id', ->
     data = _.clone @data
     data['mpi_params'] = {
       'eci': faker.datatype.number().toString()
       'protocol_version': "2"
     }
 
-    assert.equal false, @transaction.setData(data).isValid()
+    assert.equal true, @transaction.setData(data).isValid()
 
   it 'works with 3DSv2 and directory_server_id', ->
     data = _.clone @data

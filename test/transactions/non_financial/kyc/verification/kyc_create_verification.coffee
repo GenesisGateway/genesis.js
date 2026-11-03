@@ -77,6 +77,10 @@ describe 'KYC Create Verification Request', ->
         allow_offline:                 faker.datatype.boolean()
         allow_online:                  faker.datatype.boolean()
       }
+      business: {
+        name:                          faker.company.companyName()
+        incorporation_date:            '2020-01-15'
+      }
     }
 
     @transaction = new Transaction(@data, FakeConfig.getConfig())
@@ -116,6 +120,18 @@ describe 'KYC Create Verification Request', ->
       @data.verification_mode = "invalid_value"
       assert.isNotTrue @transaction.setData(@data).isValid()
 
+    it 'fails with business object missing name', ->
+      delete @data.business.name
+      assert.isNotTrue @transaction.setData(@data).isValid()
+
+    it 'fails with additional business element', ->
+      @data.business.unknown_property = 'invalid'
+      assert.isNotTrue @transaction.setData(@data).isValid()
+
+    it 'fails with invalid business incorporation_date format', ->
+      @data.business.incorporation_date = '15-01-2020'
+      assert.isNotTrue @transaction.setData(@data).isValid()
+
   context 'when valid request', ->
     it 'when builds request', ->
       assert.isTrue @transaction.isValid()
@@ -131,4 +147,15 @@ describe 'KYC Create Verification Request', ->
 
     it 'works with empty expiry_date parameter', ->
       @data.expiry_date = ''
+      assert.isTrue @transaction.setData(@data).isValid()
+
+    it 'works with business containing name and incorporation_date', ->
+      assert.isTrue @transaction.setData(@data).isValid()
+
+    it 'works with business containing only name', ->
+      delete @data.business.incorporation_date
+      assert.isTrue @transaction.setData(@data).isValid()
+
+    it 'works without business object', ->
+      delete @data.business
       assert.isTrue @transaction.setData(@data).isValid()

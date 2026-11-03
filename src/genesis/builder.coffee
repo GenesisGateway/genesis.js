@@ -1,7 +1,8 @@
-Xml   = require './builders/xml'
-Form  = require './builders/form'
-Json  = require './builders/json'
-Patch = require './builders/patch'
+Xml     = require './builders/xml'
+Form    = require './builders/form'
+Json    = require './builders/json'
+Patch   = require './builders/patch'
+Graphql = require './builders/graphql'
 
 class Builder
   # XML Builder Identifier
@@ -16,6 +17,9 @@ class Builder
   # JSON PATCH Builder Identifier
   PATCH: 'patch'
 
+  # GraphQL Builder Identifier
+  GRAPHQL: 'graphql'
+
   constructor: (builderInterface) ->
     switch builderInterface
       when @XML
@@ -26,6 +30,8 @@ class Builder
         @context = new Json()
       when @PATCH
         @context = new Patch()
+      when @GRAPHQL
+        @context = new Graphql()
       else
         @context = null
 

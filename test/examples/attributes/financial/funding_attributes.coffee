@@ -26,6 +26,11 @@ FundingAttributes = () ->
 
       assert.isNotTrue @transaction.setData(@fundingData).isValid()
 
+    it 'fail with invalid receiver zip_code', ->
+      @fundingData.funding.receiver.zip_code = 1234
+
+      assert.isNotTrue @transaction.setData(@fundingData).isValid()
+
     it 'fail when funding node with additional properties', ->
       @fundingData.funding.element = 'value'
 

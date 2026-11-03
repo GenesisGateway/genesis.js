@@ -4,6 +4,9 @@ Request    = require path.resolve './src/genesis/request'
 Network    = require '../src/genesis/networks/axios_api'
 Promise    = require 'bluebird'
 Validator  = require '../src/genesis/transactions/validator'
+Config     = require path.resolve './src/genesis/utils/configuration/config'
+FakeData   = require './transactions/fake_data'
+Authorize  = require path.resolve './src/genesis/transactions/financial/cards/authorize'
 
 describe 'Request', ->
 
@@ -97,6 +100,20 @@ describe 'Request', ->
     expect(@request.initConfiguration()).to.have.nested.property('timeout')
     expect(@request.initConfiguration().headers).to.not.have.nested.property('Content-Type')
 
+  it 'when Delete interface load Proper builder', ->
+    @request = new Request(@params, @config, 'delete')
+
+    expect(@request.initConfiguration()).to.have.nested.property('method')
+    assert.equal @request.initConfiguration().method, 'DELETE'
+    expect(@request.initConfiguration()).to.have.nested.property('headers')
+    expect(@request.initConfiguration()).to.have.nested.property('timeout')
+    expect(@request.initConfiguration().headers).to.not.have.nested.property('Content-Type')
+
+  it 'when Delete interface yields empty document', ->
+    Builder = require '../src/genesis/builder'
+
+    assert.equal new Builder('delete').getDocument({ foo: 'bar' }), ''
+
   it 'when validate request with invalid params', ->
     assert.isNotTrue @request.isValid()
 
@@ -189,3 +206,73 @@ describe 'Request', ->
     credentials = "#{@config.getCustomerUsername()}:#{@config.getCustomerPassword()}"
 
     assert.equal @request.getAuthorizationHeader(), "Basic #{Buffer.from(credentials).toString('base64')}"
+
+  it 'when GraphQL interface load Proper builder', ->
+    @request = new Request(@params, @config, 'graphql')
+
+    expect(@request.initConfiguration()).to.have.nested.property('method')
+    assert.equal @request.initConfiguration().method, 'POST'
+    expect(@request.initConfiguration()).to.have.nested.property('headers')
+    expect(@request.initConfiguration()).to.have.nested.property('timeout')
+    assert.equal @request.initConfiguration().headers['Content-Type'], 'application/graphql'
+    assert.equal @request.initConfiguration().headers['Accept'], 'application/json'
+
+  it 'when send rejects instead of throwing if the builder throws', ->
+    sinon.stub(Request.prototype, 'isValid').returns(true)
+    builderError = new Error('Builder failure')
+    sinon.stub(@request.builderContext, 'getDocument').throws(builderError)
+    networkSend = sinon.spy(@request.network, 'send')
+
+    result = @request.send()
+
+    assert.isFunction result.then
+    result
+      .then(-> throw Error('Test case do not expect a resolved promise!'))
+      .catch((error) ->
+        assert.strictEqual error, builderError
+        assert.isTrue networkSend.notCalled
+      )
+
+  it 'when send rejects with INVALID_INPUT for an invalid request', ->
+    networkSend = sinon.spy(@request.network, 'send')
+
+    @request.send()
+      .then(-> throw Error('Test case do not expect a resolved promise!'))
+      .catch((error) ->
+        assert.equal error.status, 'INVALID_INPUT'
+        assert.isTrue networkSend.notCalled
+      )
+
+  context 'Validator', ->
+    it 'accepts a legacy configuration with an empty billing_api_token', ->
+      configData = FakeConfig.getConfigData()
+      configData.customer.billing_api_token = ''
+      request = new Request({}, new Config(configData))
+
+      assert.isTrue request.validator.isValidConfig()
+
+    it 'rejects an invalid gateway hostname through the shared gateway definition', ->
+      configData = FakeConfig.getConfigData()
+      configData.gateway.hostname = 'example.com'
+      request = new Request({}, new Config(configData))
+
+      assert.isFalse request.validator.isValidConfig()
+      messages = (error.message for error in request.getErrors())
+      assert.isTrue(
+        messages.some((message) ->
+          message.includes('Allowed values are emerchantpay.net, e-comprocessing.net')
+        )
+      )
+
+    it 'resolves transaction error messages against the transaction schema', ->
+      data = (new FakeData).getData()
+      data.token = 'consumer-token'
+      transaction = new Authorize(data, FakeConfig.getConfig())
+
+      assert.isFalse transaction.isValid()
+      messages = (error.message for error in transaction.getErrors())
+      assert.isTrue(
+        messages.some((message) ->
+          message.includes('Only one of the following parameters can exists in the request')
+        )
+      )

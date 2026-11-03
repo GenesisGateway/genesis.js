@@ -1,0 +1,170 @@
+{
+  "$id": "https://genesis.js/definitions/attributes/financial/money_transfer_payout_attributes",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "sender_account_number", "sender_address"],
+  "properties": {
+    "type": {
+      "description": "Type of Money Transfer.",
+      "type": "string",
+      "enum": [
+        "account_to_account",
+        "person_to_person",
+        "wallet_transfer",
+        "funds_transfer",
+        "liquid_assets",
+        "merchant_settlement",
+        "own_account",
+        "own_credit_card_bill",
+        "business_disbursement",
+        "government_or_non_profit_disbursement",
+        "general_business_to_business"
+      ]
+    },
+    "sender_account_number": {
+      "description": "Sender account number.",
+      "type": "string",
+      "maxLength": 33
+    },
+    "sender_birth_date": {
+      "$ref": "/definitions/definitions#birth_date"
+    },
+    "service_provider_name": {
+      "description": "Service provider name.",
+      "type": "string",
+      "maxLength": 25,
+      "pattern": "^[a-zA-Z0-9 ]*$"
+    },
+    "sender_account_number_type": {
+      "description": "Sender account number type.",
+      "type": "string",
+      "maxLength": 34,
+      "enum": [
+        "rtn_and_bank_account_number",
+        "iban",
+        "card_account",
+        "email",
+        "phone_number",
+        "bank_account_number_and_bic",
+        "wallet_id",
+        "social_network_id",
+        "other"
+      ]
+    },
+    "purpose_of_payment": {
+      "description": "Purpose of payment.",
+      "type": "string",
+      "enum": [
+        "family_support",
+        "regular_labor_transfers",
+        "travel_and_tourism",
+        "education",
+        "hospitalization_and_medical_treatment",
+        "emergency_need",
+        "savings",
+        "gifts",
+        "salary",
+        "crowd_lending",
+        "crypto_currency",
+        "refund_to_original_card",
+        "refund_to_new_card",
+        "same_digital_wallet_transfer_to_person_org",
+        "boleto_payment",
+        "high_risk_securities",
+        "recycling_deposit",
+        "vat_payment",
+        "other"
+      ]
+    },
+    "source_of_funds": {
+      "description": "Source of funds.",
+      "type": "string",
+      "enum": [
+        "credit",
+        "debit",
+        "prepaid",
+        "cash",
+        "deposit_account"
+      ]
+    },
+    "sender_address": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["first_name", "last_name", "country", "city", "zip_code", "address1"],
+      "properties": {
+        "first_name": {
+          "description": "Sender first name",
+          "type": "string",
+          "maxLength": 255
+        },
+        "last_name": {
+          "description": "Sender last name",
+          "type": "string",
+          "maxLength": 255
+        },
+        "country": {
+          "$ref": "/definitions/country"
+        },
+        "city": {
+          "description": "Sender city",
+          "type": "string",
+          "maxLength": 255
+        },
+        "zip_code": {
+          "description": "Sender zip code",
+          "type": "string"
+        },
+        "address1": {
+          "description": "Sender Primary address",
+          "type": "string",
+          "maxLength": 255
+        },
+        "state": {
+          "description": "Sender state",
+          "type": "string",
+          "maxLength": 2
+        }
+      }
+    },
+    "receiver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["first_name", "last_name"],
+      "properties": {
+        "first_name": {
+          "description": "First name of the receiver. Combination of first and last name should not exceed 30 chars",
+          "type": "string"
+        },
+        "last_name": {
+          "description": "Last name of the receiver. Combination of first and last name should not exceed 30 chars",
+          "type": "string",
+          "maxLength": 30
+        },
+        "country": {
+          "$ref": "/definitions/country"
+        },
+        "city": {
+          "description": "City of the receiver.",
+          "type": "string",
+          "maxLength": 15
+        },
+        "state": {
+          "description": "State of the receiver.",
+          "type": "string",
+          "maxLength": 3
+        },
+        "zip_code": {
+          "description": "Zip code of the receiver.",
+          "type": "string",
+          "maxLength": 10
+        },
+        "address1": {
+          "description": "Address of the receiver.",
+          "type": "string",
+          "maxLength": 25
+        }
+      }
+    }
+  }
+}

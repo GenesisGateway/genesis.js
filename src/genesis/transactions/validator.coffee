@@ -20,8 +20,9 @@ THE SOFTWARE.
 @license http://opensource.org/licenses/MIT The MIT License
 ###
 
-ajv = require 'ajv'
-_   = require 'underscore'
+ajv          = require 'ajv'
+_            = require 'underscore'
+SchemaLoader = require './schema_loader'
 
 # Request Validator module
 class Validator
@@ -33,78 +34,18 @@ class Validator
 
     @ajv = new ajv allErrors: true
 
-    # load definitions schema
-    @ajv.addSchema(require '../../../schemas/definitions/definitions.json' )
-    @ajv.addSchema(require '../../../schemas/definitions/country.json')
-    @ajv.addSchema(require '../../../schemas/definitions/currency.json')
-    @ajv.addSchema(require '../../../schemas/definitions/i18n.json')
-
-    # Attributes
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/business_attributes.json' )
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/sca_params.json')
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/threeds/v1/threeds_v1.json')
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/threeds/v2/threeds_v2.json')
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/threeds/v1/mpi_params.json')
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/wpf/transaction_types.json')
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/common.json')
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/payment.json')
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/tokenization.json')
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/customer/address.json')
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/recurring/managed_recurring.json'
-    )
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/risk_attributes.json')
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/financial/dynamic_descriptor_params.json'
-    )
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/travel_data/' +
-      'travel_data_attributes.json')
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/cof_attributes.json')
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/financial/funding_attributes.json'
-    )
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/financial/account_owner_attributes.json'
-    )
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/tokenization/tokenization_attributes.json'
-    )
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/kyc/customer_information.json'
-    )
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/kyc/common.json'
-    )
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/financial/installment_attributes.json'
-    )
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/financial/purpose_of_payment.json'
-    )
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/' +
-      'dynamic_descriptor_merchant_name.json')
-    @ajv.addSchema(require '../../../schemas/definitions/attributes/financial/' +
-        'dynamic_descriptor_merchant_name_sdd.json')
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/financial/tokenization_params.json'
-    )
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/digital_asset_types.json'
-    )
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/financial/crypto/bitpay/country.json'
-    )
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/financial/crypto/bitpay/currency.json'
-    )
-    @ajv.addSchema(
-      require '../../../schemas/definitions/attributes/financial/id_type.json'
-    )
+    # Register all definitions/attributes schemas so $ref resolution succeeds.
+    # The autoloader walks schemas/definitions/ recursively, so schemas added
+    # elsewhere (e.g. definitions/config/gateway.json, financial/marketplace_data.json)
+    # are registered too.
+    SchemaLoader.registerDefinitions(@ajv)
 
   # Compare the specific transaction schema against the request parameters
   isValid: () ->
+    # Error messages must be resolved against the transaction schema, not the config one
+    @isConfigSchema = false
     try
-      @schema = require '../../../schemas/' + @trx.getTransactionType() + '.json'
+      @schema = SchemaLoader.loadTransactionSchema @trx.getTransactionType()
     catch error
       @addError
         message:
@@ -115,8 +56,23 @@ class Validator
 
   isValidConfig: () ->
     @isConfigSchema = true
+    @configSchemaName = 'config'
     try
       @schema = require '../../../schemas/config/config.json'
+    catch error
+      @addError
+        message:
+          'JSON schema not found for this request'
+      return false
+
+    @ajv.validate @schema, @trx.configuration.getConfig()
+
+  # Validate configuration for Bearer-authenticated GraphQL requests
+  isValidGraphqlConfig: () ->
+    @isConfigSchema = true
+    @configSchemaName = 'graphql_config'
+    try
+      @schema = require '../../../schemas/config/graphql_config.json'
     catch error
       @addError
         message:
@@ -194,7 +150,7 @@ class Validator
   getRequiredErrorMessageSuffix: (error) ->
     suffix    = ''
     refSchema = @getRefErrorSchema(error)
-    schema    = @ajv.getSchema("#{@baseUrl}#{@trx.getTransactionType()}")
+    schema    = @switchSchema()
 
     ref = if refSchema then refSchema.split('#')
     ref = if ref[1] then ref[1].split('/') else ref
@@ -236,7 +192,7 @@ class Validator
 
   switchSchema: () ->
     if @isConfigSchema == true
-      @ajv.getSchema("#{@baseUrl}config")
+      @ajv.getSchema("#{@baseUrl}#{@configSchemaName}")
     else
       @ajv.getSchema("#{@baseUrl}#{@trx.getTransactionType()}")
 
@@ -301,7 +257,7 @@ class Validator
   getRefErrorSchema: (error) ->
     refPath = error.schemaPath.split('#')
     if _.isEmpty(refPath[0])
-      refPath[0] = @trx.getTransactionType()
+      refPath[0] = if @isConfigSchema then @configSchemaName else @trx.getTransactionType()
 
     ref = if refPath[0].startsWith('/') then refPath[0].substring(1) else refPath[0]
     if refPath[1]

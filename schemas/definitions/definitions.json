@@ -263,6 +263,11 @@
       "type": "boolean",
       "description": "Force Smart Router endpoint for Financial transactions"
     },
+    "force_threeds": {
+      "$id": "#force_threeds",
+      "type": "boolean",
+      "description": "Set to true in order to force 3DSv2 authentication in case no 3DSv2 params are sent"
+    },
     "consumer_reference": {
       "$id": "#consumer_reference",
       "maxLength": 20,

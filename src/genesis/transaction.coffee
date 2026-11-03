@@ -225,6 +225,8 @@ KycVerificationRemoteIdentity =
   require './transactions/non_financial/kyc/verification/kyc_verification_remote_identity'
 KycCpf                        = require './transactions/non_financial/kyc/cpf/kyc_cpf'
 KycCnpj                       = require './transactions/non_financial/kyc/cnpj/kyc_cnpj'
+KycCreateBusiness             =
+  require './transactions/non_financial/kyc/business/kyc_create_business'
 
 ###
   SCA
@@ -236,6 +238,13 @@ ScaChecker = require './transactions/non_financial/sca/checker'
 ###
 InstallmentsFetch       = require './transactions/non_financial/installments/fetch'
 InstallmentsShowDetails = require './transactions/non_financial/installments/show_details'
+
+###
+  Managed Recurring
+###
+ManagedRecurringItems  = require './transactions/non_financial/managed_recurring/items'
+ManagedRecurringItem   = require './transactions/non_financial/managed_recurring/item'
+ManagedRecurringCancel = require './transactions/non_financial/managed_recurring/cancel'
 
 ###
   Crypto
@@ -700,6 +709,9 @@ class Transaction
   kyc_cnpj: (params) ->
     new KycCnpj(params, @config)
 
+  kyc_create_business: (params) ->
+    new KycCreateBusiness(params, @config)
+
   kyc_create_verification: (params) ->
     new KycCreateVerification(params, @config)
 
@@ -726,6 +738,18 @@ class Transaction
 
   installments_show_details: (params) ->
     new InstallmentsShowDetails(params, @config)
+
+  ###
+    Managed Recurring
+  ###
+  managed_recurring_items: (params) ->
+    new ManagedRecurringItems(params, @config)
+
+  managed_recurring_item: (params) ->
+    new ManagedRecurringItem(params, @config)
+
+  managed_recurring_cancel: (params) ->
+    new ManagedRecurringCancel(params, @config)
 
   ###
     Crypto

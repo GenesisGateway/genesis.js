@@ -4,6 +4,7 @@ _     = require 'underscore'
 
 
 AccountOwnerAttributes        = require '../../../examples/attributes/financial/account_owner_attributes'
+AmountConversion              = require '../../../examples/attributes/financial/amount_conversion'
 BusinessAttributes            = require '../../business_attributes'
 CardBase                      = require './card_base'
 CredentialOnFile              = require '../../../examples/attributes/credential_on_file'
@@ -17,6 +18,7 @@ FakeData                      = require '../../fake_data'
 FundingAttributes             = require '../../../examples/attributes/financial/funding_attributes'
 Gaming                        = require '../../../examples/attributes/financial/gaming'
 ManagedRecurring              = require '../../../examples/attributes/financial/recurring/managed_recurring'
+MarketplaceData               = require '../../../examples/attributes/financial/marketplace_data'
 Moto                          = require '../../../examples/attributes/financial/moto'
 RecurringType                 = require '../../../examples/attributes/financial/recurring_type'
 RiskParams                    = require '../../../examples/attributes/risk_params'
@@ -53,6 +55,8 @@ describe 'Sale Transaction', ->
   TravelData()
   CSEncription()
   FundingAttributes()
+  MarketplaceData()
+  AmountConversion()
   AccountOwnerAttributes()
   SubsequentRecurringAttributes()
   SchemeTokenized

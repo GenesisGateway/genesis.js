@@ -7,3 +7,5 @@ spec/
 src/**/*.js
 mocha_report.xml
 coffeelint_report.xml
+tmp-manual-tests/
+.agents/

@@ -1,0 +1,26 @@
+{
+  "$id": "https://genesis.js/graphql_config",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "customer",
+    "gateway"
+  ],
+  "properties": {
+    "customer": {
+      "type": "object",
+      "required": [
+        "billing_api_token"
+      ],
+      "properties": {
+        "billing_api_token": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "gateway": {
+      "$ref": "/definitions/config/gateway"
+    }
+  }
+}

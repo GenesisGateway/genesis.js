@@ -15,6 +15,7 @@ Gaming                        = require '../../../examples/attributes/financial/
 Moto                          = require '../../../examples/attributes/financial/moto'
 Transaction                   = require path.resolve './src/genesis/transactions/financial/cards/payout'
 UcofExamples                  = require '../../../examples/attributes/ucof'
+MoneyTransferPayoutAttributes = require '../../../examples/attributes/financial/money_transfer_payout_attributes'
 PurposeOfPayment              = require '../../../examples/attributes/financial/purpose_of_payment'
 
 describe 'Payout Transaction', ->
@@ -35,3 +36,4 @@ describe 'Payout Transaction', ->
   AccountOwnerAttributes()
   UcofExamples()
   PurposeOfPayment()
+  MoneyTransferPayoutAttributes()

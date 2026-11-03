@@ -1,0 +1,32 @@
+{
+  "$id": "https://genesis.js/definitions/config/gateway",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Gateway configuration shared by the config and graphql_config schemas",
+  "type": "object",
+  "required": [
+    "hostname",
+    "testing"
+  ],
+  "properties": {
+    "protocol": {
+      "type": "string",
+      "default": "https"
+    },
+    "hostname": {
+      "type": "string",
+      "enum": [
+        "emerchantpay.net",
+        "e-comprocessing.net"
+      ],
+      "minLength": 1
+    },
+    "timeout": {
+      "type": "string",
+      "default": "60000"
+    },
+    "testing": {
+      "type": "boolean",
+      "minLength": 1
+    }
+  }
+}

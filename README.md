@@ -15,7 +15,7 @@ Client Library for processing payments through Genesis Payment Processing Gatewa
 Requirements
 ------------
 
-* node.js v8.16.2 or newer
+* node.js v20.0.0 or newer
 * npm
 
 
@@ -66,6 +66,7 @@ configuration = {
         "username"           : "<enter-your-username>"
         "password"           : "<enter-your-password>"
         "token"              : "<enter-your-token>"
+        "billing_api_token"  : "<enter-your-billing-api-token>"
         "force_smart_routing": false
     gateway :
         "protocol" : "https"
@@ -88,6 +89,7 @@ configuration = {
         "username"           : "<enter-your-username>",
         "password"           : "<enter-your-password>",
         "token"              : "<enter-your-token>",
+        "billing_api_token"  : "<enter-your-billing-api-token>",
         "force_smart_routing": false,
     },
     gateway : {
@@ -107,6 +109,8 @@ transaction = new genesis.transaction configuration
 ```
 _The minimum required parameters are customer and gateway. Within customer, the mandatory fields are username and password. For gateway, the required fields are hostname and testing.  
 If you choose to use file-based configuration instead of a configuration object, you won't need to inject anything into the Transaction class constructor._     
+
+_The `billing_api_token` is only needed for GraphQL-based Billing API requests. They authenticate with `Authorization: Bearer <billing_api_token>` and are sent with `Content-Type: application/graphql` (and `Accept: application/json`). For these requests the token is required and must not be empty; other requests ignore it._
 
 Sale Transaction
 ----------------
@@ -2150,6 +2154,173 @@ Upon received status >= 300 from the Gateway or upon invalid request the followi
 ```
 </details>
 
+Managed Recurring API
+---------------------
+
+The Managed Recurring API lets you list, fetch and cancel the managed recurring items (subscriptions) created by `init_recurring_sale` / `init_recurring_sale3d` transactions that carry a `managed_recurring` block. It exposes three operations on the `gate` endpoint:
+
+| Method | HTTP | Endpoint | Params |
+|--------|------|----------|--------|
+| `managed_recurring_items` | `GET` | `/v1/managed_recurring/items` | none |
+| `managed_recurring_item` | `GET` | `/v1/managed_recurring/items/:unique_id` | `unique_id` (string, required) |
+| `managed_recurring_cancel` | `DELETE` | `/v1/managed_recurring/items/:unique_id` | `unique_id` (string, required) |
+
+A successful `managed_recurring_cancel` returns `HTTP 204 No Content`, which resolves to an empty response object.
+
+Fetch all managed recurring items
+
+<details>
+<summary>JavaScript example</summary>
+
+```js
+var failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+transaction.managed_recurring_items()
+    .send()
+    .then(success)
+    .catch(failure);
+```
+</details>
+
+<details>
+<summary>CoffeeScript example</summary>
+
+```coffee
+genesis = require './lib/genesis.js'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+  console.log data
+
+transaction.managed_recurring_items()
+  .send()
+  .then(success)
+  .catch(failure)
+```
+</details>
+
+Fetch a single managed recurring item by `unique_id`
+
+<details>
+<summary>JavaScript example</summary>
+
+```js
+var failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+transaction.managed_recurring_item({
+    unique_id: '9ee21d5a35a3a08615b2082077a5f529'
+})
+    .send()
+    .then(success)
+    .catch(failure);
+```
+</details>
+
+<details>
+<summary>CoffeeScript example</summary>
+
+```coffee
+genesis = require './lib/genesis.js'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+  console.log data
+
+transaction.managed_recurring_item({
+  unique_id: '9ee21d5a35a3a08615b2082077a5f529'
+})
+  .send()
+  .then(success)
+  .catch(failure)
+```
+</details>
+
+Cancel a managed recurring item by `unique_id`
+
+<details>
+<summary>JavaScript example</summary>
+
+```js
+var failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    // On success the gateway responds with HTTP 204 No Content (empty body).
+    return console.log(data);
+};
+
+transaction.managed_recurring_cancel({
+    unique_id: '9ee21d5a35a3a08615b2082077a5f529'
+})
+    .send()
+    .then(success)
+    .catch(failure);
+```
+</details>
+
+<details>
+<summary>CoffeeScript example</summary>
+
+```coffee
+genesis = require './lib/genesis.js'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+  # On success the gateway responds with HTTP 204 No Content (empty body).
+  console.log data
+
+transaction.managed_recurring_cancel({
+  unique_id: '9ee21d5a35a3a08615b2082077a5f529'
+})
+  .send()
+  .then(success)
+  .catch(failure)
+```
+</details>
+
 Transaction Types
 -----------------
 
@@ -2380,6 +2551,13 @@ installments_fetch
 installments_show_details
 ```
 
+### Managed Recurring API service
+```text
+managed_recurring_items
+managed_recurring_item
+managed_recurring_cancel
+```
+
 ### Payee API services
 ```text
 create_payee
@@ -2477,24 +2655,39 @@ Web Payment Form Transaction Parameters
 In order to get a full list of required and optional parameters, please consult our API Documentation.
 
 ## Development
-Run Coffeelint
 
-```js
+The project is developed and tested with Node.js 20 or newer.
+
+Recommended local version:
+
+```bash
+nvm use 20
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run Coffeelint:
+
+```bash
 npm run styles
 ```
 
 Run mocha tests
 
-```js
+```bash
 npm test
 ```
 Build the project
 
-```js
+```bash
 npm run cake-build
 ```
 Watch changed files during development
 
-```js
+```bash
 npm run cake-watch
 ```

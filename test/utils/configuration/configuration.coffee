@@ -25,6 +25,7 @@ describe 'ManualConfiguration', ->
         "username"            : "username",
         "password"            : "password",
         "token"               : "token",
+        "billing_api_token"   : @configParams.customer.billing_api_token,
         "force_smart_routing" : false,
       },
       gateway       : {

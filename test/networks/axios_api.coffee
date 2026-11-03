@@ -41,6 +41,15 @@ describe 'Axios Network', ->
   it 'when response content type with axios headers', ->
     assert.equal @network.getResponseContentType(), 'text/xml'
 
+  it 'when response content type with axios headers but no content-type (HTTP 204)', ->
+    # A 204 No Content response (e.g. managed_recurring_cancel) carries no
+    # body and no Content-Type header, so AxiosHeaders#get returns undefined.
+    # The adapter must not throw and should return an empty string.
+    @network.responseHeaders = new AxiosHeaders({ property: 'value' })
+
+    assert.doesNotThrow => @network.getResponseContentType()
+    assert.equal @network.getResponseContentType(), ''
+
   it 'when response content type with default value', ->
     sinon.verifyAndRestore()
     @network = new AxiosNetwork()

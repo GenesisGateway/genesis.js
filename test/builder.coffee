@@ -3,6 +3,7 @@ Xml      = require '../src/genesis/builders/xml'
 Json     = require '../src/genesis/builders/json'
 Patch    = require '../src/genesis/builders/patch'
 Form     = require '../src/genesis/builders/form'
+Graphql  = require '../src/genesis/builders/graphql'
 
 context 'Request Builder', ->
   context 'when default builder', ->
@@ -54,3 +55,18 @@ context 'Request Builder', ->
 
     it 'with FORM document', ->
       assert.equal @builder.getDocument({ param1: 'value1' }), 'param1=value1'
+
+  context 'when GraphQL builder', ->
+    before ->
+      @builder = new Builder('graphql')
+
+    it 'with GraphQL builder context', ->
+      assert.isTrue @builder.context instanceof Graphql
+
+    it 'with GraphQL document', ->
+      structure =
+        myQuery:
+          filter: { name: "test" }
+          fields: ['id']
+
+      assert.equal @builder.getDocument(structure), new Graphql().buildStructure(structure)

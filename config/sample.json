@@ -3,6 +3,7 @@
     "username"	          : "<enter-your-username>",
     "password"	          : "<enter-your-password>",
     "token"		          : "<enter-your-token>",
+    "billing_api_token"   : "<enter-your-billing-api-token>",
     "force_smart_routing" : false
   },
   "gateway": {

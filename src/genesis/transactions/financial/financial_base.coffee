@@ -18,21 +18,34 @@ class FinancialBase extends Request
 
     app: 'gate', path: 'process', token: @configuration.getCustomerToken()
 
-  getTrxData: ->
+  getTrxData: (outboundParams = @getOutboundParams()) ->
     # Remove use_smart_router from parameters sent to the gateway
-    delete @params.use_smart_router if @params.use_smart_router
+    delete outboundParams.use_smart_router if outboundParams.use_smart_router
 
-    @formatAmount()
-    @formatManagedRecurringAmount()
+    @formatAmount(outboundParams)
+    @formatManagedRecurringAmount(outboundParams)
+    @formatMarketplaceDataAmount(outboundParams)
 
     'payment_transaction':
       _.extend(
-        @params,
+        outboundParams,
         {
           'transaction_type':
             this.getTransactionType()
         }
     )
+
+  getOutboundParams: ->
+    outboundParams = _.clone @params
+
+    if @params.travel
+      outboundParams.travel = _.clone @params.travel
+    if @params.managed_recurring
+      outboundParams.managed_recurring = _.clone @params.managed_recurring
+    if @params.marketplace_data
+      outboundParams.marketplace_data = _.clone @params.marketplace_data
+
+    outboundParams
 
   getData: () ->
     _.extend(
@@ -42,22 +55,36 @@ class FinancialBase extends Request
     )
 
   # Format the Amount into minor units
-  formatAmount: ->
+  formatAmount: (outboundParams) ->
     # convert amount to minor units
-    if @params.amount and @params.currency
-      @params.amount = @currency.convertToMinorUnits @params.amount, @params.currency
+    if outboundParams.amount and outboundParams.currency
+      outboundParams.amount = @currency.convertToMinorUnits(
+        outboundParams.amount, outboundParams.currency
+      )
 
   # Format the Managed Recurring Amount into minor units
-  formatManagedRecurringAmount: ->
-    if @params.managed_recurring and @params.currency
-      if @params.managed_recurring.amount
-        @params.managed_recurring.amount = @currency.convertToMinorUnits(
-          @params.managed_recurring.amount, @params.currency
+  formatManagedRecurringAmount: (outboundParams) ->
+    if outboundParams.managed_recurring and outboundParams.currency
+      if outboundParams.managed_recurring.amount
+        outboundParams.managed_recurring.amount = @currency.convertToMinorUnits(
+          outboundParams.managed_recurring.amount, outboundParams.currency
         )
-      if @params.managed_recurring.max_amount
-        @params.managed_recurring.max_amount = @currency.convertToMinorUnits(
-          @params.managed_recurring.max_amount, @params.currency
+      if outboundParams.managed_recurring.max_amount
+        outboundParams.managed_recurring.max_amount = @currency.convertToMinorUnits(
+          outboundParams.managed_recurring.max_amount, outboundParams.currency
         )
+
+  # Format the Marketplace Data Amount into minor units
+  formatMarketplaceDataAmount: (outboundParams) ->
+    marketplaceData = outboundParams.marketplace_data
+
+    if marketplaceData and outboundParams.currency and
+        Object.prototype.hasOwnProperty.call(
+          marketplaceData, 'foreign_retailer_transaction_amount'
+        )
+      marketplaceData.foreign_retailer_transaction_amount = @currency.convertToMinorUnits(
+        marketplaceData.foreign_retailer_transaction_amount, outboundParams.currency
+      )
 
   # Format Color Depth with correct value
   formatThreedsV2ColorDepth: ->

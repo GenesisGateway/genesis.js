@@ -11,10 +11,11 @@ Validator = require './transactions/validator'
 ###
 class Request
 
-  METHOD_POST  : 'POST'
-  METHOD_PUT   : 'PUT'
-  METHOD_GET   : 'GET'
-  METHOD_PATCH : 'PATCH'
+  METHOD_POST   : 'POST'
+  METHOD_PUT    : 'PUT'
+  METHOD_GET    : 'GET'
+  METHOD_PATCH  : 'PATCH'
+  METHOD_DELETE : 'DELETE'
 
   constructor: (@params, configuration, builderInterface = 'xml') ->
     @builderInterface = builderInterface
@@ -64,6 +65,8 @@ class Request
       when @builderContext.FORM then @initFormConfiguration()
       when @builderContext.JSON then @initJsonConfiguration()
       when @builderContext.PATCH then @initJsonPatchConfiguration()
+      when @builderContext.GRAPHQL then @initGraphqlConfiguration()
+      when 'delete' then @initDeleteConfiguration()
       else @initGetConfiguration()
 
   # Format and return the endpoint URL based on the transaction parameters
@@ -75,14 +78,21 @@ class Request
     , if params.token? then "#{params.path}/#{params.token}" else params.path
 
   # Send the Request to the Gateway
+  # Always returns a promise: synchronous errors (builder, getUrl, formatUrl) become rejections
   send: () ->
-    if !@isValid()
-      return Promise.reject @getValidationErrorResponse()
+    Promise.try =>
+      if !@isValid()
+        return Promise.reject @getValidationErrorResponse()
 
-    params = @getArguments()
+      params = @getArguments()
 
-    @network.prepareConfig @initConfiguration()
-    @network.send @formatUrl(params.url), @builderContext.getDocument(params.trx)
+      @network.prepareConfig @initConfiguration()
+      @network.send @formatUrl(params.url), @getRequestBody(params.trx)
+
+  # Serialize the transaction data into the request body
+  # Subclasses may override it to dispatch an already built document
+  getRequestBody: (trx) ->
+    @builderContext.getDocument(trx)
 
   # Load XML Post Network Configuration
   initXmlConfiguration: ->
@@ -115,9 +125,22 @@ class Request
 
     options
 
+  # Load GraphQL Post Network Configuration
+  initGraphqlConfiguration: ->
+    options         = Object.assign { method: @METHOD_POST }, @getDefaultNetworkOptions()
+    options.headers = Object.assign options.headers,
+      'Content-Type': 'application/graphql'
+      'Accept': 'application/json'
+
+    options
+
   # Load Get Network Configuration
   initGetConfiguration: ->
     Object.assign { method: @METHOD_GET }, @getDefaultNetworkOptions()
+
+  # Load Delete Network Configuration
+  initDeleteConfiguration: ->
+    Object.assign { method: @METHOD_DELETE }, @getDefaultNetworkOptions()
 
   # Validate Request requirements
   isValid: () ->
