@@ -1,0 +1,146 @@
+{
+  "$id": "https://genesis.js/klarna_update_order_items",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Update the amount and line items of an eligible uncaptured Invoice transaction.",
+  "required": ["transaction_id", "amount", "items"],
+  "definitions": {
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["item_type", "quantity", "unit_price", "total_amount"],
+      "properties": {
+        "item_type": {
+          "type": "string",
+          "title": "Item Type",
+          "description": "Gateway-supported order-line type. Serialized as <item_type>."
+        },
+        "quantity": {
+          "type": "integer",
+          "minimum": 0,
+          "title": "Quantity"
+        },
+        "unit_price": {
+          "type": "integer",
+          "title": "Unit Price",
+          "description": "Minor-unit integer; passed through without conversion"
+        },
+        "total_amount": {
+          "type": "integer",
+          "title": "Total Amount",
+          "description": "Minor-unit integer; passed through without conversion"
+        },
+        "reference": {
+          "type": "string",
+          "maxLength": 255,
+          "title": "Reference"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 255,
+          "title": "Name"
+        },
+        "tax_rate": {
+          "type": "integer",
+          "title": "Tax Rate"
+        },
+        "total_discount_amount": {
+          "type": "integer",
+          "title": "Total Discount Amount",
+          "description": "Minor-unit integer; passed through without conversion"
+        },
+        "total_tax_amount": {
+          "type": "integer",
+          "title": "Total Tax Amount",
+          "description": "Minor-unit integer; passed through without conversion"
+        },
+        "image_url": {
+          "type": "string",
+          "maxLength": 1024,
+          "title": "Image Url"
+        },
+        "product_url": {
+          "type": "string",
+          "maxLength": 1024,
+          "title": "Product Url"
+        },
+        "quantity_unit": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8,
+          "title": "Quantity Unit"
+        },
+        "product_identifiers": {
+          "type": "object",
+          "additionalProperties": false,
+          "title": "Product Identifiers",
+          "properties": {
+            "brand": {
+              "type": "string",
+              "title": "Brand"
+            },
+            "category_path": {
+              "type": "string",
+              "title": "Category Path"
+            },
+            "global_trade_item_number": {
+              "type": "string",
+              "title": "Global Trade Item Number"
+            },
+            "manufacturer_part_number": {
+              "type": "string",
+              "title": "Manufacturer Part Number"
+            }
+          }
+        },
+        "merchant_data": {
+          "type": "object",
+          "additionalProperties": false,
+          "title": "Merchant Data",
+          "properties": {
+            "marketplace_seller_info": {
+              "type": "string",
+              "title": "Marketplace Seller Info"
+            }
+          }
+        }
+      }
+    }
+  },
+  "properties": {
+    "transaction_id": {
+      "type": "string",
+      "maxLength": 255,
+      "title": "Transaction Id",
+      "description": "The merchant transaction id of the target Invoice transaction"
+    },
+    "amount": {
+      "type": "integer",
+      "minimum": 1,
+      "title": "Amount",
+      "description": "Positive minor-unit amount; passed through without conversion"
+    },
+    "items": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["item"],
+      "properties": {
+        "item": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/item"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/item"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

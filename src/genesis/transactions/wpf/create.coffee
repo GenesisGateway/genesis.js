@@ -40,24 +40,47 @@ class Create extends Request
     path:
       util.format '%s/wpf', @locale
 
+  getOutboundParams: ->
+    outboundParams = _.clone @params
+
+    if @params.transaction_types
+      outboundParams.transaction_types = _.map @params.transaction_types, (value) ->
+        if _.isObject(value)
+          clonedType = _.clone value
+          for key of clonedType
+            if _.isObject(clonedType[key])
+              clonedType[key] = _.clone clonedType[key]
+              if clonedType[key].managed_recurring
+                clonedType[key].managed_recurring = _.clone clonedType[key].managed_recurring
+          clonedType
+        else
+          value
+
+    if @params.reminders
+      outboundParams.reminders = _.clone @params.reminders
+
+    outboundParams
+
   getTrxData: ->
-    currency                     = @currency
-    params                       = @params
+    currency       = @currency
+    outboundParams = @getOutboundParams()
+    params         = outboundParams
 
     # Locale is not inside the request data
-    if @params then delete @params.locale
+    delete outboundParams.locale
 
     handleReminders
 
     'wpf_payment':
       _.extend(
-        @params,
+        {},
+        outboundParams,
         {
           'amount':
-            @currency.convertToMinorUnits @params.amount, @params.currency
+            @currency.convertToMinorUnits outboundParams.amount, outboundParams.currency
           'transaction_types':
             transaction_type:
-              _.map @params.transaction_types,(value) ->
+              _.map outboundParams.transaction_types,(value) ->
                 if (value instanceof Object)
                   for key of value
                     handleManagedRecurring(key, value[key], currency, params)

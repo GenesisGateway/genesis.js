@@ -2321,6 +2321,279 @@ transaction.managed_recurring_cancel({
 ```
 </details>
 
+Klarna Services API
+-------------------
+
+The Klarna Services operate on an existing **Invoice** transaction, referenced by its merchant `transaction_id`. Refer to the Genesis API documentation for the full request parameters of each service.
+
+`klarna_release_remaining_authorization` and `klarna_resend_invoice` take only the `transaction_id`. The same shape applies to both:
+
+<details>
+<summary>JavaScript example</summary>
+
+```js
+var failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+transaction.klarna_release_remaining_authorization({
+    transaction_id: 'a1qf12e81eb23d0e00ffb85b1db7d152'
+})
+    .send()
+    .then(success)
+    .catch(failure);
+```
+</details>
+
+<details>
+<summary>CoffeeScript example</summary>
+
+```coffee
+genesis = require './lib/genesis.js'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+  console.log data
+
+transaction.klarna_release_remaining_authorization({
+  transaction_id: 'a1qf12e81eb23d0e00ffb85b1db7d152'
+})
+  .send()
+  .then(success)
+  .catch(failure)
+```
+</details>
+
+`klarna_update_order_items` carries the order `amount` and line items. Monetary values (`amount`, `unit_price`, `total_amount`, `total_discount_amount`, `total_tax_amount`) are minor-unit integers and are sent as-is, without currency conversion. You can use the bundled currency helper to convert a nominal amount to minor units:
+
+<details>
+<summary>JavaScript example</summary>
+
+```js
+var genesis = require('./lib/genesis.js');
+var currency = new genesis.currency();
+
+// 100.00 EUR -> 10000 (minor units)
+var amount = currency.convertToMinorUnits('100.00', 'EUR');
+```
+</details>
+
+<details>
+<summary>JavaScript example</summary>
+
+```js
+var failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+transaction.klarna_update_order_items({
+    transaction_id: 'a1qf12e81eb23d0e00ffb85b1db7d152',
+    amount: 10000,
+    items: {
+        item: [
+            {
+                item_type: 'physical',
+                reference: '19-402-BG1',
+                name: 'BatteryPowerPack',
+                quantity: 1,
+                unit_price: 5000,
+                tax_rate: 0,
+                total_amount: 5000,
+                total_discount_amount: 0,
+                total_tax_amount: 0,
+                quantity_unit: 'pcs',
+                product_identifiers: {
+                    brand: 'ACME',
+                    category_path: 'Electronics > Power',
+                    global_trade_item_number: '0400123456789',
+                    manufacturer_part_number: 'BPP-19-402'
+                },
+                merchant_data: {
+                    marketplace_seller_info: 'Electronic gadgets'
+                }
+            },
+            {
+                item_type: 'physical',
+                reference: '19-402-BG2',
+                name: 'USB-C Cable',
+                quantity: 2,
+                unit_price: 2500,
+                tax_rate: 0,
+                total_amount: 5000
+            }
+        ]
+    }
+})
+    .send()
+    .then(success)
+    .catch(failure);
+```
+</details>
+
+<details>
+<summary>CoffeeScript example</summary>
+
+```coffee
+genesis = require './lib/genesis.js'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+  console.log data
+
+transaction.klarna_update_order_items({
+  transaction_id: 'a1qf12e81eb23d0e00ffb85b1db7d152'
+  amount: 10000
+  items:
+    item: [
+      {
+        item_type: 'physical'
+        reference: '19-402-BG1'
+        name: 'BatteryPowerPack'
+        quantity: 1
+        unit_price: 5000
+        tax_rate: 0
+        total_amount: 5000
+        total_discount_amount: 0
+        total_tax_amount: 0
+        quantity_unit: 'pcs'
+        product_identifiers:
+          brand: 'ACME'
+          category_path: 'Electronics > Power'
+          global_trade_item_number: '0400123456789'
+          manufacturer_part_number: 'BPP-19-402'
+        merchant_data:
+          marketplace_seller_info: 'Electronic gadgets'
+      }
+      {
+        item_type: 'physical'
+        reference: '19-402-BG2'
+        name: 'USB-C Cable'
+        quantity: 2
+        unit_price: 2500
+        total_amount: 5000
+      }
+    ]
+})
+  .send()
+  .then(success)
+  .catch(failure)
+```
+</details>
+
+Update the billing and shipping addresses of an uncaptured Invoice transaction
+
+<details>
+<summary>JavaScript example</summary>
+
+```js
+var failure, genesis, success, transaction;
+
+genesis = require('./lib/genesis.js');
+
+transaction = new genesis.transaction();
+
+failure = function(reason) {
+    return console.log(reason);
+};
+
+success = function(data) {
+    return console.log(data);
+};
+
+transaction.klarna_update_order_address({
+    transaction_id: 'a1qf12e81eb23d0e00ffb85b1db7d152',
+    billing_address: {
+        first_name: 'Barney',
+        last_name: 'Rubble',
+        address1: '14, Nerazdelni str',
+        zip_code: '1407',
+        city: 'Berlin',
+        neighborhood: 'Lichtenberg',
+        country: 'DE'
+    },
+    shipping_address: {
+        first_name: 'Barney',
+        last_name: 'Rubble',
+        address1: '14, Nerazdelni str',
+        zip_code: '1407',
+        city: 'Berlin',
+        neighborhood: 'Lichtenberg',
+        country: 'DE'
+    }
+})
+    .send()
+    .then(success)
+    .catch(failure);
+```
+</details>
+
+<details>
+<summary>CoffeeScript example</summary>
+
+```coffee
+genesis = require './lib/genesis.js'
+
+transaction = new genesis.transaction();
+
+failure = (reason) ->
+  console.log reason
+
+success = (data) ->
+  console.log data
+
+transaction.klarna_update_order_address({
+  transaction_id: 'a1qf12e81eb23d0e00ffb85b1db7d152'
+  billing_address:
+    first_name: 'Barney'
+    last_name: 'Rubble'
+    address1: '14, Nerazdelni str'
+    zip_code: '1407'
+    city: 'Berlin'
+    neighborhood: 'Lichtenberg'
+    country: 'DE'
+  shipping_address:
+    first_name: 'Barney'
+    last_name: 'Rubble'
+    address1: '14, Nerazdelni str'
+    zip_code: '1407'
+    city: 'Berlin'
+    neighborhood: 'Lichtenberg'
+    country: 'DE'
+})
+  .send()
+  .then(success)
+  .catch(failure)
+```
+</details>
+
 Transaction Types
 -----------------
 
@@ -2504,6 +2777,14 @@ retrieval_by_date
 ### APM API services
 ```text
 transfer_to_payers
+```
+
+### Klarna Services API
+```text
+klarna_release_remaining_authorization
+klarna_resend_invoice
+klarna_update_order_items
+klarna_update_order_address
 ```
 
 ### Processed Transaction API services

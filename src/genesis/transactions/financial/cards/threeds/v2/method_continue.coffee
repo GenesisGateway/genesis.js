@@ -17,10 +17,10 @@ class MethodContinue extends Request
      Returns SHA512 hash of а concatenated string (unique_id, amount, timestamp, customer.password)
   ###
   getSignature: ->
-    @params.amount = @currency.convertToMinorUnits @params.amount, @params.currency
+    convertedAmount = @currency.convertToMinorUnits @params.amount, @params.currency
     ThreedsUtils.generateSignature(
       @params.unique_id,
-      @params.amount,
+      convertedAmount,
       @params.timestamp,
       @configuration.getCustomerPassword()
     )

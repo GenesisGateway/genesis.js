@@ -1,0 +1,16 @@
+{
+  "$id": "https://genesis.js/klarna_resend_invoice",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Resend the invoice for an eligible captured Invoice transaction.",
+  "required": ["transaction_id"],
+  "properties": {
+    "transaction_id": {
+      "type": "string",
+      "maxLength": 255,
+      "title": "Transaction Id",
+      "description": "The merchant transaction id of the target Invoice transaction"
+    }
+  }
+}

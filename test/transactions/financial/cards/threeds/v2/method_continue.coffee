@@ -73,5 +73,33 @@ describe 'Method Continue', ->
 
     assert.equal false, @transaction.setData(data).isValid()
 
+  it 'produces an identical signature on repeated getSignature calls', ->
+    firstSignature  = @transaction.getSignature()
+    secondSignature = @transaction.getSignature()
+
+    assert.equal firstSignature, secondSignature
+
+  it 'produces identical form body across repeated builds', ->
+    firstArguments  = @transaction.getArguments()
+    secondArguments = @transaction.getArguments()
+    firstBody       = @transaction.getRequestBody(firstArguments.trx)
+    secondBody      = @transaction.getRequestBody(secondArguments.trx)
+
+    assert.equal firstBody, secondBody
+
+  it 'produces identical getArguments across repeated builds', ->
+    firstArguments  = @transaction.getArguments()
+    secondArguments = @transaction.getArguments()
+
+    assert.equal firstArguments.trx.signature, secondArguments.trx.signature
+    assert.equal firstArguments.trx.unique_id, secondArguments.trx.unique_id
+
+  it 'does not mutate caller params amount across repeated builds', ->
+    @transaction.getSignature()
+    @transaction.getArguments()
+    @transaction.getSignature()
+
+    assert.equal @data.amount, '10.00'
+
 
 

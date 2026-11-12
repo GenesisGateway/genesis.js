@@ -598,6 +598,128 @@ describe 'WPFCreate Transaction', ->
           trx.wpf_payment.transaction_types.transaction_type[0].managed_recurring.max_amount, 111
         )
 
+  context 'idempotent, non-mutating builds', ->
+
+    it 'produces identical top-level amount across repeated getTrxData builds', ->
+      data            = _.clone @data
+      data['currency'] = 'EUR'
+      data['amount']   = '1.23'
+
+      @transaction.setData(data)
+      firstTrx  = @transaction.getTrxData()
+      secondTrx = @transaction.getTrxData()
+
+      assert.equal firstTrx.wpf_payment.amount, '123'
+      assert.equal secondTrx.wpf_payment.amount, '123'
+
+    it 'produces identical getArguments across repeated builds', ->
+      data            = _.clone @data
+      data['currency'] = 'EUR'
+      data['amount']   = '1.23'
+
+      @transaction.setData(data)
+      firstArguments  = @transaction.getArguments()
+      secondArguments = @transaction.getArguments()
+
+      assert.equal firstArguments.trx.wpf_payment.amount, secondArguments.trx.wpf_payment.amount
+
+    it 'produces identical XML across repeated builds', ->
+      data            = _.clone @data
+      data['currency'] = 'EUR'
+      data['amount']   = '1.23'
+
+      @transaction.setData(data)
+      firstArguments  = @transaction.getArguments()
+      secondArguments = @transaction.getArguments()
+      firstXml        = @transaction.getRequestBody(firstArguments.trx)
+      secondXml       = @transaction.getRequestBody(secondArguments.trx)
+
+      assert.equal firstXml, secondXml
+      assert.include firstXml, '<amount>123</amount>'
+      assert.notInclude firstXml, '<amount>12300</amount>'
+
+    it 'reshapes multiple transaction types stably across repeated builds', ->
+      data            = _.clone @data
+      data['currency'] = 'EUR'
+      data['amount']   = '1.23'
+      data.transaction_types = [
+        'sale',
+        'authorize'
+      ]
+
+      @transaction.setData(data)
+      firstTrx  = @transaction.getTrxData()
+      secondTrx = @transaction.getTrxData()
+
+      firstTypes  = firstTrx.wpf_payment.transaction_types.transaction_type
+      secondTypes = secondTrx.wpf_payment.transaction_types.transaction_type
+
+      assert.equal firstTypes.length, 2
+      assert.equal firstTypes[0]['@'].name, 'sale'
+      assert.equal firstTypes[1]['@'].name, 'authorize'
+      assert.deepEqual firstTypes, secondTypes
+
+    it 'converts managed_recurring amount and max_amount exactly once', ->
+      data            = _.clone @data
+      data['currency'] = 'EUR'
+      data.transaction_types = [
+        {
+          authorize: {
+            bin: '123456',
+            managed_recurring: {
+              mode: 'manual'
+              amount: 1.23
+              max_amount: 4.56
+            }
+          }
+        }
+      ]
+
+      @transaction.setData(data)
+      firstTrx  = @transaction.getTrxData()
+      secondTrx = @transaction.getTrxData()
+
+      for trx in [firstTrx, secondTrx]
+        managedRecurring = trx.wpf_payment.transaction_types.transaction_type[0].managed_recurring
+        assert.equal managedRecurring.amount, '123'
+        assert.equal managedRecurring.max_amount, '456'
+
+    it 'preview body equals send body', ->
+      data            = _.clone @data
+      data['currency'] = 'EUR'
+      data['amount']   = '1.23'
+
+      @transaction.setData(data)
+      previewArguments = @transaction.getArguments()
+      previewBody      = @transaction.getRequestBody(previewArguments.trx)
+      sendArguments    = @transaction.getArguments()
+      sendBody         = @transaction.getRequestBody(sendArguments.trx)
+
+      assert.equal previewBody, sendBody
+
+    it 'does not mutate caller params across repeated builds', ->
+      data            = _.clone @data
+      data['currency'] = 'EUR'
+      data['amount']   = '1.23'
+      data.transaction_types = [
+        {
+          authorize: {
+            bin: '123456',
+            managed_recurring: {
+              mode: 'manual'
+              amount: 1.23
+            }
+          }
+        }
+      ]
+
+      @transaction.setData(data)
+      @transaction.getTrxData()
+      @transaction.getTrxData()
+
+      assert.equal data.amount, '1.23'
+      assert.equal data.transaction_types[0].authorize.managed_recurring.amount, 1.23
+
   context 'with i18n', ->
 
     context 'with invalid request', ->

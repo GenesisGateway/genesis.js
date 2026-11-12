@@ -1,0 +1,36 @@
+{
+  "$id": "https://genesis.js/klarna_update_order_address",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Update the billing and shipping addresses of an eligible uncaptured Invoice transaction.",
+  "required": ["transaction_id", "billing_address", "shipping_address"],
+  "properties": {
+    "transaction_id": {
+      "type": "string",
+      "maxLength": 255,
+      "title": "Transaction Id",
+      "description": "The merchant transaction id of the target Invoice transaction"
+    },
+    "billing_address": {
+      "type": "object",
+      "description": "Reuses the shared #billing address definition (all nine fields, ISO-3166 country enum, conditional US/CA state rules) and only layers the country-required rule on top.",
+      "required": ["country"],
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        }
+      ]
+    },
+    "shipping_address": {
+      "type": "object",
+      "description": "Reuses the shared #billing address definition (all nine fields, ISO-3166 country enum, conditional US/CA state rules) and only layers the country-required rule on top.",
+      "required": ["country"],
+      "allOf": [
+        {
+          "$ref": "/definitions/attributes/customer/address#billing"
+        }
+      ]
+    }
+  }
+}

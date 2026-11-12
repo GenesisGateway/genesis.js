@@ -1,3 +1,10 @@
+3.4.1
+-----
+**Features**:
+
+* Added Klarna Services API requests
+* Hardened amount conversion tests and prevented repeated conversion in WPF and 3DS Method Continue
+
 3.4.0
 -----
 * Added GraphQL request builder and Billing API base request with Bearer token authentication

@@ -66,6 +66,19 @@ Reconcile                       = require './transactions/non_financial/reconcil
 ReconcileByDate                 = require './transactions/non_financial/reconcile/reconcile_by_date'
 Payers                          =
   require './transactions/non_financial/alternatives/transfer_to/payers'
+
+###
+  Klarna Services
+###
+KlarnaReleaseRemainingAuthorization =
+  require './transactions/non_financial/alternatives/klarna/release_remaining_authorization'
+KlarnaResendInvoice                 =
+  require './transactions/non_financial/alternatives/klarna/resend_invoice'
+KlarnaUpdateOrderItems              =
+  require './transactions/non_financial/alternatives/klarna/update_order_items'
+KlarnaUpdateOrderAddress            =
+  require './transactions/non_financial/alternatives/klarna/update_order_address'
+
 CreateConsumer                  = require './transactions/non_financial/consumers/create'
 UpdateConsumer                  = require './transactions/non_financial/consumers/update'
 DisableConsumer                 =
@@ -606,6 +619,21 @@ class Transaction
 
   transfer_to_payers: () ->
     new Payers(null, @config)
+
+  ###
+    Klarna Services
+  ###
+  klarna_release_remaining_authorization: (params) ->
+    new KlarnaReleaseRemainingAuthorization(params, @config)
+
+  klarna_resend_invoice: (params) ->
+    new KlarnaResendInvoice(params, @config)
+
+  klarna_update_order_items: (params) ->
+    new KlarnaUpdateOrderItems(params, @config)
+
+  klarna_update_order_address: (params) ->
+    new KlarnaUpdateOrderAddress(params, @config)
 
   create_consumer: (params) ->
     new CreateConsumer(params, @config)
